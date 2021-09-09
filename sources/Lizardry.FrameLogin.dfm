@@ -17,9 +17,6 @@ object FrameLogin: TFrameLogin
     Height = 406
     Align = alLeft
     TabOrder = 0
-    ExplicitLeft = 3
-    ExplicitTop = 3
-    ExplicitHeight = 374
     object Label1: TLabel
       Left = 24
       Top = 21

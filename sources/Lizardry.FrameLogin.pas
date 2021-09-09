@@ -55,7 +55,7 @@ begin
   end
   else if ResponseCode = '1' then
   begin
-    FormMain.FrameTown.DoAction('index.php?action=in_town');
+    FormMain.FrameTown.DoAction('index.php?action=town');
     FormMain.FrameTown.BringToFront;
   end
   else
