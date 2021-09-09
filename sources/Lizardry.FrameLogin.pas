@@ -12,14 +12,15 @@ type
   TFrameLogin = class(TFrame)
     Panel1: TPanel;
     edUserName: TEdit;
-    edUserPass: TEdit;
     bbLogin: TBitBtn;
     Label1: TLabel;
     Label2: TLabel;
     bbRegistration: TBitBtn;
+    edUserPass: TEdit;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure edUserPassClick(Sender: TObject);
+    procedure EnterKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -68,6 +69,15 @@ procedure TFrameLogin.bbRegistrationClick(Sender: TObject);
 begin
   FormMain.FrameRegistration.Clear;
   FormMain.FrameRegistration.BringToFront;
+end;
+
+procedure TFrameLogin.EnterKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (ord(Key) >= 32) then
+    if not(Char(Key) in ['a' .. 'z', 'A' .. 'Z', '0' .. '9', '_']) then
+      Key := #0;
+  if Key = #13 then
+    bbLogin.Click;
 end;
 
 procedure TFrameLogin.edUserPassClick(Sender: TObject);

@@ -11,11 +11,15 @@ object FrameLogin: TFrameLogin
   ParentFont = False
   TabOrder = 0
   object Panel1: TPanel
-    Left = 3
-    Top = 3
+    Left = 0
+    Top = 0
     Width = 241
-    Height = 374
+    Height = 406
+    Align = alLeft
     TabOrder = 0
+    ExplicitLeft = 3
+    ExplicitTop = 3
+    ExplicitHeight = 374
     object Label1: TLabel
       Left = 24
       Top = 21
@@ -35,16 +39,9 @@ object FrameLogin: TFrameLogin
       Top = 48
       Width = 185
       Height = 29
+      MaxLength = 24
       TabOrder = 0
-    end
-    object edUserPass: TEdit
-      Left = 24
-      Top = 112
-      Width = 185
-      Height = 29
-      PasswordChar = '*'
-      TabOrder = 1
-      OnClick = edUserPassClick
+      OnKeyPress = EnterKeyPress
     end
     object bbLogin: TBitBtn
       Left = 24
@@ -63,6 +60,16 @@ object FrameLogin: TFrameLogin
       Caption = #1056#1077#1075#1080#1089#1090#1088#1072#1094#1080#1103
       TabOrder = 3
       OnClick = bbRegistrationClick
+    end
+    object edUserPass: TEdit
+      Left = 24
+      Top = 115
+      Width = 185
+      Height = 29
+      MaxLength = 24
+      PasswordChar = '*'
+      TabOrder = 1
+      OnKeyPress = EnterKeyPress
     end
   end
 end

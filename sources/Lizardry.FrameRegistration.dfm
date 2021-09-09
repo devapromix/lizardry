@@ -37,8 +37,9 @@ object FrameRegistration: TFrameRegistration
     Width = 177
     Height = 29
     CharCase = ecLowerCase
-    MaxLength = 16
+    MaxLength = 24
     TabOrder = 0
+    OnKeyPress = EnterKeyPress
   end
   object edUserPass: TEdit
     Left = 144
@@ -46,17 +47,19 @@ object FrameRegistration: TFrameRegistration
     Width = 177
     Height = 29
     CharCase = ecLowerCase
-    MaxLength = 16
+    MaxLength = 24
     PasswordChar = '*'
     TabOrder = 1
+    OnKeyPress = EnterKeyPress
   end
   object edCharName: TEdit
     Left = 144
     Top = 272
     Width = 177
     Height = 29
-    MaxLength = 16
+    MaxLength = 24
     TabOrder = 2
+    OnKeyPress = EnterKeyPress
   end
   object bbRegistration: TBitBtn
     Left = 144

@@ -19,6 +19,7 @@ type
     bbBack: TBitBtn;
     procedure bbBackClick(Sender: TObject);
     procedure bbRegistrationClick(Sender: TObject);
+    procedure EnterKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -54,10 +55,11 @@ begin
   ResponseCode := Server.GetLocation
     ('registration/registration.php?action=registration&charname=' + CharName);
   FormMain.FrameLogin.edUserPass.Text := '';
-  if TServer.CheckLoginErrors(ResponseCode) then Exit;
+  if TServer.CheckLoginErrors(ResponseCode) then
+    Exit;
   if ResponseCode = '1' then
   begin
-    ShowMessage('Персонаж с таким именем существует!');
+    ShowMessage('Пользователь с таким именем существует!');
   end
   else if (ResponseCode = '2') then
   begin
@@ -88,6 +90,15 @@ begin
   edUserName.Text := '';
   edUserPass.Text := '';
   edCharName.Text := '';
+end;
+
+procedure TFrameRegistration.EnterKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (ord(Key) >= 32) then
+    if not(Char(Key) in ['a' .. 'z', 'A' .. 'Z', '0' .. '9', '_']) then
+      Key := #0;
+  if Key = #13 then
+    bbRegistration.Click;
 end;
 
 end.
