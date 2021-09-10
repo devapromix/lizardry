@@ -7,7 +7,8 @@ uses
   Lizardry.FrameRegistration in 'Lizardry.FrameRegistration.pas' {FrameRegistration: TFrame},
   Lizardry.Server in 'Lizardry.Server.pas',
   Lizardry.Frame.Location.Town in 'Lizardry.Frame.Location.Town.pas' {FrameTown: TFrame},
-  Lizardry.Game in 'Lizardry.Game.pas';
+  Lizardry.Game in 'Lizardry.Game.pas',
+  Lizardry.JSON in 'Lizardry.JSON.pas';
 
 {$R *.res}
 

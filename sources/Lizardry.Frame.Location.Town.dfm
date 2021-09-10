@@ -199,10 +199,6 @@ object FrameTown: TFrameTown
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 320
-    ExplicitTop = 117
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Panel10: TPanel
       Tag = 5
       Left = 0
@@ -213,8 +209,6 @@ object FrameTown: TFrameTown
       Caption = 'Location name'
       ParentBackground = False
       TabOrder = 0
-      ExplicitTop = 125
-      ExplicitWidth = 281
     end
     object StaticText1: TStaticText
       Left = 0

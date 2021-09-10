@@ -46,6 +46,7 @@ type
     procedure AddButton(const Title, Script: string);
     procedure DoScript(S: string);
     procedure DoLocation;
+    procedure ParseJSON(AJSON: string);
   public
     { Public declarations }
     procedure DoAction(S: string);
@@ -55,7 +56,7 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server;
+uses JSON, Lizardry.FormMain, Lizardry.Server;
 
 procedure TFrameTown.DoAction(S: string);
 begin
@@ -63,7 +64,8 @@ begin
   begin
     SL.Clear;
     SL.Text := GetLocation(S);
-    DoLocation;
+    ParseJSON(SL.Text);
+    // DoLocation;
   end;
 end;
 
@@ -144,26 +146,26 @@ var
 begin
   // Memo1.Text := SL.Text;
   with Server do
-  if SL.Count > 0 then
-  begin
-    ClearButtons;
-    for I := 0 to SL.Count - 1 do
+    if SL.Count > 0 then
     begin
-      L := SL[I].Split(['|']);
-      case I of
-        0:
+      ClearButtons;
+      for I := 0 to SL.Count - 1 do
+      begin
+        L := SL[I].Split(['|']);
+        case I of
+          0:
+            begin
+              Panel10.Caption := L[0];
+              StaticText1.Caption := L[1];
+              DoScript(L[2]);
+            end;
+        else
           begin
-            Panel10.Caption := L[0];
-            StaticText1.Caption := L[1];
-            DoScript(L[2]);
+            AddButton(L[0], L[1]);
           end;
-      else
-        begin
-          AddButton(L[0], L[1]);
         end;
       end;
     end;
-  end;
 end;
 
 procedure TFrameTown.DoScript(S: string);
@@ -196,6 +198,39 @@ end;
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
 begin
   DoAction((Sender as TPanel).Script);
+end;
+
+procedure TFrameTown.ParseJSON(AJSON: string);
+var
+  JSON: TJSONObject;
+  JSONArray: TJSONArray;
+  S: string;
+  I: Integer;
+begin
+  ShowMessage(AJSON);
+  Exit;
+  JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
+  try
+    //
+    Panel10.Caption := JSON.Values['title'].Value;
+    StaticText1.Caption := JSON.Values['description'].Value;
+    //
+    ClearButtons;
+    JSONArray := TJSONArray(JSON.Get('links').JsonValue);
+    for I := 0 to JSONArray.Size - 1 do
+    begin
+      AddButton(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('title'))
+        .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I)).Get('link'))
+        .JsonValue.Value);
+    end;
+    //
+    if JSON.TryGetValue('char_name', S) then
+      Panel8.Caption := S;
+    if JSON.TryGetValue('char_level', S) then
+      Panel11.Caption := 'Уровень: ' + S;
+  finally
+    JSON.Free;
+  end;
 end;
 
 procedure TFrameTown.SpeedButton1Click(Sender: TObject);

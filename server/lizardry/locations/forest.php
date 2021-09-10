@@ -1,12 +1,16 @@
 <?php
 
 if ($action == 'forest') {
-	$res = "Лес|Краткое описание."."\n";
-//	if (($char_gold >= 10)&&($char_life_cur < $char_life_max))
-//		$res = $res . "Снять комнату на ночь|index.php?action=rest_in_tavern"."\n";
-//	if (($char_gold >= 10)&&($char_food < 7))
-//		$res = $res . "Купить провизию|index.php?action=buy_food_in_tavern"."\n";
-	$res = $res . "Вернуться в город|index.php?action=town"."\n";
+
+	$a = array();
+	$a['title'] = 'Темный Лес';
+	$a['description'] = 'Вы вошли в Темный Лес.';
+	$a['links'] = array();
+	$a['links'][0]['title'] = 'Вернуться в город';
+	$a['links'][0]['link'] = 'index.php?action=town';	
+	
+	$res = json_encode($a, JSON_UNESCAPED_UNICODE);
+
 }
 
 ?>
