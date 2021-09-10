@@ -44,29 +44,18 @@ object FrameTown: TFrameTown
         ExplicitTop = 0
       end
     end
-    object Panel11: TPanel
-      Tag = 4
-      Left = 0
-      Top = 25
-      Width = 281
-      Height = 25
-      Align = alTop
-      Alignment = taLeftJustify
-      Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
-      ParentBackground = False
-      TabOrder = 1
-    end
     object Panel12: TPanel
       Tag = 5
       Left = 0
-      Top = 125
+      Top = 200
       Width = 281
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1047#1086#1083#1086#1090#1086' 100'
       ParentBackground = False
-      TabOrder = 2
+      TabOrder = 1
+      ExplicitTop = 125
     end
     object Panel13: TPanel
       Tag = 5
@@ -78,7 +67,7 @@ object FrameTown: TFrameTown
       Alignment = taLeftJustify
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
-      TabOrder = 3
+      TabOrder = 2
     end
     object Panel14: TPanel
       Tag = 5
@@ -90,9 +79,22 @@ object FrameTown: TFrameTown
       Alignment = taLeftJustify
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
-      TabOrder = 4
+      TabOrder = 3
     end
     object Panel15: TPanel
+      Tag = 5
+      Left = 0
+      Top = 175
+      Width = 281
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
+      ParentBackground = False
+      TabOrder = 4
+      ExplicitTop = 189
+    end
+    object Panel16: TPanel
       Tag = 5
       Left = 0
       Top = 100
@@ -100,9 +102,53 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
+      Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
+      ExplicitTop = 119
+    end
+    object Panel11: TPanel
+      Tag = 4
+      Left = 0
+      Top = 25
+      Width = 281
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
+      ParentBackground = False
+      TabOrder = 6
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 279
+    end
+    object Panel17: TPanel
+      Tag = 5
+      Left = 0
+      Top = 125
+      Width = 281
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1059#1088#1086#1085': 2-3'
+      ParentBackground = False
+      TabOrder = 7
+      ExplicitLeft = 6
+      ExplicitTop = 131
+    end
+    object Panel18: TPanel
+      Tag = 5
+      Left = 0
+      Top = 150
+      Width = 281
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1041#1088#1086#1085#1103': 0'
+      ParentBackground = False
+      TabOrder = 8
+      ExplicitLeft = -8
+      ExplicitTop = 190
     end
   end
   object Panel1: TPanel

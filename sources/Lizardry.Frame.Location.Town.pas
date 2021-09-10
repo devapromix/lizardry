@@ -37,6 +37,9 @@ type
     Panel9: TPanel;
     Panel10: TPanel;
     StaticText1: TStaticText;
+    Panel16: TPanel;
+    Panel17: TPanel;
+    Panel18: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -44,8 +47,6 @@ type
     { Private declarations }
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
-    procedure DoScript(S: string);
-    procedure DoLocation;
     procedure ParseJSON(AJSON: string);
   public
     { Public declarations }
@@ -60,13 +61,7 @@ uses JSON, Lizardry.FormMain, Lizardry.Server;
 
 procedure TFrameTown.DoAction(S: string);
 begin
-  with Server do
-  begin
-    SL.Clear;
-    SL.Text := GetLocation(S);
-    ParseJSON(SL.Text);
-    // DoLocation;
-  end;
+  ParseJSON(Server.GetLocation(S));
 end;
 
 procedure TFrameTown.AddButton(const Title, Script: string);
@@ -130,6 +125,12 @@ begin
   FScript := AScript;
 end;
 
+procedure TFrameTown.SpeedButton1Click(Sender: TObject);
+begin
+  FormMain.FrameLogin.edUserPass.Text := '';
+  FormMain.FrameLogin.BringToFront;
+end;
+
 procedure TFrameTown.ClearButtons;
 begin
   Panel2.Visible := False;
@@ -137,62 +138,6 @@ begin
   Panel4.Visible := False;
   Panel5.Visible := False;
   Panel6.Visible := False;
-end;
-
-procedure TFrameTown.DoLocation;
-var
-  I: Integer;
-  L: TArray<string>;
-begin
-  // Memo1.Text := SL.Text;
-  with Server do
-    if SL.Count > 0 then
-    begin
-      ClearButtons;
-      for I := 0 to SL.Count - 1 do
-      begin
-        L := SL[I].Split(['|']);
-        case I of
-          0:
-            begin
-              Panel10.Caption := L[0];
-              StaticText1.Caption := L[1];
-              DoScript(L[2]);
-            end;
-        else
-          begin
-            AddButton(L[0], L[1]);
-          end;
-        end;
-      end;
-    end;
-end;
-
-procedure TFrameTown.DoScript(S: string);
-var
-  L: TArray<string>;
-  Gold: Integer;
-  HP, MaxHP: Integer;
-begin
-  if Trim(S) <> '' then
-  begin
-    L := S.Split([':']);
-    if L[0] = 'all' then
-    begin
-      Panel8.Caption := L[1];
-      Panel11.Caption := Format('Уровень: %s', [L[2]]);
-      Panel13.Caption := Format('Опыт: %s/%s', [L[3], '100']);
-      Panel15.Caption := Format('Провизия: %s/%s', [L[4], '7']);
-      Panel12.Caption := Format('Золото: %s', [L[5]]);
-      Panel14.Caption := Format('Здоровье: %s/%s', [L[6], L[7]]);
-    end;
-    if L[0] = 'rest' then
-    begin
-      Panel12.Caption := Format('Золото: %s', [L[1]]);
-      Panel15.Caption := Format('Провизия: %s/%s', [L[2], '7']);
-      Panel14.Caption := Format('Здоровье: %s/%s', [L[3], L[4]]);
-    end;
-  end;
 end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
@@ -204,11 +149,11 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
-  S: string;
+  S, Cur, Max: string;
   I: Integer;
 begin
-  ShowMessage(AJSON);
-  Exit;
+  // ShowMessage(AJSON);
+  // Exit;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
     //
@@ -228,15 +173,26 @@ begin
       Panel8.Caption := S;
     if JSON.TryGetValue('char_level', S) then
       Panel11.Caption := 'Уровень: ' + S;
+    if JSON.TryGetValue('char_exp', S) then
+      Panel13.Caption := 'Опыт: ' + S + '/100';
+    if JSON.TryGetValue('char_food', S) then
+      Panel15.Caption := 'Провизия: ' + S + '/7';
+    if JSON.TryGetValue('char_gold', S) then
+      Panel12.Caption := 'Золото: ' + S;
+    if JSON.TryGetValue('char_life_cur', Cur) and
+      JSON.TryGetValue('char_life_max', Max) then
+      Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+    if JSON.TryGetValue('char_mana_cur', Cur) and
+      JSON.TryGetValue('char_mana_max', Max) then
+      Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
+    if JSON.TryGetValue('char_damage_min', Cur) and
+      JSON.TryGetValue('char_damage_max', Max) then
+      Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
+   if JSON.TryGetValue('char_armor', S) then
+      Panel18.Caption := 'Броня: ' + S;
   finally
     JSON.Free;
   end;
-end;
-
-procedure TFrameTown.SpeedButton1Click(Sender: TObject);
-begin
-  FormMain.FrameLogin.edUserPass.Text := '';
-  FormMain.FrameLogin.BringToFront;
 end;
 
 end.

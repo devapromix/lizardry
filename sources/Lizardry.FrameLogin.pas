@@ -19,7 +19,6 @@ type
     edUserPass: TEdit;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
-    procedure edUserPassClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
@@ -31,13 +30,16 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.Frame.Location.Town,
+uses Registry, Lizardry.FormMain, Lizardry.Server, Lizardry.Frame.Location.Town,
   Lizardry.Game;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
   ResponseCode, UserName, UserPass: string;
+  Reg: TRegistry;
 begin
+
+
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
   if not IsInternetConnected then
@@ -67,6 +69,8 @@ end;
 
 procedure TFrameLogin.bbRegistrationClick(Sender: TObject);
 begin
+  edUserName.Text := '';
+  edUserPass.Text := '';
   FormMain.FrameRegistration.Clear;
   FormMain.FrameRegistration.BringToFront;
 end;
@@ -78,11 +82,6 @@ begin
       Key := #0;
   if Key = #13 then
     bbLogin.Click;
-end;
-
-procedure TFrameLogin.edUserPassClick(Sender: TObject);
-begin
-  edUserPass.PasswordChar := #0;
 end;
 
 end.
