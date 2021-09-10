@@ -42,7 +42,7 @@ object FrameLogin: TFrameLogin
     end
     object bbLogin: TBitBtn
       Left = 24
-      Top = 160
+      Top = 201
       Width = 75
       Height = 33
       Caption = #1042#1093#1086#1076
@@ -67,6 +67,20 @@ object FrameLogin: TFrameLogin
       PasswordChar = '*'
       TabOrder = 1
       OnKeyPress = EnterKeyPress
+    end
+    object CheckBox1: TCheckBox
+      Left = 24
+      Top = 160
+      Width = 217
+      Height = 17
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1087#1072#1088#1086#1083#1100
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
     end
   end
 end

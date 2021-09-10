@@ -127,7 +127,6 @@ end;
 
 procedure TFrameTown.SpeedButton1Click(Sender: TObject);
 begin
-  FormMain.FrameLogin.edUserPass.Text := '';
   FormMain.FrameLogin.BringToFront;
 end;
 

@@ -17,6 +17,7 @@ type
     Label2: TLabel;
     bbRegistration: TBitBtn;
     edUserPass: TEdit;
+    CheckBox1: TCheckBox;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
@@ -38,8 +39,6 @@ var
   ResponseCode, UserName, UserPass: string;
   Reg: TRegistry;
 begin
-
-
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
   if not IsInternetConnected then
@@ -59,6 +58,19 @@ begin
   begin
     FormMain.FrameTown.DoAction('index.php?action=town');
     FormMain.FrameTown.BringToFront;
+    //
+    if CheckBox1.Checked then
+    begin
+      Reg := TRegistry.Create;
+      try
+      Reg.RootKey := HKEY_CURRENT_USER;
+      Reg.OpenKey('\SOFTWARE\Lizardry', True);
+      Reg.WriteString('UserName', UserName);
+      Reg.WriteString('UserPass', UserPass);
+      finally
+        Reg.Free;
+      end;
+    end;
   end
   else
   begin
@@ -69,8 +81,6 @@ end;
 
 procedure TFrameLogin.bbRegistrationClick(Sender: TObject);
 begin
-  edUserName.Text := '';
-  edUserPass.Text := '';
   FormMain.FrameRegistration.Clear;
   FormMain.FrameRegistration.BringToFront;
 end;
