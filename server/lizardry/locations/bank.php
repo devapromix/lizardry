@@ -15,6 +15,7 @@ if ($action == 'bank') {
 		$user['char_gold'] -= $amount;
 		$user['char_bank'] += $amount;
 		save_character();
+		$user['log'] = 'Вы положили в банк '.$amount.' зол. мон.';
 	}
 	
 	if ($do == 'withdraw') {
@@ -23,6 +24,7 @@ if ($action == 'bank') {
 		$user['char_gold'] += $amount;
 		$user['char_bank'] -= $amount;
 		save_character();
+		$user['log'] = 'Вы забрали из банка '.$amount.' зол. мон.';
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

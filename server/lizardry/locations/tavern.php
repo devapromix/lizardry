@@ -1,7 +1,7 @@
 <?php
 
 if ($action == 'tavern') {
-	
+
 	$user['title'] = 'Таверна';
 	$user['description'] = 'Вы вошли в Таверну.';
 	$user['frame'] = 'tavern';	
@@ -19,8 +19,9 @@ if ($action == 'tavern') {
 		$user['char_mana_cur'] = $user['char_mana_max'];
 		$user['char_gold'] -= 10;
 		save_character();
-		
+		$user['log'] = 'Вы хорошо отдохнули и набрались сил.';
 	}
+	
 	if ($do == 'buy_food_in_tavern') {
 		if ($amount <= 0) die('{"error":"Количество сумок с провинтом должно быть больше 0!"}');
 		if ($user['char_food'] >= 7) die('{"error":"У Вас максимальный запас провианта!"}');
@@ -29,9 +30,11 @@ if ($action == 'tavern') {
 		$user['char_gold'] -= $amount * 10;
 		$user['char_food'] += $amount;
 		save_character();
+		$user['log'] = 'Вы купили провизию (+'.$amount.')';
 }
-	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+	
 }
 
 ?>

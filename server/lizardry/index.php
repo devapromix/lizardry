@@ -13,6 +13,10 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$use
 		if ($action == 'login') {
 			$res = '1';
 		}
+		// Graveyard
+		include 'locations/graveyard.php';
+		// Outlands
+		include 'locations/battle.php';
 		// Town
 		include 'locations/town.php';
 		// Forest

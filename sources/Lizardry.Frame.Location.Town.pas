@@ -6,7 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern;
+  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
+  Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
+  Lizardry.FrameLoot;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -36,7 +38,6 @@ type
     bbLogout: TSpeedButton;
     Panel9: TPanel;
     Panel10: TPanel;
-    StaticText1: TStaticText;
     Panel16: TPanel;
     Panel17: TPanel;
     Panel18: TPanel;
@@ -44,6 +45,11 @@ type
     FrameDefault1: TFrameDefault;
     FramePanel: TPanel;
     FrameTavern1: TFrameTavern;
+    FrameOutlands1: TFrameOutlands;
+    Panel19: TPanel;
+    FrameBattle1: TFrameBattle;
+    FrameInfo1: TFrameInfo;
+    FrameLoot1: TFrameLoot;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -192,10 +198,30 @@ begin
   end;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
+    if JSON.TryGetValue('log', S) then
+    begin
+      FrameInfo1.BringToFront;
+      FrameInfo1.StaticText2.Caption := S
+    end
+    else
+    begin
+      FrameInfo1.BringToFront;
+      FrameInfo1.StaticText2.Caption := '';
+    end;
+    //
+    if JSON.TryGetValue('battlelog', S) then
+    begin
+      FrameBattle1.BringToFront;
+      FrameBattle1.StaticText1.Caption := S
+    end;
+    //
     if JSON.TryGetValue('title', S) then
       Panel10.Caption := S;
     if JSON.TryGetValue('description', S) then
-      StaticText1.Caption := S;
+    begin
+      FrameInfo1.BringToFront;
+      FrameInfo1.StaticText1.Caption := S;
+    end;
     //
     ClearButtons;
     JSONArray := TJSONArray(JSON.Get('links').JsonValue);
@@ -209,12 +235,22 @@ begin
     if JSON.TryGetValue('frame', S) then
     begin
       if (S = 'bank') then
-        FormMain.FrameTown.FrameBank1.BringToFront else
-      if (S = 'tavern') then
-        FormMain.FrameTown.FrameTavern1.BringToFront;
+        FormMain.FrameTown.FrameBank1.BringToFront
+      else if (S = 'tavern') then
+        FormMain.FrameTown.FrameTavern1.BringToFront
+      else if (S = 'outlands') then
+        FormMain.FrameTown.FrameOutlands1.BringToFront;
     end
     else
       FormMain.FrameTown.FrameDefault1.BringToFront;
+    //
+    if JSON.TryGetValue('mainframe', S) then
+    begin
+      if (S = 'outlands') then
+        FormMain.FrameTown.FrameBattle1.BringToFront;
+    end
+    else
+      FormMain.FrameTown.FrameInfo1.BringToFront;
     //
     S := '';
     if JSON.TryGetValue('char_name', S) then
@@ -241,6 +277,13 @@ begin
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+    if JSON.TryGetValue('enemy_life_cur', Cur) and
+      JSON.TryGetValue('enemy_life_max', Max) then
+      FrameBattle1.Label2.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+    if JSON.TryGetValue('enemy_damage_min', Cur) and
+      JSON.TryGetValue('enemy_damage_max', Max) then
+      FrameBattle1.Label3.Caption := Format('Урон: %s-%s', [Cur, Max]);
+
     // if JSON.TryGetValue('fileroot', S) then
     // ShowMessage(S);
   finally

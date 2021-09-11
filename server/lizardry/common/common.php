@@ -38,4 +38,48 @@ function save_character() {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php', $file, LOCK_EX);	
 }
 
+function auto_battle() {
+	global $user;
+	
+	$r = '';
+	
+	while(true) {
+		if (rand(1, 2) == 1) {
+			if (rand(1, 5) > 1) {
+				$d = rand($user['char_damage_min'], $user['char_damage_max']);
+				$r .= 'Герой нанес урон '.$d.'. ';
+				$user['enemy_life_cur'] -= $d;
+			} else {
+				$r .= 'Герой промахнулся. ';
+			}
+		} else {
+			if (rand(1, 5) > 1) {
+				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+				$r .= 'Враг нанес урон '.$d.'. ';
+				$user['char_life_cur'] -= $d;
+			} else {
+				$r .= 'Враг промахнулся. ';
+			}
+		}
+		if ($user['char_life_cur'] <= 0) {
+			$user['char_life_cur'] = 0;
+			$user['char_exp'] -= round($user['char_exp'] / 3);
+			$user['char_gold'] -= round($user['char_gold'] / 7);
+			$r .= 'Ваш герой погиб! Вы потеряли треть опыта и часть золота.';
+			break;
+		}
+		if ($user['enemy_life_cur'] <= 0) {
+			$user['enemy_life_cur'] = 0;
+			$gold = rand(3, 9) + $user['char_level'];
+			$user['char_gold'] += $gold;
+			$exp = rand(4, 5);
+			$user['char_exp'] += $exp;
+			$r .= 'Враг побежден! Найдено золото +'.$gold.'. Опыт +'.$exp.'. ';
+			break;
+		}
+	}
+	
+	return $r;
+}
+
 ?>

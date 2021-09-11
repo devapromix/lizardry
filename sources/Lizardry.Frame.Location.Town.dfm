@@ -246,23 +246,13 @@ object FrameTown: TFrameTown
       ParentBackground = False
       TabOrder = 0
     end
-    object StaticText1: TStaticText
-      Left = 0
-      Top = 25
-      Width = 335
-      Height = 193
-      Align = alTop
-      AutoSize = False
-      Caption = 'Location description...'
-      TabOrder = 1
-    end
     object FramePanel: TPanel
       Left = 0
       Top = 274
       Width = 335
       Height = 200
       Align = alBottom
-      TabOrder = 2
+      TabOrder = 1
       inline FrameBank1: TFrameBank
         Left = 1
         Top = 1
@@ -310,6 +300,80 @@ object FrameTown: TFrameTown
         ExplicitTop = 1
         ExplicitWidth = 333
         ExplicitHeight = 198
+      end
+      inline FrameOutlands1: TFrameOutlands
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 198
+        Align = alClient
+        TabOrder = 3
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 198
+      end
+    end
+    object Panel19: TPanel
+      Left = 0
+      Top = 25
+      Width = 335
+      Height = 249
+      Align = alClient
+      TabOrder = 2
+      inline FrameBattle1: TFrameBattle
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 247
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 247
+        inherited Image2: TImage
+          OnClick = nil
+        end
+      end
+      inline FrameInfo1: TFrameInfo
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 247
+        Align = alClient
+        TabOrder = 1
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 247
+        inherited StaticText2: TStaticText
+          Top = 113
+          Width = 333
+          ExplicitTop = 113
+          ExplicitWidth = 333
+        end
+        inherited StaticText1: TStaticText
+          Width = 333
+          Height = 113
+          ExplicitWidth = 333
+          ExplicitHeight = 113
+        end
+      end
+      inline FrameLoot1: TFrameLoot
+        Left = -374
+        Top = -212
+        Width = 709
+        Height = 461
+        TabOrder = 2
+        ExplicitLeft = -374
+        ExplicitTop = -212
       end
     end
   end

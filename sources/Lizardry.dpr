@@ -11,7 +11,11 @@ uses
   Lizardry.JSON in 'Lizardry.JSON.pas',
   Lizardry.FrameBank in 'Lizardry.FrameBank.pas' {FrameBank: TFrame},
   Lizardry.FrameDefault in 'Lizardry.FrameDefault.pas' {FrameDefault: TFrame},
-  Lizardry.FrameTavern in 'Lizardry.FrameTavern.pas' {FrameTavern: TFrame};
+  Lizardry.FrameTavern in 'Lizardry.FrameTavern.pas' {FrameTavern: TFrame},
+  Lizardry.FrameOutlands in 'Lizardry.FrameOutlands.pas' {FrameOutlands: TFrame},
+  Lizardry.FrameBattle in 'Lizardry.FrameBattle.pas' {FrameBattle: TFrame},
+  Lizardry.FrameLoot in 'Lizardry.FrameLoot.pas' {FrameLoot: TFrame},
+  Lizardry.FrameInfo in 'Lizardry.FrameInfo.pas' {FrameInfo: TFrame};
 
 {$R *.res}
 
