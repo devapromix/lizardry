@@ -44,8 +44,8 @@ function auto_battle() {
 	$r = '';
 	
 	while(true) {
-		if (rand(1, 2) == 1) {
-			if (rand(1, 5) > 1) {
+		if (rand(1, 3) > 1) {
+			if (rand(1, 5) > 2) {
 				$d = rand($user['char_damage_min'], $user['char_damage_max']);
 				$r .= 'Герой нанес урон '.$d.'. ';
 				$user['enemy_life_cur'] -= $d;
@@ -53,7 +53,7 @@ function auto_battle() {
 				$r .= 'Герой промахнулся. ';
 			}
 		} else {
-			if (rand(1, 5) > 1) {
+			if (rand(1, 5) > 2) {
 				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
 				$r .= 'Враг нанес урон '.$d.'. ';
 				$user['char_life_cur'] -= $d;

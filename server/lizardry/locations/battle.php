@@ -5,10 +5,14 @@ if ($action == 'battle') {
 	$user['title'] = 'Сражение!!!';
 	$user['mainframe'] = 'outlands';
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Автобой!';
-	$user['links'][0]['link'] = 'index.php?action=battle&do=auto_battle';
-	$user['links'][1]['title'] = 'Назад';
-	$user['links'][1]['link'] = 'index.php?action=forest';
+	$n = 0;
+	if ($user['char_life_cur'] > 0) {
+		$user['links'][0]['title'] = 'Автобой!';
+		$user['links'][0]['link'] = 'index.php?action=battle&do=auto_battle';
+		$n++;
+	}
+	$user['links'][$n]['title'] = 'Назад';
+	$user['links'][$n]['link'] = 'index.php?action=forest';
 
 	$user['enemy_life_cur'] = 15;
 	$user['enemy_life_max'] = 15;

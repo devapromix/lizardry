@@ -254,7 +254,10 @@ begin
     //
     S := '';
     if JSON.TryGetValue('char_name', S) then
+    begin
       Panel8.Caption := S;
+      FrameBattle1.Label4.Caption := S;
+    end;
     if JSON.TryGetValue('char_level', S) then
       Panel11.Caption := 'Уровень: ' + S;
     if JSON.TryGetValue('char_exp', S) then
@@ -265,13 +268,19 @@ begin
       Panel12.Caption := 'Золото: ' + S;
     if JSON.TryGetValue('char_life_cur', Cur) and
       JSON.TryGetValue('char_life_max', Max) then
+    begin
       Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+      FrameBattle1.Label5.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+    end;
     if JSON.TryGetValue('char_mana_cur', Cur) and
       JSON.TryGetValue('char_mana_max', Max) then
       Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('char_damage_min', Cur) and
       JSON.TryGetValue('char_damage_max', Max) then
+      begin
       Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      FrameBattle1.Label6.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      end;
     if JSON.TryGetValue('char_armor', S) then
       Panel18.Caption := 'Броня: ' + S;
     //

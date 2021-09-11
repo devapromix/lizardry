@@ -9,11 +9,20 @@ uses
 
 type
   TFrameBattle = class(TFrame)
-    Image2: TImage;
-    Label1: TLabel;
-    Label2: TLabel;
+    Panel1: TPanel;
     StaticText1: TStaticText;
+    Panel2: TPanel;
     Label3: TLabel;
+    Label2: TLabel;
+    Label1: TLabel;
+    Image2: TImage;
+    Panel3: TPanel;
+    Image1: TImage;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
   private
     { Private declarations }
   public
