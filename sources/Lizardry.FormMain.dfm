@@ -11,6 +11,7 @@ object FormMain: TFormMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  WindowState = wsMaximized
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -30,8 +31,15 @@ object FormMain: TFormMain
     TabOrder = 0
     ExplicitWidth = 984
     ExplicitHeight = 487
+    inherited Image1: TImage
+      Width = 734
+      Height = 487
+      ExplicitWidth = 734
+      ExplicitHeight = 487
+    end
     inherited Panel1: TPanel
       Height = 487
+      ExplicitHeight = 487
     end
   end
   inline FrameRegistration: TFrameRegistration
@@ -49,6 +57,16 @@ object FormMain: TFormMain
     TabOrder = 1
     ExplicitWidth = 984
     ExplicitHeight = 487
+    inherited Image1: TImage
+      Width = 734
+      Height = 487
+      ExplicitWidth = 734
+      ExplicitHeight = 487
+    end
+    inherited Panel1: TPanel
+      Height = 487
+      ExplicitHeight = 487
+    end
   end
   inline FrameTown: TFrameTown
     Left = 0
@@ -68,34 +86,45 @@ object FormMain: TFormMain
     inherited Panel7: TPanel
       Left = 703
       Height = 487
-      inherited Panel16: TPanel
-        ExplicitTop = 100
-      end
-      inherited Panel11: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 25
-        ExplicitWidth = 281
-      end
-      inherited Panel17: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 125
-      end
-      inherited Panel18: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 150
-      end
+      ExplicitLeft = 703
+      ExplicitHeight = 487
     end
     inherited Panel1: TPanel
       Height = 487
+      ExplicitHeight = 487
     end
     inherited Panel9: TPanel
       Width = 422
       Height = 487
+      ExplicitWidth = 422
+      ExplicitHeight = 487
       inherited Panel10: TPanel
         Width = 422
+        ExplicitWidth = 422
       end
       inherited StaticText1: TStaticText
         Width = 422
+        ExplicitLeft = -6
+        ExplicitTop = 31
+        ExplicitWidth = 422
+      end
+      inherited FramePanel: TPanel
+        Top = 237
+        Width = 422
+        ExplicitTop = 237
+        ExplicitWidth = 422
+        inherited FrameBank1: TFrameBank
+          Width = 420
+          ExplicitTop = 1
+          ExplicitWidth = 420
+          ExplicitHeight = 248
+        end
+        inherited FrameDefault1: TFrameDefault
+          Width = 420
+          ExplicitLeft = 1
+          ExplicitTop = 1
+          ExplicitWidth = 420
+        end
       end
     end
   end

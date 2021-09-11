@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.pngimage;
 
 type
   TFrameLogin = class(TFrame)
@@ -18,6 +18,7 @@ type
     bbRegistration: TBitBtn;
     edUserPass: TEdit;
     CheckBox1: TCheckBox;
+    Image1: TImage;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
@@ -46,7 +47,7 @@ begin
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;
   end;
-  ResponseCode := Server.GetLocation('index.php?action=login');
+  ResponseCode := Server.Get('index.php?action=login');
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;
   if ResponseCode = '0' then

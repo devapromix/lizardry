@@ -6,8 +6,8 @@ include 'common/common.php';
 $action = $_GET['action'];
 $amount = $_GET['amount'];
 
-if (file_exists('characters/character.'.$username.'.php')) {
-	require_once 'characters/character.'.$username.'.php';
+if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php')) {
+	require $_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php';
 	if (($userpass != '')&&($userpass == $user['user_pass'])) {
 		if ($action == 'login') {
 			$res = '1';

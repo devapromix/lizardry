@@ -21,8 +21,8 @@ if ($action == 'registration') {
 		$user['char_level'] = 1;
 		$user['char_exp'] = 0;
 		$user['char_food'] = 0;
-		$user['char_gold'] = 0;
-		$user['char_bank'] = 0;
+		$user['char_gold'] = 100;
+		$user['char_bank'] = 50;
 		$user['char_damage_min'] = 2;
 		$user['char_damage_max'] = 3;
 		$user['char_armor'] = 0;

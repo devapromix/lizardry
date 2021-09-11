@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
   TFrameRegistration = class(TFrame)
@@ -17,6 +18,8 @@ type
     edCharName: TEdit;
     bbRegistration: TBitBtn;
     bbBack: TBitBtn;
+    Panel1: TPanel;
+    Image1: TImage;
     procedure bbBackClick(Sender: TObject);
     procedure bbRegistrationClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
@@ -52,7 +55,7 @@ begin
   end;
   FormMain.FrameLogin.edUserName.Text := UserName;
   FormMain.FrameLogin.edUserPass.Text := UserPass;
-  ResponseCode := Server.GetLocation
+  ResponseCode := Server.Get
     ('registration/registration.php?action=registration&charname=' + CharName);
   FormMain.FrameLogin.edUserPass.Text := '';
   if TServer.CheckLoginErrors(ResponseCode) then

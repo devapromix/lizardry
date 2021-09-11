@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -40,6 +40,9 @@ type
     Panel16: TPanel;
     Panel17: TPanel;
     Panel18: TPanel;
+    FrameBank1: TFrameBank;
+    FrameDefault1: TFrameDefault;
+    FramePanel: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -47,10 +50,10 @@ type
     { Private declarations }
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
-    procedure ParseJSON(AJSON: string);
   public
     { Public declarations }
     procedure DoAction(S: string);
+    procedure ParseJSON(AJSON: string);
   end;
 
 implementation
@@ -61,7 +64,7 @@ uses JSON, Lizardry.FormMain, Lizardry.Server;
 
 procedure TFrameTown.DoAction(S: string);
 begin
-  ParseJSON(Server.GetLocation(S));
+  ParseJSON(Server.Get(S));
 end;
 
 procedure TFrameTown.AddButton(const Title, Script: string);
@@ -168,6 +171,19 @@ begin
         .JsonValue.Value);
     end;
     //
+    if JSON.TryGetValue('frame', S) then
+    begin
+      if (S = 'bank') then
+        FormMain.FrameTown.FrameBank1.BringToFront;
+    end
+    else
+      FormMain.FrameTown.FrameDefault1.BringToFront;
+    //
+    if JSON.TryGetValue('refresh', S) then
+      if S = 'no_refresh' then
+        Exit;
+    //
+    S := '';
     if JSON.TryGetValue('char_name', S) then
       Panel8.Caption := S;
     if JSON.TryGetValue('char_level', S) then
@@ -187,8 +203,13 @@ begin
     if JSON.TryGetValue('char_damage_min', Cur) and
       JSON.TryGetValue('char_damage_max', Max) then
       Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
-   if JSON.TryGetValue('char_armor', S) then
+    if JSON.TryGetValue('char_armor', S) then
       Panel18.Caption := 'Броня: ' + S;
+    //
+    if JSON.TryGetValue('char_bank', S) then
+      FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+    // if JSON.TryGetValue('fileroot', S) then
+    // ShowMessage(S);
   finally
     JSON.Free;
   end;

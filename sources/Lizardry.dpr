@@ -8,7 +8,9 @@ uses
   Lizardry.Server in 'Lizardry.Server.pas',
   Lizardry.Frame.Location.Town in 'Lizardry.Frame.Location.Town.pas' {FrameTown: TFrame},
   Lizardry.Game in 'Lizardry.Game.pas',
-  Lizardry.JSON in 'Lizardry.JSON.pas';
+  Lizardry.JSON in 'Lizardry.JSON.pas',
+  Lizardry.FrameBank in 'Lizardry.FrameBank.pas' {FrameBank: TFrame},
+  Lizardry.FrameDefault in 'Lizardry.FrameDefault.pas' {FrameDefault: TFrame};
 
 {$R *.res}
 

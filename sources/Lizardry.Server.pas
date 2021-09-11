@@ -11,7 +11,7 @@ type
     FS: TidHTTP;
   public
     SL: TStringList;
-    function GetLocation(AURL: string): string;
+    function Get(AURL: string): string;
     constructor Create;
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
@@ -83,11 +83,11 @@ begin
   inherited;
 end;
 
-function TServer.GetLocation(AURL: string): string;
+function TServer.Get(AURL: string): string;
 begin
+  Result := '';
   if not IsInternetConnected then
   begin
-    Result := '';
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;
   end;

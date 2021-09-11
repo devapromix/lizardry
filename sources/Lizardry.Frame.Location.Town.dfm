@@ -55,7 +55,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 100'
       ParentBackground = False
       TabOrder = 1
-      ExplicitTop = 125
     end
     object Panel13: TPanel
       Tag = 5
@@ -92,7 +91,6 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
-      ExplicitTop = 189
     end
     object Panel16: TPanel
       Tag = 5
@@ -105,7 +103,6 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
-      ExplicitTop = 119
     end
     object Panel11: TPanel
       Tag = 4
@@ -118,9 +115,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 279
     end
     object Panel17: TPanel
       Tag = 5
@@ -133,8 +127,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitLeft = 6
-      ExplicitTop = 131
     end
     object Panel18: TPanel
       Tag = 5
@@ -147,8 +139,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
-      ExplicitLeft = -8
-      ExplicitTop = 190
     end
   end
   object Panel1: TPanel
@@ -260,11 +250,49 @@ object FrameTown: TFrameTown
       Left = 0
       Top = 25
       Width = 335
-      Height = 125
+      Height = 193
       Align = alTop
       AutoSize = False
       Caption = 'Location description...'
       TabOrder = 1
+    end
+    object FramePanel: TPanel
+      Left = 0
+      Top = 274
+      Width = 335
+      Height = 200
+      Align = alBottom
+      TabOrder = 2
+      inline FrameBank1: TFrameBank
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 248
+      end
+      inline FrameDefault1: TFrameDefault
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 198
+        Align = alClient
+        TabOrder = 1
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 248
+      end
     end
   end
 end
