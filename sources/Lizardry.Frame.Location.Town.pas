@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault;
+  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -43,6 +43,7 @@ type
     FrameBank1: TFrameBank;
     FrameDefault1: TFrameDefault;
     FramePanel: TPanel;
+    FrameTavern1: TFrameTavern;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -53,7 +54,8 @@ type
   public
     { Public declarations }
     procedure DoAction(S: string);
-    procedure ParseJSON(AJSON: string);
+    procedure ParseJSON(AJSON: string); overload;
+    procedure ParseJSON(AJSON, Section: string); overload;
   end;
 
 implementation
@@ -147,6 +149,28 @@ begin
   DoAction((Sender as TPanel).Script);
 end;
 
+procedure TFrameTown.ParseJSON(AJSON, Section: string);
+var
+  JSON: TJSONObject;
+  S: string;
+begin
+  JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
+  try
+    if UpperCase(Section) = 'ERROR' then
+    begin
+      if JSON.TryGetValue('error', S) then
+        ShowMessage('Ошибка: ' + S);
+    end;
+    if UpperCase(Section) = 'INFO' then
+    begin
+      if JSON.TryGetValue('info', S) then
+        ShowMessage(S);
+    end;
+  finally
+    JSON.Free;
+  end;
+end;
+
 procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
@@ -156,11 +180,22 @@ var
 begin
   // ShowMessage(AJSON);
   // Exit;
+  if AJSON.Contains('{"error":') then
+  begin
+    ParseJSON(AJSON, 'ERROR');
+    Exit;
+  end;
+  if AJSON.Contains('{"info":') then
+  begin
+    ParseJSON(AJSON, 'INFO');
+    Exit;
+  end;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
-    //
-    Panel10.Caption := JSON.Values['title'].Value;
-    StaticText1.Caption := JSON.Values['description'].Value;
+    if JSON.TryGetValue('title', S) then
+      Panel10.Caption := S;
+    if JSON.TryGetValue('description', S) then
+      StaticText1.Caption := S;
     //
     ClearButtons;
     JSONArray := TJSONArray(JSON.Get('links').JsonValue);
@@ -174,14 +209,12 @@ begin
     if JSON.TryGetValue('frame', S) then
     begin
       if (S = 'bank') then
-        FormMain.FrameTown.FrameBank1.BringToFront;
+        FormMain.FrameTown.FrameBank1.BringToFront else
+      if (S = 'tavern') then
+        FormMain.FrameTown.FrameTavern1.BringToFront;
     end
     else
       FormMain.FrameTown.FrameDefault1.BringToFront;
-    //
-    if JSON.TryGetValue('refresh', S) then
-      if S = 'no_refresh' then
-        Exit;
     //
     S := '';
     if JSON.TryGetValue('char_name', S) then

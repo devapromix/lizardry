@@ -10,7 +10,8 @@ uses
   Lizardry.Game in 'Lizardry.Game.pas',
   Lizardry.JSON in 'Lizardry.JSON.pas',
   Lizardry.FrameBank in 'Lizardry.FrameBank.pas' {FrameBank: TFrame},
-  Lizardry.FrameDefault in 'Lizardry.FrameDefault.pas' {FrameDefault: TFrame};
+  Lizardry.FrameDefault in 'Lizardry.FrameDefault.pas' {FrameDefault: TFrame},
+  Lizardry.FrameTavern in 'Lizardry.FrameTavern.pas' {FrameTavern: TFrame};
 
 {$R *.res}
 

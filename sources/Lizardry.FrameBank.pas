@@ -1,4 +1,4 @@
-unit Lizardry.FrameBank;
+﻿unit Lizardry.FrameBank;
 
 interface
 
@@ -32,8 +32,9 @@ var
   Sum: Integer;
 begin
   Sum := StrToIntDef(Edit1.Text, 0);
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=deposit&amount=' +
-    Sum.ToString));
+  FormMain.FrameTown.ParseJSON
+    (Server.Get('index.php?action=bank&do=deposit&amount=' + Sum.ToString));
+  Edit1.Text := '0';
 end;
 
 procedure TFrameBank.bbWithdrawClick(Sender: TObject);
@@ -41,8 +42,9 @@ var
   Sum: Integer;
 begin
   Sum := StrToIntDef(Edit1.Text, 0);
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=withdraw&amount=' +
-    Sum.ToString));
+  FormMain.FrameTown.ParseJSON
+    (Server.Get('index.php?action=bank&do=withdraw&amount=' + Sum.ToString));
+  Edit1.Text := '0';
 end;
 
 end.

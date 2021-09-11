@@ -52,7 +52,7 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = #1047#1086#1083#1086#1090#1086' 100'
+      Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
     end
@@ -279,7 +279,7 @@ object FrameTown: TFrameTown
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 333
-        ExplicitHeight = 248
+        ExplicitHeight = 198
       end
       inline FrameDefault1: TFrameDefault
         Left = 1
@@ -291,7 +291,25 @@ object FrameTown: TFrameTown
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 333
-        ExplicitHeight = 248
+        ExplicitHeight = 198
+      end
+      inline FrameTavern1: TFrameTavern
+        Left = 1
+        Top = 1
+        Width = 333
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 333
+        ExplicitHeight = 198
       end
     end
   end

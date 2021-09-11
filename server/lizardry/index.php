@@ -4,6 +4,7 @@ $res = '0';
 include 'common/common.php';
 
 $action = $_GET['action'];
+$do = $_GET['do'];
 $amount = $_GET['amount'];
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php')) {
@@ -17,7 +18,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$use
 		// Forest
 		include 'locations/forest.php';
 		// Tavern
-		//include 'locations/tavern.php';
+		include 'locations/tavern.php';
 		// Bank
 		include 'locations/bank.php';
 	}

@@ -11,7 +11,7 @@ if (strlen($charname) < 4) die('33');
 if (strlen($charname) > 24) die('43');
 
 if ($action == 'registration') {
-	if (file_exists('../characters/character.'.$username.'.php')) {
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php')) {
 		$res = '1';
 	} else{
 		$user = array();
