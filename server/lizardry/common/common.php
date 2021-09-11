@@ -42,40 +42,54 @@ function auto_battle() {
 	global $user;
 	
 	$r = '';
+	$c = 0;
 	
 	while(true) {
-		if (rand(1, 3) > 1) {
-			if (rand(1, 5) > 2) {
-				$d = rand($user['char_damage_min'], $user['char_damage_max']);
-				$r .= 'Герой нанес урон '.$d.'. ';
-				$user['enemy_life_cur'] -= $d;
-			} else {
-				$r .= 'Герой промахнулся. ';
+
+		if (rand(1, $c + 5) >= 2) {
+			$d = rand($user['char_damage_min'], $user['char_damage_max']);
+			$user['enemy_life_cur'] -= $d;
+			if ($user['enemy_life_cur'] > 0) {
+				$r .= 'Вы раните Серый Волк на '.$d.' HP.#';
+			}else{
+				$r .= 'Вы наносите удар на '.$d.' HP и убиваете Серый Волк.#';
 			}
 		} else {
-			if (rand(1, 5) > 2) {
-				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
-				$r .= 'Враг нанес урон '.$d.'. ';
-				$user['char_life_cur'] -= $d;
-			} else {
-				$r .= 'Враг промахнулся. ';
+			$r .= 'Вы промахиваетесь по Серый Волк.#';
+			$c++;
+		}		
+
+		if (rand(1, $c + 5) >= 2) {
+			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+			$user['char_life_cur'] -= $d;
+			if ($user['char_life_cur'] > 0) {
+				$r .= 'Серый Волк ранит вас на '.$d.' HP.#';
+			}else{
+				$r .= 'Серый Волк наносит удар на '.$d.' HP и убиваете вас.#';
 			}
+		} else {
+			$r .= 'Серый Волк промахивается по вам.#';
+			$c++;
 		}
+		
 		if ($user['char_life_cur'] <= 0) {
 			$user['char_life_cur'] = 0;
-			$user['char_exp'] -= round($user['char_exp'] / 3);
+			$user['char_exp'] -= round($user['char_exp'] / 5);
 			$user['char_gold'] -= round($user['char_gold'] / 7);
-			$r .= 'Ваш герой погиб! Вы потеряли треть опыта и часть золота.';
+			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
 			break;
 		}
+		
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$gold = rand(3, 9) + $user['char_level'];
 			$user['char_gold'] += $gold;
 			$exp = rand(4, 5);
 			$user['char_exp'] += $exp;
-			$r .= 'Враг побежден! Найдено золото +'.$gold.'. Опыт +'.$exp.'. ';
+			$r .= 'Вы получаете '.$exp.' опыта.#';
+			$r .= 'Вы обшариваете останки Серый Волк и подбираете '.$gold.' золота.#';
 			break;
+
 		}
 	}
 	

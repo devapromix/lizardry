@@ -1,12 +1,10 @@
 <?php
 
-$graveyard_description = 'Вы на городском кладбище. Кругом могилы.';
-
 if ($action == 'graveyard') {
 
 	$user['title'] = 'Городское Кладбище';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $graveyard_description;
+		$user['description'] = 'Вы на городском кладбище. Кругом могилы.';
 	}else{
 		$user['description'] = 'Ваша душа летает над могилами.';
 	}
@@ -23,9 +21,7 @@ if ($action == 'graveyard') {
 		$user['char_life_cur'] = 1;
 		$user['char_mana_cur'] = 0;
 		save_character();
-		$user['log'] = 'Вы снова живы. Вы чувствуете головокружение. Вам нужно отдохнуть.';
-		$user['title'] = 'Городское Кладбище';
-		$user['description'] = $graveyard_description;
+		$user['log'] = 'Вы вернулись в мир живых. Вы чувствуете головокружение. Вам нужно отдохнуть.';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Вернуться в город';
 		$user['links'][0]['link'] = 'index.php?action=town';

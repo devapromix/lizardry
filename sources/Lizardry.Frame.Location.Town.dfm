@@ -397,12 +397,21 @@ object FrameTown: TFrameTown
           Height = 110
           ExplicitTop = 137
           ExplicitWidth = 333
-          inherited StaticText1: TStaticText
+          inherited RichEdit1: TRichEdit
             Width = 333
             Height = 108
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Color = clBtnFace
+            Font.Height = -15
+            ParentFont = False
+            PlainText = True
+            ReadOnly = True
             ExplicitLeft = 1
             ExplicitTop = 1
-            ExplicitWidth = 331
+            ExplicitWidth = 333
+            ExplicitHeight = 108
           end
         end
         inherited Panel2: TPanel

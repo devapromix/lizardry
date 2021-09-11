@@ -20,18 +20,19 @@ object FrameBattle: TFrameBattle
     ExplicitTop = 119
     ExplicitWidth = 653
     ExplicitHeight = 479
-    object StaticText1: TStaticText
+    object RichEdit1: TRichEdit
       Left = 1
       Top = 1
       Width = 900
       Height = 459
       Align = alClient
-      AutoSize = False
+      ScrollBars = ssVertical
       TabOrder = 0
-      ExplicitLeft = 49
-      ExplicitTop = 105
-      ExplicitWidth = 651
-      ExplicitHeight = 477
+      Zoom = 100
+      ExplicitLeft = 11
+      ExplicitTop = 16
+      ExplicitWidth = 878
+      ExplicitHeight = 433
     end
   end
   object Panel2: TPanel

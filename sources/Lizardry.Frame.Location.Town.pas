@@ -210,10 +210,13 @@ begin
     end;
     //
     if JSON.TryGetValue('battlelog', S) then
-    begin
-      FrameBattle1.BringToFront;
-      FrameBattle1.StaticText1.Caption := S
-    end;
+      with FrameBattle1 do
+      begin
+        BringToFront;
+        RichEdit1.Clear;
+        RichEdit1.Lines.Append(S.Replace('#', #13#10));
+        SendMessage(RichEdit1.Handle, EM_SCROLL, SB_LINEDOWN, 0);
+      end;
     //
     if JSON.TryGetValue('title', S) then
       Panel10.Caption := S;
@@ -277,10 +280,10 @@ begin
       Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('char_damage_min', Cur) and
       JSON.TryGetValue('char_damage_max', Max) then
-      begin
+    begin
       Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
       FrameBattle1.Label6.Caption := Format('Урон: %s-%s', [Cur, Max]);
-      end;
+    end;
     if JSON.TryGetValue('char_armor', S) then
       Panel18.Caption := 'Броня: ' + S;
     //
