@@ -20,6 +20,8 @@ if ($action == 'town') {
 		$user['links'][3]['link'] = 'index.php?action=guild_str';
 		$user['links'][4]['title'] = 'Гильдия Тела';
 		$user['links'][4]['link'] = 'index.php?action=guild_body';
+		$user['links'][5]['title'] = 'Гильдия Стражников';
+		$user['links'][5]['link'] = 'index.php?action=guild_adv';
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

@@ -717,7 +717,7 @@ object FrameRegistration: TFrameRegistration
     object bbBack: TBitBtn
       Left = 24
       Top = 296
-      Width = 89
+      Width = 93
       Height = 33
       Caption = #1053#1072#1079#1072#1076
       TabOrder = 0

@@ -43,6 +43,7 @@ object FormMain: TFormMain
       inherited Label3: TLabel
         Top = 472
         Width = 248
+        ExplicitTop = 472
       end
     end
   end
@@ -92,57 +93,34 @@ object FormMain: TFormMain
       Height = 487
       ExplicitLeft = 704
       ExplicitHeight = 487
-      inherited Panel8: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel12: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel13: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel14: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel15: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel16: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel11: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel17: TPanel
-        ExplicitWidth = 280
-      end
-      inherited Panel18: TPanel
-        ExplicitWidth = 280
-      end
     end
     inherited Panel1: TPanel
       Height = 487
+      ExplicitLeft = 0
       ExplicitHeight = 487
-      inherited Panel2: TPanel
-        ExplicitWidth = 280
+      inherited LinkPanel6: TPanel
+        ExplicitLeft = 0
+        ExplicitTop = 125
       end
-      inherited Panel3: TPanel
-        ExplicitWidth = 280
+      inherited LinkPanel7: TPanel
+        ExplicitLeft = 0
+        ExplicitTop = 150
       end
-      inherited Panel4: TPanel
-        ExplicitWidth = 280
+      inherited LinkPanel8: TPanel
+        ExplicitTop = 175
       end
-      inherited Panel5: TPanel
-        ExplicitWidth = 280
+      inherited LinkPanel9: TPanel
+        ExplicitLeft = 0
+        ExplicitTop = 200
       end
-      inherited Panel6: TPanel
-        ExplicitWidth = 280
+      inherited LinkPanel10: TPanel
+        ExplicitLeft = 0
+        ExplicitTop = 225
       end
     end
     inherited Panel9: TPanel
       Width = 424
       Height = 487
-      ExplicitLeft = 280
       ExplicitWidth = 424
       ExplicitHeight = 487
       inherited Panel10: TPanel
@@ -197,8 +175,6 @@ object FormMain: TFormMain
         inherited FrameLoot1: TFrameLoot
           Width = 422
           Height = 260
-          ExplicitLeft = 1
-          ExplicitTop = 1
           ExplicitWidth = 422
           ExplicitHeight = 260
         end

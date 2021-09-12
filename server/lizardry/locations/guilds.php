@@ -7,7 +7,7 @@ if ($action == 'guild_str') {
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Вернуться в город';
 	$user['links'][0]['link'] = 'index.php?action=town';	
-	$user['links'][1]['title'] = 'Тренировать Атаку';
+	$user['links'][1]['title'] = 'Приступить к тренировке';
 	$user['links'][1]['link'] = 'index.php?action=guild_str&do=train_in_guild_str';
 
 	if ($do == 'train_in_guild_str') {
@@ -34,7 +34,7 @@ if ($action == 'guild_body') {
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Вернуться в город';
 	$user['links'][0]['link'] = 'index.php?action=town';	
-	$user['links'][1]['title'] = 'Тренировать Тело';
+	$user['links'][1]['title'] = 'Приступить к тренировке';
 	$user['links'][1]['link'] = 'index.php?action=guild_body&do=train_in_guild_body';
 
 	if ($do == 'train_in_guild_body') {
@@ -61,8 +61,8 @@ if ($action == 'guild_adv') {
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Вернуться в город';
 	$user['links'][0]['link'] = 'index.php?action=town';	
-	$user['links'][1]['title'] = 'Тренировать Тело';
-	$user['links'][1]['link'] = 'index.php?action=guild_body&do=train_in_guild_adv';
+	$user['links'][1]['title'] = 'Приступить к тренировке';
+	$user['links'][1]['link'] = 'index.php?action=guild_adv&do=train_in_guild_adv';
 
 	if ($do == 'train_in_guild_adv') {
 		if ($user['char_exp'] < get_char_level_exp($user['char_level'])) die('{"error":"Вам сначала нужно набраться опыта!"}');
