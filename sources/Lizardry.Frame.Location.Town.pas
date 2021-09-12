@@ -18,6 +18,7 @@ type
     function GetScript: string;
   published
     property Script: string read GetScript write SetScript;
+    function AddToPanel(const ATitle, AScript: string): Boolean;
   end;
 
 type
@@ -30,11 +31,11 @@ type
     Panel14: TPanel;
     Panel15: TPanel;
     Panel1: TPanel;
-    Panel2: TPanel;
-    Panel3: TPanel;
-    Panel4: TPanel;
-    Panel5: TPanel;
-    Panel6: TPanel;
+    LinkPanel1: TPanel;
+    LinkPanel2: TPanel;
+    LinkPanel3: TPanel;
+    LinkPanel4: TPanel;
+    LinkPanel5: TPanel;
     bbLogout: TSpeedButton;
     Panel9: TPanel;
     Panel10: TPanel;
@@ -50,9 +51,13 @@ type
     FrameBattle1: TFrameBattle;
     FrameInfo1: TFrameInfo;
     FrameLoot1: TFrameLoot;
+    LinkPanel6: TPanel;
+    LinkPanel7: TPanel;
+    LinkPanel8: TPanel;
+    LinkPanel9: TPanel;
+    LinkPanel10: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     procedure ClearButtons;
@@ -77,54 +82,35 @@ end;
 
 procedure TFrameTown.AddButton(const Title, Script: string);
 begin
-  if not Panel2.Visible then
-  begin
-    Panel2.Top := 1111;
-    Panel2.Caption := Title;
-    Panel2.Script := Script;
-    Panel2.Visible := True;
+  if LinkPanel1.AddToPanel(Title, Script) or LinkPanel2.AddToPanel(Title,
+    Script) or LinkPanel3.AddToPanel(Title, Script) or
+    LinkPanel4.AddToPanel(Title, Script) or LinkPanel5.AddToPanel(Title, Script)
+    or LinkPanel6.AddToPanel(Title, Script) or LinkPanel7.AddToPanel(Title,
+    Script) or LinkPanel8.AddToPanel(Title, Script) or
+    LinkPanel9.AddToPanel(Title, Script) or LinkPanel10.AddToPanel(Title, Script)
+  then
     Exit;
-  end;
-  if not Panel3.Visible then
-  begin
-    Panel3.Top := 1111;
-    Panel3.Caption := Title;
-    Panel3.Script := Script;
-    Panel3.Visible := True;
-    Exit;
-  end;
-  if not Panel4.Visible then
-  begin
-    Panel4.Top := 1111;
-    Panel4.Caption := Title;
-    Panel4.Script := Script;
-    Panel4.Visible := True;
-    Exit;
-  end;
-  if not Panel5.Visible then
-  begin
-    Panel5.Top := 1111;
-    Panel5.Caption := Title;
-    Panel5.Script := Script;
-    Panel5.Visible := True;
-    Exit;
-  end;
-  if not Panel6.Visible then
-  begin
-    Panel6.Top := 1111;
-    Panel6.Caption := Title;
-    Panel6.Script := Script;
-    Panel6.Visible := True;
-    Exit;
-  end;
 end;
 
 procedure TFrameTown.bbLogoutClick(Sender: TObject);
 begin
-
+  FormMain.FrameLogin.BringToFront;
 end;
 
 { TPanel }
+
+function TPanel.AddToPanel(const ATitle, AScript: string): Boolean;
+begin
+  Result := False;
+  if not Self.Visible then
+  begin
+    Self.Top := High(Word);
+    Self.Caption := ATitle;
+    Self.Script := AScript;
+    Self.Visible := True;
+    Result := True;
+  end;
+end;
 
 function TPanel.GetScript: string;
 begin
@@ -136,18 +122,18 @@ begin
   FScript := AScript;
 end;
 
-procedure TFrameTown.SpeedButton1Click(Sender: TObject);
-begin
-  FormMain.FrameLogin.BringToFront;
-end;
-
 procedure TFrameTown.ClearButtons;
 begin
-  Panel2.Visible := False;
-  Panel3.Visible := False;
-  Panel4.Visible := False;
-  Panel5.Visible := False;
-  Panel6.Visible := False;
+  LinkPanel1.Visible := False;
+  LinkPanel2.Visible := False;
+  LinkPanel3.Visible := False;
+  LinkPanel4.Visible := False;
+  LinkPanel5.Visible := False;
+  LinkPanel6.Visible := False;
+  LinkPanel7.Visible := False;
+  LinkPanel8.Visible := False;
+  LinkPanel9.Visible := False;
+  LinkPanel10.Visible := False;
 end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
@@ -181,7 +167,7 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
-  S, Cur, Max: string;
+  S, V, Cur, Max: string;
   I: Integer;
 begin
   // ShowMessage(AJSON);
@@ -261,10 +247,10 @@ begin
       Panel8.Caption := S;
       FrameBattle1.Label4.Caption := S;
     end;
-    if JSON.TryGetValue('char_level', S) then
-      Panel11.Caption := 'Уровень: ' + S;
+    if JSON.TryGetValue('char_level', V) then
+      Panel11.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('char_exp', S) then
-      Panel13.Caption := 'Опыт: ' + S + '/100';
+      Panel13.Caption := 'Опыт: ' + S + '/' + IntToStr(StrToIntDef(V, 1) * 100);
     if JSON.TryGetValue('char_food', S) then
       Panel15.Caption := 'Провизия: ' + S + '/7';
     if JSON.TryGetValue('char_gold', S) then

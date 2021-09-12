@@ -31,7 +31,6 @@ object FrameTown: TFrameTown
       Caption = 'CharName'
       ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 281
       object bbLogout: TSpeedButton
         Left = 191
         Top = 1
@@ -41,7 +40,7 @@ object FrameTown: TFrameTown
         Align = alRight
         Caption = #1042#1099#1093#1086#1076
         Flat = True
-        OnClick = SpeedButton1Click
+        OnClick = bbLogoutClick
         ExplicitLeft = 192
         ExplicitTop = 0
       end
@@ -57,7 +56,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
-      ExplicitWidth = 281
     end
     object Panel13: TPanel
       Tag = 5
@@ -70,7 +68,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
       TabOrder = 2
-      ExplicitWidth = 281
     end
     object Panel14: TPanel
       Tag = 5
@@ -83,7 +80,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
       TabOrder = 3
-      ExplicitWidth = 281
     end
     object Panel15: TPanel
       Tag = 5
@@ -96,7 +92,6 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
-      ExplicitWidth = 281
     end
     object Panel16: TPanel
       Tag = 5
@@ -109,7 +104,6 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
-      ExplicitWidth = 281
     end
     object Panel11: TPanel
       Tag = 4
@@ -122,7 +116,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
-      ExplicitWidth = 281
     end
     object Panel17: TPanel
       Tag = 5
@@ -135,7 +128,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitWidth = 281
     end
     object Panel18: TPanel
       Tag = 5
@@ -148,7 +140,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
-      ExplicitWidth = 281
     end
   end
   object Panel1: TPanel
@@ -161,7 +152,8 @@ object FrameTown: TFrameTown
     Color = clGreen
     ParentBackground = False
     TabOrder = 1
-    object Panel2: TPanel
+    ExplicitLeft = -2
+    object LinkPanel1: TPanel
       Tag = 1
       Left = 0
       Top = 0
@@ -175,9 +167,8 @@ object FrameTown: TFrameTown
       TabOrder = 0
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitWidth = 281
     end
-    object Panel3: TPanel
+    object LinkPanel2: TPanel
       Tag = 2
       Left = 0
       Top = 25
@@ -191,9 +182,8 @@ object FrameTown: TFrameTown
       TabOrder = 1
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitWidth = 281
     end
-    object Panel4: TPanel
+    object LinkPanel3: TPanel
       Tag = 3
       Left = 0
       Top = 50
@@ -207,9 +197,8 @@ object FrameTown: TFrameTown
       TabOrder = 2
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitWidth = 281
     end
-    object Panel5: TPanel
+    object LinkPanel4: TPanel
       Tag = 4
       Left = 0
       Top = 75
@@ -223,9 +212,8 @@ object FrameTown: TFrameTown
       TabOrder = 3
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitWidth = 281
     end
-    object Panel6: TPanel
+    object LinkPanel5: TPanel
       Tag = 5
       Left = 0
       Top = 100
@@ -239,7 +227,90 @@ object FrameTown: TFrameTown
       TabOrder = 4
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitWidth = 281
+    end
+    object LinkPanel6: TPanel
+      Tag = 5
+      Left = 0
+      Top = 125
+      Width = 280
+      Height = 25
+      Cursor = crHandPoint
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = '111111'
+      ParentBackground = False
+      TabOrder = 5
+      Visible = False
+      OnClick = LeftPanelClick
+      ExplicitLeft = 6
+      ExplicitTop = 153
+    end
+    object LinkPanel7: TPanel
+      Tag = 5
+      Left = 0
+      Top = 150
+      Width = 280
+      Height = 25
+      Cursor = crHandPoint
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = '111111'
+      ParentBackground = False
+      TabOrder = 6
+      Visible = False
+      OnClick = LeftPanelClick
+      ExplicitLeft = -4
+      ExplicitTop = 200
+    end
+    object LinkPanel8: TPanel
+      Tag = 5
+      Left = 0
+      Top = 175
+      Width = 280
+      Height = 25
+      Cursor = crHandPoint
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = '111111'
+      ParentBackground = False
+      TabOrder = 7
+      Visible = False
+      OnClick = LeftPanelClick
+      ExplicitTop = 224
+    end
+    object LinkPanel9: TPanel
+      Tag = 5
+      Left = 0
+      Top = 200
+      Width = 280
+      Height = 25
+      Cursor = crHandPoint
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = '111111'
+      ParentBackground = False
+      TabOrder = 8
+      Visible = False
+      OnClick = LeftPanelClick
+      ExplicitLeft = -2
+      ExplicitTop = 278
+    end
+    object LinkPanel10: TPanel
+      Tag = 5
+      Left = 0
+      Top = 225
+      Width = 280
+      Height = 25
+      Cursor = crHandPoint
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = '111111'
+      ParentBackground = False
+      TabOrder = 9
+      Visible = False
+      OnClick = LeftPanelClick
+      ExplicitLeft = -2
+      ExplicitTop = 280
     end
   end
   object Panel9: TPanel
@@ -250,8 +321,6 @@ object FrameTown: TFrameTown
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 281
-    ExplicitWidth = 335
     object Panel10: TPanel
       Tag = 5
       Left = 0
@@ -262,7 +331,6 @@ object FrameTown: TFrameTown
       Caption = 'Location name'
       ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 335
     end
     object FramePanel: TPanel
       Left = 0
@@ -271,7 +339,6 @@ object FrameTown: TFrameTown
       Height = 200
       Align = alBottom
       TabOrder = 1
-      ExplicitWidth = 335
       inline FrameBank1: TFrameBank
         Left = 1
         Top = 1
@@ -287,7 +354,7 @@ object FrameTown: TFrameTown
         TabOrder = 0
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 198
       end
       inline FrameDefault1: TFrameDefault
@@ -299,7 +366,7 @@ object FrameTown: TFrameTown
         TabOrder = 1
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 198
       end
       inline FrameTavern1: TFrameTavern
@@ -317,7 +384,7 @@ object FrameTown: TFrameTown
         TabOrder = 2
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 198
       end
       inline FrameOutlands1: TFrameOutlands
@@ -329,7 +396,7 @@ object FrameTown: TFrameTown
         TabOrder = 3
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 198
       end
     end
@@ -340,7 +407,6 @@ object FrameTown: TFrameTown
       Height = 249
       Align = alClient
       TabOrder = 2
-      ExplicitWidth = 335
       inline FrameInfo1: TFrameInfo
         Left = 1
         Top = 1
@@ -350,18 +416,18 @@ object FrameTown: TFrameTown
         TabOrder = 1
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 247
         inherited StaticText2: TStaticText
           Top = 113
           Width = 335
           ExplicitTop = 113
-          ExplicitWidth = 333
+          ExplicitWidth = 335
         end
         inherited StaticText1: TStaticText
           Width = 335
           Height = 113
-          ExplicitWidth = 333
+          ExplicitWidth = 335
           ExplicitHeight = 113
         end
       end
@@ -372,8 +438,10 @@ object FrameTown: TFrameTown
         Height = 247
         Align = alClient
         TabOrder = 2
-        ExplicitLeft = -374
-        ExplicitTop = -212
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 335
+        ExplicitHeight = 247
       end
       inline FrameBattle1: TFrameBattle
         Left = 1
@@ -390,13 +458,13 @@ object FrameTown: TFrameTown
         TabOrder = 0
         ExplicitLeft = 1
         ExplicitTop = 1
-        ExplicitWidth = 333
+        ExplicitWidth = 335
         ExplicitHeight = 247
         inherited Panel1: TPanel
           Width = 335
           Height = 110
-          ExplicitTop = 137
-          ExplicitWidth = 333
+          ExplicitWidth = 335
+          ExplicitHeight = 110
           inherited RichEdit1: TRichEdit
             Width = 333
             Height = 108
@@ -408,17 +476,16 @@ object FrameTown: TFrameTown
             ParentFont = False
             PlainText = True
             ReadOnly = True
-            ExplicitLeft = 1
-            ExplicitTop = 1
             ExplicitWidth = 333
             ExplicitHeight = 108
           end
         end
         inherited Panel2: TPanel
           Width = 335
-          ExplicitWidth = 333
+          ExplicitWidth = 335
           inherited Panel3: TPanel
             Left = -3
+            ExplicitLeft = -3
           end
         end
       end
