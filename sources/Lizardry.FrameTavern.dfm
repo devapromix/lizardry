@@ -27,4 +27,13 @@ object FrameTavern: TFrameTavern
     TabOrder = 1
     OnClick = bbDepositClick
   end
+  object bbPrice: TBitBtn
+    Left = 223
+    Top = 59
+    Width = 106
+    Height = 33
+    Caption = #1062#1077#1085#1099
+    TabOrder = 2
+    OnClick = bbPriceClick
+  end
 end

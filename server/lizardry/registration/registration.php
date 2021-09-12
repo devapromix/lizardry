@@ -20,16 +20,16 @@ if ($action == 'registration') {
 		$user['char_name'] = $charname;
 		$user['char_level'] = 1;
 		$user['char_exp'] = 0;
-		$user['char_food'] = 0;
-		$user['char_gold'] = 100;
-		$user['char_bank'] = 50;
+		$user['char_food'] = 7;
+		$user['char_gold'] = 50;
+		$user['char_bank'] = 100;
 		$user['char_damage_min'] = 2;
 		$user['char_damage_max'] = 3;
 		$user['char_armor'] = 0;
-		$user['char_life_cur'] = 10;
+		$user['char_life_cur'] = 30;
 		$user['char_life_max'] = 30;
 		$user['char_mana_cur'] = 10;
-		$user['char_mana_max'] = 20;
+		$user['char_mana_max'] = 10;
 
 		save_character();
 		$res = '2';

@@ -11,7 +11,9 @@ type
   TFrameTavern = class(TFrame)
     Edit1: TEdit;
     bbDeposit: TBitBtn;
+    bbPrice: TBitBtn;
     procedure bbDepositClick(Sender: TObject);
+    procedure bbPriceClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,6 +35,18 @@ begin
     (Server.Get('index.php?action=tavern&do=buy_food_in_tavern&amount=' +
     Sum.ToString));
   Edit1.Text := '0';
+end;
+
+procedure TFrameTavern.bbPriceClick(Sender: TObject);
+var
+  S: string;
+begin
+  S := 'Цены на товары и услуги:' + #13#10 +
+  //
+    'Ночь в Таверне --> 15 зол.' + #13#10 +
+  //
+    'Пакет провианта --> 10 зол.' + #13#10;
+  ShowMessage(S);
 end;
 
 end.

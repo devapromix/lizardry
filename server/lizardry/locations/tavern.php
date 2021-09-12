@@ -12,12 +12,12 @@ if ($action == 'tavern') {
 	$user['links'][1]['link'] = 'index.php?action=tavern&do=rest_in_tavern';	
 	
 	if ($do == 'rest_in_tavern') {
-		if ($user['char_gold'] <= 10) die('{"error":"Недостаточно денег!"}');
+		if ($user['char_gold'] < 15) die('{"error":"Недостаточно денег!"}');
 		if (($user['char_life_cur'] == $user['char_life_max'])
 			&&($user['char_mana_cur'] == $user['char_mana_max'])) die('{"info":"Вы здоровы и полны сил!"}');
 		$user['char_life_cur'] = $user['char_life_max'];
 		$user['char_mana_cur'] = $user['char_mana_max'];
-		$user['char_gold'] -= 10;
+		$user['char_gold'] -= 15;
 		save_character();
 		$user['log'] = 'Вы хорошо отдохнули и набрались сил.';
 	}

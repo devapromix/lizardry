@@ -14,10 +14,12 @@ if ($action == 'battle') {
 	$user['links'][$n]['title'] = 'Назад';
 	$user['links'][$n]['link'] = 'index.php?action=forest';
 
+	$user['enemy_name'] = 'Серый Волк';
 	$user['enemy_life_cur'] = 15;
 	$user['enemy_life_max'] = 15;
 	$user['enemy_damage_min'] = 2;
 	$user['enemy_damage_max'] = 3;
+	$user['enemy_exp'] = 5;
 	$user['battlelog'] = '';
 
 	if ($do == 'auto_battle') {

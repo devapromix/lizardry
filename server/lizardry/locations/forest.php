@@ -11,8 +11,8 @@ if ($action == 'forest') {
 	$user['frame'] = 'outlands';
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		$user['links'][0]['title'] = 'Вернуться в город';
-		$user['links'][0]['link'] = 'index.php?action=town';	
+		$user['links'][0]['title'] = 'Идти в сторону города';
+		$user['links'][0]['link'] = 'index.php?action=gate';	
 	} else {
 		$user['links'][0]['title'] = 'Отправиться на кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

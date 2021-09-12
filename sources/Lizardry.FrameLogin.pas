@@ -19,6 +19,7 @@ type
     edUserPass: TEdit;
     CheckBox1: TCheckBox;
     Image1: TImage;
+    Label3: TLabel;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);

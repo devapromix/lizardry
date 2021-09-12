@@ -707,6 +707,23 @@ object FrameLogin: TFrameLogin
       Height = 21
       Caption = #1055#1072#1088#1086#1083#1100
     end
+    object Label3: TLabel
+      Left = 1
+      Top = 391
+      Width = 248
+      Height = 14
+      Align = alBottom
+      Caption = 'v.0.0.3'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      ExplicitLeft = 13
+      ExplicitTop = 384
+      ExplicitWidth = 49
+    end
     object edUserName: TEdit
       Left = 24
       Top = 48

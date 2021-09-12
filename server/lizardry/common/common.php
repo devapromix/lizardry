@@ -38,6 +38,10 @@ function save_character() {
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php', $file, LOCK_EX);	
 }
 
+function get_char_level_exp($level) {
+	return $level * 100;
+}
+
 function auto_battle() {
 	global $user;
 	
@@ -58,18 +62,20 @@ function auto_battle() {
 			$r .= 'Вы промахиваетесь по Серый Волк.#';
 			$c++;
 		}		
-
-		if (rand(1, $c + 5) >= 2) {
-			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
-			$user['char_life_cur'] -= $d;
-			if ($user['char_life_cur'] > 0) {
-				$r .= 'Серый Волк ранит вас на '.$d.' HP.#';
-			}else{
-				$r .= 'Серый Волк наносит удар на '.$d.' HP и убиваете вас.#';
+		
+		if ($user['enemy_life_cur'] > 0) {
+			if (rand(1, $c + 5) >= 2) {
+				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+				$user['char_life_cur'] -= $d;
+				if ($user['char_life_cur'] > 0) {
+					$r .= 'Серый Волк ранит вас на '.$d.' HP.#';
+				}else{
+					$r .= 'Серый Волк наносит удар на '.$d.' HP и убивает вас.#';
+				}
+			} else {
+				$r .= 'Серый Волк промахивается по вам.#';
+				$c++;
 			}
-		} else {
-			$r .= 'Серый Волк промахивается по вам.#';
-			$c++;
 		}
 		
 		if ($user['char_life_cur'] <= 0) {
@@ -82,9 +88,9 @@ function auto_battle() {
 		
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
-			$gold = rand(3, 9) + $user['char_level'];
+			$gold = rand(1, 10) + ($user['char_level'] * 5);
 			$user['char_gold'] += $gold;
-			$exp = rand(4, 5);
+			$exp = $user['enemy_exp'] + rand(3, 5);
 			$user['char_exp'] += $exp;
 			$r .= 'Вы получаете '.$exp.' опыта.#';
 			$r .= 'Вы обшариваете останки Серый Волк и подбираете '.$gold.' золота.#';

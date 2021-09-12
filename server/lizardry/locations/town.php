@@ -10,16 +10,18 @@ if ($action == 'town') {
 	}
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
-		$user['links'][0]['title'] = 'Темный Лес';
-		$user['links'][0]['link'] = 'index.php?action=forest';
+		$user['links'][0]['title'] = 'Главные Ворота';
+		$user['links'][0]['link'] = 'index.php?action=gate';
 		$user['links'][1]['title'] = 'Банк';
 		$user['links'][1]['link'] = 'index.php?action=bank';
 		$user['links'][2]['title'] = 'Таверна';
 		$user['links'][2]['link'] = 'index.php?action=tavern';
-		$user['links'][3]['title'] = 'Городское Кладбище';
-		$user['links'][3]['link'] = 'index.php?action=graveyard';
+		$user['links'][3]['title'] = 'Гильдия Силы';
+		$user['links'][3]['link'] = 'index.php?action=guild_str';
+		$user['links'][4]['title'] = 'Гильдия Тела';
+		$user['links'][4]['link'] = 'index.php?action=guild_body';
 	} else {
-		$user['links'][0]['title'] = 'Идти на кладбище';
+		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';
 	}
 	

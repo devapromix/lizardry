@@ -40,6 +40,10 @@ object FormMain: TFormMain
     inherited Panel1: TPanel
       Height = 487
       ExplicitHeight = 487
+      inherited Label3: TLabel
+        Top = 472
+        Width = 248
+      end
     end
   end
   inline FrameRegistration: TFrameRegistration
@@ -84,81 +88,144 @@ object FormMain: TFormMain
     ExplicitWidth = 984
     ExplicitHeight = 487
     inherited Panel7: TPanel
-      Left = 703
+      Left = 704
       Height = 487
-      ExplicitLeft = 703
+      ExplicitLeft = 704
       ExplicitHeight = 487
+      inherited Panel8: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel12: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel13: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel14: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel15: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel16: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel11: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel17: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel18: TPanel
+        ExplicitWidth = 280
+      end
     end
     inherited Panel1: TPanel
       Height = 487
       ExplicitHeight = 487
+      inherited Panel2: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel3: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel4: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel5: TPanel
+        ExplicitWidth = 280
+      end
+      inherited Panel6: TPanel
+        ExplicitWidth = 280
+      end
     end
     inherited Panel9: TPanel
-      Width = 422
+      Width = 424
       Height = 487
-      ExplicitWidth = 422
+      ExplicitLeft = 280
+      ExplicitWidth = 424
       ExplicitHeight = 487
       inherited Panel10: TPanel
-        Width = 422
-        ExplicitWidth = 422
+        Width = 424
+        ExplicitWidth = 424
       end
       inherited FramePanel: TPanel
         Top = 287
-        Width = 422
+        Width = 424
         ExplicitTop = 287
-        ExplicitWidth = 422
+        ExplicitWidth = 424
         inherited FrameBank1: TFrameBank
-          Width = 420
-          ExplicitWidth = 420
+          Width = 422
+          ExplicitWidth = 422
         end
         inherited FrameDefault1: TFrameDefault
-          Width = 420
-          ExplicitWidth = 420
+          Width = 422
+          ExplicitWidth = 422
         end
         inherited FrameTavern1: TFrameTavern
-          Width = 420
-          ExplicitWidth = 420
+          Width = 422
+          ExplicitWidth = 422
         end
         inherited FrameOutlands1: TFrameOutlands
-          Width = 420
-          ExplicitLeft = 1
-          ExplicitTop = 1
-          ExplicitWidth = 420
+          Width = 422
+          ExplicitWidth = 422
         end
       end
       inherited Panel19: TPanel
-        Width = 422
+        Width = 424
         Height = 262
-        ExplicitLeft = 0
-        ExplicitTop = 25
-        ExplicitWidth = 422
+        ExplicitWidth = 424
         ExplicitHeight = 262
-        inherited FrameBattle1: TFrameBattle
-          Width = 420
-          Height = 260
-          ExplicitLeft = 1
-          ExplicitTop = 1
-          ExplicitWidth = 420
-          ExplicitHeight = 260
-        end
         inherited FrameInfo1: TFrameInfo
-          Width = 420
+          Width = 422
           Height = 260
-          ExplicitLeft = 1
-          ExplicitTop = 1
-          ExplicitWidth = 420
+          ExplicitWidth = 422
           ExplicitHeight = 260
           inherited StaticText2: TStaticText
             Top = 126
-            Width = 420
+            Width = 422
             ExplicitTop = 126
-            ExplicitWidth = 420
+            ExplicitWidth = 422
           end
           inherited StaticText1: TStaticText
-            Width = 420
+            Width = 422
             Height = 126
-            ExplicitWidth = 420
+            ExplicitWidth = 422
             ExplicitHeight = 126
+          end
+        end
+        inherited FrameLoot1: TFrameLoot
+          Width = 422
+          Height = 260
+          ExplicitLeft = 1
+          ExplicitTop = 1
+          ExplicitWidth = 422
+          ExplicitHeight = 260
+        end
+        inherited FrameBattle1: TFrameBattle
+          Width = 422
+          Height = 260
+          ExplicitWidth = 422
+          ExplicitHeight = 260
+          inherited Panel1: TPanel
+            Width = 422
+            Height = 123
+            ExplicitWidth = 422
+            ExplicitHeight = 123
+            inherited RichEdit1: TRichEdit
+              Width = 420
+              Height = 121
+              ExplicitWidth = 420
+              ExplicitHeight = 121
+            end
+          end
+          inherited Panel2: TPanel
+            Width = 422
+            ExplicitWidth = 422
+            inherited Panel3: TPanel
+              Left = 84
+              ExplicitLeft = 84
+            end
           end
         end
       end
