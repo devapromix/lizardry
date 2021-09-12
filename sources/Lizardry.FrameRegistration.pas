@@ -48,7 +48,7 @@ begin
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
   CharName := Trim(edCharName.Text);
-  if not IsInternetConnected then
+  if not TServer.IsInternetConnected then
   begin
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;

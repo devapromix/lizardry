@@ -710,7 +710,7 @@ object FrameLogin: TFrameLogin
     object Label3: TLabel
       Left = 1
       Top = 391
-      Width = 248
+      Width = 49
       Height = 14
       Align = alBottom
       Caption = 'v.0.0.3'
@@ -720,9 +720,6 @@ object FrameLogin: TFrameLogin
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
-      ExplicitLeft = 13
-      ExplicitTop = 384
-      ExplicitWidth = 49
     end
     object edUserName: TEdit
       Left = 24

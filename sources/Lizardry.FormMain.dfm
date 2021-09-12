@@ -2,9 +2,11 @@ object FormMain: TFormMain
   Left = 0
   Top = 0
   Caption = 'Lizardry'
-  ClientHeight = 487
-  ClientWidth = 984
+  ClientHeight = 712
+  ClientWidth = 1184
   Color = clBtnFace
+  Constraints.MinHeight = 750
+  Constraints.MinWidth = 1200
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -19,8 +21,8 @@ object FormMain: TFormMain
   inline FrameLogin: TFrameLogin
     Left = 0
     Top = 0
-    Width = 984
-    Height = 487
+    Width = 1184
+    Height = 712
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -32,16 +34,16 @@ object FormMain: TFormMain
     ExplicitWidth = 984
     ExplicitHeight = 487
     inherited Image1: TImage
-      Width = 734
-      Height = 487
+      Width = 934
+      Height = 712
       ExplicitWidth = 734
       ExplicitHeight = 487
     end
     inherited Panel1: TPanel
-      Height = 487
+      Height = 712
       ExplicitHeight = 487
       inherited Label3: TLabel
-        Top = 472
+        Top = 697
         Width = 248
         ExplicitTop = 472
       end
@@ -50,8 +52,8 @@ object FormMain: TFormMain
   inline FrameRegistration: TFrameRegistration
     Left = 0
     Top = 0
-    Width = 984
-    Height = 487
+    Width = 1184
+    Height = 712
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -63,21 +65,21 @@ object FormMain: TFormMain
     ExplicitWidth = 984
     ExplicitHeight = 487
     inherited Image1: TImage
-      Width = 734
-      Height = 487
+      Width = 934
+      Height = 712
       ExplicitWidth = 734
       ExplicitHeight = 487
     end
     inherited Panel1: TPanel
-      Height = 487
+      Height = 712
       ExplicitHeight = 487
     end
   end
   inline FrameTown: TFrameTown
     Left = 0
     Top = 0
-    Width = 984
-    Height = 487
+    Width = 1184
+    Height = 712
     Align = alClient
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -89,13 +91,13 @@ object FormMain: TFormMain
     ExplicitWidth = 984
     ExplicitHeight = 487
     inherited Panel7: TPanel
-      Left = 704
-      Height = 487
+      Left = 904
+      Height = 712
       ExplicitLeft = 704
       ExplicitHeight = 487
     end
     inherited Panel1: TPanel
-      Height = 487
+      Height = 712
       ExplicitLeft = 0
       ExplicitHeight = 487
       inherited LinkPanel6: TPanel
@@ -119,87 +121,87 @@ object FormMain: TFormMain
       end
     end
     inherited Panel9: TPanel
-      Width = 424
-      Height = 487
+      Width = 624
+      Height = 712
       ExplicitWidth = 424
       ExplicitHeight = 487
       inherited Panel10: TPanel
-        Width = 424
+        Width = 624
         ExplicitWidth = 424
       end
       inherited FramePanel: TPanel
-        Top = 287
-        Width = 424
+        Top = 512
+        Width = 624
         ExplicitTop = 287
         ExplicitWidth = 424
         inherited FrameBank1: TFrameBank
-          Width = 422
+          Width = 622
           ExplicitWidth = 422
         end
         inherited FrameDefault1: TFrameDefault
-          Width = 422
+          Width = 622
           ExplicitWidth = 422
         end
         inherited FrameTavern1: TFrameTavern
-          Width = 422
+          Width = 622
           ExplicitWidth = 422
         end
         inherited FrameOutlands1: TFrameOutlands
-          Width = 422
+          Width = 622
           ExplicitWidth = 422
         end
       end
       inherited Panel19: TPanel
-        Width = 424
-        Height = 262
+        Width = 624
+        Height = 487
         ExplicitWidth = 424
         ExplicitHeight = 262
         inherited FrameInfo1: TFrameInfo
-          Width = 422
-          Height = 260
+          Width = 622
+          Height = 485
           ExplicitWidth = 422
           ExplicitHeight = 260
           inherited StaticText2: TStaticText
-            Top = 126
-            Width = 422
+            Top = 351
+            Width = 622
             ExplicitTop = 126
             ExplicitWidth = 422
           end
           inherited StaticText1: TStaticText
-            Width = 422
-            Height = 126
+            Width = 622
+            Height = 351
             ExplicitWidth = 422
             ExplicitHeight = 126
           end
         end
         inherited FrameLoot1: TFrameLoot
-          Width = 422
-          Height = 260
+          Width = 622
+          Height = 485
           ExplicitWidth = 422
           ExplicitHeight = 260
         end
         inherited FrameBattle1: TFrameBattle
-          Width = 422
-          Height = 260
+          Width = 622
+          Height = 485
           ExplicitWidth = 422
           ExplicitHeight = 260
           inherited Panel1: TPanel
-            Width = 422
-            Height = 123
+            Width = 622
+            Height = 348
             ExplicitWidth = 422
             ExplicitHeight = 123
             inherited RichEdit1: TRichEdit
-              Width = 420
-              Height = 121
+              Width = 620
+              Height = 346
               ExplicitWidth = 420
               ExplicitHeight = 121
             end
           end
           inherited Panel2: TPanel
-            Width = 422
+            Width = 622
             ExplicitWidth = 422
             inherited Panel3: TPanel
-              Left = 84
+              Left = 284
               ExplicitLeft = 84
             end
           end

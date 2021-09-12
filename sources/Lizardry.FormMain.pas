@@ -4,9 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Lizardry.FrameLogin,
-  Lizardry.FrameRegistration, Lizardry.Frame.Location.Town;
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Lizardry.FrameLogin, Lizardry.FrameRegistration, Lizardry.Frame.Location.Town;
 
 type
   TFormMain = class(TForm)

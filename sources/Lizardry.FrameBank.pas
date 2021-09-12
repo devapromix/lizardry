@@ -15,6 +15,7 @@ type
     Label1: TLabel;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -45,6 +46,13 @@ begin
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=withdraw&amount=' + Sum.ToString));
   Edit1.Text := '0';
+end;
+
+procedure TFrameBank.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if (ord(Key) >= 32) then
+    if not(Char(Key) in ['0' .. '9']) then
+      Key := #0;
 end;
 
 end.

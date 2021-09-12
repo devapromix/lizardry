@@ -10,10 +10,11 @@ uses
 type
   TFrameTavern = class(TFrame)
     Edit1: TEdit;
-    bbDeposit: TBitBtn;
+    bbBuy: TBitBtn;
     bbPrice: TBitBtn;
-    procedure bbDepositClick(Sender: TObject);
+    procedure bbBuyClick(Sender: TObject);
     procedure bbPriceClick(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -26,7 +27,7 @@ implementation
 
 uses Lizardry.FormMain, Lizardry.Server;
 
-procedure TFrameTavern.bbDepositClick(Sender: TObject);
+procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
   Sum: Integer;
 begin
@@ -47,6 +48,15 @@ begin
   //
     'Пакет провианта --> 10 зол.' + #13#10;
   ShowMessage(S);
+end;
+
+procedure TFrameTavern.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if (ord(Key) >= 32) then
+    if not(Char(Key) in ['0' .. '9']) then
+      Key := #0;
+  if Key = #13 then
+    bbBuy.Click;
 end;
 
 end.

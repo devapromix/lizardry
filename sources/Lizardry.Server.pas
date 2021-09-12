@@ -2,22 +2,19 @@
 
 interface
 
-uses idHTTP, Classes;
+uses IdHTTP;
 
 type
   TServer = class(TObject)
   private
-    FURL: string;
-    FS: TidHTTP;
+    FS: TIdHTTP;
   public
-    SL: TStringList;
     function Get(AURL: string): string;
     constructor Create;
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
+    class function IsInternetConnected: Boolean;
   end;
-
-function IsInternetConnected: Boolean;
 
 var
   Server: TServer;
@@ -31,10 +28,9 @@ const
 
   { TServer }
 
-function IsInternetConnected: Boolean;
+class function TServer.IsInternetConnected: Boolean;
 var
   ConnectionType: DWORD;
-
 begin
   Result := False;
   try
@@ -42,6 +38,7 @@ begin
       INTERNET_CONNECTION_PROXY;
     Result := InternetGetConnectedState(@ConnectionType, 0);
   except
+    ShowMessage('Невозможно подключиться к серверу!');
   end;
 end;
 
@@ -71,14 +68,11 @@ end;
 
 constructor TServer.Create;
 begin
-  FS := TidHTTP.Create(nil);
-  FURL := ServerURL;
-  SL := TStringList.Create;
+  FS := TIdHTTP.Create(nil);
 end;
 
 destructor TServer.Destroy;
 begin
-  SL.Free;
   FS.Free;
   inherited;
 end;
@@ -92,7 +86,7 @@ begin
     Exit;
   end;
   try
-    Result := Trim(FS.Get(FURL + AURL + '&username=' +
+    Result := Trim(FS.Get(ServerURL + AURL + '&username=' +
       LowerCase(FormMain.FrameLogin.edUserName.Text) + '&userpass=' +
       LowerCase(FormMain.FrameLogin.edUserPass.Text)));
   except

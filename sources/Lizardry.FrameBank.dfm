@@ -24,6 +24,7 @@ object FrameBank: TFrameBank
     Height = 29
     TabOrder = 0
     Text = '0'
+    OnKeyPress = Edit1KeyPress
   end
   object bbDeposit: TBitBtn
     Left = 16
