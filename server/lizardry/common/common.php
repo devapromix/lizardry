@@ -54,12 +54,12 @@ function auto_battle() {
 			$d = rand($user['char_damage_min'], $user['char_damage_max']);
 			$user['enemy_life_cur'] -= $d;
 			if ($user['enemy_life_cur'] > 0) {
-				$r .= 'Вы раните Серый Волк на '.$d.' HP.#';
+				$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
 			}else{
-				$r .= 'Вы наносите удар на '.$d.' HP и убиваете Серый Волк.#';
+				$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
 			}
 		} else {
-			$r .= 'Вы промахиваетесь по Серый Волк.#';
+			$r .= 'Вы промахиваетесь по '.$user['enemy_name'].'.#';
 			$c++;
 		}		
 		
@@ -68,12 +68,12 @@ function auto_battle() {
 				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
 				$user['char_life_cur'] -= $d;
 				if ($user['char_life_cur'] > 0) {
-					$r .= 'Серый Волк ранит вас на '.$d.' HP.#';
+					$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
 				}else{
-					$r .= 'Серый Волк наносит удар на '.$d.' HP и убивает вас.#';
+					$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
 				}
 			} else {
-				$r .= 'Серый Волк промахивается по вам.#';
+				$r .= $user['enemy_name'].' промахивается по вам.#';
 				$c++;
 			}
 		}
@@ -93,7 +93,7 @@ function auto_battle() {
 			$exp = $user['enemy_exp'] + rand(3, 5);
 			$user['char_exp'] += $exp;
 			$r .= 'Вы получаете '.$exp.' опыта.#';
-			$r .= 'Вы обшариваете останки Серый Волк и подбираете '.$gold.' золота.#';
+			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			break;
 
 		}
