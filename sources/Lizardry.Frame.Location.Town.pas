@@ -62,6 +62,7 @@ type
     { Private declarations }
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
+    function GetEnemyImage(const I: string): string;
   public
     { Public declarations }
     procedure DoAction(S: string);
@@ -78,6 +79,16 @@ uses JSON, Lizardry.FormMain, Lizardry.Server;
 procedure TFrameTown.DoAction(S: string);
 begin
   ParseJSON(Server.Get(S));
+end;
+
+function TFrameTown.GetEnemyImage(const I: string): string;
+begin
+  case StrToInt(I) of
+    2:
+      Result := 'ENEMY_BROWN_BEAR';
+  else
+    Result := 'ENEMY_GRAY_WOLF';
+  end;
 end;
 
 procedure TFrameTown.AddButton(const Title, Script: string);
@@ -228,7 +239,18 @@ begin
       else if (S = 'tavern') then
         FormMain.FrameTown.FrameTavern1.BringToFront
       else if (S = 'outlands') then
+      begin
+        if JSON.TryGetValue('enemy_slot_1', S) then
+          FormMain.FrameTown.FrameOutlands1.Image2.Picture.Bitmap.Handle :=
+            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
+        if JSON.TryGetValue('enemy_slot_2', S) then
+          FormMain.FrameTown.FrameOutlands1.Image3.Picture.Bitmap.Handle :=
+            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
+        if JSON.TryGetValue('enemy_slot_3', S) then
+          FormMain.FrameTown.FrameOutlands1.Image4.Picture.Bitmap.Handle :=
+            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
         FormMain.FrameTown.FrameOutlands1.BringToFront;
+      end;
     end
     else
       FormMain.FrameTown.FrameDefault1.BringToFront;
@@ -275,12 +297,19 @@ begin
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+    if JSON.TryGetValue('enemy_name', S) then
+      FrameBattle1.Label1.Caption := S;
+    if JSON.TryGetValue('enemy_level', V) then
+      FrameBattle1.Label8.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('enemy_life_cur', Cur) and
       JSON.TryGetValue('enemy_life_max', Max) then
       FrameBattle1.Label2.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then
       FrameBattle1.Label3.Caption := Format('Урон: %s-%s', [Cur, Max]);
+    if JSON.TryGetValue('enemy_image', S) then
+      FrameBattle1.Image2.Picture.Bitmap.Handle :=
+        LoadBitmap(hInstance, PChar(S));
 
     // if JSON.TryGetValue('fileroot', S) then
     // ShowMessage(S);

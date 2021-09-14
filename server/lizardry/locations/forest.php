@@ -2,6 +2,15 @@
 
 if ($action == 'forest') {
 
+	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {
+		$user['enemy_slot_1'] = rand(1, 2);
+		$user['enemy_slot_2'] = rand(1, 2);
+		$user['enemy_slot_3'] = rand(1, 2);
+		$user['enemy_block_refresh'] = 1;
+		gen_enemy(1);
+		save_character();
+	}
+
 	$user['title'] = 'Темный Лес';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы находитесь в Темном Лесу.';

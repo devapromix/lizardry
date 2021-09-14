@@ -152,7 +152,6 @@ object FrameTown: TFrameTown
     Color = clGreen
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = -2
     object LinkPanel1: TPanel
       Tag = 1
       Left = 0
@@ -242,8 +241,6 @@ object FrameTown: TFrameTown
       TabOrder = 5
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitLeft = 6
-      ExplicitTop = 153
     end
     object LinkPanel7: TPanel
       Tag = 5
@@ -259,8 +256,6 @@ object FrameTown: TFrameTown
       TabOrder = 6
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitLeft = -4
-      ExplicitTop = 200
     end
     object LinkPanel8: TPanel
       Tag = 5
@@ -276,7 +271,6 @@ object FrameTown: TFrameTown
       TabOrder = 7
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitTop = 224
     end
     object LinkPanel9: TPanel
       Tag = 5
@@ -292,8 +286,6 @@ object FrameTown: TFrameTown
       TabOrder = 8
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitLeft = -2
-      ExplicitTop = 278
     end
     object LinkPanel10: TPanel
       Tag = 5
@@ -309,8 +301,6 @@ object FrameTown: TFrameTown
       TabOrder = 9
       Visible = False
       OnClick = LeftPanelClick
-      ExplicitLeft = -2
-      ExplicitTop = 280
     end
   end
   object Panel9: TPanel

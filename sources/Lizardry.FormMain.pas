@@ -26,6 +26,7 @@ var
 implementation
 
 {$R *.dfm}
+{$R images.res}
 
 uses Registry;
 

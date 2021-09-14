@@ -2,7 +2,14 @@
 
 if ($action == 'battle') {
 
-	$user['title'] = 'Сражение!!!';
+	if ($enemyslot == '1')
+		gen_enemy($user['enemy_slot_1']);
+	if ($enemyslot == '2')
+		gen_enemy($user['enemy_slot_2']);
+	if ($enemyslot == '3')
+		gen_enemy($user['enemy_slot_3']);
+
+	$user['title'] = 'Сражение!!! '.$user['enemy_exp'];
 	$user['mainframe'] = 'outlands';
 	$user['links'] = array();
 	$n = 0;
@@ -13,13 +20,7 @@ if ($action == 'battle') {
 	}
 	$user['links'][$n]['title'] = 'Назад';
 	$user['links'][$n]['link'] = 'index.php?action=forest';
-
-	$user['enemy_name'] = 'Серый Волк';
-	$user['enemy_life_cur'] = 15;
-	$user['enemy_life_max'] = 15;
-	$user['enemy_damage_min'] = 2;
-	$user['enemy_damage_max'] = 3;
-	$user['enemy_exp'] = 5;
+	
 	$user['battlelog'] = '';
 
 	if ($do == 'auto_battle') {
@@ -28,7 +29,8 @@ if ($action == 'battle') {
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Назад';
 		$user['links'][0]['link'] = 'index.php?action=forest';
-		$user['battlelog'] = auto_battle();		
+		$user['battlelog'] = auto_battle();	
+		$user['enemy_block_refresh'] = 0;
 		save_character();
 	}
 

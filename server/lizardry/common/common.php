@@ -13,12 +13,13 @@ if (strlen($userpass) > 24) die('42');
 
 function save_character() {
 	global $user, $username, $userpass;
-	
-	$file .= "<?php\n\n";
-	
+
+	$file .= "<?php\n\n";	
 	$file .= '$user = array();'."\n";
+
 	$file .= '$user[\'user_name\'] = "'.$username.'";'."\n";
 	$file .= '$user[\'user_pass\'] = "'.$userpass.'";'."\n";
+
 	$file .= '$user[\'char_name\'] = "'.$user['char_name'].'";'."\n";
 	$file .= '$user[\'char_level\'] = '.$user['char_level'].';'."\n";
 	$file .= '$user[\'char_exp\'] = '.$user['char_exp'].';'."\n";
@@ -32,10 +33,47 @@ function save_character() {
 	$file .= '$user[\'char_life_max\'] = '.$user['char_life_max'].';'."\n";
 	$file .= '$user[\'char_mana_cur\'] = '.$user['char_mana_cur'].';'."\n";
 	$file .= '$user[\'char_mana_max\'] = '.$user['char_mana_max'].';'."\n";
-	
+
+	$file .= '$user[\'enemy_slot_1\'] = '.$user['enemy_slot_1'].';'."\n";
+	$file .= '$user[\'enemy_slot_2\'] = '.$user['enemy_slot_2'].';'."\n";
+	$file .= '$user[\'enemy_slot_3\'] = '.$user['enemy_slot_3'].';'."\n";
+	$file .= '$user[\'enemy_block_refresh\'] = '.$user['enemy_block_refresh'].';'."\n";
+
+	$file .= '$user[\'enemy_name\'] = "'.$user['enemy_name'].'";'."\n";
+	$file .= '$user[\'enemy_image\'] = "'.$user['enemy_image'].'";'."\n";
+	$file .= '$user[\'enemy_level\'] = '.$user['enemy_level'].';'."\n";
+	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
+	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
+	$file .= '$user[\'enemy_damage_min\'] = '.$user['enemy_damage_min'].';'."\n";
+	$file .= '$user[\'enemy_damage_max\'] = '.$user['enemy_damage_max'].';'."\n";
+	$file .= '$user[\'enemy_exp\'] = '.$user['enemy_exp'].';'."\n";
+
 	$file .= "\n?>";
 
 	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php', $file, LOCK_EX);	
+}
+
+function gen_enemy($enemy_id) {
+	global $user;
+	if ($enemy_id == 1) {
+		$user['enemy_name'] = 'Серый Волк';
+		$user['enemy_image'] = 'ENEMY_GRAY_WOLF';
+		$user['enemy_level'] = 1;
+		$user['enemy_life_max'] = (rand(1, 4) - 2) + 15;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = 2;
+		$user['enemy_damage_max'] = 3;
+	} else {
+		$user['enemy_name'] = 'Бурый Медведь';
+		$user['enemy_image'] = 'ENEMY_BROWN_BEAR';
+		$user['enemy_level'] = 1;
+		$user['enemy_life_max'] = (rand(1, 4) - 2) + 25;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = 3;
+		$user['enemy_damage_max'] = 4;
+	}
+	$user['enemy_exp'] = round($user['enemy_life_max'] / 2);
+	save_character();
 }
 
 function get_char_level_exp($level) {
@@ -90,7 +128,7 @@ function auto_battle() {
 			$user['enemy_life_cur'] = 0;
 			$gold = rand(1, 10) + ($user['char_level'] * 5);
 			$user['char_gold'] += $gold;
-			$exp = $user['enemy_exp'] + rand(3, 5);
+			$exp = $user['enemy_exp'];
 			$user['char_exp'] += $exp;
 			$r .= 'Вы получаете '.$exp.' опыта.#';
 			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';

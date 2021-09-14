@@ -3,9 +3,10 @@ $res = '0';
 
 include 'common/common.php';
 
-$action = $_GET['action'];
 $do = $_GET['do'];
+$action = $_GET['action'];
 $amount = $_GET['amount'];
+$enemyslot = $_GET['enemyslot'];
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php')) {
 	require $_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php';
