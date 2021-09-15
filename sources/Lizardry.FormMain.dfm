@@ -33,19 +33,32 @@ object FormMain: TFormMain
     TabOrder = 0
     ExplicitWidth = 1184
     ExplicitHeight = 712
-    inherited Image1: TImage
-      Width = 934
-      Height = 712
-      ExplicitWidth = 734
-      ExplicitHeight = 487
-    end
     inherited Panel1: TPanel
       Height = 712
       ExplicitHeight = 712
-      inherited Label3: TLabel
-        Top = 697
-        Width = 248
-        ExplicitTop = 697
+      inherited CurrentClientVersion: TLabel
+        Top = 696
+      end
+    end
+    inherited Panel2: TPanel
+      Width = 934
+      Height = 712
+      ExplicitWidth = 934
+      ExplicitHeight = 712
+      inherited Panel3: TPanel
+        Width = 934
+        ExplicitWidth = 934
+        inherited Image1: TImage
+          Width = 934
+          ExplicitWidth = 734
+          ExplicitHeight = 487
+        end
+      end
+      inherited Panel4: TPanel
+        Width = 934
+        Height = 487
+        ExplicitWidth = 934
+        ExplicitHeight = 487
       end
     end
   end
@@ -64,15 +77,32 @@ object FormMain: TFormMain
     TabOrder = 1
     ExplicitWidth = 1184
     ExplicitHeight = 712
-    inherited Image1: TImage
-      Width = 934
-      Height = 712
-      ExplicitWidth = 734
-      ExplicitHeight = 487
-    end
     inherited Panel1: TPanel
       Height = 712
       ExplicitHeight = 712
+    end
+    inherited Panel2: TPanel
+      Width = 934
+      Height = 712
+      ExplicitLeft = 250
+      ExplicitTop = 0
+      ExplicitWidth = 934
+      ExplicitHeight = 712
+      inherited Panel3: TPanel
+        Width = 934
+        ExplicitWidth = 934
+        inherited Image1: TImage
+          Width = 934
+          ExplicitWidth = 734
+          ExplicitHeight = 487
+        end
+      end
+      inherited Panel4: TPanel
+        Width = 934
+        Height = 487
+        ExplicitWidth = 934
+        ExplicitHeight = 487
+      end
     end
   end
   inline FrameTown: TFrameTown
@@ -98,27 +128,7 @@ object FormMain: TFormMain
     end
     inherited Panel1: TPanel
       Height = 712
-      ExplicitLeft = 0
       ExplicitHeight = 712
-      inherited LinkPanel6: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 125
-      end
-      inherited LinkPanel7: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 150
-      end
-      inherited LinkPanel8: TPanel
-        ExplicitTop = 175
-      end
-      inherited LinkPanel9: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 200
-      end
-      inherited LinkPanel10: TPanel
-        ExplicitLeft = 0
-        ExplicitTop = 225
-      end
     end
     inherited Panel9: TPanel
       Width = 624

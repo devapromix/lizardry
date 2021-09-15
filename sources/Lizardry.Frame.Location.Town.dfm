@@ -161,7 +161,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 0
       Visible = False
@@ -176,7 +175,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 1
       Visible = False
@@ -191,7 +189,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 2
       Visible = False
@@ -206,7 +203,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 3
       Visible = False
@@ -221,7 +217,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 4
       Visible = False
@@ -236,7 +231,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 5
       Visible = False
@@ -251,7 +245,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 6
       Visible = False
@@ -266,7 +259,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 7
       Visible = False
@@ -281,7 +273,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 8
       Visible = False
@@ -296,7 +287,6 @@ object FrameTown: TFrameTown
       Cursor = crHandPoint
       Align = alTop
       Alignment = taLeftJustify
-      Caption = '111111'
       ParentBackground = False
       TabOrder = 9
       Visible = False

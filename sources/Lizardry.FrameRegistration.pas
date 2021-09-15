@@ -19,10 +19,18 @@ type
     bbRegistration: TBitBtn;
     bbBack: TBitBtn;
     Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
     Image1: TImage;
+    Panel4: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     procedure bbBackClick(Sender: TObject);
     procedure bbRegistrationClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
+    procedure InfoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -102,6 +110,30 @@ begin
       Key := #0;
   if Key = #13 then
     bbRegistration.Click;
+end;
+
+procedure TFrameRegistration.InfoClick(Sender: TObject);
+var
+  S: string;
+begin
+  case (Sender as TSpeedButton).Tag of
+    1:
+      S := 'Название учетной записи. Используется только для входа в игру. ' +
+        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
+        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+    2:
+      S := 'Пароль к учетной записи. Используется только для входа в игру. ' +
+        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
+        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+    3:
+      S := 'Имя персонажа. Придумайте красивое имя для вашего героя. ' + #13#10
+        + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
+        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+
+  else
+    S := 'Нажмите чтобы зарегистрировать свою учетную запись на сервере.';
+  end;
+  ShowMessage(S);
 end;
 
 end.

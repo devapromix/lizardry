@@ -19,12 +19,24 @@ type
     edUserPass: TEdit;
     CheckBox1: TCheckBox;
     Image1: TImage;
-    Label3: TLabel;
+    CurrentClientVersion: TLabel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    SpeedButton3: TSpeedButton;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    bbUpdate: TBitBtn;
+    SpeedButton4: TSpeedButton;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
+    procedure InfoClick(Sender: TObject);
+    procedure bbUpdateClick(Sender: TObject);
   private
     { Private declarations }
+    function IsNewClientVersion: Boolean;
   public
     { Public declarations }
   end;
@@ -48,6 +60,8 @@ begin
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;
   end;
+  if IsNewClientVersion then
+    Exit;
   ResponseCode := Server.Get('index.php?action=login');
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;
@@ -65,10 +79,10 @@ begin
     begin
       Reg := TRegistry.Create;
       try
-      Reg.RootKey := HKEY_CURRENT_USER;
-      Reg.OpenKey('\SOFTWARE\Lizardry', True);
-      Reg.WriteString('UserName', UserName);
-      Reg.WriteString('UserPass', UserPass);
+        Reg.RootKey := HKEY_CURRENT_USER;
+        Reg.OpenKey('\SOFTWARE\Lizardry', True);
+        Reg.WriteString('UserName', UserName);
+        Reg.WriteString('UserPass', UserPass);
       finally
         Reg.Free;
       end;
@@ -87,6 +101,17 @@ begin
   FormMain.FrameRegistration.BringToFront;
 end;
 
+procedure TFrameLogin.bbUpdateClick(Sender: TObject);
+begin
+  if not TServer.IsInternetConnected then
+  begin
+    ShowMessage('Невозможно подключиться к серверу!');
+    Exit;
+  end;
+  if IsNewClientVersion then
+    Exit;
+end;
+
 procedure TFrameLogin.EnterKeyPress(Sender: TObject; var Key: Char);
 begin
   if (ord(Key) >= 32) then
@@ -94,6 +119,44 @@ begin
       Key := #0;
   if Key = #13 then
     bbLogin.Click;
+end;
+
+procedure TFrameLogin.InfoClick(Sender: TObject);
+var
+  S: string;
+begin
+  case (Sender as TSpeedButton).Tag of
+    1:
+      S := 'Название учетной записи. Используется только для входа в игру. ' +
+        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
+        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+    2:
+      S := 'Пароль к учетной записи. Используется только для входа в игру. ' +
+        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
+        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+    3:
+      S := 'Нажмите для входа в игру.';
+    4:
+      S := 'Нажмите чтобы зарегистрировать новую учетную запись и создать персонажа.';
+  else
+    S := 'Нажмите чтобы проверить и обновить версию клиента.';
+  end;
+  ShowMessage(S);
+end;
+
+function TFrameLogin.IsNewClientVersion: Boolean;
+var
+  ServerVersion: string;
+  ClientVersion: string;
+begin
+  Result := False;
+  ClientVersion := CurrentClientVersion.Caption;
+  ServerVersion := Server.Get('version.txt');
+  if ClientVersion <> ServerVersion then
+  begin
+    Result := True;
+    ShowMessage('Необходимо обновить клиент!');
+  end;
 end;
 
 end.

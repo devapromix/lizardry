@@ -91,12 +91,37 @@ begin
       LowerCase(FormMain.FrameLogin.edUserPass.Text)));
   except
     on E: Exception do
-    begin
-      Result := '';
       ShowMessage(FS.ResponseText);
-    end;
+    on E: EIdHTTPProtocolException do
+      ShowMessage(E.ErrorMessage);
   end;
 end;
+
+{
+  procedure TForm1.FormCreate(Sender: TObject);
+  var
+  ParamList: TStringList;
+  ss: TStringStream;
+  url: string;
+  begin
+  ss := TStringStream.Create('', TEncoding.UTF8);
+  IdHTTP1 := TIdHTTP.Create();
+  ParamList := TStringList.Create;
+  try
+  ParamList.Add('LoginName=xx');
+  ParamList.Add('Password=xx');
+  ParamList.Add('SmsKind=808');
+  ParamList.Add('ExpSmsId=888');
+  url := 'http://...';
+  IdHTTP1.Post(url, ParamList, ss);
+  Memo1.Text := ss.DataString;
+  finally
+  ss.Free;
+  IdHTTP1.Free;
+  ParamList.Free;
+  end;
+  end;
+}
 
 initialization
 
