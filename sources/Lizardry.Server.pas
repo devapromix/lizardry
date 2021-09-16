@@ -94,6 +94,8 @@ begin
       ShowMessage(FS.ResponseText);
     on E: EIdHTTPProtocolException do
       ShowMessage(E.ErrorMessage);
+    on E: EIdHTTPProtocolException do
+      ShowMessage(IntToStr(E.ErrorCode));
   end;
 end;
 

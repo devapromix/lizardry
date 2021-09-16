@@ -98,6 +98,7 @@ end;
 procedure TFrameLogin.bbRegistrationClick(Sender: TObject);
 begin
   FormMain.FrameRegistration.Clear;
+  FormMain.FrameRegistration.edUserName.SetFocus;
   FormMain.FrameRegistration.BringToFront;
 end;
 
@@ -108,8 +109,8 @@ begin
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;
   end;
-  if IsNewClientVersion then
-    Exit;
+  if not IsNewClientVersion then
+    ShowMessage('Вы используете самую новую версию клиента!');
 end;
 
 procedure TFrameLogin.EnterKeyPress(Sender: TObject; var Key: Char);
@@ -150,12 +151,16 @@ var
   ClientVersion: string;
 begin
   Result := False;
-  ClientVersion := CurrentClientVersion.Caption;
-  ServerVersion := Server.Get('version.txt');
-  if ClientVersion <> ServerVersion then
-  begin
-    Result := True;
-    ShowMessage('Необходимо обновить клиент!');
+  try
+    ClientVersion := Trim(CurrentClientVersion.Caption);
+    ServerVersion := Trim(Server.Get('version.txt'));
+    if ClientVersion <> ServerVersion then
+    begin
+      Result := True;
+      ShowMessage('Необходимо обновить клиент!');
+    end;
+  except
+    ShowMessage('Невозможно подключиться к серверу!');
   end;
 end;
 

@@ -6,7 +6,17 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Vcl.CheckLst;
+
+type
+  TLabel = class(Vcl.StdCtrls.TLabel)
+  private
+    FChecked: Boolean;
+  published
+    property Checked: Boolean read FChecked write FChecked;
+    procedure Check;
+    procedure UnCheck;
+  end;
 
 type
   TFrameRegistration = class(TFrame)
@@ -27,12 +37,62 @@ type
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
+    Image2: TImage;
+    Label4: TLabel;
+    SpeedButton5: TSpeedButton;
+    Label5: TLabel;
+    SpeedButton6: TSpeedButton;
+    gdMale: TLabel;
+    gdFemale: TLabel;
+    rcHuman: TLabel;
+    rcElf: TLabel;
+    rcGnome: TLabel;
+    Label6: TLabel;
+    SpeedButton7: TSpeedButton;
+    wpSword: TLabel;
+    wpAxe: TLabel;
+    wpSpear: TLabel;
+    wpStaff: TLabel;
+    rcLizard: TLabel;
+    arLinenRobe: TLabel;
+    arLeatherArmor: TLabel;
+    Label9: TLabel;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    Label10: TLabel;
+    hmLeatherHelm: TLabel;
+    hmClothCap: TLabel;
+    wpBow: TLabel;
+    wpDagger: TLabel;
+    wpHammer: TLabel;
     procedure bbBackClick(Sender: TObject);
     procedure bbRegistrationClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
     procedure InfoClick(Sender: TObject);
+    procedure rcHumanClick(Sender: TObject);
+    procedure rcElfClick(Sender: TObject);
+    procedure rcGnomeClick(Sender: TObject);
+    procedure gdMaleClick(Sender: TObject);
+    procedure gdFemaleClick(Sender: TObject);
+    procedure rcLizardClick(Sender: TObject);
+    procedure wpSwordClick(Sender: TObject);
+    procedure wpAxeClick(Sender: TObject);
+    procedure wpSpearClick(Sender: TObject);
+    procedure wpStaffClick(Sender: TObject);
+    procedure wpBowClick(Sender: TObject);
+    procedure wpDaggerClick(Sender: TObject);
+    procedure wpHammerClick(Sender: TObject);
+    procedure arLeatherArmorClick(Sender: TObject);
+    procedure arLinenRobeClick(Sender: TObject);
+    procedure hmLeatherHelmClick(Sender: TObject);
+    procedure hmClothCapClick(Sender: TObject);
   private
     { Private declarations }
+    procedure ClearRaces;
+    procedure ClearGenders;
+    procedure ClearWeapons;
+    procedure ClearArmors;
+    procedure ClearHelms;
   public
     { Public declarations }
     procedure Clear;
@@ -43,6 +103,18 @@ implementation
 {$R *.dfm}
 
 uses Lizardry.FormMain, Lizardry.Server;
+
+procedure TFrameRegistration.arLeatherArmorClick(Sender: TObject);
+begin
+  ClearArmors;
+  arLeatherArmor.Check;
+end;
+
+procedure TFrameRegistration.arLinenRobeClick(Sender: TObject);
+begin
+  ClearArmors;
+  arLinenRobe.Check;
+end;
 
 procedure TFrameRegistration.bbBackClick(Sender: TObject);
 begin
@@ -96,11 +168,70 @@ begin
   end;
 end;
 
+procedure TFrameRegistration.hmClothCapClick(Sender: TObject);
+begin
+  ClearHelms;
+  hmClothCap.Check;
+end;
+
+procedure TFrameRegistration.hmLeatherHelmClick(Sender: TObject);
+begin
+  ClearHelms;
+  hmLeatherHelm.Check;
+end;
+
 procedure TFrameRegistration.Clear;
 begin
   edUserName.Text := '';
   edUserPass.Text := '';
   edCharName.Text := '';
+  ClearRaces;
+  rcHuman.Check;
+  ClearGenders;
+  gdMale.Check;
+  ClearWeapons;
+  wpSword.Check;
+  ClearArmors;
+  arLeatherArmor.Check;
+  ClearHelms;
+  hmLeatherHelm.Check;
+end;
+
+procedure TFrameRegistration.ClearArmors;
+begin
+  arLeatherArmor.UnCheck;
+  arLinenRobe.UnCheck;
+end;
+
+procedure TFrameRegistration.ClearGenders;
+begin
+  gdMale.UnCheck;
+  gdFemale.UnCheck;
+end;
+
+procedure TFrameRegistration.ClearHelms;
+begin
+  hmLeatherHelm.UnCheck;
+  hmClothCap.UnCheck;
+end;
+
+procedure TFrameRegistration.ClearRaces;
+begin
+  rcHuman.UnCheck;
+  rcElf.UnCheck;
+  rcGnome.UnCheck;
+  rcLizard.UnCheck;
+end;
+
+procedure TFrameRegistration.ClearWeapons;
+begin
+  wpSword.UnCheck;
+  wpAxe.UnCheck;
+  wpSpear.UnCheck;
+  wpStaff.UnCheck;
+  wpBow.UnCheck;
+  wpDagger.UnCheck;
+  wpHammer.UnCheck;
 end;
 
 procedure TFrameRegistration.EnterKeyPress(Sender: TObject; var Key: Char);
@@ -112,6 +243,18 @@ begin
     bbRegistration.Click;
 end;
 
+procedure TFrameRegistration.gdFemaleClick(Sender: TObject);
+begin
+  ClearGenders;
+  gdFemale.Check;
+end;
+
+procedure TFrameRegistration.gdMaleClick(Sender: TObject);
+begin
+  ClearGenders;
+  gdMale.Check;
+end;
+
 procedure TFrameRegistration.InfoClick(Sender: TObject);
 var
   S: string;
@@ -119,21 +262,114 @@ begin
   case (Sender as TSpeedButton).Tag of
     1:
       S := 'Название учетной записи. Используется только для входа в игру. ' +
-        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
-        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+        #13#10 + 'Можно использовать символы от aA до zZ, ' +
+        'цифры и символ подчеркивания. ' + #13#10 +
+        'Длина названия учетной записи: от 4-х до 24-х символов.';
     2:
       S := 'Пароль к учетной записи. Используется только для входа в игру. ' +
-        #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
-        + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
+        #13#10 + 'Можно использовать символы от aA до zZ, цифры ' +
+        'и символ подчеркивания. ' + #13#10 +
+        'Длина названия учетной записи: от 4-х до 24-х символов.';
     3:
       S := 'Имя персонажа. Придумайте красивое имя для вашего героя. ' + #13#10
         + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
         + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
 
+    4:
+      S := 'Нажмите чтобы зарегистрировать свою учетную запись на сервере.';
+    5:
+      S := 'Выбор расы будущего персонажа. Пока ни на что не ' +
+        'влияет кроме изображения персонажа.';
+    6:
+      S := 'Выбор пола будущего персонажа. Мужской персонаж более силен. ' +
+        'Женский персонаж более ловок.';
+    7:
+      S := 'Выбор оружия персонажа. Добавляет дополнительную силу атаки.';
+    8:
+      S := 'Выбор брони персонажа. Добавляет дополнительную защиту.';
   else
-    S := 'Нажмите чтобы зарегистрировать свою учетную запись на сервере.';
+    S := 'Выбор головного убора. Добавляет дополнительную защиту.';
   end;
   ShowMessage(S);
+end;
+
+procedure TFrameRegistration.rcElfClick(Sender: TObject);
+begin
+  ClearRaces;
+  rcElf.Check;
+end;
+
+procedure TFrameRegistration.rcGnomeClick(Sender: TObject);
+begin
+  ClearRaces;
+  rcGnome.Check;
+end;
+
+procedure TFrameRegistration.rcHumanClick(Sender: TObject);
+begin
+  ClearRaces;
+  rcHuman.Check;
+end;
+
+procedure TFrameRegistration.rcLizardClick(Sender: TObject);
+begin
+  ClearRaces;
+  rcLizard.Check;
+end;
+
+procedure TFrameRegistration.wpAxeClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpAxe.Check;
+end;
+
+procedure TFrameRegistration.wpBowClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpBow.Check;
+end;
+
+procedure TFrameRegistration.wpDaggerClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpDagger.Check;
+end;
+
+procedure TFrameRegistration.wpHammerClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpHammer.Check;
+end;
+
+procedure TFrameRegistration.wpSpearClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpSpear.Check;
+end;
+
+procedure TFrameRegistration.wpStaffClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpStaff.Check;
+end;
+
+procedure TFrameRegistration.wpSwordClick(Sender: TObject);
+begin
+  ClearWeapons;
+  wpSword.Check;
+end;
+
+{ TLabel }
+
+procedure TLabel.Check;
+begin
+  Self.Caption := '> ' + Trim(Self.Caption);
+end;
+
+procedure TLabel.UnCheck;
+begin
+  Self.Caption := StringReplace(Self.Caption, '>', ' ', [rfReplaceAll]);
+  Self.Caption := '  ' + Trim(Self.Caption);
 end;
 
 end.

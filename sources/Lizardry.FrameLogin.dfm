@@ -22,15 +22,27 @@ object FrameLogin: TFrameLogin
       Left = 24
       Top = 21
       Width = 154
-      Height = 21
+      Height = 22
       Caption = #1059#1095#1077#1090#1085#1072#1103' '#1079#1072#1087#1080#1089#1100
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
     object Label2: TLabel
       Left = 24
       Top = 88
       Width = 66
-      Height = 21
+      Height = 22
       Caption = #1055#1072#1088#1086#1083#1100
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
     object CurrentClientVersion: TLabel
       Left = 0
@@ -602,6 +614,12 @@ object FrameLogin: TFrameLogin
       Width = 81
       Height = 33
       Caption = #1042#1093#1086#1076
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 2
       OnClick = bbLoginClick
     end
@@ -611,6 +629,12 @@ object FrameLogin: TFrameLogin
       Width = 185
       Height = 33
       Caption = #1056#1077#1075#1080#1089#1090#1088#1072#1094#1080#1103
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       OnClick = bbRegistrationClick
     end
@@ -644,6 +668,12 @@ object FrameLogin: TFrameLogin
       Width = 185
       Height = 33
       Caption = #1054#1073#1085#1086#1074#1083#1077#1085#1080#1077
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 5
       OnClick = bbUpdateClick
     end
