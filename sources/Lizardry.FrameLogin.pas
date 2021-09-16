@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.pngimage;
+  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.pngimage, Vcl.ComCtrls;
 
 type
   TFrameLogin = class(TFrame)
@@ -29,6 +29,9 @@ type
     SpeedButton5: TSpeedButton;
     bbUpdate: TBitBtn;
     SpeedButton4: TSpeedButton;
+    Label3: TLabel;
+    Panel5: TPanel;
+    RichEdit1: TRichEdit;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
@@ -153,7 +156,7 @@ begin
   Result := False;
   try
     ClientVersion := Trim(CurrentClientVersion.Caption);
-    ServerVersion := Trim(Server.Get('version.txt'));
+    ServerVersion := Trim(Server.Get('index.php?action=version'));
     if ClientVersion <> ServerVersion then
     begin
       Result := True;

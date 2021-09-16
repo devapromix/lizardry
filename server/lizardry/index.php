@@ -14,6 +14,9 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$use
 		if ($action == 'login') {
 			$res = '1';
 		}
+		if ($action == 'version') {
+			$res = get_file_int('version.txt');
+		}
 		// Gate
 		include 'locations/gate.php';
 		// Guilds

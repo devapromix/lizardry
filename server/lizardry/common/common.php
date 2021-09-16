@@ -80,6 +80,34 @@ function get_char_level_exp($level) {
 	return $level * 100;
 }
 
+function gettime() {
+	return date('d.m.Y H:i'); 
+}
+
+function get_file_int($fn) {
+	if(file_exists($fn)) {
+		$array = file($fn);
+		return join("", $array);
+	}
+}
+
+function get_param($value, $default) {
+	$res = $default;
+	if(IsSet($_GET[$value])) {
+		$res = $_GET[$value];
+	}
+	return $res;
+}
+
+function post_param($value, $default) {
+	$res = $default;
+	if(IsSet($_POST[$value])) {
+		$res = $_POST[$value];
+	}
+	return $res;
+}
+
+
 function auto_battle() {
 	global $user;
 	

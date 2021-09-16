@@ -16,7 +16,6 @@ object FrameLogin: TFrameLogin
     Width = 250
     Height = 406
     Align = alLeft
-    BevelOuter = bvNone
     TabOrder = 0
     object Label1: TLabel
       Left = 24
@@ -45,9 +44,9 @@ object FrameLogin: TFrameLogin
       ParentFont = False
     end
     object CurrentClientVersion: TLabel
-      Left = 0
-      Top = 390
-      Width = 250
+      Left = 1
+      Top = 389
+      Width = 248
       Height = 16
       Align = alBottom
       Caption = 'v.0.0.3'
@@ -57,6 +56,8 @@ object FrameLogin: TFrameLogin
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 390
       ExplicitWidth = 56
     end
     object SpeedButton3: TSpeedButton
@@ -1379,6 +1380,46 @@ object FrameLogin: TFrameLogin
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitTop = 224
+      object Label3: TLabel
+        Left = 0
+        Top = 19
+        Width = 426
+        Height = 22
+        Align = alTop
+        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1087#1088#1086#1080#1096#1077#1089#1090#1074#1080#1103' '#1074' '#1084#1080#1088#1077' Lizardry:'
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitWidth = 418
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 0
+        Width = 426
+        Height = 19
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 0
+      end
+      object RichEdit1: TRichEdit
+        Left = 0
+        Top = 41
+        Width = 426
+        Height = 140
+        Align = alClient
+        Lines.Strings = (
+          'RichEdit1')
+        TabOrder = 1
+        Zoom = 100
+        ExplicitLeft = 24
+        ExplicitTop = 56
+        ExplicitWidth = 185
+        ExplicitHeight = 89
+      end
     end
   end
 end
