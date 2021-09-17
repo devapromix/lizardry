@@ -7,13 +7,17 @@ uses IdHTTP;
 type
   TServer = class(TObject)
   private
-    FS: TIdHTTP;
+    FIdHTTP: TIdHTTP;
+    FName: string;
+    FURL: string;
   public
     function Get(AURL: string): string;
-    constructor Create;
+    constructor Create(const AURL, AName: string);
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
     class function IsInternetConnected: Boolean;
+    property Name: string read FName write FName;
+    property URL: string read FURL write FURL;
   end;
 
 var
@@ -21,12 +25,9 @@ var
 
 implementation
 
-uses Forms, Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain;
+uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain;
 
-const
-  ServerURL = 'http://wallet.pp.ua/lizardry/';
-
-  { TServer }
+{ TServer }
 
 class function TServer.IsInternetConnected: Boolean;
 var
@@ -66,14 +67,16 @@ begin
   end;
 end;
 
-constructor TServer.Create;
+constructor TServer.Create(const AURL, AName: string);
 begin
-  FS := TIdHTTP.Create(nil);
+  FIdHTTP := TIdHTTP.Create(FormMain);
+  FName := AName;
+  FURL := AURL;
 end;
 
 destructor TServer.Destroy;
 begin
-  FS.Free;
+  FIdHTTP.Free;
   inherited;
 end;
 
@@ -86,12 +89,12 @@ begin
     Exit;
   end;
   try
-    Result := Trim(FS.Get(ServerURL + AURL + '&username=' +
-      LowerCase(FormMain.FrameLogin.edUserName.Text) + '&userpass=' +
-      LowerCase(FormMain.FrameLogin.edUserPass.Text)));
+    Result := Trim(FIdHTTP.Get('http://' + URL + '/' + Name + '/' + AURL +
+      '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
+      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text)));
   except
     on E: Exception do
-      ShowMessage(FS.ResponseText);
+      ShowMessage(FIdHTTP.ResponseText);
     on E: EIdHTTPProtocolException do
       ShowMessage(E.ErrorMessage);
     on E: EIdHTTPProtocolException do
@@ -127,7 +130,7 @@ end;
 
 initialization
 
-Server := TServer.Create;
+Server := TServer.Create('wallet.pp.ua', 'lizardry');
 
 finalization
 

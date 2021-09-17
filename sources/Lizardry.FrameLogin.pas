@@ -31,17 +31,23 @@ type
     SpeedButton4: TSpeedButton;
     Label3: TLabel;
     Panel5: TPanel;
-    RichEdit1: TRichEdit;
+    StaticText1: TStaticText;
+    Panel6: TPanel;
+    ComboBox1: TComboBox;
+    Label4: TLabel;
+    SpeedButton6: TSpeedButton;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
     procedure InfoClick(Sender: TObject);
     procedure bbUpdateClick(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
   public
     { Public declarations }
+    procedure LoadLastEvents;
   end;
 
 implementation
@@ -86,6 +92,7 @@ begin
         Reg.OpenKey('\SOFTWARE\Lizardry', True);
         Reg.WriteString('UserName', UserName);
         Reg.WriteString('UserPass', UserPass);
+        Reg.WriteInteger('Server', ComboBox1.ItemIndex);
       finally
         Reg.Free;
       end;
@@ -116,6 +123,14 @@ begin
     ShowMessage('Вы используете самую новую версию клиента!');
 end;
 
+procedure TFrameLogin.ComboBox1Change(Sender: TObject);
+begin
+  Server.Name := LowerCase(Trim(ComboBox1.Text));
+  Label3.Caption := Format('Последние проишествия в мире %s:',
+    [Trim(ComboBox1.Text)]);
+  LoadLastEvents;
+end;
+
 procedure TFrameLogin.EnterKeyPress(Sender: TObject; var Key: Char);
 begin
   if (ord(Key) >= 32) then
@@ -142,8 +157,11 @@ begin
       S := 'Нажмите для входа в игру.';
     4:
       S := 'Нажмите чтобы зарегистрировать новую учетную запись и создать персонажа.';
+    5:
+      S := 'Нажмите чтобы проверить и обновить версию клиента.';
   else
-    S := 'Нажмите чтобы проверить и обновить версию клиента.';
+    S := 'Текущая игра проходит в мире LIZARDRY. ' +
+      'Другие миры используются для тестирования.';
   end;
   ShowMessage(S);
 end;
@@ -165,6 +183,17 @@ begin
   except
     ShowMessage('Невозможно подключиться к серверу!');
   end;
+end;
+
+procedure TFrameLogin.LoadLastEvents;
+begin
+  if not TServer.IsInternetConnected then
+  begin
+    StaticText1.Caption := 'Невозможно подключиться к серверу!';
+    Exit;
+  end;
+  Server.Name := LowerCase(Trim(ComboBox1.Text));
+  StaticText1.Caption := Server.Get('index.php?action=events');
 end;
 
 end.

@@ -51,6 +51,11 @@ begin
         FrameLogin.edUserPass.Text := Reg.ReadString('UserPass');
       FrameLogin.edUserPass.SetFocus;
     end;
+    if Reg.ValueExists('Server') then
+      FrameLogin.ComboBox1.ItemIndex := Reg.ReadInteger('Server')
+    else
+      FrameLogin.ComboBox1.ItemIndex := 0;
+    FrameLogin.ComboBox1Change(Sender);
   finally
     Reg.Free;
   end;

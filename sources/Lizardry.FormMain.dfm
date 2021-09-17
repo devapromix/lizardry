@@ -37,7 +37,8 @@ object FormMain: TFormMain
       Height = 712
       ExplicitHeight = 712
       inherited CurrentClientVersion: TLabel
-        Top = 696
+        Top = 695
+        ExplicitTop = 695
       end
     end
     inherited Panel2: TPanel
@@ -55,9 +56,25 @@ object FormMain: TFormMain
         end
       end
       inherited Panel4: TPanel
-        Width = 934
+        Width = 914
         Height = 487
         ExplicitWidth = 934
+        ExplicitHeight = 487
+        inherited Label3: TLabel
+          Width = 914
+        end
+        inherited Panel5: TPanel
+          Width = 914
+        end
+        inherited StaticText1: TStaticText
+          Width = 914
+          Height = 445
+        end
+      end
+      inherited Panel6: TPanel
+        Height = 487
+        ExplicitLeft = 0
+        ExplicitTop = 225
         ExplicitHeight = 487
       end
     end
@@ -84,8 +101,6 @@ object FormMain: TFormMain
     inherited Panel2: TPanel
       Width = 934
       Height = 712
-      ExplicitLeft = 250
-      ExplicitTop = 0
       ExplicitWidth = 934
       ExplicitHeight = 712
       inherited Panel3: TPanel
