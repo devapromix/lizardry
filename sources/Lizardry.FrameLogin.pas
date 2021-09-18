@@ -69,8 +69,6 @@ begin
     ShowMessage('Невозможно подключиться к серверу!');
     Exit;
   end;
-  if IsNewClientVersion then
-    Exit;
   ResponseCode := Server.Get('index.php?action=login');
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;

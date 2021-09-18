@@ -17,7 +17,6 @@ object FrameLogin: TFrameLogin
     Height = 498
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 406
     object Label1: TLabel
       Left = 24
       Top = 21
@@ -57,8 +56,7 @@ object FrameLogin: TFrameLogin
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
-      ExplicitLeft = -4
-      ExplicitTop = 482
+      ExplicitWidth = 56
     end
     object SpeedButton3: TSpeedButton
       Tag = 3
@@ -828,7 +826,6 @@ object FrameLogin: TFrameLogin
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitHeight = 406
     object Panel3: TPanel
       Left = 0
       Top = 0
@@ -1522,9 +1519,6 @@ object FrameLogin: TFrameLogin
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 0
-      ExplicitWidth = 426
-      ExplicitHeight = 181
       object Label3: TLabel
         Left = 0
         Top = 20
@@ -1548,7 +1542,6 @@ object FrameLogin: TFrameLogin
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 426
       end
       object StaticText1: TStaticText
         Left = 0
@@ -1557,9 +1550,6 @@ object FrameLogin: TFrameLogin
         Height = 231
         Align = alClient
         TabOrder = 1
-        ExplicitTop = 41
-        ExplicitWidth = 4
-        ExplicitHeight = 4
       end
     end
     object Panel6: TPanel
