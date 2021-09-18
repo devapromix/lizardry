@@ -1,4 +1,7 @@
 <?php
+define('DS', DIRECTORY_SEPARATOR);
+define('PATH', dirname(__FILE__).DS.'..'.DS);
+
 $username = $_GET['username'];
 $userpass = $_GET['userpass'];
 
@@ -23,9 +26,9 @@ function save_character() {
 	$file .= '$user[\'char_name\'] = "'.$user['char_name'].'";'."\n";
 	$file .= '$user[\'char_level\'] = '.$user['char_level'].';'."\n";
 	$file .= '$user[\'char_exp\'] = '.$user['char_exp'].';'."\n";
-	$file .= '$user[\'char_food\'] = '.$user['char_food'].';'."\n";
 	$file .= '$user[\'char_gold\'] = '.$user['char_gold'].';'."\n";
 	$file .= '$user[\'char_bank\'] = '.$user['char_bank'].';'."\n";
+	$file .= '$user[\'char_food\'] = '.$user['char_food'].';'."\n";
 	$file .= '$user[\'char_damage_min\'] = '.$user['char_damage_min'].';'."\n";
 	$file .= '$user[\'char_damage_max\'] = '.$user['char_damage_max'].';'."\n";
 	$file .= '$user[\'char_armor\'] = '.$user['char_armor'].';'."\n";
@@ -42,15 +45,17 @@ function save_character() {
 	$file .= '$user[\'enemy_name\'] = "'.$user['enemy_name'].'";'."\n";
 	$file .= '$user[\'enemy_image\'] = "'.$user['enemy_image'].'";'."\n";
 	$file .= '$user[\'enemy_level\'] = '.$user['enemy_level'].';'."\n";
-	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
-	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
+	$file .= '$user[\'enemy_exp\'] = '.$user['enemy_exp'].';'."\n";
+	$file .= '$user[\'enemy_gold\'] = '.$user['enemy_gold'].';'."\n";
 	$file .= '$user[\'enemy_damage_min\'] = '.$user['enemy_damage_min'].';'."\n";
 	$file .= '$user[\'enemy_damage_max\'] = '.$user['enemy_damage_max'].';'."\n";
-	$file .= '$user[\'enemy_exp\'] = '.$user['enemy_exp'].';'."\n";
+	$file .= '$user[\'enemy_armor\'] = '.$user['enemy_armor'].';'."\n";
+	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
+	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
 
 	$file .= "\n?>";
 
-	file_put_contents($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php', $file, LOCK_EX);	
+	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.php', $file, LOCK_EX);	
 }
 
 function gen_enemy($enemy_id) {
