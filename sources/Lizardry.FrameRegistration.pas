@@ -187,6 +187,7 @@ begin
   edCharName.Text := '';
   ClearRaces;
   rcHuman.Check;
+  Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
   ClearGenders;
   gdMale.Check;
   ClearWeapons;
@@ -309,6 +310,7 @@ procedure TFrameRegistration.rcHumanClick(Sender: TObject);
 begin
   ClearRaces;
   rcHuman.Check;
+  Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
 end;
 
 procedure TFrameRegistration.rcLizardClick(Sender: TObject);
@@ -364,12 +366,14 @@ end;
 procedure TLabel.Check;
 begin
   Self.Caption := '> ' + Trim(Self.Caption);
+  Self.Font.Style := [fsBold];
 end;
 
 procedure TLabel.UnCheck;
 begin
   Self.Caption := StringReplace(Self.Caption, '>', ' ', [rfReplaceAll]);
   Self.Caption := '  ' + Trim(Self.Caption);
+  Self.Font.Style := [];
 end;
 
 end.
