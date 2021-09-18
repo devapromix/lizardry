@@ -11,7 +11,7 @@ if (strlen($charname) < 4) die('33');
 if (strlen($charname) > 24) die('43');
 
 if ($action == 'registration') {
-	if (file_exists($_SERVER['DOCUMENT_ROOT'].'/lizardry/characters/character.'.$username.'.php')) {
+	if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		$res = '1';
 	} else{
 		$user = array();
@@ -30,6 +30,22 @@ if ($action == 'registration') {
 		$user['char_life_max'] = 30;
 		$user['char_mana_cur'] = 10;
 		$user['char_mana_max'] = 10;
+
+		$user['enemy_slot_1'] = 0;
+		$user['enemy_slot_2'] = 0;
+		$user['enemy_slot_3'] = 0;
+		$user['enemy_block_refresh'] = 0;
+
+		$user['enemy_name'] = "";
+		$user['enemy_image'] = "";
+		$user['enemy_level'] = 1;
+		$user['enemy_exp'] = 5;
+		$user['enemy_gold'] = 5;
+		$user['enemy_damage_min'] = 1;
+		$user['enemy_damage_max'] = 2;
+		$user['enemy_armor'] = 0;
+		$user['enemy_life_cur'] = 10;
+		$user['enemy_life_max'] = 10;
 
 		save_character();
 		$res = '2';
