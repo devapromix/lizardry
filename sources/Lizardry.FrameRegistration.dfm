@@ -505,7 +505,7 @@ object FrameRegistration: TFrameRegistration
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 4
       OnClick = bbBackClick
     end
     object bbRegistration: TBitBtn
@@ -521,7 +521,7 @@ object FrameRegistration: TFrameRegistration
       Font.Name = 'Courier New'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 3
       OnClick = bbRegistrationClick
     end
     object edCharName: TEdit
@@ -540,7 +540,7 @@ object FrameRegistration: TFrameRegistration
       Height = 29
       CharCase = ecLowerCase
       MaxLength = 24
-      TabOrder = 3
+      TabOrder = 0
       OnKeyPress = EnterKeyPress
     end
     object edUserPass: TEdit
@@ -551,7 +551,7 @@ object FrameRegistration: TFrameRegistration
       CharCase = ecLowerCase
       MaxLength = 24
       PasswordChar = '*'
-      TabOrder = 4
+      TabOrder = 1
       OnKeyPress = EnterKeyPress
     end
   end
