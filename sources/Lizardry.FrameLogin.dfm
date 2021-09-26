@@ -49,7 +49,7 @@ object FrameLogin: TFrameLogin
       Width = 248
       Height = 16
       Align = alBottom
-      Caption = 'v.0.0.3'
+      Caption = 'v.0.0.4'
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -64,6 +64,7 @@ object FrameLogin: TFrameLogin
       Top = 201
       Width = 29
       Height = 29
+      Cursor = crHandPoint
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -172,6 +173,7 @@ object FrameLogin: TFrameLogin
       Top = 115
       Width = 29
       Height = 29
+      Cursor = crHandPoint
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -280,6 +282,7 @@ object FrameLogin: TFrameLogin
       Top = 48
       Width = 29
       Height = 29
+      Cursor = crHandPoint
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -388,6 +391,7 @@ object FrameLogin: TFrameLogin
       Top = 256
       Width = 29
       Height = 29
+      Cursor = crHandPoint
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -496,6 +500,7 @@ object FrameLogin: TFrameLogin
       Top = 312
       Width = 29
       Height = 29
+      Cursor = crHandPoint
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -733,6 +738,7 @@ object FrameLogin: TFrameLogin
       Top = 201
       Width = 81
       Height = 33
+      Cursor = crHandPoint
       Caption = #1042#1093#1086#1076
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
@@ -748,6 +754,7 @@ object FrameLogin: TFrameLogin
       Top = 256
       Width = 185
       Height = 33
+      Cursor = crHandPoint
       Caption = #1056#1077#1075#1080#1089#1090#1088#1072#1094#1080#1103
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
@@ -773,6 +780,7 @@ object FrameLogin: TFrameLogin
       Top = 160
       Width = 201
       Height = 17
+      Cursor = crHandPoint
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1091#1095#1077#1090#1085#1091#1102' '#1079#1072#1087#1080#1089#1100
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
@@ -787,6 +795,7 @@ object FrameLogin: TFrameLogin
       Top = 312
       Width = 185
       Height = 33
+      Cursor = crHandPoint
       Caption = #1054#1073#1085#1086#1074#1083#1077#1085#1080#1077
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
@@ -802,6 +811,7 @@ object FrameLogin: TFrameLogin
       Top = 425
       Width = 185
       Height = 30
+      Cursor = crHandPoint
       Style = csDropDownList
       CharCase = ecUpperCase
       Color = clBtnFace

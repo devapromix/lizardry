@@ -198,7 +198,7 @@ begin
   try
     ClientVersion := Trim(CurrentClientVersion.Caption);
     ServerVersion := Trim(Server.Get('index.php?action=version'));
-    if ClientVersion <> ServerVersion then
+    if ClientVersion < ServerVersion then
     begin
       Result := True;
       ShowMessage('Необходимо обновить клиент!');
