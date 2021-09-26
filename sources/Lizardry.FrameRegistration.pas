@@ -118,6 +118,7 @@ end;
 
 procedure TFrameRegistration.bbBackClick(Sender: TObject);
 begin
+  FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
 end;
 
@@ -147,7 +148,7 @@ begin
   else if (ResponseCode = '2') then
   begin
     ShowMessage('Регистрация прошла успешно!');
-    FormMain.FrameLogin.BringToFront;
+    bbBackClick(Sender);
   end
   else if (ResponseCode = '23') then
   begin

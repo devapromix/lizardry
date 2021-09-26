@@ -45,6 +45,7 @@ type
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
+    function GetEventsText(const S: string): string;
   public
     { Public declarations }
     procedure LoadLastEvents;
@@ -138,6 +139,30 @@ begin
     bbLogin.Click;
 end;
 
+function TFrameLogin.GetEventsText(const S: string): string;
+var
+  SL: TStringList;
+  I: Integer;
+  R: TArray<string>;
+begin
+  Result := '';
+  SL := TStringList.Create;
+  try
+    SL.Text := S;
+    for I := SL.Count - 1 downto 0 do
+    begin
+      R := SL[I].Split([',']);
+      case StrToIntDef(R[0], 0) of
+        0:
+          Result := Result + Format('Новый герой %s прибыл в Елвинаар!', [R[1]]) + #13#10;
+      end;
+    end;
+
+  finally
+    SL.Free;
+  end;
+end;
+
 procedure TFrameLogin.InfoClick(Sender: TObject);
 var
   S: string;
@@ -191,7 +216,7 @@ begin
     Exit;
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
-  StaticText1.Caption := Server.Get('index.php?action=events');
+  StaticText1.Caption := GetEventsText(Server.Get('events.php?action=events'));
 end;
 
 end.

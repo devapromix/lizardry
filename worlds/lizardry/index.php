@@ -17,8 +17,6 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		if ($action == 'version') {
 			$res = get_file_int(PATH.'version.txt');
 		}
-		// Events
-		include('events/events.php');
 		// Battle
 		include 'locations/battle.php';
 		// Gate

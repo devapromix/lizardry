@@ -48,6 +48,7 @@ if ($action == 'registration') {
 		$user['enemy_life_max'] = 10;
 
 		save_character();
+		add_event(0);
 		$res = '2';
 	}
 }

@@ -18,6 +18,7 @@ type
     class function IsInternetConnected: Boolean;
     property Name: string read FName write FName;
     property URL: string read FURL write FURL;
+    property IdHTTP: TIdHTTP read FIdHTTP;
   end;
 
 var

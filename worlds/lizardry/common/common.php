@@ -90,10 +90,12 @@ function gettime() {
 }
 
 function get_file_int($fn) {
+	$r = '';
 	if(file_exists($fn)) {
 		$array = file($fn);
-		return join("", $array);
+		$r = join("", $array);
 	}
+	return $r;
 }
 
 function get_param($value, $default) {
@@ -112,6 +114,31 @@ function post_param($value, $default) {
 	return $res;
 }
 
+function add_event($type){
+	global $user;
+	$f = PATH."events".DS."events.txt";
+	$h = file($f);
+	if ($h) {
+		$c = count($h);
+		if ($c > 0) {
+			$fp = fopen($f,"w") or die("can't open file");
+			fwrite($fp, "");
+			fclose($fp);
+			$fp = fopen($f,"a");
+			$k = $c - 19;
+			if ($k < 0)
+				$k = 0;
+			for ($i = $k; $i < $c; $i++) {
+				fwrite($fp, $h[$i]);
+			}
+			fclose($fp);
+		}
+	}
+	$data = array();
+	$data[] = $type;
+	$data[] = $user['char_name'];
+	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
+}
 
 function auto_battle() {
 	global $user;
