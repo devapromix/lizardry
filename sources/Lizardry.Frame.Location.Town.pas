@@ -74,7 +74,7 @@ implementation
 
 {$R *.dfm}
 
-uses JSON, Lizardry.FormMain, Lizardry.Server;
+uses JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo;
 
 procedure TFrameTown.DoAction(S: string);
 begin
@@ -270,7 +270,10 @@ begin
       FrameBattle1.Label4.Caption := S;
     end;
     if JSON.TryGetValue('char_level', V) then
+    begin
       Panel11.Caption := 'Уровень: ' + V;
+      FrameBattle1.Label7.Caption := 'Уровень: ' + V;
+    end;
     if JSON.TryGetValue('char_exp', S) then
       Panel13.Caption := 'Опыт: ' + S + '/' + IntToStr(StrToIntDef(V, 1) * 100);
     if JSON.TryGetValue('char_food', S) then
