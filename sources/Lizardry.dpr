@@ -15,7 +15,8 @@ uses
   Lizardry.FrameOutlands in 'Lizardry.FrameOutlands.pas' {FrameOutlands: TFrame},
   Lizardry.FrameBattle in 'Lizardry.FrameBattle.pas' {FrameBattle: TFrame},
   Lizardry.FrameLoot in 'Lizardry.FrameLoot.pas' {FrameLoot: TFrame},
-  Lizardry.FrameInfo in 'Lizardry.FrameInfo.pas' {FrameInfo: TFrame};
+  Lizardry.FrameInfo in 'Lizardry.FrameInfo.pas' {FrameInfo: TFrame},
+  Lizardry.FormInfo in 'Lizardry.FormInfo.pas' {FormInfo};
 
 {$R *.res}
 
@@ -23,5 +24,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFormMain, FormMain);
+  Application.CreateForm(TFormInfo, FormInfo);
   Application.Run;
 end.
