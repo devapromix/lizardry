@@ -116,6 +116,16 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
+      object SpeedButton1: TSpeedButton
+        Left = 240
+        Top = 1
+        Width = 39
+        Height = 23
+        Align = alRight
+        Flat = True
+        OnClick = SpeedButton1Click
+        ExplicitTop = 5
+      end
     end
     object Panel17: TPanel
       Tag = 5

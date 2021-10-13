@@ -30,9 +30,5 @@ object FormInfo: TFormInfo
     ScrollBars = ssVertical
     TabOrder = 0
     Zoom = 100
-    ExplicitLeft = -151
-    ExplicitTop = -1
-    ExplicitWidth = 900
-    ExplicitHeight = 459
   end
 end

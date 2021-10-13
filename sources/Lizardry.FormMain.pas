@@ -28,7 +28,7 @@ implementation
 {$R *.dfm}
 {$R images.res}
 
-uses Registry;
+uses Registry, Lizardry.FormInfo;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 begin

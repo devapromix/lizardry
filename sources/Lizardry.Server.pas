@@ -26,7 +26,7 @@ var
 
 implementation
 
-uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain;
+uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain, Lizardry.FormInfo;
 
 { TServer }
 
@@ -93,6 +93,8 @@ begin
     Result := Trim(FIdHTTP.Get('http://' + URL + '/' + Name + '/' + AURL +
       '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
       '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text)));
+    if Result = '0' then
+      ShowMessage('Получен не верный ответ от сервера!');
   except
     on E: Exception do
       ShowMessage(FIdHTTP.ResponseText);

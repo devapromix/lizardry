@@ -56,25 +56,26 @@ object FormMain: TFormMain
         end
       end
       inherited Panel4: TPanel
-        Width = 914
+        Width = 924
         Height = 487
-        ExplicitWidth = 934
+        ExplicitWidth = 924
         ExplicitHeight = 487
         inherited Label3: TLabel
-          Width = 914
+          Width = 924
         end
         inherited Panel5: TPanel
-          Width = 914
+          Width = 924
+          ExplicitWidth = 924
         end
         inherited StaticText1: TStaticText
-          Width = 914
+          Width = 924
           Height = 445
+          ExplicitWidth = 924
+          ExplicitHeight = 445
         end
       end
       inherited Panel6: TPanel
         Height = 487
-        ExplicitLeft = 0
-        ExplicitTop = 225
         ExplicitHeight = 487
       end
     end

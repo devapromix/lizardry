@@ -56,8 +56,10 @@ type
     LinkPanel8: TPanel;
     LinkPanel9: TPanel;
     LinkPanel10: TPanel;
+    SpeedButton1: TSpeedButton;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     procedure ClearButtons;
@@ -181,6 +183,7 @@ var
   S, V, Cur, Max: string;
   I: Integer;
 begin
+  MsgBox(AJSON);
   // ShowMessage(AJSON);
   // Exit;
   if AJSON.Contains('{"error":') then
@@ -319,6 +322,11 @@ begin
   finally
     JSON.Free;
   end;
+end;
+
+procedure TFrameTown.SpeedButton1Click(Sender: TObject);
+begin
+  FormInfo.ShowModal;
 end;
 
 end.
