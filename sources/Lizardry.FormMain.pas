@@ -22,6 +22,7 @@ type
 
 var
   FormMain: TFormMain;
+  IsDebugMode: Boolean = False;
 
 implementation
 
@@ -31,7 +32,12 @@ implementation
 uses Registry, Lizardry.FormInfo;
 
 procedure TFormMain.FormCreate(Sender: TObject);
+var
+  I: Integer;
 begin
+  for I := 1 to ParamCount do
+    if ParamStr(I) = '-debug' then
+      IsDebugMode := True;
   FrameLogin.BringToFront;
 end;
 

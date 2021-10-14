@@ -56,10 +56,10 @@ type
     LinkPanel8: TPanel;
     LinkPanel9: TPanel;
     LinkPanel10: TPanel;
-    SpeedButton1: TSpeedButton;
+    bbDebug: TSpeedButton;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure bbDebugClick(Sender: TObject);
   private
     { Private declarations }
     procedure ClearButtons;
@@ -147,6 +147,7 @@ begin
   LinkPanel8.Visible := False;
   LinkPanel9.Visible := False;
   LinkPanel10.Visible := False;
+  bbDebug.Visible := IsDebugMode;
 end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
@@ -324,7 +325,7 @@ begin
   end;
 end;
 
-procedure TFrameTown.SpeedButton1Click(Sender: TObject);
+procedure TFrameTown.bbDebugClick(Sender: TObject);
 begin
   FormInfo.ShowModal;
 end;

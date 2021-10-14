@@ -116,15 +116,15 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
-      object SpeedButton1: TSpeedButton
-        Left = 240
+      object bbDebug: TSpeedButton
+        Left = 192
         Top = 1
-        Width = 39
+        Width = 87
         Height = 23
         Align = alRight
+        Caption = 'Debug'
         Flat = True
-        OnClick = SpeedButton1Click
-        ExplicitTop = 5
+        OnClick = bbDebugClick
       end
     end
     object Panel17: TPanel
