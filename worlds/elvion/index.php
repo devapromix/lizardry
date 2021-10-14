@@ -29,6 +29,8 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		include 'locations/town.php';
 		// Forest
 		include 'locations/forest.php';
+		// Gray Cave
+		include 'locations/graycave.php';
 		// Tavern
 		include 'locations/tavern.php';
 		// Bank
