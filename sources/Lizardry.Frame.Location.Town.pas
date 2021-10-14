@@ -88,6 +88,14 @@ begin
   case StrToInt(I) of
     2:
       Result := 'ENEMY_BROWN_BEAR';
+    3:
+      Result := 'ENEMY_GIANT_SPIDER';
+    4:
+      Result := 'ENEMY_DARK_GOBLIN';
+    5:
+      Result := 'ENEMY_DARK_GOBLIN_SHAMAN';
+    6:
+      Result := 'ENEMY_DARK_GOBLIN_THIEF';
   else
     Result := 'ENEMY_GRAY_WOLF';
   end;
