@@ -8,7 +8,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
   Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
-  Lizardry.FrameLoot;
+  Lizardry.FrameLoot, Lizardry.FrameChat;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -23,21 +23,21 @@ type
 
 type
   TFrameTown = class(TFrame)
-    Panel7: TPanel;
+    RightPanel: TPanel;
     Panel8: TPanel;
     Panel11: TPanel;
     Panel12: TPanel;
     Panel13: TPanel;
     Panel14: TPanel;
     Panel15: TPanel;
-    Panel1: TPanel;
+    LeftPanel: TPanel;
     LinkPanel1: TPanel;
     LinkPanel2: TPanel;
     LinkPanel3: TPanel;
     LinkPanel4: TPanel;
     LinkPanel5: TPanel;
     bbLogout: TSpeedButton;
-    Panel9: TPanel;
+    MainPanel: TPanel;
     Panel10: TPanel;
     Panel16: TPanel;
     Panel17: TPanel;
@@ -57,16 +57,22 @@ type
     LinkPanel9: TPanel;
     LinkPanel10: TPanel;
     bbDebug: TSpeedButton;
+    FrameChat: TFrameChat;
+    bbChat: TSpeedButton;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
+    procedure bbChatClick(Sender: TObject);
   private
     { Private declarations }
+    Title: string;
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
     function GetEnemyImage(const I: string): string;
   public
     { Public declarations }
+    procedure ShowChat;
+    procedure HideChat;
     procedure DoAction(S: string);
     procedure ParseJSON(AJSON: string); overload;
     procedure ParseJSON(AJSON, Section: string); overload;
@@ -109,6 +115,14 @@ begin
   end;
 end;
 
+procedure TFrameTown.HideChat;
+begin
+  FrameChat.edChatMsg.Text := '';
+  Panel10.Caption := Title;
+  FrameChat.SendToBack;
+  IsChatMode := False;
+end;
+
 procedure TFrameTown.AddButton(const Title, Script: string);
 begin
   if LinkPanel1.AddToPanel(Title, Script) or LinkPanel2.AddToPanel(Title,
@@ -123,6 +137,7 @@ end;
 
 procedure TFrameTown.bbLogoutClick(Sender: TObject);
 begin
+  HideChat;
   FormMain.FrameLogin.BringToFront;
 end;
 
@@ -168,6 +183,8 @@ end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
 begin
+  if IsChatMode then
+    Exit;
   DoAction((Sender as TPanel).Script);
 end;
 
@@ -191,6 +208,16 @@ begin
   finally
     JSON.Free;
   end;
+end;
+
+procedure TFrameTown.ShowChat;
+begin
+  FrameChat.edChatMsg.Text := '';
+  FrameChat.edChatMsg.SetFocus;
+  Title := Panel10.Caption;
+  Panel10.Caption := 'ЧАТ';
+  FrameChat.BringToFront;
+  IsChatMode := True;
 end;
 
 procedure TFrameTown.ParseJSON(AJSON: string);
@@ -339,6 +366,14 @@ begin
   finally
     JSON.Free;
   end;
+end;
+
+procedure TFrameTown.bbChatClick(Sender: TObject);
+begin
+  if IsChatMode then
+    HideChat
+  else
+    ShowChat;
 end;
 
 procedure TFrameTown.bbDebugClick(Sender: TObject);

@@ -151,9 +151,17 @@ object FormMain: TFormMain
       Height = 712
       ExplicitWidth = 624
       ExplicitHeight = 712
+      inherited FrameChat: TFrameChat
+        Width = 624
+        Height = 487
+        ExplicitTop = 25
+      end
       inherited Panel10: TPanel
         Width = 624
         ExplicitWidth = 624
+        inherited bbChat: TSpeedButton
+          Left = 535
+        end
       end
       inherited FramePanel: TPanel
         Top = 512

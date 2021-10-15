@@ -32,6 +32,8 @@ procedure TFrameBank.bbDepositClick(Sender: TObject);
 var
   Sum: Integer;
 begin
+  if IsChatMode then
+    Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=deposit&amount=' + Sum.ToString));
@@ -42,6 +44,8 @@ procedure TFrameBank.bbWithdrawClick(Sender: TObject);
 var
   Sum: Integer;
 begin
+  if IsChatMode then
+    Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=withdraw&amount=' + Sum.ToString));
@@ -50,6 +54,8 @@ end;
 
 procedure TFrameBank.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
+  if IsChatMode then
+    Exit;
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
       Key := #0;

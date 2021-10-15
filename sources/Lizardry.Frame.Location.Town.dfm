@@ -10,7 +10,7 @@ object FrameTown: TFrameTown
   Font.Style = []
   ParentFont = False
   TabOrder = 0
-  object Panel7: TPanel
+  object RightPanel: TPanel
     Left = 617
     Top = 0
     Width = 280
@@ -32,17 +32,15 @@ object FrameTown: TFrameTown
       ParentBackground = False
       TabOrder = 0
       object bbLogout: TSpeedButton
-        Left = 191
+        Left = 192
         Top = 1
-        Width = 88
+        Width = 87
         Height = 23
         Cursor = crHandPoint
         Align = alRight
         Caption = #1042#1099#1093#1086#1076
         Flat = True
         OnClick = bbLogoutClick
-        ExplicitLeft = 192
-        ExplicitTop = 0
       end
     end
     object Panel12: TPanel
@@ -152,7 +150,7 @@ object FrameTown: TFrameTown
       TabOrder = 8
     end
   end
-  object Panel1: TPanel
+  object LeftPanel: TPanel
     Left = 0
     Top = 0
     Width = 280
@@ -303,7 +301,7 @@ object FrameTown: TFrameTown
       OnClick = LeftPanelClick
     end
   end
-  object Panel9: TPanel
+  object MainPanel: TPanel
     Left = 280
     Top = 0
     Width = 337
@@ -311,6 +309,28 @@ object FrameTown: TFrameTown
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    inline FrameChat: TFrameChat
+      Left = 0
+      Top = 25
+      Width = 337
+      Height = 249
+      Align = alClient
+      TabOrder = 3
+      ExplicitLeft = 280
+      ExplicitWidth = 337
+      ExplicitHeight = 474
+      inherited Panel1: TPanel
+        Top = 208
+        Width = 337
+        DesignSize = (
+          337
+          41)
+      end
+      inherited Panel2: TPanel
+        Width = 337
+        Height = 208
+      end
+    end
     object Panel10: TPanel
       Tag = 5
       Left = 0
@@ -321,6 +341,17 @@ object FrameTown: TFrameTown
       Caption = 'Location name'
       ParentBackground = False
       TabOrder = 0
+      object bbChat: TSpeedButton
+        Left = 248
+        Top = 1
+        Width = 88
+        Height = 23
+        Cursor = crHandPoint
+        Align = alRight
+        Caption = #1063#1072#1090
+        Flat = True
+        OnClick = bbChatClick
+      end
     end
     object FramePanel: TPanel
       Left = 0

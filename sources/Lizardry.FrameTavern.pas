@@ -31,6 +31,8 @@ procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
   Sum: Integer;
 begin
+  if IsChatMode then
+    Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=tavern&do=buy_food_in_tavern&amount=' +
@@ -52,6 +54,8 @@ end;
 
 procedure TFrameTavern.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
+  if IsChatMode then
+    Exit;
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
       Key := #0;
