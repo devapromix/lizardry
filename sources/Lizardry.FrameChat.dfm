@@ -37,5 +37,23 @@ object FrameChat: TFrameChat
     ExplicitTop = 136
     ExplicitWidth = 185
     ExplicitHeight = 41
+    object RichEdit1: TRichEdit
+      Left = 1
+      Top = 1
+      Width = 421
+      Height = 421
+      Align = alClient
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ScrollBars = ssVertical
+      TabOrder = 0
+      Zoom = 100
+      ExplicitLeft = 2
+      ExplicitTop = 2
+    end
   end
 end
