@@ -53,6 +53,8 @@ function save_character() {
 	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
 	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
 
+	$file .= '$user[\'current_outlands\'] = "'.$user['current_outlands'].'";'."\n";
+
 	$file .= "\n?>";
 
 	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.php', $file, LOCK_EX);	
@@ -68,14 +70,78 @@ function gen_enemy($enemy_id) {
 		$user['enemy_life_cur'] = $user['enemy_life_max'];
 		$user['enemy_damage_min'] = 2;
 		$user['enemy_damage_max'] = 3;
-	} else {
+	} else if ($enemy_id == 2) {
 		$user['enemy_name'] = 'Бурый Медведь';
 		$user['enemy_image'] = 'ENEMY_BROWN_BEAR';
-		$user['enemy_level'] = 1;
+		$user['enemy_level'] = 2;
 		$user['enemy_life_max'] = (rand(1, 4) - 2) + 25;
 		$user['enemy_life_cur'] = $user['enemy_life_max'];
 		$user['enemy_damage_min'] = 3;
 		$user['enemy_damage_max'] = 4;
+	} else if ($enemy_id == 3) {
+		$user['enemy_name'] = 'Гигантский Паук';
+		$user['enemy_image'] = 'ENEMY_GIANT_SPIDER';
+		$user['enemy_level'] = 2;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 20;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(2, 4);
+		$user['enemy_damage_max'] = 4;
+	} else if ($enemy_id == 4) {
+		$user['enemy_name'] = 'Темный Гоблин';
+		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN';
+		$user['enemy_level'] = 5;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 35;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(3, 4);
+		$user['enemy_damage_max'] = rand(5, 6);
+	} else if ($enemy_id == 5) {
+		$user['enemy_name'] = 'Темный Гоблин-шаман';
+		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN_SHAMAN';
+		$user['enemy_level'] = 3;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 25;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(2, 3);
+		$user['enemy_damage_max'] = 4;
+	} else if ($enemy_id == 6) {
+		$user['enemy_name'] = 'Темный Гоблин-вор';
+		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN_THIEF';
+		$user['enemy_level'] = 4;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 30;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(2, 3);
+		$user['enemy_damage_max'] = rand(4, 5);
+	} else if ($enemy_id == 7) {
+		$user['enemy_name'] = 'Пещерный Гигант';
+		$user['enemy_image'] = 'ENEMY_CAVE_GIANT';
+		$user['enemy_level'] = 5;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 40;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(3, 4);
+		$user['enemy_damage_max'] = rand(5, 6);
+	} else if ($enemy_id == 8) {
+		$user['enemy_name'] = 'Собиратель Черепов';
+		$user['enemy_image'] = 'ENEMY_BEAST';
+		$user['enemy_level'] = 6;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 45;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(4, 5);
+		$user['enemy_damage_max'] = rand(6, 7);
+	} else if ($enemy_id == 9) {
+		$user['enemy_name'] = 'Тролль';
+		$user['enemy_image'] = 'ENEMY_TROLL';
+		$user['enemy_level'] = 7;
+		$user['enemy_life_max'] = (rand(1, 6) - 3) + 50;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(4, 6);
+		$user['enemy_damage_max'] = rand(7, 8);
+	} else if ($enemy_id == 10) {
+		$user['enemy_name'] = 'КАМЕННЫЙ ЧЕРВЬ';
+		$user['enemy_image'] = 'ENEMY_BOSS_STONE_WORM';
+		$user['enemy_level'] = 8;
+		$user['enemy_life_max'] = (rand(1, 10) - 5) + 75;
+		$user['enemy_life_cur'] = $user['enemy_life_max'];
+		$user['enemy_damage_min'] = rand(6, 8);
+		$user['enemy_damage_max'] = rand(9, 10);
 	}
 	$user['enemy_exp'] = round($user['enemy_life_max'] / 2);
 	save_character();

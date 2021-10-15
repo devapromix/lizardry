@@ -19,7 +19,7 @@ if ($action == 'battle') {
 		$n++;
 	}
 	$user['links'][$n]['title'] = 'Назад';
-	$user['links'][$n]['link'] = 'index.php?action=forest';
+	$user['links'][$n]['link'] = 'index.php?action='.$user['current_outlands'];
 	
 	$user['battlelog'] = '';
 
@@ -27,8 +27,8 @@ if ($action == 'battle') {
 		$user['title'] = 'Сражение!!!';
 		$user['mainframe'] = 'outlands';
 		$user['links'] = array();
-		$user['links'][0]['title'] = 'Назад';
-		$user['links'][0]['link'] = 'index.php?action=forest';
+		$user['links'][0]['title'] = 'Покинуть поле боя';
+		$user['links'][0]['link'] = 'index.php?action='.$user['current_outlands'];
 		$user['battlelog'] = auto_battle();	
 		$user['enemy_block_refresh'] = 0;
 		save_character();

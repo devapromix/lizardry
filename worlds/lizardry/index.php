@@ -17,6 +17,8 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		if ($action == 'version') {
 			$res = get_file_int(PATH.'version.txt');
 		}
+		// Camp
+		include 'locations/camp.php';
 		// Battle
 		include 'locations/battle.php';
 		// Gate
@@ -29,6 +31,12 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		include 'locations/town.php';
 		// Forest
 		include 'locations/forest.php';
+		// Gray Cave
+		include 'locations/graycave.php';
+		// Deep Cave
+		include 'locations/deepcave.php';
+		// Stoneworm Lair
+		include 'locations/stonewormlair.php';
 		// Tavern
 		include 'locations/tavern.php';
 		// Bank
