@@ -23,6 +23,8 @@ if ($action == 'graycave') {
 	if ($user['char_life_cur'] > 0) {
 		$user['links'][0]['title'] = 'Искать выход из пещеры';
 		$user['links'][0]['link'] = 'index.php?action=forest';	
+		$user['links'][1]['title'] = 'Войти в Логово Каменного Червя';
+		$user['links'][1]['link'] = 'index.php?action=stonewormlair';
 	} else {
 		$user['links'][0]['title'] = 'Отправиться на кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

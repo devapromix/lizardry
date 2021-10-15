@@ -86,6 +86,8 @@ end;
 function TFrameTown.GetEnemyImage(const I: string): string;
 begin
   case StrToInt(I) of
+    1:
+      Result := 'ENEMY_GRAY_WOLF';
     2:
       Result := 'ENEMY_BROWN_BEAR';
     3:
@@ -96,8 +98,14 @@ begin
       Result := 'ENEMY_DARK_GOBLIN_SHAMAN';
     6:
       Result := 'ENEMY_DARK_GOBLIN_THIEF';
-  else
-    Result := 'ENEMY_GRAY_WOLF';
+    7:
+      Result := 'ENEMY_CAVE_GIANT';
+    8:
+      Result := 'ENEMY_BEAST';
+    9:
+      Result := 'ENEMY_TROLL';
+    10:
+      Result := 'ENEMY_BOSS_STONE_WORM';
   end;
 end;
 
