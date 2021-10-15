@@ -32,7 +32,7 @@ uses Lizardry.FormMain, Lizardry.Server;
 procedure TFrameOutlands.Image1Click(Sender: TObject);
 begin
   FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=forest&do=rest_in_outlands'));
+    (Server.Get('index.php?action=camp'));
 end;
 
 procedure TFrameOutlands.Image2Click(Sender: TObject);

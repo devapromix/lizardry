@@ -53,6 +53,8 @@ function save_character() {
 	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
 	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
 
+	$file .= '$user[\'current_outlands\'] = "'.$user['current_outlands'].'";'."\n";
+
 	$file .= "\n?>";
 
 	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.php', $file, LOCK_EX);	

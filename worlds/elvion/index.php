@@ -17,6 +17,8 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		if ($action == 'version') {
 			$res = get_file_int(PATH.'version.txt');
 		}
+		// Camp
+		include 'locations/camp.php';
 		// Battle
 		include 'locations/battle.php';
 		// Gate

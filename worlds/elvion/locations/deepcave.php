@@ -2,6 +2,7 @@
 
 if ($action == 'deepcave') {
 
+	$user['current_outlands'] = 'deepcave';
 	$user['enemy_block_refresh'] = 0;
 
 	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {
@@ -14,7 +15,7 @@ if ($action == 'deepcave') {
 
 	$user['title'] = 'Глубокие Пещеры';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = '';
+		$user['description'] = 'Эти пещеры обширны и извилисты. Никогда не знаешь, что может тебе встретится за поворотом. Тут надо быть начеку. Это место не терпит невнимательности. Один шаг и можно попасть в ловушку или липкую паутину, что прочнее канатов.';
 	}else{
 		$user['description'] = 'Ваша душа взмыла ввысь над валунами...';
 	}

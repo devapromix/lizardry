@@ -2,6 +2,7 @@
 
 if ($action == 'stonewormlair') {
 
+	$user['current_outlands'] = 'stonewormlair';
 	$user['enemy_block_refresh'] = 0;
 
 	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {

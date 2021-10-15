@@ -2,6 +2,7 @@
 
 if ($action == 'graycave') {
 
+	$user['current_outlands'] = 'graycave';
 	$user['enemy_block_refresh'] = 0;
 
 	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {
