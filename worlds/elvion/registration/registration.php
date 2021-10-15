@@ -48,6 +48,8 @@ if ($action == 'registration') {
 		$user['enemy_life_max'] = 10;
 
 		$user['current_outlands'] = "";
+		
+		$user['check_save'] = 0;
 
 		save_character();
 		add_event(0);

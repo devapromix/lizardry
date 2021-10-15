@@ -10,9 +10,9 @@ if ($action == 'forest') {
 		$user['enemy_slot_2'] = rand(1, 3);
 		$user['enemy_slot_3'] = rand(1, 3);
 		$user['enemy_block_refresh'] = 1;
-		gen_enemy(1);
-		save_character();
 	}
+	
+	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_3=".$user['enemy_slot_3'].",enemy_block_refresh=".$user['enemy_block_refresh']);
 	
 	$user['title'] = 'Темный Лес';
 	if ($user['char_life_cur'] > 0) {

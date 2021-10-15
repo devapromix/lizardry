@@ -2,14 +2,20 @@
 $res = '0';
 
 include 'common/common.php';
+include 'common/connect.php';
 
 $do = $_GET['do'];
 $action = $_GET['action'];
 $amount = $_GET['amount'];
 $enemyslot = $_GET['enemyslot'];
 
-if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
-	require PATH.'characters'.DS.'character.'.$username.'.php';
+	$connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+	$query = 'SELECT * FROM '.$tb_user;
+	$result = mysqli_query($connection, $query);
+    $user = $result->fetch_assoc();
+
+//if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
+	//include PATH.'characters'.DS.'character.'.$username.'.php';
 	if (($userpass != '')&&($userpass == $user['user_pass'])) {
 		if ($action == 'login') {
 			$res = '1';
@@ -42,7 +48,10 @@ if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
 		// Bank
 		include 'locations/bank.php';
 	}
-}
+//}
 
 echo $res;
+
+mysqli_close($connection);
+
 ?>

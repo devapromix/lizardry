@@ -14,7 +14,7 @@ if ($action == 'bank') {
 		if ($amount > $user['char_gold']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] -= $amount;
 		$user['char_bank'] += $amount;
-		save_character();
+		update_user_table("char_gold=".$user['char_gold'].",char_bank=".$user['char_bank']);
 		$user['log'] = 'Вы положили в банк '.$amount.' зол. мон.';
 	}
 	
@@ -23,7 +23,7 @@ if ($action == 'bank') {
 		if ($amount > $user['char_bank']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] += $amount;
 		$user['char_bank'] -= $amount;
-		save_character();
+		update_user_table("char_gold=".$user['char_gold'].",char_bank=".$user['char_bank']);
 		$user['log'] = 'Вы забрали из банка '.$amount.' зол. мон.';
 	}
 	

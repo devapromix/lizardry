@@ -84,6 +84,9 @@ implementation
 
 uses JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo;
 
+var
+  LastCode: string = '';
+
 procedure TFrameTown.DoAction(S: string);
 begin
   ParseJSON(Server.Get(S));
@@ -224,7 +227,7 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
-  S, V, Cur, Max: string;
+  S, V, Cur, Max, Code: string;
   I: Integer;
 begin
   MsgBox(AJSON);
@@ -242,6 +245,8 @@ begin
   end;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
+    if JSON.TryGetValue('check_save', Code) then
+      FormMain.Caption := Format('%s %s', [Code, LastCode]);
     if JSON.TryGetValue('log', S) then
     begin
       FrameInfo1.BringToFront;
@@ -360,9 +365,8 @@ begin
     if JSON.TryGetValue('enemy_image', S) then
       FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
-
-    // if JSON.TryGetValue('fileroot', S) then
-    // ShowMessage(S);
+    LastCode := Code;
+//    ShowMessage(Server.GetFile);
   finally
     JSON.Free;
   end;

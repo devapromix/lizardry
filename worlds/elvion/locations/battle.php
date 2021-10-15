@@ -31,7 +31,9 @@ if ($action == 'battle') {
 		$user['links'][0]['link'] = 'index.php?action='.$user['current_outlands'];
 		$user['battlelog'] = auto_battle();	
 		$user['enemy_block_refresh'] = 0;
-		save_character();
+			
+		update_user_table("enemy_block_refresh=".$user['enemy_block_refresh'].",char_life_cur=".$user['char_life_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur']);
+	
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);

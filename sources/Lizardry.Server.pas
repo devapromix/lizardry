@@ -12,6 +12,7 @@ type
     FURL: string;
   public
     function Get(AURL: string): string;
+    function GetFile: string;
     constructor Create(const AURL, AName: string);
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
@@ -103,6 +104,12 @@ begin
     on E: EIdHTTPProtocolException do
       ShowMessage(IntToStr(E.ErrorCode));
   end;
+end;
+
+function TServer.GetFile: string;
+begin
+  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/characters/character.'
+    + LowerCase(FormMain.FrameLogin.edUserName.Text) + '.json');
 end;
 
 {

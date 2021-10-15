@@ -10,9 +10,10 @@ if ($action == 'graycave') {
 		$user['enemy_slot_2'] = rand(4, 6);
 		$user['enemy_slot_3'] = rand(4, 6);
 		$user['enemy_block_refresh'] = 1;
-		save_character();
 	}
-
+	
+	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_3=".$user['enemy_slot_3'].",enemy_block_refresh=".$user['enemy_block_refresh']);
+	
 	$user['title'] = 'Серая Пещера';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Весьма мрачная пещера, которая состоит из двух частей. Первая часть, что находится рядом со входом - это мелкий водоём, из которого выглядывают небольшие валуны и целые глыбы. Вторая же - каменный просторный зал, в дальнем конце которого темнеет Пролом - вход в еще более мрачные глубины подземелья. Единственным источником освещения здесь является щель в каменном своде.';

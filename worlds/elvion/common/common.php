@@ -54,10 +54,15 @@ function save_character() {
 	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
 
 	$file .= '$user[\'current_outlands\'] = "'.$user['current_outlands'].'";'."\n";
+	
+	$file .= '$user[\'check_save\'] = '.$user['check_save'].';'."\n";
 
 	$file .= "\n?>";
 
 	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.php', $file, LOCK_EX);	
+	
+	$file = json_encode($user, JSON_UNESCAPED_UNICODE);
+	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.json', $file, LOCK_EX);	
 }
 
 function gen_enemy($enemy_id) {
@@ -144,7 +149,16 @@ function gen_enemy($enemy_id) {
 		$user['enemy_damage_max'] = rand(9, 10);
 	}
 	$user['enemy_exp'] = round($user['enemy_life_max'] / 2);
-	save_character();
+	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_exp=".$user['enemy_exp']);
+
+}
+
+function update_user_table($s) {
+	global $connection, $user, $tb_user;
+	$query = "UPDATE ".$tb_user." SET ".$s." WHERE user_name='".$user['user_name']."'";
+	if (!mysqli_query($connection, $query)) {
+		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
+	}
 }
 
 function get_char_level_exp($level) {

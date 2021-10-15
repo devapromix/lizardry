@@ -18,6 +18,7 @@ object FrameChat: TFrameChat
       Height = 30
       Align = alClient
       AutoSize = False
+      Color = clBtnFace
       MaxLength = 250
       TabOrder = 0
       ExplicitLeft = 4
@@ -43,6 +44,7 @@ object FrameChat: TFrameChat
       Width = 421
       Height = 421
       Align = alClient
+      Color = clBtnFace
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -11

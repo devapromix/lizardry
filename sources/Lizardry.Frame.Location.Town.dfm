@@ -17,7 +17,6 @@ object FrameTown: TFrameTown
     Height = 474
     Align = alRight
     BevelOuter = bvNone
-    Color = clGreen
     ParentBackground = False
     TabOrder = 0
     object Panel8: TPanel
@@ -157,7 +156,6 @@ object FrameTown: TFrameTown
     Height = 474
     Align = alLeft
     BevelOuter = bvNone
-    Color = clGreen
     ParentBackground = False
     TabOrder = 1
     object LinkPanel1: TPanel
@@ -320,15 +318,23 @@ object FrameTown: TFrameTown
       ExplicitWidth = 337
       ExplicitHeight = 474
       inherited Panel1: TPanel
-        Top = 208
+        Top = 217
         Width = 337
-        DesignSize = (
-          337
-          41)
+        inherited edChatMsg: TEdit
+          Width = 335
+        end
       end
       inherited Panel2: TPanel
         Width = 337
-        Height = 208
+        Height = 217
+        inherited RichEdit1: TRichEdit
+          Width = 335
+          Height = 215
+          ExplicitLeft = 1
+          ExplicitTop = 1
+          ExplicitWidth = 335
+          ExplicitHeight = 215
+        end
       end
     end
     object Panel10: TPanel

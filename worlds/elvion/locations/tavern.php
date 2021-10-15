@@ -18,7 +18,7 @@ if ($action == 'tavern') {
 		$user['char_life_cur'] = $user['char_life_max'];
 		$user['char_mana_cur'] = $user['char_mana_max'];
 		$user['char_gold'] -= 15;
-		save_character();
+		update_user_table("char_gold=".$user['char_gold'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['log'] = 'Вы хорошо отдохнули и набрались сил.';
 	}
 	
@@ -29,7 +29,7 @@ if ($action == 'tavern') {
 		if ($amount + $user['char_food'] > 7) die('{"error":"Введите правильное число!"}'); 
 		$user['char_gold'] -= $amount * 10;
 		$user['char_food'] += $amount;
-		save_character();
+		update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food']);
 		$user['log'] = 'Вы купили провизию (+'.$amount.')';
 }
 
