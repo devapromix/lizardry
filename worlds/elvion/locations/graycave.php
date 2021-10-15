@@ -14,7 +14,7 @@ if ($action == 'graycave') {
 
 	$user['title'] = 'Серая Пещера';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = 'Весьма мрачная пещера, которая состоит из двух частей. Первая часть, что находится рядом со входом - это мелкий водоём, из которого выглядывают небольшие валуны и целые глыбы. Вторая же - каменный просторный зал, в дальнем конце которого темнеет вход в мрачные глубины подземелья. Единственным источником освещения здесь является щель в каменном своде.';
+		$user['description'] = 'Весьма мрачная пещера, которая состоит из двух частей. Первая часть, что находится рядом со входом - это мелкий водоём, из которого выглядывают небольшие валуны и целые глыбы. Вторая же - каменный просторный зал, в дальнем конце которого темнеет Пролом - вход в еще более мрачные глубины подземелья. Единственным источником освещения здесь является щель в каменном своде.';
 	}else{
 		$user['description'] = 'Ваша душа взмыла ввысь над валунами...';
 	}
@@ -23,23 +23,11 @@ if ($action == 'graycave') {
 	if ($user['char_life_cur'] > 0) {
 		$user['links'][0]['title'] = 'Искать выход из пещеры';
 		$user['links'][0]['link'] = 'index.php?action=forest';	
-		$user['links'][1]['title'] = 'Войти в Логово Каменного Червя';
-		$user['links'][1]['link'] = 'index.php?action=stonewormlair';
+		$user['links'][1]['title'] = 'Войти в Темный Пролом';
+		$user['links'][1]['link'] = 'index.php?action=deepcave';
 	} else {
 		$user['links'][0]['title'] = 'Отправиться на кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';
-	}
-
-	if ($do == 'rest_in_outlands') {
-		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		if ($user['char_food'] <= 0) die('{"error":"Вы не можете здесь отдыхать - нет провизии!"}');
-		if (($user['char_life_cur'] == $user['char_life_max'])
-			&&($user['char_mana_cur'] == $user['char_mana_max'])) die('{"info":"Вам незачем отдыхать - вы здоровы и полны сил!"}');
-		$user['char_life_cur'] = $user['char_life_max'];
-		$user['char_mana_cur'] = $user['char_mana_max'];
-		$user['char_food'] --;
-		save_character();
-		$user['log'] = 'Вы хорошо отдохнули и набрались сил.';
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
