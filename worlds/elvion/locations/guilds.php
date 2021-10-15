@@ -16,7 +16,7 @@ if ($action == 'guild_str') {
 		$user['char_level']++;
 		$user['char_damage_min']++;
 		$user['char_damage_max']++;
-		save_character();
+		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Назад';
@@ -43,7 +43,7 @@ if ($action == 'guild_body') {
 		$user['char_level']++;
 		$user['char_life_cur'] = $user['char_life_cur'] + 5;
 		$user['char_life_max'] = $user['char_life_max'] + 5;
-		save_character();
+		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Назад';
@@ -69,7 +69,7 @@ if ($action == 'guild_adv') {
 		$user['char_exp'] = $user['char_exp'] - get_char_level_exp($user['char_level']);
 		$user['char_level']++;
 		$user['char_damage_max'] = $user['char_damage_max'] + 2;
-		save_character();
+		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_damage_max=".$user['char_damage_max']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Назад';
