@@ -14,143 +14,38 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
-function save_character() {
-	global $user, $username, $userpass;
+function gen_enemy($enemy_ident) {
+	global $user, $tb_enemy, $connection;
+	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$enemy = $result->fetch_assoc();	
 
-	$file .= "<?php\n\n";	
-	$file .= '$user = array();'."\n";
+	$user['enemy_name'] = $enemy['enemy_name'];
+	$user['enemy_image'] = $enemy['enemy_image'];
+	$user['enemy_level'] = $enemy['enemy_level'];
+	$user['enemy_life_max'] = rand($enemy['enemy_life_min'], $enemy['enemy_life_max']);
+	$user['enemy_life_cur'] = $user['enemy_life_max'];
+	$user['enemy_damage_min'] = $enemy['enemy_damage_min'];
+	$user['enemy_damage_max'] = $enemy['enemy_damage_max'];
+	$user['enemy_armor'] = $enemy['enemy_armor'];
+	$user['enemy_exp'] = $enemy['enemy_exp'];
+	$user['enemy_gold'] = rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
 
-	$file .= '$user[\'user_name\'] = "'.$username.'";'."\n";
-	$file .= '$user[\'user_pass\'] = "'.$userpass.'";'."\n";
+	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold']);
 
-	$file .= '$user[\'char_name\'] = "'.$user['char_name'].'";'."\n";
-	$file .= '$user[\'char_level\'] = '.$user['char_level'].';'."\n";
-	$file .= '$user[\'char_exp\'] = '.$user['char_exp'].';'."\n";
-	$file .= '$user[\'char_gold\'] = '.$user['char_gold'].';'."\n";
-	$file .= '$user[\'char_bank\'] = '.$user['char_bank'].';'."\n";
-	$file .= '$user[\'char_food\'] = '.$user['char_food'].';'."\n";
-	$file .= '$user[\'char_damage_min\'] = '.$user['char_damage_min'].';'."\n";
-	$file .= '$user[\'char_damage_max\'] = '.$user['char_damage_max'].';'."\n";
-	$file .= '$user[\'char_armor\'] = '.$user['char_armor'].';'."\n";
-	$file .= '$user[\'char_life_cur\'] = '.$user['char_life_cur'].';'."\n";
-	$file .= '$user[\'char_life_max\'] = '.$user['char_life_max'].';'."\n";
-	$file .= '$user[\'char_mana_cur\'] = '.$user['char_mana_cur'].';'."\n";
-	$file .= '$user[\'char_mana_max\'] = '.$user['char_mana_max'].';'."\n";
-
-	$file .= '$user[\'enemy_slot_1\'] = '.$user['enemy_slot_1'].';'."\n";
-	$file .= '$user[\'enemy_slot_2\'] = '.$user['enemy_slot_2'].';'."\n";
-	$file .= '$user[\'enemy_slot_3\'] = '.$user['enemy_slot_3'].';'."\n";
-	$file .= '$user[\'enemy_block_refresh\'] = '.$user['enemy_block_refresh'].';'."\n";
-
-	$file .= '$user[\'enemy_name\'] = "'.$user['enemy_name'].'";'."\n";
-	$file .= '$user[\'enemy_image\'] = "'.$user['enemy_image'].'";'."\n";
-	$file .= '$user[\'enemy_level\'] = '.$user['enemy_level'].';'."\n";
-	$file .= '$user[\'enemy_exp\'] = '.$user['enemy_exp'].';'."\n";
-	$file .= '$user[\'enemy_gold\'] = '.$user['enemy_gold'].';'."\n";
-	$file .= '$user[\'enemy_damage_min\'] = '.$user['enemy_damage_min'].';'."\n";
-	$file .= '$user[\'enemy_damage_max\'] = '.$user['enemy_damage_max'].';'."\n";
-	$file .= '$user[\'enemy_armor\'] = '.$user['enemy_armor'].';'."\n";
-	$file .= '$user[\'enemy_life_cur\'] = '.$user['enemy_life_cur'].';'."\n";
-	$file .= '$user[\'enemy_life_max\'] = '.$user['enemy_life_max'].';'."\n";
-
-	$file .= '$user[\'current_outlands\'] = "'.$user['current_outlands'].'";'."\n";
-	
-	$file .= '$user[\'check_save\'] = '.$user['check_save'].';'."\n";
-
-	$file .= "\n?>";
-
-	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.php', $file, LOCK_EX);	
-	
-	$file = json_encode($user, JSON_UNESCAPED_UNICODE);
-	file_put_contents(PATH.'characters'.DS.'character.'.$username.'.json', $file, LOCK_EX);	
 }
 
-function gen_enemy($enemy_id) {
-	global $user;
-	if ($enemy_id == 1) {
-		$user['enemy_name'] = 'Серый Волк';
-		$user['enemy_image'] = 'ENEMY_GRAY_WOLF';
-		$user['enemy_level'] = 1;
-		$user['enemy_life_max'] = (rand(1, 4) - 2) + 15;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = 2;
-		$user['enemy_damage_max'] = 3;
-	} else if ($enemy_id == 2) {
-		$user['enemy_name'] = 'Бурый Медведь';
-		$user['enemy_image'] = 'ENEMY_BROWN_BEAR';
-		$user['enemy_level'] = 2;
-		$user['enemy_life_max'] = (rand(1, 4) - 2) + 25;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = 3;
-		$user['enemy_damage_max'] = 4;
-	} else if ($enemy_id == 3) {
-		$user['enemy_name'] = 'Гигантский Паук';
-		$user['enemy_image'] = 'ENEMY_GIANT_SPIDER';
-		$user['enemy_level'] = 2;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 20;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(2, 4);
-		$user['enemy_damage_max'] = 4;
-	} else if ($enemy_id == 4) {
-		$user['enemy_name'] = 'Темный Гоблин';
-		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN';
-		$user['enemy_level'] = 5;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 35;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(3, 4);
-		$user['enemy_damage_max'] = rand(5, 6);
-	} else if ($enemy_id == 5) {
-		$user['enemy_name'] = 'Темный Гоблин-шаман';
-		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN_SHAMAN';
-		$user['enemy_level'] = 3;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 25;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(2, 3);
-		$user['enemy_damage_max'] = 4;
-	} else if ($enemy_id == 6) {
-		$user['enemy_name'] = 'Темный Гоблин-вор';
-		$user['enemy_image'] = 'ENEMY_DARK_GOBLIN_THIEF';
-		$user['enemy_level'] = 4;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 30;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(2, 3);
-		$user['enemy_damage_max'] = rand(4, 5);
-	} else if ($enemy_id == 7) {
-		$user['enemy_name'] = 'Пещерный Гигант';
-		$user['enemy_image'] = 'ENEMY_CAVE_GIANT';
-		$user['enemy_level'] = 5;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 40;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(3, 4);
-		$user['enemy_damage_max'] = rand(5, 6);
-	} else if ($enemy_id == 8) {
-		$user['enemy_name'] = 'Собиратель Черепов';
-		$user['enemy_image'] = 'ENEMY_BEAST';
-		$user['enemy_level'] = 6;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 45;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(4, 5);
-		$user['enemy_damage_max'] = rand(6, 7);
-	} else if ($enemy_id == 9) {
-		$user['enemy_name'] = 'Тролль';
-		$user['enemy_image'] = 'ENEMY_TROLL';
-		$user['enemy_level'] = 7;
-		$user['enemy_life_max'] = (rand(1, 6) - 3) + 50;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(4, 6);
-		$user['enemy_damage_max'] = rand(7, 8);
-	} else if ($enemy_id == 10) {
-		$user['enemy_name'] = 'КАМЕННЫЙ ЧЕРВЬ';
-		$user['enemy_image'] = 'ENEMY_BOSS_STONE_WORM';
-		$user['enemy_level'] = 8;
-		$user['enemy_life_max'] = (rand(1, 10) - 5) + 75;
-		$user['enemy_life_cur'] = $user['enemy_life_max'];
-		$user['enemy_damage_min'] = rand(6, 8);
-		$user['enemy_damage_max'] = rand(9, 10);
+function check_user($user_name) {
+	global $connection, $tb_user;
+	$query = "SELECT user_name FROM ".$tb_user." WHERE user_name='".$user_name."'";
+	$user = mysqli_query($connection, $query) 
+	  or die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
+	if(mysqli_num_rows($user) > 0) {
+		return true;
+	} else {
+		return false;
 	}
-	$user['enemy_exp'] = round($user['enemy_life_max'] / 2);
-	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_exp=".$user['enemy_exp']);
-
 }
 
 function update_user_table($s) {
@@ -194,7 +89,7 @@ function post_param($value, $default) {
 	return $res;
 }
 
-function add_event($type){
+function add_event($type, $name){
 	global $user;
 	$f = PATH."events".DS."events.txt";
 	$h = file($f);
@@ -216,7 +111,7 @@ function add_event($type){
 	}
 	$data = array();
 	$data[] = $type;
-	$data[] = $user['char_name'];
+	$data[] = $name;
 	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
@@ -266,7 +161,7 @@ function auto_battle() {
 		
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
-			$gold = rand(1, 10) + ($user['char_level'] * 5);
+			$gold = $user['enemy_gold'];
 			$user['char_gold'] += $gold;
 			$exp = $user['enemy_exp'];
 			$user['char_exp'] += $exp;

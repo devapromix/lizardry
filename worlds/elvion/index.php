@@ -9,49 +9,50 @@ $action = $_GET['action'];
 $amount = $_GET['amount'];
 $enemyslot = $_GET['enemyslot'];
 
-	$connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-	$query = 'SELECT * FROM '.$tb_user;
-	$result = mysqli_query($connection, $query);
-    $user = $result->fetch_assoc();
+$connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+if (!$connection) {
+	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
+}
+$query = 'SELECT * FROM '.$tb_user." WHERE user_name='".$username."' AND user_pass='".$userpass."'";
+$result = mysqli_query($connection, $query) 
+	or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+$user = $result->fetch_assoc();
 
-//if (file_exists(PATH.'characters'.DS.'character.'.$username.'.php')) {
-	//include PATH.'characters'.DS.'character.'.$username.'.php';
-	if (($userpass != '')&&($userpass == $user['user_pass'])) {
-		if ($action == 'login') {
-			$res = '1';
-		}
-		if ($action == 'version') {
-			$res = get_file_int(PATH.'version.txt');
-		}
-		// Camp
-		include 'locations/camp.php';
-		// Battle
-		include 'locations/battle.php';
-		// Gate
-		include 'locations/gate.php';
-		// Guilds
-		include 'locations/guilds.php';
-		// Graveyard
-		include 'locations/graveyard.php';
-		// Town
-		include 'locations/town.php';
-		// Forest
-		include 'locations/forest.php';
-		// Gray Cave
-		include 'locations/graycave.php';
-		// Deep Cave
-		include 'locations/deepcave.php';
-		// Stoneworm Lair
-		include 'locations/stonewormlair.php';
-		// Tavern
-		include 'locations/tavern.php';
-		// Bank
-		include 'locations/bank.php';
+if (($userpass != '')&&($userpass == $user['user_pass'])) {
+	if ($action == 'login') {
+		$res = '1';
 	}
-//}
-
-echo $res;
+	if ($action == 'version') {
+		$res = get_file_int(PATH.'version.txt');
+	}
+	// Camp
+	include 'locations/camp.php';
+	// Battle
+	include 'locations/battle.php';
+	// Gate
+	include 'locations/gate.php';
+	// Guilds
+	include 'locations/guilds.php';
+	// Graveyard
+	include 'locations/graveyard.php';
+	// Town
+	include 'locations/town.php';
+	// Forest
+	include 'locations/forest.php';
+	// Gray Cave
+	include 'locations/graycave.php';
+	// Deep Cave
+	include 'locations/deepcave.php';
+	// Stoneworm Lair
+	include 'locations/stonewormlair.php';
+	// Tavern
+	include 'locations/tavern.php';
+	// Bank
+	include 'locations/bank.php';
+}
 
 mysqli_close($connection);
+
+echo $res;
 
 ?>

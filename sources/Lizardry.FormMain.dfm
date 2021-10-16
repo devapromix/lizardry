@@ -136,17 +136,17 @@ object FormMain: TFormMain
     TabOrder = 2
     ExplicitWidth = 1184
     ExplicitHeight = 712
-    inherited Panel7: TPanel
+    inherited RightPanel: TPanel
       Left = 904
       Height = 712
       ExplicitLeft = 904
       ExplicitHeight = 712
     end
-    inherited Panel1: TPanel
+    inherited LeftPanel: TPanel
       Height = 712
       ExplicitHeight = 712
     end
-    inherited Panel9: TPanel
+    inherited MainPanel: TPanel
       Width = 624
       Height = 712
       ExplicitWidth = 624
@@ -154,7 +154,33 @@ object FormMain: TFormMain
       inherited FrameChat: TFrameChat
         Width = 624
         Height = 487
-        ExplicitTop = 25
+        ExplicitWidth = 624
+        ExplicitHeight = 487
+        inherited Panel1: TPanel
+          Top = 455
+          Width = 624
+          ExplicitTop = 455
+          ExplicitWidth = 624
+          inherited edChatMsg: TEdit
+            Width = 622
+            ExplicitLeft = 1
+            ExplicitTop = 1
+            ExplicitWidth = 622
+            ExplicitHeight = 30
+          end
+        end
+        inherited Panel2: TPanel
+          Width = 624
+          Height = 455
+          ExplicitWidth = 624
+          ExplicitHeight = 455
+          inherited RichEdit1: TRichEdit
+            Width = 622
+            Height = 453
+            ExplicitWidth = 622
+            ExplicitHeight = 453
+          end
+        end
       end
       inherited Panel10: TPanel
         Width = 624

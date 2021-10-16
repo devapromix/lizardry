@@ -45,7 +45,7 @@ object FrameTown: TFrameTown
     object Panel12: TPanel
       Tag = 5
       Left = 0
-      Top = 200
+      Top = 250
       Width = 280
       Height = 25
       Align = alTop
@@ -53,6 +53,7 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
+      ExplicitTop = 200
     end
     object Panel13: TPanel
       Tag = 5
@@ -81,7 +82,7 @@ object FrameTown: TFrameTown
     object Panel15: TPanel
       Tag = 5
       Left = 0
-      Top = 175
+      Top = 225
       Width = 280
       Height = 25
       Align = alTop
@@ -89,6 +90,7 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
+      ExplicitTop = 175
     end
     object Panel16: TPanel
       Tag = 5
@@ -127,7 +129,7 @@ object FrameTown: TFrameTown
     object Panel17: TPanel
       Tag = 5
       Left = 0
-      Top = 125
+      Top = 175
       Width = 280
       Height = 25
       Align = alTop
@@ -135,11 +137,12 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
+      ExplicitTop = 125
     end
     object Panel18: TPanel
       Tag = 5
       Left = 0
-      Top = 150
+      Top = 200
       Width = 280
       Height = 25
       Align = alTop
@@ -147,6 +150,35 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
+      ExplicitTop = 150
+    end
+    object pnEqWeapon: TPanel
+      Tag = 5
+      Left = 0
+      Top = 125
+      Width = 280
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1054#1088#1091#1078#1080#1077':'
+      ParentBackground = False
+      TabOrder = 9
+      ExplicitLeft = 4
+      ExplicitTop = 119
+    end
+    object pnEqArmor: TPanel
+      Tag = 5
+      Left = 0
+      Top = 150
+      Width = 280
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1041#1088#1086#1085#1103':'
+      ParentBackground = False
+      TabOrder = 10
+      ExplicitLeft = 4
+      ExplicitTop = 145
     end
   end
   object LeftPanel: TPanel
@@ -314,24 +346,30 @@ object FrameTown: TFrameTown
       Height = 249
       Align = alClient
       TabOrder = 3
-      ExplicitLeft = 280
+      ExplicitTop = 25
       ExplicitWidth = 337
-      ExplicitHeight = 474
+      ExplicitHeight = 249
       inherited Panel1: TPanel
         Top = 217
         Width = 337
+        ExplicitTop = 217
+        ExplicitWidth = 337
         inherited edChatMsg: TEdit
           Width = 335
+          ExplicitLeft = 1
+          ExplicitTop = 1
+          ExplicitWidth = 335
+          ExplicitHeight = 30
         end
       end
       inherited Panel2: TPanel
         Width = 337
         Height = 217
+        ExplicitWidth = 337
+        ExplicitHeight = 217
         inherited RichEdit1: TRichEdit
           Width = 335
           Height = 215
-          ExplicitLeft = 1
-          ExplicitTop = 1
           ExplicitWidth = 335
           ExplicitHeight = 215
         end

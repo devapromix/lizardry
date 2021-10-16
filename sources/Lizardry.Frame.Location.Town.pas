@@ -59,6 +59,8 @@ type
     bbDebug: TSpeedButton;
     FrameChat: TFrameChat;
     bbChat: TSpeedButton;
+    pnEqWeapon: TPanel;
+    pnEqArmor: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -349,6 +351,11 @@ begin
     end;
     if JSON.TryGetValue('char_armor', S) then
       Panel18.Caption := 'Броня: ' + S;
+    //
+    if JSON.TryGetValue('char_equip_weapon_name', S) then
+      pnEqWeapon.Caption := 'Оружие: ' + S;
+    if JSON.TryGetValue('char_equip_armor_name', S) then
+      pnEqArmor.Caption := 'Броня: ' + S;
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
