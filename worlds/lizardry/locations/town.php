@@ -16,12 +16,10 @@ if ($action == 'town') {
 		$user['links'][1]['link'] = 'index.php?action=bank';
 		$user['links'][2]['title'] = 'Таверна';
 		$user['links'][2]['link'] = 'index.php?action=tavern';
-		$user['links'][3]['title'] = 'Гильдия Силы';
-		$user['links'][3]['link'] = 'index.php?action=guild_str';
-		$user['links'][4]['title'] = 'Гильдия Тела';
-		$user['links'][4]['link'] = 'index.php?action=guild_body';
-		$user['links'][5]['title'] = 'Гильдия Стражников';
-		$user['links'][5]['link'] = 'index.php?action=guild_adv';
+		$user['links'][3]['title'] = 'Квартал Гильдий';
+		$user['links'][3]['link'] = 'index.php?action=guilds';
+		$user['links'][4]['title'] = 'Квартал Торговцев';
+		$user['links'][4]['link'] = 'index.php?action=shops';
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

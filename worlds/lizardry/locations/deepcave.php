@@ -10,8 +10,9 @@ if ($action == 'deepcave') {
 		$user['enemy_slot_2'] = rand(7, 9);
 		$user['enemy_slot_3'] = rand(7, 9);
 		$user['enemy_block_refresh'] = 1;
-		save_character();
 	}
+	
+	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_3=".$user['enemy_slot_3'].",enemy_block_refresh=".$user['enemy_block_refresh']);
 
 	$user['title'] = 'Глубокие Пещеры';
 	if ($user['char_life_cur'] > 0) {
