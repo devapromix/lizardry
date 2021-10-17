@@ -5,13 +5,13 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
 
 type
   TFormPrompt = class(TForm)
     bbOK: TSpeedButton;
-    lbMessage: TLabel;
     bbCancel: TSpeedButton;
+    lbMessage: TPanel;
     procedure bbCancelClick(Sender: TObject);
     procedure bbOKClick(Sender: TObject);
   private
