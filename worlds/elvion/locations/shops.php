@@ -34,11 +34,11 @@ if ($action == 'shop_armor') {
 	$user['links'][0]['title'] = 'Покинуть лавку';
 	$user['links'][0]['link'] = 'index.php?action=shops';
 
-	add_item(1, 5);
-	add_item(2, 4);
-	add_item(3, 3);
-	add_item(4, 2);
-	add_item(5, 1);
+	add_item_to_shop(1, 1);
+	add_item_to_shop(2, 2);
+	add_item_to_shop(3, 3);
+	add_item_to_shop(4, 4);
+	add_item_to_shop(5, 5);
 
 	if ($do == 'buy') {
 		if ($itemslot == '1')

@@ -71,7 +71,7 @@ function item_values($item_ident) {
 	}
 }
 
-function add_item($item_slot, $item_ident) {
+function add_item_to_shop($item_slot, $item_ident) {
 	global $user, $tb_item, $connection;
 
 	switch($item_slot) {
