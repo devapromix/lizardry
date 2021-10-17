@@ -324,7 +324,8 @@ begin
             A := S.Split([',']);
             pnItemSlot1Name.Caption := A[0];
             pnItemSlot1Value.Caption := A[1];
-            pnItemSlot1Price.Caption := A[2];
+            pnItemSlot1Level.Caption := A[2];
+            pnItemSlot1Price.Caption := A[3];
           end else
             pnItemSlot1Name.Caption := '';
           if JSON.TryGetValue('item_slot_2_values', S) then
@@ -332,7 +333,8 @@ begin
             A := S.Split([',']);
             pnItemSlot2Name.Caption := A[0];
             pnItemSlot2Value.Caption := A[1];
-            pnItemSlot2Price.Caption := A[2];
+            pnItemSlot2Level.Caption := A[2];
+            pnItemSlot2Price.Caption := A[3];
           end else
             pnItemSlot2Name.Caption := '';
           if JSON.TryGetValue('item_slot_3_values', S) then
@@ -340,7 +342,8 @@ begin
             A := S.Split([',']);
             pnItemSlot3Name.Caption := A[0];
             pnItemSlot3Value.Caption := A[1];
-            pnItemSlot3Price.Caption := A[2];
+            pnItemSlot3Level.Caption := A[2];
+            pnItemSlot3Price.Caption := A[3];
           end else
             pnItemSlot3Name.Caption := '';
           if JSON.TryGetValue('item_slot_4_values', S) then
@@ -348,7 +351,8 @@ begin
             A := S.Split([',']);
             pnItemSlot4Name.Caption := A[0];
             pnItemSlot4Value.Caption := A[1];
-            pnItemSlot4Price.Caption := A[2];
+            pnItemSlot4Level.Caption := A[2];
+            pnItemSlot4Price.Caption := A[3];
           end else
             pnItemSlot4Name.Caption := '';
           if JSON.TryGetValue('item_slot_5_values', S) then
@@ -356,7 +360,8 @@ begin
             A := S.Split([',']);
             pnItemSlot5Name.Caption := A[0];
             pnItemSlot5Value.Caption := A[1];
-            pnItemSlot5Price.Caption := A[2];
+            pnItemSlot5Level.Caption := A[2];
+            pnItemSlot5Price.Caption := A[3];
           end else
             pnItemSlot5Name.Caption := '';
           BringToFront;

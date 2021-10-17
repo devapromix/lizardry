@@ -37,6 +37,12 @@ type
     Panel5: TPanel;
     lbShopDescr: TLabel;
     Label1: TLabel;
+    Panel6: TPanel;
+    pnItemSlot1Level: TPanel;
+    pnItemSlot2Level: TPanel;
+    pnItemSlot3Level: TPanel;
+    pnItemSlot4Level: TPanel;
+    pnItemSlot5Level: TPanel;
     procedure pnItemSlot1NameClick(Sender: TObject);
     procedure pnItemSlot2NameClick(Sender: TObject);
     procedure pnItemSlot3NameClick(Sender: TObject);

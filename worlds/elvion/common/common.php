@@ -46,12 +46,14 @@ function equip_item($item_ident) {
 	switch($item['item_type']) {
 		case 0:
 			if ($user['char_gold'] >= $item['item_price']) {
-				$user['char_equip_armor_name'] = $item['item_name'];
-				$user['char_equip_armor_ident'] = $item['item_ident'];
-				$user['char_gold'] = $user['char_gold'] - $item['item_price'];
-				$user['char_armor'] = $item['item_armor'];
-				update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
-			} else die('{"error":"Нужно больше золота!"}');
+				if ($user['char_level'] >= $item['item_level']) {
+					$user['char_equip_armor_name'] = $item['item_name'];
+					$user['char_equip_armor_ident'] = $item['item_ident'];
+					$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+					$user['char_armor'] = $item['item_armor'];
+					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+				} else die('{"info":"Нужен уровень выше!"}');
+			} else die('{"info":"Нужно больше золота!"}');
 			break;
 	}
 }
@@ -64,7 +66,7 @@ function item_values($item_ident) {
 	$item = $result->fetch_assoc();
 	switch($item['item_type']) {
 		case 0:
-			return $item['item_name'].','.$item['item_armor'].','.$item['item_price'];
+			return $item['item_name'].','.$item['item_armor'].','.$item['item_level'].','.$item['item_price'];
 			break;
 	}
 }
