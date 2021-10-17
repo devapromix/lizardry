@@ -184,35 +184,40 @@ function auto_battle() {
 	global $user;
 	
 	$r = '';
-	$c = 0;
 	
 	while(true) {
 
-		if (rand(1, $c + 5) >= 2) {
-			$d = rand($user['char_damage_min'], $user['char_damage_max']);
-			$user['enemy_life_cur'] -= $d;
-			if ($user['enemy_life_cur'] > 0) {
-				$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
-			}else{
-				$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+		if (rand(1, 5) >= 2) {
+			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
+			if ($d <= 0) {
+				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
+			} else {
+				$user['enemy_life_cur'] -= $d;
+				if ($user['enemy_life_cur'] > 0) {
+					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
+				}else{
+					$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+				}
 			}
 		} else {
 			$r .= 'Вы промахиваетесь по '.$user['enemy_name'].'.#';
-			$c++;
 		}		
 		
 		if ($user['enemy_life_cur'] > 0) {
-			if (rand(1, $c + 5) >= 2) {
-				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
-				$user['char_life_cur'] -= $d;
-				if ($user['char_life_cur'] > 0) {
-					$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-				}else{
-					$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+			if (rand(1, 5) >= 2) {
+				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
+				if ($d <= 0) {
+					$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
+				} else {
+					$user['char_life_cur'] -= $d;
+					if ($user['char_life_cur'] > 0) {
+						$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+					}else{
+						$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+					}
 				}
 			} else {
 				$r .= $user['enemy_name'].' промахивается по вам.#';
-				$c++;
 			}
 		}
 		
