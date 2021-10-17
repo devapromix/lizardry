@@ -69,7 +69,7 @@ procedure TFrameShop.pnItemSlot2NameClick(Sender: TObject);
 begin
   if IsChatMode then
     Exit;
-  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+  Prompt(Format(Msg, [pnItemSlot2Name.Caption, pnItemSlot2Price.Caption]),
     'Купить', 'index.php?action=shop_armor&do=buy&itemslot=2');
 end;
 
@@ -77,7 +77,7 @@ procedure TFrameShop.pnItemSlot3NameClick(Sender: TObject);
 begin
   if IsChatMode then
     Exit;
-  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+  Prompt(Format(Msg, [pnItemSlot3Name.Caption, pnItemSlot3Price.Caption]),
     'Купить', 'index.php?action=shop_armor&do=buy&itemslot=3');
 end;
 
@@ -85,7 +85,7 @@ procedure TFrameShop.pnItemSlot4NameClick(Sender: TObject);
 begin
   if IsChatMode then
     Exit;
-  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+  Prompt(Format(Msg, [pnItemSlot4Name.Caption, pnItemSlot4Price.Caption]),
     'Купить', 'index.php?action=shop_armor&do=buy&itemslot=4');
 end;
 
@@ -93,7 +93,7 @@ procedure TFrameShop.pnItemSlot5NameClick(Sender: TObject);
 begin
   if IsChatMode then
     Exit;
-  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+  Prompt(Format(Msg, [pnItemSlot5Name.Caption, pnItemSlot5Price.Caption]),
     'Купить', 'index.php?action=shop_armor&do=buy&itemslot=5');
 end;
 
