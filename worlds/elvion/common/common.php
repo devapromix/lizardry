@@ -36,6 +36,71 @@ function gen_enemy($enemy_ident) {
 
 }
 
+function equip_item($item_ident) {
+	global $user, $tb_item, $connection;
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	switch($item['item_type']) {
+		case 0:
+			if ($user['char_gold'] >= $item['item_price']) {
+				$user['char_equip_armor_name'] = $item['item_name'];
+				$user['char_equip_armor_ident'] = $item['item_ident'];
+				$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+				$user['char_armor'] = $item['item_armor'];
+				update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+			} else die('{"error":"Нужно больше золота!"}');
+			break;
+	}
+}
+
+function item_values($item_ident) {
+	global $user, $tb_item, $connection;
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+	switch($item['item_type']) {
+		case 0:
+			return $item['item_name'].','.$item['item_armor'].','.$item['item_price'];
+			break;
+	}
+}
+
+function add_item($item_slot, $item_ident) {
+	global $user, $tb_item, $connection;
+
+	switch($item_slot) {
+		case 1:
+			$user['item_slot_1'] = $item_ident;
+			$user['item_slot_1_values'] = item_values($item_ident);
+			update_user_table("item_slot_1=".$user['item_slot_1']);
+			break;
+		case 2:
+			$user['item_slot_2'] = $item_ident;
+			$user['item_slot_2_values'] = item_values($item_ident);
+			update_user_table("item_slot_2=".$user['item_slot_2']);
+			break;
+		case 3:
+			$user['item_slot_3'] = $item_ident;
+			$user['item_slot_3_values'] = item_values($item_ident);
+			update_user_table("item_slot_3=".$user['item_slot_3']);
+			break;
+		case 4:
+			$user['item_slot_4'] = $item_ident;
+			$user['item_slot_4_values'] = item_values($item_ident);
+			update_user_table("item_slot_4=".$user['item_slot_4']);
+			break;
+		case 5:
+			$user['item_slot_5'] = $item_ident;
+			$user['item_slot_5_values'] = item_values($item_ident);
+			update_user_table("item_slot_5=".$user['item_slot_5']);
+			break;
+	}
+}
+
 function check_user($user_name) {
 	global $connection, $tb_user;
 	$query = "SELECT user_name FROM ".$tb_user." WHERE user_name='".$user_name."'";

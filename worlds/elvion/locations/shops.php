@@ -26,7 +26,6 @@ if ($action == 'shops') {
 if ($action == 'shop_armor') {
 	
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-	if ($user['char_gold'] <= 0) die('{"error":"Вы не можете здесь ничего купить - нет денег!"}');
 
 	$user['title'] = 'Лавка Бронника';
 	$user['description'] = '';
@@ -35,13 +34,26 @@ if ($action == 'shop_armor') {
 	$user['links'][0]['title'] = 'Покинуть лавку';
 	$user['links'][0]['link'] = 'index.php?action=shops';
 
-	$user['char_life_cur'] = $user['char_life_max'];
-	$user['char_mana_cur'] = $user['char_mana_max'];
-	$user['char_food'] --;
-	update_user_table("char_food=".$user['char_food'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-	$user['log'] = 'Вы хорошо отдохнули и набрались сил.';
+	add_item(1, 5);
+	add_item(2, 4);
+	add_item(3, 3);
+	add_item(4, 2);
+	add_item(5, 1);
 
-	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+	if ($do == 'buy') {
+		if ($itemslot == '1')
+			equip_item($user['item_slot_1']);
+		if ($itemslot == '2')
+			equip_item($user['item_slot_2']);
+		if ($itemslot == '3')
+			equip_item($user['item_slot_3']);
+		if ($itemslot == '4')
+			equip_item($user['item_slot_4']);
+		if ($itemslot == '5')
+			equip_item($user['item_slot_5']);
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
 }
 

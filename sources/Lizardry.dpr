@@ -18,7 +18,8 @@ uses
   Lizardry.FrameInfo in 'Lizardry.FrameInfo.pas' {FrameInfo: TFrame},
   Lizardry.FormInfo in 'Lizardry.FormInfo.pas' {FormInfo},
   Lizardry.FrameChat in 'Lizardry.FrameChat.pas' {FrameChat: TFrame},
-  Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame};
+  Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame},
+  Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt};
 
 {$R *.res}
 
@@ -27,5 +28,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormInfo, FormInfo);
+  Application.CreateForm(TFormPrompt, FormPrompt);
   Application.Run;
 end.

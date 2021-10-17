@@ -1,7 +1,7 @@
 object FrameShop: TFrameShop
   Left = 0
   Top = 0
-  Width = 579
+  Width = 692
   Height = 417
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
@@ -10,27 +10,39 @@ object FrameShop: TFrameShop
   Font.Style = []
   ParentFont = False
   TabOrder = 0
+  object Label1: TLabel
+    Left = 0
+    Top = 290
+    Width = 692
+    Height = 127
+    Align = alClient
+    AutoSize = False
+    WordWrap = True
+    ExplicitLeft = 2
+    ExplicitTop = 9
+    ExplicitWidth = 690
+    ExplicitHeight = 78
+  end
   object Panel12: TPanel
     Tag = 5
     Left = 0
     Top = 80
-    Width = 579
-    Height = 25
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 0
-    ExplicitTop = 250
-    ExplicitWidth = 280
     object Panel1: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Align = alClient
       Alignment = taLeftJustify
       Caption = #1053#1072#1079#1074#1072#1085#1080#1077
+      Color = clCream
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -39,18 +51,16 @@ object FrameShop: TFrameShop
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
-      ExplicitTop = 0
-      ExplicitWidth = 232
-      ExplicitHeight = 25
     end
     object pnShopItemValueName: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = #1041#1088#1086#1085#1103
+      Color = clCream
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -62,12 +72,13 @@ object FrameShop: TFrameShop
     end
     object Panel3: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = #1062#1077#1085#1072
+      Color = clCream
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -76,41 +87,37 @@ object FrameShop: TFrameShop
       ParentBackground = False
       ParentFont = False
       TabOrder = 2
-      ExplicitLeft = 424
-      ExplicitTop = 0
-      ExplicitHeight = 25
     end
   end
   object Panel4: TPanel
     Tag = 5
     Left = 0
-    Top = 205
-    Width = 579
-    Height = 25
+    Top = 255
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 8
     object pnItemSlot5Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
       ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 328
+      OnClick = pnItemSlot5NameClick
     end
     object pnItemSlot5Value: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -118,10 +125,10 @@ object FrameShop: TFrameShop
     end
     object pnItemSlot5Price: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -131,33 +138,32 @@ object FrameShop: TFrameShop
   object Panel8: TPanel
     Tag = 5
     Left = 0
-    Top = 105
-    Width = 579
-    Height = 25
+    Top = 115
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 2
-    ExplicitTop = 8
     object pnItemSlot1Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
       ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 328
+      OnClick = pnItemSlot1NameClick
     end
     object pnItemSlot1Value: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -165,10 +171,10 @@ object FrameShop: TFrameShop
     end
     object pnItemSlot1Price: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -178,32 +184,32 @@ object FrameShop: TFrameShop
   object Panel2: TPanel
     Tag = 5
     Left = 0
-    Top = 180
-    Width = 579
-    Height = 25
+    Top = 220
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 3
-    ExplicitTop = 33
     object pnItemSlot4Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
       ParentBackground = False
       TabOrder = 0
+      OnClick = pnItemSlot4NameClick
     end
     object pnItemSlot4Value: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -211,10 +217,10 @@ object FrameShop: TFrameShop
     end
     object pnItemSlot4Price: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -224,32 +230,32 @@ object FrameShop: TFrameShop
   object Panel16: TPanel
     Tag = 5
     Left = 0
-    Top = 155
-    Width = 579
-    Height = 25
+    Top = 185
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 4
-    ExplicitTop = 33
     object pnItemSlot3Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
       ParentBackground = False
       TabOrder = 0
+      OnClick = pnItemSlot3NameClick
     end
     object pnItemSlot3Value: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -257,10 +263,10 @@ object FrameShop: TFrameShop
     end
     object pnItemSlot3Price: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -270,32 +276,32 @@ object FrameShop: TFrameShop
   object Panel20: TPanel
     Tag = 5
     Left = 0
-    Top = 130
-    Width = 579
-    Height = 25
+    Top = 150
+    Width = 692
+    Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 5
-    ExplicitTop = 33
     object pnItemSlot2Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 407
-      Height = 23
+      Width = 520
+      Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
       ParentBackground = False
       TabOrder = 0
+      OnClick = pnItemSlot2NameClick
     end
     object pnItemSlot2Value: TPanel
       Tag = 5
-      Left = 408
+      Left = 521
       Top = 1
       Width = 81
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -303,10 +309,10 @@ object FrameShop: TFrameShop
     end
     object pnItemSlot2Price: TPanel
       Tag = 5
-      Left = 489
+      Left = 602
       Top = 1
       Width = 89
-      Height = 23
+      Height = 33
       Align = alRight
       Caption = '0'
       ParentBackground = False
@@ -316,18 +322,19 @@ object FrameShop: TFrameShop
   object Panel5: TPanel
     Left = 0
     Top = 0
-    Width = 579
+    Width = 692
     Height = 80
     Align = alTop
     TabOrder = 6
     object lbShopDescr: TLabel
       Left = 1
       Top = 1
-      Width = 577
+      Width = 690
       Height = 78
       Align = alClient
       AutoSize = False
       WordWrap = True
+      ExplicitWidth = 577
       ExplicitHeight = 88
     end
   end

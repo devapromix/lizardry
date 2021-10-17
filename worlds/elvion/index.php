@@ -7,6 +7,7 @@ include 'common/connect.php';
 $do = $_GET['do'];
 $action = $_GET['action'];
 $amount = $_GET['amount'];
+$itemslot = $_GET['itemslot'];
 $enemyslot = $_GET['enemyslot'];
 
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);

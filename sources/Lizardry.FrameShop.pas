@@ -1,10 +1,12 @@
-unit Lizardry.FrameShop;
+﻿unit Lizardry.FrameShop;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
+  Vcl.StdCtrls;
 
 type
   TFrameShop = class(TFrame)
@@ -34,6 +36,12 @@ type
     pnItemSlot2Price: TPanel;
     Panel5: TPanel;
     lbShopDescr: TLabel;
+    Label1: TLabel;
+    procedure pnItemSlot1NameClick(Sender: TObject);
+    procedure pnItemSlot2NameClick(Sender: TObject);
+    procedure pnItemSlot3NameClick(Sender: TObject);
+    procedure pnItemSlot4NameClick(Sender: TObject);
+    procedure pnItemSlot5NameClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,5 +51,50 @@ type
 implementation
 
 {$R *.dfm}
+
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormPrompt;
+
+const
+  Msg = 'Купить %s за %s золотых?';
+
+procedure TFrameShop.pnItemSlot1NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=1');
+end;
+
+procedure TFrameShop.pnItemSlot2NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=2');
+end;
+
+procedure TFrameShop.pnItemSlot3NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=3');
+end;
+
+procedure TFrameShop.pnItemSlot4NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=4');
+end;
+
+procedure TFrameShop.pnItemSlot5NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=5');
+end;
 
 end.

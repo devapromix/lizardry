@@ -232,6 +232,7 @@ var
   JSONArray: TJSONArray;
   S, V, Cur, Max, Code: string;
   I: Integer;
+  A: TArray<string>;
 begin
   MsgBox(AJSON);
   // ShowMessage(AJSON);
@@ -315,10 +316,51 @@ begin
       if (S = 'outlands') then
         FormMain.FrameTown.FrameBattle1.BringToFront
       else if (S = 'shop_armor') then
-      begin
-        FormMain.FrameTown.FrameShop1.pnShopItemValueName.Caption := 'Броня';
-        FormMain.FrameTown.FrameShop1.BringToFront;
-      end;
+        with FormMain.FrameTown.FrameShop1 do
+        begin
+          pnShopItemValueName.Caption := 'Броня';
+          if JSON.TryGetValue('item_slot_1_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot1Name.Caption := A[0];
+            pnItemSlot1Value.Caption := A[1];
+            pnItemSlot1Price.Caption := A[2];
+          end else
+            pnItemSlot1Name.Caption := '';
+          if JSON.TryGetValue('item_slot_2_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot2Name.Caption := A[0];
+            pnItemSlot2Value.Caption := A[1];
+            pnItemSlot2Price.Caption := A[2];
+          end else
+            pnItemSlot2Name.Caption := '';
+          if JSON.TryGetValue('item_slot_3_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot3Name.Caption := A[0];
+            pnItemSlot3Value.Caption := A[1];
+            pnItemSlot3Price.Caption := A[2];
+          end else
+            pnItemSlot3Name.Caption := '';
+          if JSON.TryGetValue('item_slot_4_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot4Name.Caption := A[0];
+            pnItemSlot4Value.Caption := A[1];
+            pnItemSlot4Price.Caption := A[2];
+          end else
+            pnItemSlot4Name.Caption := '';
+          if JSON.TryGetValue('item_slot_5_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot5Name.Caption := A[0];
+            pnItemSlot5Value.Caption := A[1];
+            pnItemSlot5Price.Caption := A[2];
+          end else
+            pnItemSlot5Name.Caption := '';
+          BringToFront;
+        end;
     end
     else
       FormMain.FrameTown.FrameInfo1.BringToFront;

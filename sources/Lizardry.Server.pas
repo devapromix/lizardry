@@ -95,7 +95,7 @@ begin
       '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
       '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text)));
     if Result = '0' then
-      ShowMessage('Получен не верный ответ от сервера!');
+      ShowMessage('Получен не верный ответ от сервера: 0!');
   except
     on E: Exception do
       ShowMessage(FIdHTTP.ResponseText);
