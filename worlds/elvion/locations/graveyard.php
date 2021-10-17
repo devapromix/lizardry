@@ -10,8 +10,8 @@ if ($action == 'graveyard') {
 	}
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		$user['links'][0]['title'] = 'Вернуться в город';
-		$user['links'][0]['link'] = 'index.php?action=town';
+		$user['links'][0]['title'] = 'Покинуть Кладбище';
+		$user['links'][0]['link'] = 'index.php?action=gate';
 	} else {	
 		$user['links'][0]['title'] = 'Вернуться к жизни';
 		$user['links'][0]['link'] = 'index.php?action=graveyard&do=revive_in_graveyard';	
@@ -23,8 +23,8 @@ if ($action == 'graveyard') {
 		update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['log'] = 'Вы вернулись в мир живых. Вы чувствуете головокружение. Вам нужно отдохнуть.';
 		$user['links'] = array();
-		$user['links'][0]['title'] = 'Вернуться в город';
-		$user['links'][0]['link'] = 'index.php?action=town';
+		$user['links'][0]['title'] = 'Покинуть Кладбище';
+		$user['links'][0]['link'] = 'index.php?action=gate';
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

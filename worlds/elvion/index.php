@@ -13,6 +13,7 @@ $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$connection) {
 	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
 }
+
 $query = 'SELECT * FROM '.$tb_user." WHERE user_name='".$username."' AND user_pass='".$userpass."'";
 $result = mysqli_query($connection, $query) 
 	or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
@@ -33,6 +34,8 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/gate.php';
 	// Guilds
 	include 'locations/guilds.php';
+	// Shops
+	include 'locations/shops.php';
 	// Graveyard
 	include 'locations/graveyard.php';
 	// Town

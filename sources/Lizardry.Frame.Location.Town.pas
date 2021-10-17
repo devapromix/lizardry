@@ -8,7 +8,7 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
   Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
-  Lizardry.FrameLoot, Lizardry.FrameChat;
+  Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -61,6 +61,7 @@ type
     bbChat: TSpeedButton;
     pnEqWeapon: TPanel;
     pnEqArmor: TPanel;
+    FrameShop1: TFrameShop;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -312,7 +313,12 @@ begin
     if JSON.TryGetValue('mainframe', S) then
     begin
       if (S = 'outlands') then
-        FormMain.FrameTown.FrameBattle1.BringToFront;
+        FormMain.FrameTown.FrameBattle1.BringToFront
+      else if (S = 'shop_armor') then
+      begin
+        FormMain.FrameTown.FrameShop1.pnShopItemValueName.Caption := 'Броня';
+        FormMain.FrameTown.FrameShop1.BringToFront;
+      end;
     end
     else
       FormMain.FrameTown.FrameInfo1.BringToFront;
@@ -373,7 +379,7 @@ begin
       FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
     LastCode := Code;
-//    ShowMessage(Server.GetFile);
+    // ShowMessage(Server.GetFile);
   finally
     JSON.Free;
   end;

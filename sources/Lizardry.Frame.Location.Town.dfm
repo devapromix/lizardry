@@ -53,7 +53,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
-      ExplicitTop = 200
     end
     object Panel13: TPanel
       Tag = 5
@@ -90,7 +89,6 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
-      ExplicitTop = 175
     end
     object Panel16: TPanel
       Tag = 5
@@ -137,7 +135,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitTop = 125
     end
     object Panel18: TPanel
       Tag = 5
@@ -150,7 +147,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
-      ExplicitTop = 150
     end
     object pnEqWeapon: TPanel
       Tag = 5
@@ -163,8 +159,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
       TabOrder = 9
-      ExplicitLeft = 4
-      ExplicitTop = 119
     end
     object pnEqArmor: TPanel
       Tag = 5
@@ -177,8 +171,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
-      ExplicitLeft = 4
-      ExplicitTop = 145
     end
   end
   object LeftPanel: TPanel
@@ -365,6 +357,8 @@ object FrameTown: TFrameTown
       inherited Panel2: TPanel
         Width = 337
         Height = 217
+        ExplicitLeft = 0
+        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit
@@ -472,6 +466,70 @@ object FrameTown: TFrameTown
       Height = 249
       Align = alClient
       TabOrder = 2
+      inline FrameShop1: TFrameShop
+        Left = 1
+        Top = 1
+        Width = 335
+        Height = 247
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        ExplicitLeft = -242
+        ExplicitTop = -168
+        inherited Panel12: TPanel
+          Width = 335
+          inherited Panel1: TPanel
+            Width = 163
+          end
+          inherited pnShopItemValueName: TPanel
+            Left = 253
+          end
+          inherited Panel3: TPanel
+            Left = 164
+          end
+        end
+        inherited Panel4: TPanel
+          Width = 335
+          inherited pnItemSlot5Name: TPanel
+            Width = 163
+          end
+          inherited pnItemSlot5Value: TPanel
+            Left = 253
+          end
+          inherited pnItemSlot5Price: TPanel
+            Left = 164
+          end
+        end
+        inherited Panel8: TPanel
+          Width = 335
+          inherited pnItemSlot1Name: TPanel
+            Width = 163
+          end
+          inherited pnItemSlot1Value: TPanel
+            Left = 253
+          end
+          inherited pnItemSlot1Price: TPanel
+            Left = 164
+          end
+        end
+        inherited Panel2: TPanel
+          Width = 335
+        end
+        inherited Panel16: TPanel
+          Width = 335
+        end
+        inherited Panel20: TPanel
+          Width = 335
+        end
+        inherited Panel5: TPanel
+          Width = 335
+        end
+      end
       inline FrameInfo1: TFrameInfo
         Left = 1
         Top = 1
