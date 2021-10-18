@@ -163,10 +163,7 @@ object FormMain: TFormMain
           ExplicitWidth = 624
           inherited edChatMsg: TEdit
             Width = 622
-            ExplicitLeft = 1
-            ExplicitTop = 1
             ExplicitWidth = 622
-            ExplicitHeight = 30
           end
         end
         inherited Panel2: TPanel
@@ -187,6 +184,7 @@ object FormMain: TFormMain
         ExplicitWidth = 624
         inherited bbChat: TSpeedButton
           Left = 535
+          ExplicitLeft = 535
         end
       end
       inherited FramePanel: TPanel
@@ -216,6 +214,35 @@ object FormMain: TFormMain
         Height = 487
         ExplicitWidth = 624
         ExplicitHeight = 487
+        inherited FrameShop1: TFrameShop
+          Width = 622
+          Height = 485
+          inherited Label1: TLabel
+            Width = 622
+            Height = 195
+          end
+          inherited Panel12: TPanel
+            Width = 622
+          end
+          inherited Panel4: TPanel
+            Width = 622
+          end
+          inherited Panel8: TPanel
+            Width = 622
+          end
+          inherited Panel2: TPanel
+            Width = 622
+          end
+          inherited Panel16: TPanel
+            Width = 622
+          end
+          inherited Panel20: TPanel
+            Width = 622
+          end
+          inherited Panel5: TPanel
+            Width = 622
+          end
+        end
         inherited FrameInfo1: TFrameInfo
           Width = 622
           Height = 485

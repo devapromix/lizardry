@@ -102,7 +102,7 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server;
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg;
 
 procedure TFrameRegistration.arLeatherArmorClick(Sender: TObject);
 begin
@@ -131,7 +131,7 @@ begin
   CharName := Trim(edCharName.Text);
   if not TServer.IsInternetConnected then
   begin
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
   FormMain.FrameLogin.edUserName.Text := UserName;
@@ -143,29 +143,29 @@ begin
     Exit;
   if ResponseCode = '1' then
   begin
-    ShowMessage('Пользователь с таким именем существует!');
+    ShowMsg('Пользователь с таким именем существует!');
   end
   else if (ResponseCode = '2') then
   begin
-    ShowMessage('Регистрация прошла успешно!');
+    ShowMsg('Регистрация прошла успешно!');
     bbBackClick(Sender);
   end
   else if (ResponseCode = '23') then
   begin
-    ShowMessage('Введите имя персонажа!');
+    ShowMsg('Введите имя персонажа!');
   end
   else if (ResponseCode = '33') then
   begin
-    ShowMessage('Имя персонажа не должно быть короче 4 символов!');
+    ShowMsg('Имя персонажа не должно быть короче 4 символов!');
   end
   else if (ResponseCode = '43') then
   begin
-    ShowMessage('Имя персонажа не должно быть длиннее 24 символов!');
+    ShowMsg('Имя персонажа не должно быть длиннее 24 символов!');
   end
   else
   begin
-    ShowMessage('Ошибка регистрации!');
-    ShowMessage('Код ошибки: ' + ResponseCode);
+    ShowMsg('Ошибка регистрации!');
+    ShowMsg('Код ошибки: ' + ResponseCode);
   end;
 end;
 
@@ -292,7 +292,7 @@ begin
   else
     S := 'Выбор головного убора. Добавляет дополнительную защиту.';
   end;
-  ShowMessage(S);
+  ShowMsg(S);
 end;
 
 procedure TFrameRegistration.rcElfClick(Sender: TObject);

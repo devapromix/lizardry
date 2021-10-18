@@ -85,7 +85,8 @@ implementation
 
 {$R *.dfm}
 
-uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo;
+uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo,
+  Lizardry.FormMsg;
 
 var
   LastCode: string = '';
@@ -204,12 +205,12 @@ begin
     if UpperCase(Section) = 'ERROR' then
     begin
       if JSON.TryGetValue('error', S) then
-        ShowMessage('Ошибка: ' + S);
+        ShowMsg('Ошибка: ' + S);
     end;
     if UpperCase(Section) = 'INFO' then
     begin
       if JSON.TryGetValue('info', S) then
-        ShowMessage(S);
+        ShowMsg(S);
     end;
   finally
     JSON.Free;
@@ -235,7 +236,6 @@ var
   A: TArray<string>;
 begin
   MsgBox(AJSON);
-  // ShowMessage(AJSON);
   // Exit;
   if AJSON.Contains('{"error":') then
   begin
@@ -448,7 +448,6 @@ begin
       FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
     LastCode := Code;
-    // ShowMessage(Server.GetFile);
   finally
     JSON.Free;
   end;

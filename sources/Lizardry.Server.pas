@@ -27,7 +27,8 @@ var
 
 implementation
 
-uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain, Lizardry.FormInfo;
+uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain, Lizardry.FormInfo,
+  Lizardry.FormMsg;
 
 { TServer }
 
@@ -41,7 +42,7 @@ begin
       INTERNET_CONNECTION_PROXY;
     Result := InternetGetConnectedState(@ConnectionType, 0);
   except
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
   end;
 end;
 
@@ -53,17 +54,17 @@ begin
   Code := StrToIntDef(ResponseCode, 0);
   case Code of
     21:
-      ShowMessage('Введите логин!');
+      ShowMsg('Введите логин!');
     22:
-      ShowMessage('Введите пароль!');
+      ShowMsg('Введите пароль!');
     31:
-      ShowMessage('Логин не может быть короче 4 символов!');
+      ShowMsg('Логин не может быть короче 4 символов!');
     32:
-      ShowMessage('Пароль не может быть короче 4 символов!');
+      ShowMsg('Пароль не может быть короче 4 символов!');
     41:
-      ShowMessage('Логин не должен быть длиннее 24 символов!');
+      ShowMsg('Логин не должен быть длиннее 24 символов!');
     42:
-      ShowMessage('Пароль не должен быть длиннее 24 символов!');
+      ShowMsg('Пароль не должен быть длиннее 24 символов!');
   else
     Result := False;
   end;
@@ -87,7 +88,7 @@ begin
   Result := '';
   if not IsInternetConnected then
   begin
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
   try
@@ -95,14 +96,14 @@ begin
       '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
       '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text)));
     if Result = '0' then
-      ShowMessage('Получен не верный ответ от сервера: 0!');
+      ShowMsg('Получен не верный ответ от сервера: 0!');
   except
     on E: Exception do
-      ShowMessage(FIdHTTP.ResponseText);
+      ShowMsg(FIdHTTP.ResponseText);
     on E: EIdHTTPProtocolException do
-      ShowMessage(E.ErrorMessage);
+      ShowMsg(E.ErrorMessage);
     on E: EIdHTTPProtocolException do
-      ShowMessage(IntToStr(E.ErrorCode));
+      ShowMsg(IntToStr(E.ErrorCode));
   end;
 end;
 

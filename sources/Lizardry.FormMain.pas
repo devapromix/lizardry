@@ -30,7 +30,7 @@ implementation
 {$R *.dfm}
 {$R images.res}
 
-uses Registry, Lizardry.FormInfo;
+uses Registry, Lizardry.FormInfo, Lizardry.FormMsg;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var

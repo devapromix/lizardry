@@ -19,7 +19,8 @@ uses
   Lizardry.FormInfo in 'Lizardry.FormInfo.pas' {FormInfo},
   Lizardry.FrameChat in 'Lizardry.FrameChat.pas' {FrameChat: TFrame},
   Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame},
-  Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt};
+  Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt},
+  Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg};
 
 {$R *.res}
 
@@ -29,5 +30,6 @@ begin
   Application.CreateForm(TFormMain, FormMain);
   Application.CreateForm(TFormInfo, FormInfo);
   Application.CreateForm(TFormPrompt, FormPrompt);
+  Application.CreateForm(TFormMsg, FormMsg);
   Application.Run;
 end.

@@ -27,7 +27,7 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server;
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg;
 
 procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
@@ -51,7 +51,7 @@ begin
     'Ночь в Таверне --> 15 зол.' + #13#10 +
   //
     'Пакет провианта --> 10 зол.' + #13#10;
-  ShowMessage(S);
+  ShowMsg(S);
 end;
 
 procedure TFrameTavern.Edit1KeyPress(Sender: TObject; var Key: Char);

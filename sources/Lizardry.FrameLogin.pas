@@ -56,7 +56,7 @@ implementation
 {$R *.dfm}
 
 uses Registry, Lizardry.FormMain, Lizardry.Server, Lizardry.Frame.Location.Town,
-  Lizardry.Game;
+  Lizardry.Game, Lizardry.FormMsg;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
@@ -67,7 +67,7 @@ begin
   UserPass := Trim(LowerCase(edUserPass.Text));
   if not TServer.IsInternetConnected then
   begin
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
   ResponseCode := Server.Get('index.php?action=login');
@@ -75,7 +75,7 @@ begin
     Exit;
   if ResponseCode = '0' then
   begin
-    ShowMessage('Ошибка авторизации!');
+    ShowMsg('Ошибка авторизации!');
     Exit;
   end
   else if ResponseCode = '1' then
@@ -99,7 +99,7 @@ begin
   end
   else
   begin
-    ShowMessage('Ошибка авторизации!');
+    ShowMsg('Ошибка авторизации!');
     Exit;
   end;
 end;
@@ -115,11 +115,11 @@ procedure TFrameLogin.bbUpdateClick(Sender: TObject);
 begin
   if not TServer.IsInternetConnected then
   begin
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
   if not IsNewClientVersion then
-    ShowMessage('Вы используете самую новую версию клиента!');
+    ShowMsg('Вы используете самую новую версию клиента!');
 end;
 
 procedure TFrameLogin.ComboBox1Change(Sender: TObject);
@@ -186,7 +186,7 @@ begin
     S := 'Текущая игра проходит в мире LIZARDRY. ' +
       'Другие миры используются для тестирования.';
   end;
-  ShowMessage(S);
+  ShowMsg(S);
 end;
 
 function TFrameLogin.IsNewClientVersion: Boolean;
@@ -201,10 +201,10 @@ begin
     if ClientVersion < ServerVersion then
     begin
       Result := True;
-      ShowMessage('Необходимо обновить клиент!');
+      ShowMsg('Необходимо обновить клиент!');
     end;
   except
-    ShowMessage('Невозможно подключиться к серверу!');
+    ShowMsg('Невозможно подключиться к серверу!');
   end;
 end;
 
