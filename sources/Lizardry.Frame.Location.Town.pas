@@ -319,15 +319,15 @@ begin
       end
       else if (S = 'outlands') then
       begin
-        if JSON.TryGetValue('enemy_slot_1', S) then
+        if JSON.TryGetValue('enemy_slot_1_image', S) then
           FormMain.FrameTown.FrameOutlands1.Image2.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
-        if JSON.TryGetValue('enemy_slot_2', S) then
+            LoadBitmap(hInstance, PChar(S));
+        if JSON.TryGetValue('enemy_slot_2_image', S) then
           FormMain.FrameTown.FrameOutlands1.Image3.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
-        if JSON.TryGetValue('enemy_slot_3', S) then
+            LoadBitmap(hInstance, PChar(S));
+        if JSON.TryGetValue('enemy_slot_3_image', S) then
           FormMain.FrameTown.FrameOutlands1.Image4.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(GetEnemyImage(S)));
+            LoadBitmap(hInstance, PChar(S));
         FormMain.FrameTown.FrameOutlands1.BringToFront;
       end;
     end

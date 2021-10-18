@@ -36,6 +36,33 @@ function gen_enemy($enemy_ident) {
 
 }
 
+function add_enemy($enemy_slot, $enemy_ident) {
+	global $user, $tb_enemy, $connection;
+	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$enemy = $result->fetch_assoc();	
+	
+	switch($enemy_slot) {
+		case 1:
+			$user['enemy_slot_1'] = $enemy_ident;
+			$user['enemy_slot_1_image'] = $enemy['enemy_image'];
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_1_image='".$user['enemy_slot_1_image']."'");
+			break;
+		case 2:
+			$user['enemy_slot_2'] = $enemy_ident;
+			$user['enemy_slot_2_image'] = $enemy['enemy_image'];
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_2_image='".$user['enemy_slot_2_image']."'");
+			break;
+		case 3:
+			$user['enemy_slot_3'] = $enemy_ident;
+			$user['enemy_slot_3_image'] = $enemy['enemy_image'];
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_3=".$user['enemy_slot_3'].",enemy_slot_3_image='".$user['enemy_slot_3_image']."'");
+			break;
+	}
+	
+}
+
 function equip_item($item_ident) {
 	global $user, $tb_item, $connection;
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
