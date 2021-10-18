@@ -17,9 +17,6 @@ object FrameBattle: TFrameBattle
     Height = 461
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 119
-    ExplicitWidth = 653
-    ExplicitHeight = 479
     object RichEdit1: TRichEdit
       Left = 1
       Top = 1
@@ -29,10 +26,6 @@ object FrameBattle: TFrameBattle
       ScrollBars = ssVertical
       TabOrder = 0
       Zoom = 100
-      ExplicitLeft = 11
-      ExplicitTop = 16
-      ExplicitWidth = 878
-      ExplicitHeight = 433
     end
   end
   object Panel2: TPanel
@@ -43,7 +36,6 @@ object FrameBattle: TFrameBattle
     Align = alTop
     Caption = 'VS'
     TabOrder = 1
-    ExplicitWidth = 653
     object Label3: TLabel
       Left = 144
       Top = 92
@@ -58,7 +50,7 @@ object FrameBattle: TFrameBattle
       Height = 21
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 10/10'
     end
-    object Label1: TLabel
+    object lbEnemyName: TLabel
       Left = 144
       Top = 11
       Width = 110
@@ -461,7 +453,6 @@ object FrameBattle: TFrameBattle
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 315
       DesignSize = (
         337
         135)

@@ -141,6 +141,11 @@ object FormMain: TFormMain
       Height = 712
       ExplicitLeft = 904
       ExplicitHeight = 712
+      inherited HPPanel: TPanel
+        ExplicitLeft = 1
+        ExplicitTop = 76
+        ExplicitWidth = 278
+      end
     end
     inherited LeftPanel: TPanel
       Height = 712

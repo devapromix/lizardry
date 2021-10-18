@@ -108,11 +108,11 @@ begin
     3:
       Result := 'ENEMY_GIANT_SPIDER';
     4:
-      Result := 'ENEMY_DARK_GOBLIN';
-    5:
       Result := 'ENEMY_DARK_GOBLIN_SHAMAN';
-    6:
+    5:
       Result := 'ENEMY_DARK_GOBLIN_THIEF';
+    6:
+      Result := 'ENEMY_DARK_GOBLIN';
     7:
       Result := 'ENEMY_CAVE_GIANT';
     8:
@@ -122,9 +122,9 @@ begin
     10:
       Result := 'ENEMY_BOSS_STONE_WORM';
     11:
-      Result := 'ENEMY_UNDEAD_SHADOW';
-    12:
       Result := 'ENEMY_UNDEAD_ARCHER';
+    12:
+      Result := 'ENEMY_UNDEAD_SHADOW';
     13:
       Result := 'ENEMY_UNDEAD_WARRIOR';
     14:
@@ -259,8 +259,6 @@ begin
   end;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
-    if JSON.TryGetValue('check_save', Code) then
-      FormMain.Caption := Format('%s %s', [Code, LastCode]);
     if JSON.TryGetValue('log', S) then
     begin
       FrameInfo1.BringToFront;
@@ -339,7 +337,9 @@ begin
     if JSON.TryGetValue('mainframe', S) then
     begin
       if (S = 'outlands') then
-        FormMain.FrameTown.FrameBattle1.BringToFront
+      begin
+        FormMain.FrameTown.FrameBattle1.BringToFront;
+      end
       else if (S = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
         begin
@@ -445,20 +445,23 @@ begin
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+      //
+    S := '';
     if JSON.TryGetValue('enemy_name', S) then
-      FrameBattle1.Label1.Caption := S;
+      FormMain.FrameTown.FrameBattle1.lbEnemyName.Caption := S;
     if JSON.TryGetValue('enemy_level', V) then
-      FrameBattle1.Label8.Caption := 'Уровень: ' + V;
+      FormMain.FrameTown.FrameBattle1.Label8.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('enemy_life_cur', Cur) and
       JSON.TryGetValue('enemy_life_max', Max) then
-      FrameBattle1.Label2.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+      FormMain.FrameTown.FrameBattle1.Label2.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then
-      FrameBattle1.Label3.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      FormMain.FrameTown.FrameBattle1.Label3.Caption := Format('Урон: %s-%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_image', S) then
-      FrameBattle1.Image2.Picture.Bitmap.Handle :=
+      FormMain.FrameTown.FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
     LastCode := Code;
+    FormMain.Refresh;
   finally
     JSON.Free;
   end;

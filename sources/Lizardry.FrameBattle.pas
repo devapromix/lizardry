@@ -13,7 +13,7 @@ type
     Panel2: TPanel;
     Label3: TLabel;
     Label2: TLabel;
-    Label1: TLabel;
+    lbEnemyName: TLabel;
     Image2: TImage;
     Panel3: TPanel;
     Image1: TImage;
