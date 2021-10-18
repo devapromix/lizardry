@@ -16,22 +16,24 @@ object FrameTown: TFrameTown
     Width = 280
     Height = 474
     Align = alRight
-    BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 0
     object Panel8: TPanel
       Tag = 1
-      Left = 0
-      Top = 0
-      Width = 280
+      Left = 1
+      Top = 1
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = 'CharName'
       ParentBackground = False
       TabOrder = 0
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 280
       object bbLogout: TSpeedButton
-        Left = 192
+        Left = 190
         Top = 1
         Width = 87
         Height = 23
@@ -40,81 +42,100 @@ object FrameTown: TFrameTown
         Caption = #1042#1099#1093#1086#1076
         Flat = True
         OnClick = bbLogoutClick
+        ExplicitLeft = 192
       end
     end
     object Panel12: TPanel
       Tag = 5
-      Left = 0
-      Top = 250
-      Width = 280
+      Left = 1
+      Top = 256
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
+      ExplicitLeft = 0
+      ExplicitTop = 250
+      ExplicitWidth = 280
     end
     object Panel13: TPanel
       Tag = 5
-      Left = 0
-      Top = 50
-      Width = 280
+      Left = 1
+      Top = 51
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
       TabOrder = 2
+      ExplicitLeft = 0
+      ExplicitTop = 50
+      ExplicitWidth = 280
     end
     object Panel14: TPanel
       Tag = 5
-      Left = 0
-      Top = 75
-      Width = 280
+      Left = 1
+      Top = 81
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
       TabOrder = 3
+      ExplicitLeft = 0
+      ExplicitTop = 80
+      ExplicitWidth = 280
     end
     object Panel15: TPanel
       Tag = 5
-      Left = 0
-      Top = 225
-      Width = 280
+      Left = 1
+      Top = 231
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
+      ExplicitLeft = 0
+      ExplicitTop = 225
+      ExplicitWidth = 280
     end
     object Panel16: TPanel
       Tag = 5
-      Left = 0
-      Top = 100
-      Width = 280
+      Left = 1
+      Top = 106
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
+      ExplicitLeft = 0
+      ExplicitTop = 100
+      ExplicitWidth = 280
     end
     object Panel11: TPanel
       Tag = 4
-      Left = 0
-      Top = 25
-      Width = 280
+      Left = 1
+      Top = 26
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
+      ExplicitLeft = 0
+      ExplicitTop = 25
+      ExplicitWidth = 280
       object bbDebug: TSpeedButton
-        Left = 192
+        Left = 190
         Top = 1
         Width = 87
         Height = 23
@@ -122,55 +143,95 @@ object FrameTown: TFrameTown
         Caption = 'Debug'
         Flat = True
         OnClick = bbDebugClick
+        ExplicitLeft = 192
       end
     end
     object Panel17: TPanel
       Tag = 5
-      Left = 0
-      Top = 150
-      Width = 280
+      Left = 1
+      Top = 156
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
+      ExplicitLeft = 0
+      ExplicitTop = 150
+      ExplicitWidth = 280
     end
     object Panel18: TPanel
       Tag = 5
-      Left = 0
-      Top = 200
-      Width = 280
+      Left = 1
+      Top = 206
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
+      ExplicitLeft = 0
+      ExplicitTop = 200
+      ExplicitWidth = 280
     end
     object pnEqWeapon: TPanel
       Tag = 5
-      Left = 0
-      Top = 125
-      Width = 280
+      Left = 1
+      Top = 131
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
       TabOrder = 9
+      ExplicitLeft = 0
+      ExplicitTop = 125
+      ExplicitWidth = 280
     end
     object pnEqArmor: TPanel
       Tag = 5
-      Left = 0
-      Top = 175
-      Width = 280
+      Left = 1
+      Top = 181
+      Width = 278
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
+      ExplicitLeft = 0
+      ExplicitTop = 175
+      ExplicitWidth = 280
+    end
+    object HPPanel: TPanel
+      Tag = 5
+      Left = 1
+      Top = 76
+      Width = 278
+      Height = 5
+      Align = alTop
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      ParentBackground = False
+      TabOrder = 11
+      ExplicitLeft = -8
+      ExplicitTop = 72
+      ExplicitWidth = 280
+      object Panel1: TPanel
+        Tag = 5
+        Left = 1
+        Top = 0
+        Width = 278
+        Height = 5
+        Alignment = taLeftJustify
+        BevelOuter = bvNone
+        Color = clRed
+        ParentBackground = False
+        TabOrder = 0
+      end
     end
   end
   object LeftPanel: TPanel

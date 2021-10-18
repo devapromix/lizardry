@@ -62,6 +62,8 @@ type
     pnEqWeapon: TPanel;
     pnEqArmor: TPanel;
     FrameShop1: TFrameShop;
+    HPPanel: TPanel;
+    Panel1: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);

@@ -703,6 +703,7 @@ object FormMsg: TFormMsg
       Align = alClient
       Alignment = taCenter
       AutoSize = False
+      WordWrap = True
       ExplicitLeft = 200
       ExplicitTop = 40
       ExplicitWidth = 66
