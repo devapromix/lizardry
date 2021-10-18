@@ -32,7 +32,7 @@ if ($action == 'battle') {
 		$user['battlelog'] = auto_battle();	
 		$user['enemy_block_refresh'] = 0;
 			
-		update_user_table("enemy_block_refresh=".$user['enemy_block_refresh'].",char_life_cur=".$user['char_life_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur']);
+		update_user_table("enemy_block_refresh=".$user['enemy_block_refresh'].",char_life_cur=".$user['char_life_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills']);
 	
 	}
 

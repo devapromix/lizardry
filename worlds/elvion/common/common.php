@@ -233,6 +233,7 @@ function auto_battle() {
 		
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
+			$user['stat_kills']++;
 			$gold = $user['enemy_gold'];
 			$user['char_gold'] += $gold;
 			$exp = $user['enemy_exp'];
