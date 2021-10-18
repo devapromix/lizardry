@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ComCtrls;
 
 type
   TFrameBank = class(TFrame)
@@ -13,6 +14,7 @@ type
     bbDeposit: TBitBtn;
     bbWithdraw: TBitBtn;
     Label1: TLabel;
+    UpDown1: TUpDown;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);

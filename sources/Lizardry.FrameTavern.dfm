@@ -38,4 +38,13 @@ object FrameTavern: TFrameTavern
     TabOrder = 2
     OnClick = bbPriceClick
   end
+  object UpDown1: TUpDown
+    Left = 65
+    Top = 16
+    Width = 16
+    Height = 29
+    Associate = Edit1
+    Max = 7
+    TabOrder = 3
+  end
 end

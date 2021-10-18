@@ -135,8 +135,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitLeft = 4
-      ExplicitTop = 147
     end
     object Panel18: TPanel
       Tag = 5
@@ -173,7 +171,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
-      ExplicitTop = 150
     end
   end
   object LeftPanel: TPanel
@@ -621,6 +618,7 @@ object FrameTown: TFrameTown
           ExplicitWidth = 335
           inherited lbShopDescr: TLabel
             Width = 333
+            ExplicitWidth = 333
           end
         end
       end

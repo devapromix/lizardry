@@ -11,7 +11,7 @@ object FrameBank: TFrameBank
   ParentFont = False
   TabOrder = 0
   object Label1: TLabel
-    Left = 152
+    Left = 166
     Top = 19
     Width = 99
     Height = 21
@@ -43,5 +43,14 @@ object FrameBank: TFrameBank
     Caption = #1047#1072#1073#1088#1072#1090#1100
     TabOrder = 2
     OnClick = bbWithdrawClick
+  end
+  object UpDown1: TUpDown
+    Left = 137
+    Top = 16
+    Width = 16
+    Height = 29
+    Associate = Edit1
+    Max = 1000000
+    TabOrder = 3
   end
 end

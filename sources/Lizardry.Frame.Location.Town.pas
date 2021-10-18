@@ -85,7 +85,7 @@ implementation
 
 {$R *.dfm}
 
-uses JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo;
+uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo;
 
 var
   LastCode: string = '';
@@ -231,7 +231,7 @@ var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
   S, V, Cur, Max, Code: string;
-  I: Integer;
+  I, F: Integer;
   A: TArray<string>;
 begin
   MsgBox(AJSON);
@@ -291,9 +291,24 @@ begin
     if JSON.TryGetValue('frame', S) then
     begin
       if (S = 'bank') then
-        FormMain.FrameTown.FrameBank1.BringToFront
+      begin
+        if JSON.TryGetValue('char_gold', S) then
+        begin
+          F := StrToIntDef(S, 0);
+          FormMain.FrameTown.FrameBank1.Edit1.Text := IntToStr(F);
+        end;
+        FormMain.FrameTown.FrameBank1.BringToFront;
+      end
       else if (S = 'tavern') then
-        FormMain.FrameTown.FrameTavern1.BringToFront
+      begin
+        if JSON.TryGetValue('char_food', S) then
+        begin
+          F := StrToIntDef(S, 0);
+          F := EnsureRange(7 - F, 0, 7);
+          FormMain.FrameTown.FrameTavern1.Edit1.Text := IntToStr(F);
+        end;
+        FormMain.FrameTown.FrameTavern1.BringToFront;
+      end
       else if (S = 'outlands') then
       begin
         if JSON.TryGetValue('enemy_slot_1', S) then
@@ -326,7 +341,8 @@ begin
             pnItemSlot1Value.Caption := A[1];
             pnItemSlot1Level.Caption := A[2];
             pnItemSlot1Price.Caption := A[3];
-          end else
+          end
+          else
             pnItemSlot1Name.Caption := '';
           if JSON.TryGetValue('item_slot_2_values', S) then
           begin
@@ -335,7 +351,8 @@ begin
             pnItemSlot2Value.Caption := A[1];
             pnItemSlot2Level.Caption := A[2];
             pnItemSlot2Price.Caption := A[3];
-          end else
+          end
+          else
             pnItemSlot2Name.Caption := '';
           if JSON.TryGetValue('item_slot_3_values', S) then
           begin
@@ -344,7 +361,8 @@ begin
             pnItemSlot3Value.Caption := A[1];
             pnItemSlot3Level.Caption := A[2];
             pnItemSlot3Price.Caption := A[3];
-          end else
+          end
+          else
             pnItemSlot3Name.Caption := '';
           if JSON.TryGetValue('item_slot_4_values', S) then
           begin
@@ -353,7 +371,8 @@ begin
             pnItemSlot4Value.Caption := A[1];
             pnItemSlot4Level.Caption := A[2];
             pnItemSlot4Price.Caption := A[3];
-          end else
+          end
+          else
             pnItemSlot4Name.Caption := '';
           if JSON.TryGetValue('item_slot_5_values', S) then
           begin
@@ -362,7 +381,8 @@ begin
             pnItemSlot5Value.Caption := A[1];
             pnItemSlot5Level.Caption := A[2];
             pnItemSlot5Price.Caption := A[3];
-          end else
+          end
+          else
             pnItemSlot5Name.Caption := '';
           BringToFront;
         end;
@@ -384,7 +404,9 @@ begin
     if JSON.TryGetValue('char_exp', S) then
       Panel13.Caption := 'Опыт: ' + S + '/' + IntToStr(StrToIntDef(V, 1) * 100);
     if JSON.TryGetValue('char_food', S) then
+    begin
       Panel15.Caption := 'Провизия: ' + S + '/7';
+    end;
     if JSON.TryGetValue('char_gold', S) then
       Panel12.Caption := 'Золото: ' + S;
     if JSON.TryGetValue('char_life_cur', Cur) and
@@ -406,9 +428,9 @@ begin
       Panel18.Caption := 'Броня: ' + S;
     //
     if JSON.TryGetValue('char_equip_weapon_name', S) then
-      pnEqWeapon.Caption := 'Оружие: ' + S;
+      pnEqWeapon.Caption := S;
     if JSON.TryGetValue('char_equip_armor_name', S) then
-      pnEqArmor.Caption := 'Броня: ' + S;
+      pnEqArmor.Caption := S;
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
