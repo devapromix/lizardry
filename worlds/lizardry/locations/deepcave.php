@@ -2,18 +2,12 @@
 
 if ($action == 'deepcave') {
 
-	$user['current_outlands'] = 'deepcave';
-	$user['enemy_block_refresh'] = 0;
+	$user['current_outlands'] = $action;
 
-	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {
-		$user['enemy_slot_1'] = rand(7, 9);
-		$user['enemy_slot_2'] = rand(7, 9);
-		$user['enemy_slot_3'] = rand(7, 9);
-		$user['enemy_block_refresh'] = 1;
-	}
+	add_enemy(1, rand(7, 9));
+	add_enemy(2, rand(7, 9));
+	add_enemy(3, rand(7, 9));	
 	
-	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_3=".$user['enemy_slot_3'].",enemy_block_refresh=".$user['enemy_block_refresh']);
-
 	$user['title'] = 'Глубокие Пещеры';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Эти пещеры обширны и извилисты. Никогда не знаешь, что может тебе встретится за поворотом. Тут надо быть начеку. Это место не терпит невнимательности. Один шаг и можно попасть в ловушку или липкую паутину, что прочнее канатов.';
