@@ -121,6 +121,14 @@ begin
       Result := 'ENEMY_TROLL';
     10:
       Result := 'ENEMY_BOSS_STONE_WORM';
+    11:
+      Result := 'ENEMY_UNDEAD_SHADOW';
+    12:
+      Result := 'ENEMY_UNDEAD_ARCHER';
+    13:
+      Result := 'ENEMY_UNDEAD_WARRIOR';
+    14:
+      Result := 'ENEMY_UNDEAD_WARLORD';
   end;
 end;
 
@@ -414,6 +422,7 @@ begin
     if JSON.TryGetValue('char_life_cur', Cur) and
       JSON.TryGetValue('char_life_max', Max) then
     begin
+      Panel1.Width := Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
       Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
       FrameBattle1.Label5.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
     end;

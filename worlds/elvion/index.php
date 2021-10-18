@@ -39,6 +39,8 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/shops.php';
 	// Graveyard
 	include 'locations/graveyard.php';
+	// Crypt
+	include 'locations/crypt.php';
 	// Town
 	include 'locations/town.php';
 	// Forest

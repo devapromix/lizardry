@@ -6,9 +6,9 @@ if ($action == 'crypt') {
 	$user['enemy_block_refresh'] = 0;
 
 	if ((!isset($user['enemy_block_refresh']))or($user['enemy_block_refresh'] == 0)) {
-		$user['enemy_slot_1'] = rand(1, 3);
-		$user['enemy_slot_2'] = rand(1, 3);
-		$user['enemy_slot_3'] = rand(1, 3);
+		$user['enemy_slot_1'] = rand(11, 14);
+		$user['enemy_slot_2'] = rand(11, 14);
+		$user['enemy_slot_3'] = rand(11, 14);
 		$user['enemy_block_refresh'] = 1;
 	}
 	

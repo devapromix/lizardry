@@ -225,6 +225,8 @@ function auto_battle() {
 		
 		if ($user['char_life_cur'] <= 0) {
 			$user['char_life_cur'] = 0;
+			$user['char_mana_cur'] = 0;
+			$user['stat_deads']++;
 			$user['char_exp'] -= round($user['char_exp'] / 5);
 			$user['char_gold'] -= round($user['char_gold'] / 7);
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
