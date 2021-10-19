@@ -10,12 +10,13 @@ uses
 
 type
   TFormMsg = class(TForm)
-    Image1: TImage;
     Panel1: TPanel;
     Panel2: TPanel;
     Button1: TButton;
     Panel3: TPanel;
     Label1: TLabel;
+    Panel5: TPanel;
+    Image1: TImage;
   private
     { Private declarations }
   public
