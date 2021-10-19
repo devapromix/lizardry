@@ -20,7 +20,8 @@ uses
   Lizardry.FrameChat in 'Lizardry.FrameChat.pas' {FrameChat: TFrame},
   Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame},
   Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt},
-  Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg};
+  Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg},
+  Lizardry.InventoryString in 'Lizardry.InventoryString.pas';
 
 {$R *.res}
 
