@@ -4,6 +4,11 @@ if ($action == 'forest') {
 	
 	$user['current_outlands'] = $action;
 	
+	/*
+	$enemy_idents = [1,2,3];
+	$e = $enemy_idents[array_rand($enemy_idents)];
+	*/
+	
 	add_enemy(1, rand(1, 3));
 	add_enemy(2, rand(1, 3));
 	add_enemy(3, rand(1, 3));

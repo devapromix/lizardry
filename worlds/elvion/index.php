@@ -34,6 +34,9 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/auto_battle.php';
 	// Gate
 	include 'locations/gate.php';
+	// Travel
+	include 'locations/travel.php';
+	include 'locations/stables.php';
 	// Guilds
 	include 'locations/guilds.php';
 	// Shops

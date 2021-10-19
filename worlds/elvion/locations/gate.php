@@ -15,6 +15,8 @@ if ($action == 'gate') {
 		$user['links'][1]['link'] = 'index.php?action=graveyard';
 		$user['links'][2]['title'] = 'Войти в Город';
 		$user['links'][2]['link'] = 'index.php?action=town';
+		$user['links'][3]['title'] = 'Посетить Конюшни';
+		$user['links'][3]['link'] = 'index.php?action=stables';
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

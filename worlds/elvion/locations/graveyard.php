@@ -12,8 +12,12 @@ if ($action == 'graveyard') {
 	if ($user['char_life_cur'] > 0) {
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Осмотреть Склеп';
-		$user['links'][1]['link'] = 'index.php?action=crypt';
+		switch ($user['char_town']) {
+			case 0:
+				$user['links'][1]['title'] = 'Осмотреть Склеп';
+				$user['links'][1]['link'] = 'index.php?action=crypt';
+				break;
+		}
 	} else {	
 		$user['links'][0]['title'] = 'Вернуться к жизни';
 		$user['links'][0]['link'] = 'index.php?action=graveyard&do=revive_in_graveyard';	
@@ -27,8 +31,12 @@ if ($action == 'graveyard') {
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Осмотреть Склеп';
-		$user['links'][1]['link'] = 'index.php?action=crypt';
+		switch ($user['char_town']) {
+			case 0:
+				$user['links'][1]['title'] = 'Осмотреть Склеп';
+				$user['links'][1]['link'] = 'index.php?action=crypt';
+				break;
+		}
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
