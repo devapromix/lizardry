@@ -8,15 +8,31 @@ if ($action == 'gate') {
 		$user['description'] = 'Ваша душа летает главными городскими воротами города.';
 	}
 	$user['links'] = array();
-	if ($user['char_life_cur'] > 0) {	
-		$user['links'][0]['title'] = 'Темный Лес';
-		$user['links'][0]['link'] = 'index.php?action=forest';
-		$user['links'][1]['title'] = 'Городское Кладбище';
+	if ($user['char_life_cur'] > 0) {
+		
+		$user['links'][0]['title'] = 'Войти в Город';
+		$user['links'][0]['link'] = 'index.php?action=town';
+		$user['links'][1]['title'] = 'Идти на Кладбище';
 		$user['links'][1]['link'] = 'index.php?action=graveyard';
-		$user['links'][2]['title'] = 'Войти в Город';
-		$user['links'][2]['link'] = 'index.php?action=town';
-		$user['links'][3]['title'] = 'Посетить Конюшни';
-		$user['links'][3]['link'] = 'index.php?action=stables';
+		switch ($user['char_region']) {
+			case 1:
+				$user['links'][2]['title'] = 'Посетить Конюшни';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				$user['links'][3]['title'] = 'Темный Лес';
+				$user['links'][3]['link'] = 'index.php?action=forest';
+				break;
+			case 2:
+				$user['links'][2]['title'] = 'Посетить Конюшни';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				$user['links'][3]['title'] = 'Посетить Гавань';
+				$user['links'][3]['link'] = 'index.php?action=stables';
+				break;
+			case 3:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+		}
+		
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

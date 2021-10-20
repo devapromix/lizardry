@@ -14,6 +14,13 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
+	
+$tb_user = 'lizardry_users';
+$tb_item = 'lizardry_items';
+$tb_chat = 'lizardry_messages';
+$tb_enemy = 'lizardry_enemies';
+$tb_regions = 'lizardry_regions';
+
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -128,6 +135,17 @@ function add_item_to_shop($item_slot, $item_ident) {
 			update_user_table("item_slot_5=".$user['item_slot_5']);
 			break;
 	}
+}
+
+function change_region($region_ident) {
+	global $user, $tb_regions, $connection;
+	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$region = $result->fetch_assoc();
+	$user['char_region'] = $region['region_ident'];
+	$user['char_region_town_name'] = $region['region_town_name'];
+	update_user_table("char_region=".$user['char_region'].",char_region_town_name='".$user['char_region_town_name']."'");
 }
 
 function check_user($user_name) {
@@ -270,7 +288,6 @@ function auto_battle() {
 			$r .= 'Вы получаете '.$exp.' опыта.#';
 			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			break;
-
 		}
 	}
 	

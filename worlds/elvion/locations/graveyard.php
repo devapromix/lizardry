@@ -4,16 +4,30 @@ if ($action == 'graveyard') {
 
 	$user['title'] = 'Городское Кладбище';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = 'Вы на городском кладбище. Кругом могилы. В самом отдаленном уголке Кладбища находится Старый Склеп.';
+		
+		switch ($user['char_town']) {
+			case 1:
+				$user['description'] = 'Вы на городском кладбище. Кругом могилы. В самом отдаленном уголке Кладбища находится Старый Склеп.';
+				break;
+			case 2:
+				$user['description'] = 'Вы находитесь на едине с каменными плитами и душами предков.';
+				break;
+			case 3:
+				$user['description'] = 'Вы находитесь на едине с каменными плитами и душами предков.';
+				break;
+			
+		}
+		
 	}else{
 		$user['description'] = 'Ваша душа летает над могилами.';
 	}
+	
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
 		switch ($user['char_town']) {
-			case 0:
+			case 1:
 				$user['links'][1]['title'] = 'Осмотреть Склеп';
 				$user['links'][1]['link'] = 'index.php?action=crypt';
 				break;
@@ -32,7 +46,7 @@ if ($action == 'graveyard') {
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
 		switch ($user['char_town']) {
-			case 0:
+			case 1:
 				$user['links'][1]['title'] = 'Осмотреть Склеп';
 				$user['links'][1]['link'] = 'index.php?action=crypt';
 				break;
