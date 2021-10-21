@@ -10,61 +10,14 @@ uses
 
 type
   TFrameShop = class(TFrame)
-    Slot0: TPanel;
-    Panel1: TPanel;
-    pnShopItemValueName: TPanel;
-    Panel3: TPanel;
-    Slot5: TPanel;
-    pnItemSlot5Name: TPanel;
-    pnItemSlot5Value: TPanel;
-    pnItemSlot5Price: TPanel;
-    Slot1: TPanel;
-    pnItemSlot1Name: TPanel;
-    pnItemSlot1Value: TPanel;
-    pnItemSlot1Price: TPanel;
-    Slot4: TPanel;
-    pnItemSlot4Name: TPanel;
-    pnItemSlot4Value: TPanel;
-    pnItemSlot4Price: TPanel;
-    Slot3: TPanel;
-    pnItemSlot3Name: TPanel;
-    pnItemSlot3Value: TPanel;
-    pnItemSlot3Price: TPanel;
-    Slot2: TPanel;
-    pnItemSlot2Name: TPanel;
-    pnItemSlot2Value: TPanel;
-    pnItemSlot2Price: TPanel;
-    DescrPanel: TPanel;
-    lbShopDescr: TLabel;
-    Label1: TLabel;
-    Panel6: TPanel;
-    pnItemSlot1Level: TPanel;
-    pnItemSlot2Level: TPanel;
-    pnItemSlot3Level: TPanel;
-    pnItemSlot4Level: TPanel;
-    pnItemSlot5Level: TPanel;
-    Slot6: TPanel;
-    pnItemSlot6Name: TPanel;
-    pnItemSlot6Value: TPanel;
-    pnItemSlot6Price: TPanel;
-    pnItemSlot6Level: TPanel;
-    Panel2: TPanel;
-    Panel4: TPanel;
-    Panel5: TPanel;
-    Panel7: TPanel;
-    Panel8: TPanel;
-    Panel9: TPanel;
-    Panel10: TPanel;
-    procedure pnItemSlot1NameClick(Sender: TObject);
-    procedure pnItemSlot2NameClick(Sender: TObject);
-    procedure pnItemSlot3NameClick(Sender: TObject);
-    procedure pnItemSlot4NameClick(Sender: TObject);
-    procedure pnItemSlot5NameClick(Sender: TObject);
-    procedure pnItemSlot6NameClick(Sender: TObject);
+    SG: TStringGrid;
+    procedure SGDblClick(Sender: TObject);
+    procedure SGKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure DrawGrid;
   end;
 
 implementation
@@ -76,52 +29,40 @@ uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormPrompt;
 const
   Msg = 'Купить %s за %s золотых?';
 
-procedure TFrameShop.pnItemSlot1NameClick(Sender: TObject);
+procedure TFrameShop.DrawGrid;
+var
+  W, I: Integer;
 begin
-  if IsChatMode then
-    Exit;
-  Prompt(Format(Msg, [pnItemSlot1Name.Caption, pnItemSlot1Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=1');
+  W := FormMain.FrameTown.FrameShop1.Width - 340;
+  SG.ColWidths[0] := 30;
+  SG.ColWidths[1] := W;
+  SG.ColWidths[2] := 100;
+  SG.ColWidths[3] := 100;
+  SG.ColWidths[4] := 100;
+  for I := 1 to 6 do
+    SG.Cells[0, I] := IntToStr(I);
+  SG.Cells[1, 0] := 'Название';
+  SG.Cells[2, 0] := 'Броня';
+  SG.Cells[3, 0] := 'Уровень';
+  SG.Cells[4, 0] := 'Цена';
 end;
 
-procedure TFrameShop.pnItemSlot2NameClick(Sender: TObject);
+procedure TFrameShop.SGDblClick(Sender: TObject);
+var
+  I: Integer;
 begin
   if IsChatMode then
     Exit;
-  Prompt(Format(Msg, [pnItemSlot2Name.Caption, pnItemSlot2Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=2');
+  I := SG.Row;
+  Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+    'index.php?action=shop_armor&do=buy&itemslot=' + IntToStr(I));
 end;
 
-procedure TFrameShop.pnItemSlot3NameClick(Sender: TObject);
+procedure TFrameShop.SGKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if IsChatMode then
-    Exit;
-  Prompt(Format(Msg, [pnItemSlot3Name.Caption, pnItemSlot3Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=3');
-end;
-
-procedure TFrameShop.pnItemSlot4NameClick(Sender: TObject);
-begin
-  if IsChatMode then
-    Exit;
-  Prompt(Format(Msg, [pnItemSlot4Name.Caption, pnItemSlot4Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=4');
-end;
-
-procedure TFrameShop.pnItemSlot5NameClick(Sender: TObject);
-begin
-  if IsChatMode then
-    Exit;
-  Prompt(Format(Msg, [pnItemSlot5Name.Caption, pnItemSlot5Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=5');
-end;
-
-procedure TFrameShop.pnItemSlot6NameClick(Sender: TObject);
-begin
-  if IsChatMode then
-    Exit;
-  Prompt(Format(Msg, [pnItemSlot6Name.Caption, pnItemSlot6Price.Caption]),
-    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=6');
+  if Key = 13 then
+    SGDblClick(Sender);
 end;
 
 end.

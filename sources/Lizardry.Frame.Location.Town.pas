@@ -242,7 +242,7 @@ var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
   S, V, Cur, Max, Code: string;
-  I, F: Integer;
+  I, F, J, K: Integer;
   A: TArray<string>;
 begin
   MsgBox(AJSON);
@@ -343,68 +343,17 @@ begin
       else if (S = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          pnShopItemValueName.Caption := 'Броня';
-          if JSON.TryGetValue('item_slot_1_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot1Name.Caption := A[0];
-            pnItemSlot1Value.Caption := A[1];
-            pnItemSlot1Level.Caption := A[2];
-            pnItemSlot1Price.Caption := A[3];
-          end
-          else
-            pnItemSlot1Name.Caption := '';
-          if JSON.TryGetValue('item_slot_2_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot2Name.Caption := A[0];
-            pnItemSlot2Value.Caption := A[1];
-            pnItemSlot2Level.Caption := A[2];
-            pnItemSlot2Price.Caption := A[3];
-          end
-          else
-            pnItemSlot2Name.Caption := '';
-          if JSON.TryGetValue('item_slot_3_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot3Name.Caption := A[0];
-            pnItemSlot3Value.Caption := A[1];
-            pnItemSlot3Level.Caption := A[2];
-            pnItemSlot3Price.Caption := A[3];
-          end
-          else
-            pnItemSlot3Name.Caption := '';
-          if JSON.TryGetValue('item_slot_4_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot4Name.Caption := A[0];
-            pnItemSlot4Value.Caption := A[1];
-            pnItemSlot4Level.Caption := A[2];
-            pnItemSlot4Price.Caption := A[3];
-          end
-          else
-            pnItemSlot4Name.Caption := '';
-          if JSON.TryGetValue('item_slot_5_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot5Name.Caption := A[0];
-            pnItemSlot5Value.Caption := A[1];
-            pnItemSlot5Level.Caption := A[2];
-            pnItemSlot5Price.Caption := A[3];
-          end
-          else
-            pnItemSlot5Name.Caption := '';
-          if JSON.TryGetValue('item_slot_6_values', S) then
-          begin
-            A := S.Split([',']);
-            pnItemSlot6Name.Caption := A[0];
-            pnItemSlot6Value.Caption := A[1];
-            pnItemSlot6Level.Caption := A[2];
-            pnItemSlot6Price.Caption := A[3];
-          end
-          else
-            pnItemSlot6Name.Caption := '';
+          DrawGrid;
+          SG.Cells[1, 0] := 'Броня';
+          for K := 1 to 6 do
+            if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            begin
+              A := S.Split([',']);
+              for J := 0 to 3 do
+                SG.Cells[J + 1, K] := A[J];
+            end;
           BringToFront;
+          SG.SetFocus;
         end;
     end
     else
@@ -455,7 +404,7 @@ begin
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
-      //
+    //
     S := '';
     if JSON.TryGetValue('enemy_name', S) then
       FormMain.FrameTown.FrameBattle1.lbEnemyName.Caption := S;
@@ -463,10 +412,12 @@ begin
       FormMain.FrameTown.FrameBattle1.Label8.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('enemy_life_cur', Cur) and
       JSON.TryGetValue('enemy_life_max', Max) then
-      FormMain.FrameTown.FrameBattle1.Label2.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+      FormMain.FrameTown.FrameBattle1.Label2.Caption :=
+        Format('Здоровье: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then
-      FormMain.FrameTown.FrameBattle1.Label3.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      FormMain.FrameTown.FrameBattle1.Label3.Caption :=
+        Format('Урон: %s-%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_image', S) then
       FormMain.FrameTown.FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
