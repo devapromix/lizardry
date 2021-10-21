@@ -24,8 +24,8 @@ if ($action == 'gate') {
 			case 2:
 				$user['links'][2]['title'] = 'Посетить Конюшни';
 				$user['links'][2]['link'] = 'index.php?action=stables';
-				$user['links'][3]['title'] = 'Посетить Гавань';
-				$user['links'][3]['link'] = 'index.php?action=stables';
+				//$user['links'][3]['title'] = 'Посетить Гавань';
+				//$user['links'][3]['link'] = 'index.php?action=stables';
 				break;
 			case 3:
 				$user['links'][2]['title'] = 'Посетить Гавань';

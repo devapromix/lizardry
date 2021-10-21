@@ -25,10 +25,10 @@ if ($action == 'town') {
 
 		$user['links'][0]['title'] = 'Главные Ворота';
 		$user['links'][0]['link'] = 'index.php?action=gate';
+		$user['links'][1]['title'] = 'Отправиться в Банк';
+		$user['links'][1]['link'] = 'index.php?action=bank';
 		switch ($user['char_region']) {
 			case 1:
-				$user['links'][1]['title'] = 'Отправиться в Банк';
-				$user['links'][1]['link'] = 'index.php?action=bank';
 				$user['links'][2]['title'] = 'Посетить Таверну';
 				$user['links'][2]['link'] = 'index.php?action=tavern';
 				$user['links'][3]['title'] = 'Квартал Гильдий';

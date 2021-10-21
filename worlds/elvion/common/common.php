@@ -201,7 +201,7 @@ function post_param($value, $default) {
 	return $res;
 }
 
-function add_event($type, $name){
+function add_event($type, $name, $level){
 	global $user;
 	$f = PATH."events".DS."events.txt";
 	$h = file($f);
@@ -224,6 +224,7 @@ function add_event($type, $name){
 	$data = array();
 	$data[] = $type;
 	$data[] = $name;
+	$data[] = $level;
 	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
