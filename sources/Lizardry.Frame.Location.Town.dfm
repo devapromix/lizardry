@@ -29,9 +29,6 @@ object FrameTown: TFrameTown
       Caption = 'CharName'
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 280
       object bbLogout: TSpeedButton
         Left = 190
         Top = 1
@@ -56,9 +53,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
-      ExplicitLeft = 0
-      ExplicitTop = 250
-      ExplicitWidth = 280
     end
     object Panel13: TPanel
       Tag = 5
@@ -71,9 +65,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
       TabOrder = 2
-      ExplicitLeft = 0
-      ExplicitTop = 50
-      ExplicitWidth = 280
     end
     object Panel14: TPanel
       Tag = 5
@@ -86,9 +77,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
       TabOrder = 3
-      ExplicitLeft = 0
-      ExplicitTop = 80
-      ExplicitWidth = 280
     end
     object Panel15: TPanel
       Tag = 5
@@ -101,9 +89,6 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
-      ExplicitLeft = 0
-      ExplicitTop = 225
-      ExplicitWidth = 280
     end
     object Panel16: TPanel
       Tag = 5
@@ -116,9 +101,6 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
-      ExplicitLeft = 0
-      ExplicitTop = 100
-      ExplicitWidth = 280
     end
     object Panel11: TPanel
       Tag = 4
@@ -131,9 +113,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       ParentBackground = False
       TabOrder = 6
-      ExplicitLeft = 0
-      ExplicitTop = 25
-      ExplicitWidth = 280
       object bbDebug: TSpeedButton
         Left = 190
         Top = 1
@@ -157,9 +136,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitLeft = 0
-      ExplicitTop = 150
-      ExplicitWidth = 280
     end
     object Panel18: TPanel
       Tag = 5
@@ -172,9 +148,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
-      ExplicitLeft = 0
-      ExplicitTop = 200
-      ExplicitWidth = 280
     end
     object pnEqWeapon: TPanel
       Tag = 5
@@ -187,9 +160,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
       TabOrder = 9
-      ExplicitLeft = 0
-      ExplicitTop = 125
-      ExplicitWidth = 280
     end
     object pnEqArmor: TPanel
       Tag = 5
@@ -202,9 +172,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
-      ExplicitLeft = 0
-      ExplicitTop = 175
-      ExplicitWidth = 280
     end
     object HPPanel: TPanel
       Tag = 5
@@ -217,9 +184,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 11
-      ExplicitLeft = -8
-      ExplicitTop = 72
-      ExplicitWidth = 280
       object Panel1: TPanel
         Tag = 5
         Left = 1
@@ -550,136 +514,207 @@ object FrameTown: TFrameTown
           ExplicitWidth = 335
           ExplicitHeight = 2
         end
-        inherited Panel12: TPanel
+        inherited Slot0: TPanel
           Width = 335
           ExplicitWidth = 335
           inherited Panel1: TPanel
             Width = 66
             ExplicitWidth = 66
           end
-          inherited pnShopItemValueName: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited Panel3: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited Panel6: TPanel
-            Left = 237
-            ExplicitLeft = 237
+          inherited Panel2: TPanel
+            Width = 335
+            ExplicitLeft = 264
+            ExplicitTop = -6
+            ExplicitWidth = 335
+            ExplicitHeight = 41
+            inherited Panel3: TPanel
+              Left = 67
+              ExplicitLeft = 67
+              ExplicitTop = -3
+              ExplicitHeight = 39
+            end
+            inherited pnShopItemValueName: TPanel
+              Left = 156
+              ExplicitLeft = 156
+              ExplicitTop = 1
+            end
+            inherited Panel6: TPanel
+              Left = 237
+              ExplicitLeft = 237
+              ExplicitTop = 11
+              ExplicitHeight = 39
+            end
           end
         end
-        inherited Panel4: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited Slot5: TPanel
           inherited pnItemSlot5Name: TPanel
             Width = 66
             ExplicitWidth = 66
-          end
-          inherited pnItemSlot5Value: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited pnItemSlot5Price: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited pnItemSlot5Level: TPanel
-            Left = 237
-            ExplicitLeft = 237
-            ExplicitHeight = 33
+            inherited Panel9: TPanel
+              ExplicitLeft = 280
+              ExplicitTop = 8
+              ExplicitHeight = 41
+              inherited pnItemSlot5Level: TPanel
+                Left = 237
+                ExplicitLeft = 237
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot5Price: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot5Value: TPanel
+                Left = 156
+                ExplicitLeft = 156
+                ExplicitTop = -4
+              end
+            end
           end
         end
-        inherited Panel8: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited Slot1: TPanel
           inherited pnItemSlot1Name: TPanel
             Width = 66
             ExplicitWidth = 66
-          end
-          inherited pnItemSlot1Value: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited pnItemSlot1Price: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited pnItemSlot1Level: TPanel
-            Left = 237
-            ExplicitLeft = 237
+            inherited Panel4: TPanel
+              Width = 335
+              ExplicitLeft = 329
+              ExplicitTop = 3
+              ExplicitWidth = 335
+              ExplicitHeight = 41
+              inherited pnItemSlot1Level: TPanel
+                Left = 237
+                ExplicitLeft = 237
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot1Price: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot1Value: TPanel
+                Left = 156
+                ExplicitLeft = 156
+                ExplicitTop = 1
+                ExplicitHeight = 39
+              end
+            end
           end
         end
-        inherited Panel2: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited Slot4: TPanel
           inherited pnItemSlot4Name: TPanel
             Width = 66
             ExplicitWidth = 66
-          end
-          inherited pnItemSlot4Value: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited pnItemSlot4Price: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited pnItemSlot4Level: TPanel
-            Left = 237
-            ExplicitLeft = 237
-            ExplicitHeight = 33
+            inherited Panel8: TPanel
+              Width = 335
+              ExplicitLeft = 280
+              ExplicitTop = 8
+              ExplicitWidth = 335
+              ExplicitHeight = 41
+              inherited pnItemSlot4Level: TPanel
+                Left = 237
+                ExplicitLeft = 237
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot4Price: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot4Value: TPanel
+                Left = 156
+                ExplicitLeft = 156
+                ExplicitTop = 4
+              end
+            end
           end
         end
-        inherited Panel16: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited Slot3: TPanel
           inherited pnItemSlot3Name: TPanel
             Width = 66
             ExplicitWidth = 66
-          end
-          inherited pnItemSlot3Value: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited pnItemSlot3Price: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited pnItemSlot3Level: TPanel
-            Left = 237
-            ExplicitLeft = 237
-            ExplicitHeight = 33
+            inherited Panel7: TPanel
+              Width = 335
+              ExplicitLeft = 280
+              ExplicitTop = 290
+              ExplicitWidth = 335
+              ExplicitHeight = 41
+              inherited pnItemSlot3Level: TPanel
+                Left = 237
+                ExplicitLeft = 237
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot3Price: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot3Value: TPanel
+                Left = 156
+                ExplicitLeft = 156
+                ExplicitTop = 4
+              end
+            end
           end
         end
-        inherited Panel20: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited Slot2: TPanel
           inherited pnItemSlot2Name: TPanel
             Width = 66
             ExplicitWidth = 66
-          end
-          inherited pnItemSlot2Value: TPanel
-            Left = 156
-            ExplicitLeft = 156
-          end
-          inherited pnItemSlot2Price: TPanel
-            Left = 67
-            ExplicitLeft = 67
-          end
-          inherited pnItemSlot2Level: TPanel
-            Left = 237
-            ExplicitLeft = 237
-            ExplicitHeight = 33
+            inherited Panel5: TPanel
+              Width = 335
+              ExplicitLeft = 360
+              ExplicitTop = 3
+              ExplicitWidth = 335
+              ExplicitHeight = 41
+              inherited pnItemSlot2Price: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = -4
+              end
+              inherited pnItemSlot2Level: TPanel
+                Left = 237
+                ExplicitLeft = 237
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot2Value: TPanel
+                Left = 156
+                ExplicitLeft = 156
+                ExplicitTop = 4
+              end
+            end
           end
         end
-        inherited Panel5: TPanel
-          Width = 335
-          ExplicitWidth = 335
+        inherited DescrPanel: TPanel
           inherited lbShopDescr: TLabel
             Width = 333
             ExplicitWidth = 333
+          end
+        end
+        inherited Slot6: TPanel
+          inherited pnItemSlot6Name: TPanel
+            Width = 66
+            ExplicitWidth = 66
+            inherited Panel10: TPanel
+              ExplicitLeft = 280
+              ExplicitTop = 8
+              ExplicitHeight = 41
+              inherited pnItemSlot6Level: TPanel
+                Left = 67
+                ExplicitLeft = 67
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot6Price: TPanel
+                Left = 245
+                ExplicitLeft = 245
+                ExplicitTop = 1
+              end
+              inherited pnItemSlot6Value: TPanel
+                Left = 164
+                ExplicitLeft = 164
+                ExplicitTop = 4
+              end
+            end
           end
         end
       end

@@ -284,7 +284,7 @@ begin
     if JSON.TryGetValue('description', S) then
     begin
       FrameInfo1.BringToFront;
-      FrameInfo1.StaticText1.Caption := S;
+      FrameInfo1.StaticText1.Caption := S.Replace('#', #13#10);
     end;
     //
     ClearButtons;
@@ -394,6 +394,16 @@ begin
           end
           else
             pnItemSlot5Name.Caption := '';
+          if JSON.TryGetValue('item_slot_6_values', S) then
+          begin
+            A := S.Split([',']);
+            pnItemSlot6Name.Caption := A[0];
+            pnItemSlot6Value.Caption := A[1];
+            pnItemSlot6Level.Caption := A[2];
+            pnItemSlot6Price.Caption := A[3];
+          end
+          else
+            pnItemSlot6Name.Caption := '';
           BringToFront;
         end;
     end

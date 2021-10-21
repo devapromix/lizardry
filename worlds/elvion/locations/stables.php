@@ -10,7 +10,7 @@ if ($action == 'stables') {
 		if ($user['char_food'] < 3) die('{"info":"Возьмите в дорогу не менее трех мешков провизии!"}');
 		if ($user['char_gold'] < 200) die('{"info":"Возьмите в дорогу не менее 200 золотых монет!"}');
 		$travel = true;
-		change_region($do);
+		change_region($do, 3, 200);
 	}
 	if ($do == 2) {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
@@ -18,7 +18,7 @@ if ($action == 'stables') {
 		if ($user['char_food'] < 3) die('{"info":"Возьмите в дорогу не менее трех мешков провизии!"}');
 		if ($user['char_gold'] < 200) die('{"info":"Возьмите в дорогу не менее 200 золотых монет!"}');
 		$travel = true;
-		change_region($do);
+		change_region($do, 3, 200);
 	}
 	
 	if (!$travel) {

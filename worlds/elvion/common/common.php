@@ -134,10 +134,15 @@ function add_item_to_shop($item_slot, $item_ident) {
 			$user['item_slot_5_values'] = item_values($item_ident);
 			update_user_table("item_slot_5=".$user['item_slot_5']);
 			break;
+		case 6:
+			$user['item_slot_6'] = $item_ident;
+			$user['item_slot_6_values'] = item_values($item_ident);
+			update_user_table("item_slot_6=".$user['item_slot_6']);
+			break;
 	}
 }
 
-function change_region($region_ident) {
+function change_region($region_ident, $food, $gold) {
 	global $user, $tb_regions, $connection;
 	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
 	$result = mysqli_query($connection, $query) 
@@ -145,7 +150,9 @@ function change_region($region_ident) {
 	$region = $result->fetch_assoc();
 	$user['char_region'] = $region['region_ident'];
 	$user['char_region_town_name'] = $region['region_town_name'];
-	update_user_table("char_region=".$user['char_region'].",char_region_town_name='".$user['char_region_town_name']."'");
+	$user['char_gold'] -= $gold;
+	$user['char_food'] -= $food;
+	update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_town_name='".$user['char_region_town_name']."'");
 }
 
 function check_user($user_name) {

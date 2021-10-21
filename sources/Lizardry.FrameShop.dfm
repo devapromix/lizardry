@@ -1,8 +1,8 @@
 object FrameShop: TFrameShop
   Left = 0
   Top = 0
-  Width = 692
-  Height = 417
+  Width = 744
+  Height = 604
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
   Font.Height = -19
@@ -12,9 +12,9 @@ object FrameShop: TFrameShop
   TabOrder = 0
   object Label1: TLabel
     Left = 0
-    Top = 290
-    Width = 692
-    Height = 127
+    Top = 325
+    Width = 744
+    Height = 279
     Align = alClient
     AutoSize = False
     WordWrap = True
@@ -23,26 +23,27 @@ object FrameShop: TFrameShop
     ExplicitWidth = 690
     ExplicitHeight = 78
   end
-  object Panel12: TPanel
+  object Slot0: TPanel
     Tag = 5
     Left = 0
     Top = 80
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 692
     object Panel1: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 442
       Height = 33
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       Caption = #1053#1072#1079#1074#1072#1085#1080#1077
-      Color = clCream
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -19
@@ -51,378 +52,492 @@ object FrameShop: TFrameShop
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
-      ExplicitWidth = 520
+      ExplicitWidth = 390
     end
-    object pnShopItemValueName: TPanel
-      Tag = 5
-      Left = 521
+    object Panel2: TPanel
+      Left = 443
       Top = 1
-      Width = 81
+      Width = 300
       Height = 33
       Align = alRight
-      Caption = #1041#1088#1086#1085#1103
-      Color = clCream
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -19
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentFont = False
+      BevelOuter = bvNone
       TabOrder = 1
-    end
-    object Panel3: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = #1062#1077#1085#1072
-      Color = clCream
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -19
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentFont = False
-      TabOrder = 2
-    end
-    object Panel6: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = #1059#1088#1086#1074#1077#1085#1100
-      Color = clCream
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -19
-      Font.Name = 'Courier New'
-      Font.Style = [fsBold]
-      ParentBackground = False
-      ParentFont = False
-      TabOrder = 3
+      ExplicitLeft = 391
+      object Panel3: TPanel
+        Tag = 5
+        Left = 200
+        Top = 0
+        Width = 100
+        Height = 33
+        Caption = #1062#1077#1085#1072
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentFont = False
+        TabOrder = 0
+      end
+      object pnShopItemValueName: TPanel
+        Tag = 5
+        Left = 0
+        Top = 0
+        Width = 100
+        Height = 33
+        Caption = #1041#1088#1086#1085#1103
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentFont = False
+        TabOrder = 1
+      end
+      object Panel6: TPanel
+        Tag = 5
+        Left = 100
+        Top = 0
+        Width = 100
+        Height = 33
+        Caption = #1059#1088#1086#1074#1077#1085#1100
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentFont = False
+        TabOrder = 2
+      end
     end
   end
-  object Panel4: TPanel
+  object Slot5: TPanel
     Tag = 5
     Left = 0
     Top = 255
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 692
     object pnItemSlot5Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 742
       Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 0
       OnClick = pnItemSlot5NameClick
-      ExplicitWidth = 520
-    end
-    object pnItemSlot5Value: TPanel
-      Tag = 5
-      Left = 521
-      Top = 1
-      Width = 81
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 1
-    end
-    object pnItemSlot5Price: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 2
-    end
-    object pnItemSlot5Level: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = '1'
-      ParentBackground = False
-      TabOrder = 3
-      ExplicitLeft = 422
-      ExplicitHeight = 31
+      ExplicitWidth = 690
+      object Panel9: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel9'
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot5Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot5Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot5Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
-  object Panel8: TPanel
+  object Slot1: TPanel
     Tag = 5
     Left = 0
     Top = 115
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 2
+    ExplicitWidth = 692
     object pnItemSlot1Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 742
       Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 0
       OnClick = pnItemSlot1NameClick
-      ExplicitWidth = 520
-    end
-    object pnItemSlot1Value: TPanel
-      Tag = 5
-      Left = 521
-      Top = 1
-      Width = 81
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 1
-    end
-    object pnItemSlot1Price: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 2
-    end
-    object pnItemSlot1Level: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = '1'
-      ParentBackground = False
-      TabOrder = 3
+      ExplicitWidth = 690
+      object Panel4: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot1Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot1Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot1Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
-  object Panel2: TPanel
+  object Slot4: TPanel
     Tag = 5
     Left = 0
     Top = 220
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 3
+    ExplicitWidth = 692
     object pnItemSlot4Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 742
       Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 0
       OnClick = pnItemSlot4NameClick
-      ExplicitWidth = 520
-    end
-    object pnItemSlot4Value: TPanel
-      Tag = 5
-      Left = 521
-      Top = 1
-      Width = 81
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 1
-    end
-    object pnItemSlot4Price: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 2
-    end
-    object pnItemSlot4Level: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = '1'
-      ParentBackground = False
-      TabOrder = 3
-      ExplicitLeft = 422
-      ExplicitHeight = 31
+      ExplicitWidth = 690
+      object Panel8: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel8'
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot4Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot4Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot4Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
-  object Panel16: TPanel
+  object Slot3: TPanel
     Tag = 5
     Left = 0
     Top = 185
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 4
+    ExplicitWidth = 692
     object pnItemSlot3Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 742
       Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 0
       OnClick = pnItemSlot3NameClick
-      ExplicitWidth = 520
-    end
-    object pnItemSlot3Value: TPanel
-      Tag = 5
-      Left = 521
-      Top = 1
-      Width = 81
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 1
-    end
-    object pnItemSlot3Price: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 2
-    end
-    object pnItemSlot3Level: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = '1'
-      ParentBackground = False
-      TabOrder = 3
-      ExplicitLeft = 422
-      ExplicitHeight = 31
+      ExplicitWidth = 690
+      object Panel7: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel7'
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot3Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot3Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot3Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
-  object Panel20: TPanel
+  object Slot2: TPanel
     Tag = 5
     Left = 0
     Top = 150
-    Width = 692
+    Width = 744
     Height = 35
     Align = alTop
     Alignment = taLeftJustify
     ParentBackground = False
     TabOrder = 5
+    ExplicitWidth = 692
     object pnItemSlot2Name: TPanel
       Tag = 5
       Left = 1
       Top = 1
-      Width = 423
+      Width = 742
       Height = 33
       Cursor = crHandPoint
       Align = alClient
       Alignment = taLeftJustify
+      BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 0
       OnClick = pnItemSlot2NameClick
-      ExplicitWidth = 520
-    end
-    object pnItemSlot2Value: TPanel
-      Tag = 5
-      Left = 521
-      Top = 1
-      Width = 81
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 1
-    end
-    object pnItemSlot2Price: TPanel
-      Tag = 5
-      Left = 602
-      Top = 1
-      Width = 89
-      Height = 33
-      Align = alRight
-      Caption = '0'
-      ParentBackground = False
-      TabOrder = 2
-    end
-    object pnItemSlot2Level: TPanel
-      Tag = 5
-      Left = 424
-      Top = 1
-      Width = 97
-      Height = 33
-      Align = alRight
-      Caption = '1'
-      ParentBackground = False
-      TabOrder = 3
-      ExplicitLeft = 422
-      ExplicitHeight = 31
+      ExplicitWidth = 690
+      object Panel5: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel5'
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot2Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot2Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot2Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
-  object Panel5: TPanel
+  object DescrPanel: TPanel
     Left = 0
     Top = 0
-    Width = 692
+    Width = 744
     Height = 80
     Align = alTop
     TabOrder = 6
+    ExplicitWidth = 692
     object lbShopDescr: TLabel
       Left = 1
       Top = 1
-      Width = 690
+      Width = 742
       Height = 78
       Align = alClient
       AutoSize = False
       WordWrap = True
-      ExplicitWidth = 577
-      ExplicitHeight = 88
+      ExplicitTop = -3
+      ExplicitWidth = 690
+    end
+  end
+  object Slot6: TPanel
+    Tag = 5
+    Left = 0
+    Top = 290
+    Width = 744
+    Height = 35
+    Align = alTop
+    Alignment = taLeftJustify
+    ParentBackground = False
+    TabOrder = 7
+    ExplicitWidth = 692
+    object pnItemSlot6Name: TPanel
+      Tag = 5
+      Left = 1
+      Top = 1
+      Width = 742
+      Height = 33
+      Cursor = crHandPoint
+      Align = alClient
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      ParentBackground = False
+      TabOrder = 0
+      OnClick = pnItemSlot6NameClick
+      ExplicitWidth = 690
+      object Panel10: TPanel
+        Left = 442
+        Top = 0
+        Width = 300
+        Height = 33
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel10'
+        TabOrder = 0
+        ExplicitLeft = 390
+        object pnItemSlot6Level: TPanel
+          Tag = 5
+          Left = 100
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '1'
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object pnItemSlot6Price: TPanel
+          Tag = 5
+          Left = 200
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 1
+        end
+        object pnItemSlot6Value: TPanel
+          Tag = 5
+          Left = 0
+          Top = 0
+          Width = 100
+          Height = 33
+          Caption = '0'
+          ParentBackground = False
+          TabOrder = 2
+        end
+      end
     end
   end
 end

@@ -5,7 +5,7 @@ if ($action == 'gate') {
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы находитесь у главных ворот города.';
 	}else{
-		$user['description'] = 'Ваша душа летает главными городскими воротами города.';
+		$user['description'] = 'Ваша душа летает над главными городскими воротами города.';
 	}
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {

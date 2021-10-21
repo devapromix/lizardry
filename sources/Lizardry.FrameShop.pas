@@ -6,35 +6,35 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids;
 
 type
   TFrameShop = class(TFrame)
-    Panel12: TPanel;
+    Slot0: TPanel;
     Panel1: TPanel;
     pnShopItemValueName: TPanel;
     Panel3: TPanel;
-    Panel4: TPanel;
+    Slot5: TPanel;
     pnItemSlot5Name: TPanel;
     pnItemSlot5Value: TPanel;
     pnItemSlot5Price: TPanel;
-    Panel8: TPanel;
+    Slot1: TPanel;
     pnItemSlot1Name: TPanel;
     pnItemSlot1Value: TPanel;
     pnItemSlot1Price: TPanel;
-    Panel2: TPanel;
+    Slot4: TPanel;
     pnItemSlot4Name: TPanel;
     pnItemSlot4Value: TPanel;
     pnItemSlot4Price: TPanel;
-    Panel16: TPanel;
+    Slot3: TPanel;
     pnItemSlot3Name: TPanel;
     pnItemSlot3Value: TPanel;
     pnItemSlot3Price: TPanel;
-    Panel20: TPanel;
+    Slot2: TPanel;
     pnItemSlot2Name: TPanel;
     pnItemSlot2Value: TPanel;
     pnItemSlot2Price: TPanel;
-    Panel5: TPanel;
+    DescrPanel: TPanel;
     lbShopDescr: TLabel;
     Label1: TLabel;
     Panel6: TPanel;
@@ -43,11 +43,24 @@ type
     pnItemSlot3Level: TPanel;
     pnItemSlot4Level: TPanel;
     pnItemSlot5Level: TPanel;
+    Slot6: TPanel;
+    pnItemSlot6Name: TPanel;
+    pnItemSlot6Value: TPanel;
+    pnItemSlot6Price: TPanel;
+    pnItemSlot6Level: TPanel;
+    Panel2: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel7: TPanel;
+    Panel8: TPanel;
+    Panel9: TPanel;
+    Panel10: TPanel;
     procedure pnItemSlot1NameClick(Sender: TObject);
     procedure pnItemSlot2NameClick(Sender: TObject);
     procedure pnItemSlot3NameClick(Sender: TObject);
     procedure pnItemSlot4NameClick(Sender: TObject);
     procedure pnItemSlot5NameClick(Sender: TObject);
+    procedure pnItemSlot6NameClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -101,6 +114,14 @@ begin
     Exit;
   Prompt(Format(Msg, [pnItemSlot5Name.Caption, pnItemSlot5Price.Caption]),
     'Купить', 'index.php?action=shop_armor&do=buy&itemslot=5');
+end;
+
+procedure TFrameShop.pnItemSlot6NameClick(Sender: TObject);
+begin
+  if IsChatMode then
+    Exit;
+  Prompt(Format(Msg, [pnItemSlot6Name.Caption, pnItemSlot6Price.Caption]),
+    'Купить', 'index.php?action=shop_armor&do=buy&itemslot=6');
 end;
 
 end.
