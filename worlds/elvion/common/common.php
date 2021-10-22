@@ -239,6 +239,8 @@ function auto_battle() {
 	global $user;
 	
 	$r = '';
+	$rounds = 0;
+	$damages = 0;
 	
 	while(true) {
 
@@ -247,6 +249,7 @@ function auto_battle() {
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
+				$damages += $d;
 				$user['enemy_life_cur'] -= $d;
 				if ($user['enemy_life_cur'] > 0) {
 					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
@@ -297,8 +300,12 @@ function auto_battle() {
 			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			break;
 		}
+		$rounds++;
 	}
 	
+	$r .= '--------------------------------------------------------#';
+	$r .= 'Всего раундов: '.$rounds."#";
+	$r .= 'Сумма урона: '.$damages."#";
 	return $r;
 }
 
