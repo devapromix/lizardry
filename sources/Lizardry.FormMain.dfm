@@ -222,6 +222,7 @@ object FormMain: TFormMain
           ExplicitHeight = 485
           inherited SG: TStringGrid
             Width = 622
+            ExplicitWidth = 622
           end
         end
         inherited FrameInfo1: TFrameInfo

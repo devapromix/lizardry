@@ -23,9 +23,9 @@ if ($action == 'forest') {
 			break;
 		case 5:
 			$user['title'] = 'Лес Каменных Гигантов';
-			add_enemy(1, rand(7, 9));
-			add_enemy(2, rand(7, 9));
-			add_enemy(3, rand(7, 9));
+			add_enemy(1, rand(1, 1));
+			add_enemy(2, rand(1, 1));
+			add_enemy(3, rand(1, 1));
 			break;
 	}
 		

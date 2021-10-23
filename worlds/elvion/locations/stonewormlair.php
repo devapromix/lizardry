@@ -4,9 +4,9 @@ if ($action == 'stonewormlair') {
 
 	$user['current_outlands'] = $action;
 
-	add_enemy(1, rand(10, 10));
-	add_enemy(2, rand(10, 10));
-	add_enemy(3, rand(10, 10));	
+	add_enemy(1, rand(10, 12));
+	add_enemy(2, rand(10, 12));
+	add_enemy(3, rand(10, 12));	
 	
 	$user['title'] = 'Логово Каменных Червей';
 	if ($user['char_life_cur'] > 0) {
