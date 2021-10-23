@@ -242,7 +242,15 @@ function auto_battle() {
 	$rounds = 0;
 	$damages = 0;
 	
+	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
+	$r .= '--------------------------------------------------------#';
 	while(true) {
+
+		if (rand(1, 100) <= 1) {
+			$h = 1;
+			$user['char_life_cur'] += $h;
+			$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
+		}
 
 		if (rand(1, 5) >= 2) {
 			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
@@ -285,6 +293,7 @@ function auto_battle() {
 			$user['stat_deads']++;
 			$user['char_exp'] -= round($user['char_exp'] / 5);
 			$user['char_gold'] -= round($user['char_gold'] / 7);
+			$r .= '--------------------------------------------------------#';
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
 			break;
 		}
@@ -292,12 +301,17 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
-			$gold = $user['enemy_gold'];
+			$gold = get_value($user['enemy_gold']);
 			$user['char_gold'] += $gold;
-			$exp = $user['enemy_exp'];
+			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
-			$r .= 'Вы получаете '.$exp.' опыта.#';
-			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
+			$r .= '--------------------------------------------------------#';
+			if ($exp > 0)
+				$r .= 'Вы получаете '.$exp.' опыта.#';
+			if ($gold <= 0)
+				$r .= 'Вы роетесь в останках '.$user['enemy_name'].', но ничего не находите.#';
+			else
+				$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			break;
 		}
 		$rounds++;
@@ -306,6 +320,24 @@ function auto_battle() {
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
 	$r .= 'Сумма урона: '.$damages."#";
+	return $r;
+}
+
+function get_value($value) {
+	global $user;
+	$r = $value;
+	if ($user['enemy_level'] - 1 > $user['char_level'])
+		$r = $value + rand(round($value / 3), round($value / 2));
+	if ($user['enemy_level'] > $user['char_level'])
+		$r = $value + rand(round($value / 5), round($value / 4));
+	if ($user['char_level'] - 1 > $user['enemy_level'])
+		$r = rand(round($value / 3), round($value / 2));
+	if ($user['char_level'] - 2 > $user['enemy_level'])
+		$r = rand(round($value / 5), round($value / 4));
+	if ($user['char_level'] - 3 > $user['enemy_level'])
+		$r = rand(1, 3);
+	if ($user['char_level'] - 4 > $user['enemy_level'])
+		$r = 0;
 	return $r;
 }
 
