@@ -26,6 +26,10 @@ if ($action == 'gate') {
 				$user['links'][2]['link'] = 'index.php?action=stables';
 				//$user['links'][3]['title'] = 'Посетить Гавань';
 				//$user['links'][3]['link'] = 'index.php?action=stables';
+				$user['links'][3]['title'] = 'Каменное Поле';
+				$user['links'][3]['link'] = 'index.php?action=stonefield';
+				$user['links'][4]['title'] = 'Старый Лес';
+				$user['links'][4]['link'] = 'index.php?action=forest';
 				break;
 			case 3:
 				$user['links'][2]['title'] = 'Посетить Гавань';
@@ -36,6 +40,22 @@ if ($action == 'gate') {
 				$user['links'][2]['link'] = 'index.php?action=stables';
 				break;
 			case 5:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 6:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 7:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 8:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 9:
 				$user['links'][2]['title'] = 'Посетить Гавань';
 				$user['links'][2]['link'] = 'index.php?action=stables';
 				break;

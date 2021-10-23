@@ -55,6 +55,8 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/deepcave.php';
 	// Stoneworm Lair
 	include 'locations/stonewormlair.php';
+	// Stone Field
+	include 'locations/stonefield.php';
 	// Tavern
 	include 'locations/tavern.php';
 	// Bank
