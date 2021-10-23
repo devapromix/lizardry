@@ -17,9 +17,9 @@ if ($action == 'forest') {
 			break;
 		case 2:
 			$user['title'] = 'Старый Лес';
-			add_enemy(1, rand(7, 9));
-			add_enemy(2, rand(7, 9));
-			add_enemy(3, rand(7, 9));
+			add_enemy(1, rand(16, 18));
+			add_enemy(2, rand(16, 18));
+			add_enemy(3, rand(16, 18));
 			break;
 		case 5:
 			$user['title'] = 'Лес Каменных Гигантов';
@@ -43,7 +43,7 @@ if ($action == 'forest') {
 				break;
 		}
 	}else{
-		$user['description'] = 'Ваше бестелесное тело взмывает ввысь над деревьями. Вы ищете ближайшее кладбище...';
+		$user['description'] = 'Ваше бестелесное тело взмывает ввысь над ветвями все выше и выше. Вы ищете ближайшее кладбище...';
 	}
 	$user['frame'] = 'outlands';
 	$user['links'] = array();

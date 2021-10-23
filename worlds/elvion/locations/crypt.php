@@ -4,9 +4,9 @@ if ($action == 'crypt') {
 	
 	$user['current_outlands'] = $action;
 	
-	add_enemy(1, rand(11, 14));
-	add_enemy(2, rand(11, 14));
-	add_enemy(3, rand(11, 14));	
+	add_enemy(1, rand(13, 15));
+	add_enemy(2, rand(13, 15));
+	add_enemy(3, rand(13, 15));	
 	
 	$user['title'] = 'Старый Склеп';
 	if ($user['char_life_cur'] > 0) {

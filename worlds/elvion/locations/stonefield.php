@@ -4,9 +4,9 @@ if ($action == 'stonefield') {
 
 	$user['current_outlands'] = $action;
 
-	add_enemy(1, rand(10, 10));
-	add_enemy(2, rand(10, 10));
-	add_enemy(3, rand(10, 10));	
+	add_enemy(1, rand(19, 21));
+	add_enemy(2, rand(19, 21));
+	add_enemy(3, rand(19, 21));	
 	
 	$user['title'] = 'Каменное Поле';
 	if ($user['char_life_cur'] > 0) {

@@ -61,6 +61,9 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/tavern.php';
 	// Bank
 	include 'locations/bank.php';
+	// Harbor
+	include 'locations/harbor.php';
+	include 'locations/old_harbor.php';
 }
 
 mysqli_close($connection);

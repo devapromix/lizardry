@@ -24,12 +24,14 @@ if ($action == 'gate') {
 			case 2:
 				$user['links'][2]['title'] = 'Посетить Конюшни';
 				$user['links'][2]['link'] = 'index.php?action=stables';
-				//$user['links'][3]['title'] = 'Посетить Гавань';
-				//$user['links'][3]['link'] = 'index.php?action=stables';
-				$user['links'][3]['title'] = 'Каменное Поле';
-				$user['links'][3]['link'] = 'index.php?action=stonefield';
-				$user['links'][4]['title'] = 'Старый Лес';
-				$user['links'][4]['link'] = 'index.php?action=forest';
+				$user['links'][3]['title'] = 'Посетить Гавань';
+				$user['links'][3]['link'] = 'index.php?action=harbor';
+				$user['links'][4]['title'] = 'Каменное Поле';
+				$user['links'][4]['link'] = 'index.php?action=stonefield';
+				$user['links'][5]['title'] = 'Старый Лес';
+				$user['links'][5]['link'] = 'index.php?action=forest';
+				$user['links'][6]['title'] = 'Старая Гавань';
+				$user['links'][6]['link'] = 'index.php?action=old_harbor';
 				break;
 			case 3:
 				$user['links'][2]['title'] = 'Посетить Гавань';
