@@ -382,6 +382,8 @@ object FrameTown: TFrameTown
       inherited Panel2: TPanel
         Width = 337
         Height = 217
+        ExplicitLeft = 0
+        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit

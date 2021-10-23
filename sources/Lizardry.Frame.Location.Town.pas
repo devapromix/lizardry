@@ -155,6 +155,7 @@ end;
 procedure TFrameTown.bbLogoutClick(Sender: TObject);
 begin
   HideChat;
+  FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
 end;
 
