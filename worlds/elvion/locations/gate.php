@@ -1,7 +1,7 @@
 <?php
 
 if ($action == 'gate') {
-	$user['title'] = 'Врата Города';
+	$user['title'] = 'Врата в '.$user['char_region_town_name'];
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы стоите у главных ворот в город. Здесь всегда полно народу - кто-то спешит в город, кто-то его покидает. Угрюмые стражники подозрительно всматриваются в каждого проходящего. Глубоко вдохнув полной грудью вы решаете, что пора двигаться дальше.';
 	}else{
@@ -10,7 +10,7 @@ if ($action == 'gate') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		
-		$user['links'][0]['title'] = 'Войти в Город';
+		$user['links'][0]['title'] = 'Войти в '.$user['char_region_town_name'];
 		$user['links'][0]['link'] = 'index.php?action=town';
 		$user['links'][1]['title'] = 'Идти на Кладбище';
 		$user['links'][1]['link'] = 'index.php?action=graveyard';
@@ -28,6 +28,14 @@ if ($action == 'gate') {
 				//$user['links'][3]['link'] = 'index.php?action=stables';
 				break;
 			case 3:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 4:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 5:
 				$user['links'][2]['title'] = 'Посетить Гавань';
 				$user['links'][2]['link'] = 'index.php?action=stables';
 				break;
