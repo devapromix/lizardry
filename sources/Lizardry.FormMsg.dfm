@@ -1,7 +1,7 @@
 object FormMsg: TFormMsg
   Left = 0
   Top = 0
-  Caption = 'FormMsg'
+  Caption = 'Lizardry'
   ClientHeight = 453
   ClientWidth = 559
   Color = clBtnFace
@@ -21,7 +21,6 @@ object FormMsg: TFormMsg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 253
     object Label1: TLabel
       Left = 0
       Top = 33
@@ -41,7 +40,6 @@ object FormMsg: TFormMsg
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitTop = -16
     end
   end
   object Panel2: TPanel
@@ -52,8 +50,6 @@ object FormMsg: TFormMsg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = -8
-    ExplicitTop = 411
     object Button1: TButton
       Left = 231
       Top = 9
@@ -72,10 +68,6 @@ object FormMsg: TFormMsg
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 136
-    ExplicitTop = 8
-    ExplicitWidth = 273
-    ExplicitHeight = 145
     object Image1: TImage
       Left = 0
       Top = 0

@@ -80,6 +80,10 @@ begin
   end
   else if ResponseCode = '1' then
   begin
+    if IsChatMode then
+      FormMain.FrameTown.HideChat;
+    if IsCharMode then
+      FormMain.FrameTown.HideChar;
     FormMain.FrameTown.DoAction('index.php?action=town');
     FormMain.FrameTown.BringToFront;
     //
@@ -154,9 +158,11 @@ begin
       R := SL[I].Split([',']);
       case StrToIntDef(R[0], 0) of
         0:
-          Result := Result + Format('Новый герой %s прибыл в Елвинаар!', [R[1]]) + #13#10;
+          Result := Result + Format('Новый герой %s прибыл в Елвинаар!', [R[1]]
+            ) + #13#10;
         1:
-          Result := Result + Format('Герой %s повысил свой уровень до %s!', [R[1], R[2]]) + #13#10;
+          Result := Result + Format('Герой %s повысил свой уровень до %s!',
+            [R[1], R[2]]) + #13#10;
       end;
     end;
 

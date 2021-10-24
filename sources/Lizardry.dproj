@@ -180,6 +180,11 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Lizardry.InventoryString.pas"/>
+        <DCCReference Include="Lizardry.FrameChar.pas">
+            <Form>FrameChar</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

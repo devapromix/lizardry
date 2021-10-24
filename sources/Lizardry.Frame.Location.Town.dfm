@@ -18,7 +18,7 @@ object FrameTown: TFrameTown
     Align = alRight
     ParentBackground = False
     TabOrder = 0
-    object Panel8: TPanel
+    object CharNamePanel: TPanel
       Tag = 1
       Left = 1
       Top = 1
@@ -26,7 +26,6 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = 'CharName'
       ParentBackground = False
       TabOrder = 0
       object bbLogout: TSpeedButton
@@ -40,6 +39,21 @@ object FrameTown: TFrameTown
         Flat = True
         OnClick = bbLogoutClick
         ExplicitLeft = 192
+      end
+      object bbCharName: TSpeedButton
+        Left = 1
+        Top = 1
+        Width = 189
+        Height = 23
+        Cursor = crHandPoint
+        Align = alClient
+        Flat = True
+        Layout = blGlyphRight
+        OnClick = bbCharNameClick
+        ExplicitLeft = 96
+        ExplicitTop = 3
+        ExplicitWidth = 23
+        ExplicitHeight = 22
       end
     end
     object Panel12: TPanel
@@ -356,6 +370,45 @@ object FrameTown: TFrameTown
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    inline FrameChar: TFrameChar
+      Left = 0
+      Top = 25
+      Width = 337
+      Height = 249
+      Align = alClient
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      ExplicitLeft = -190
+      ExplicitTop = -187
+      inherited PageControl1: TPageControl
+        Width = 337
+        Height = 249
+        inherited TabSheet1: TTabSheet
+          ExplicitWidth = 329
+          ExplicitHeight = 213
+        end
+        inherited TabSheet2: TTabSheet
+          ExplicitWidth = 329
+          ExplicitHeight = 213
+        end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitWidth = 329
+          ExplicitHeight = 213
+        end
+        inherited TabSheet4: TTabSheet
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+        end
+      end
+    end
     inline FrameChat: TFrameChat
       Left = 0
       Top = 25
@@ -373,17 +426,12 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         inherited edChatMsg: TEdit
           Width = 335
-          ExplicitLeft = 1
-          ExplicitTop = 1
           ExplicitWidth = 335
-          ExplicitHeight = 30
         end
       end
       inherited Panel2: TPanel
         Width = 337
         Height = 217
-        ExplicitLeft = 0
-        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit

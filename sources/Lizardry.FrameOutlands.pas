@@ -31,14 +31,14 @@ uses Lizardry.FormMain, Lizardry.Server;
 
 procedure TFrameOutlands.Image1Click(Sender: TObject);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=camp'));
 end;
 
 procedure TFrameOutlands.Image2Click(Sender: TObject);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=battle&enemyslot=1'));
@@ -46,7 +46,7 @@ end;
 
 procedure TFrameOutlands.Image3Click(Sender: TObject);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=battle&enemyslot=2'));
@@ -54,7 +54,7 @@ end;
 
 procedure TFrameOutlands.Image4Click(Sender: TObject);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=battle&enemyslot=3'));

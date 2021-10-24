@@ -34,7 +34,7 @@ procedure TFrameBank.bbDepositClick(Sender: TObject);
 var
   Sum: Integer;
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
@@ -46,7 +46,7 @@ procedure TFrameBank.bbWithdrawClick(Sender: TObject);
 var
   Sum: Integer;
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
@@ -56,7 +56,7 @@ end;
 
 procedure TFrameBank.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then

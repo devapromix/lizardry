@@ -51,7 +51,7 @@ procedure TFrameShop.SGDblClick(Sender: TObject);
 var
   I: Integer;
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   I := SG.Row;
   Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',

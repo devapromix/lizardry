@@ -8,7 +8,8 @@ uses
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
   Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
   Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
-  Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop;
+  Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop,
+  Lizardry.FrameChar;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -24,7 +25,7 @@ type
 type
   TFrameTown = class(TFrame)
     RightPanel: TPanel;
-    Panel8: TPanel;
+    CharNamePanel: TPanel;
     Panel11: TPanel;
     Panel12: TPanel;
     Panel13: TPanel;
@@ -64,10 +65,13 @@ type
     FrameShop1: TFrameShop;
     HPPanel: TPanel;
     Panel1: TPanel;
+    bbCharName: TSpeedButton;
+    FrameChar: TFrameChar;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
     procedure bbChatClick(Sender: TObject);
+    procedure bbCharNameClick(Sender: TObject);
   private
     { Private declarations }
     Title: string;
@@ -78,9 +82,12 @@ type
     { Public declarations }
     procedure ShowChat;
     procedure HideChat;
+    procedure ShowChar;
+    procedure HideChar;
     procedure DoAction(S: string);
     procedure ParseJSON(AJSON: string); overload;
     procedure ParseJSON(AJSON, Section: string); overload;
+    function IsActPanels: Boolean;
   end;
 
 implementation
@@ -132,12 +139,24 @@ begin
   end;
 end;
 
+procedure TFrameTown.HideChar;
+begin
+  Panel10.Caption := Title;
+  FrameChar.SendToBack;
+  IsCharMode := False;
+end;
+
 procedure TFrameTown.HideChat;
 begin
   FrameChat.edChatMsg.Text := '';
   Panel10.Caption := Title;
   FrameChat.SendToBack;
   IsChatMode := False;
+end;
+
+function TFrameTown.IsActPanels: Boolean;
+begin
+  //
 end;
 
 procedure TFrameTown.AddButton(const Title, Script: string);
@@ -201,7 +220,7 @@ end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
 begin
-  if IsChatMode then
+  if IsChatMode or IsCharMode then
     Exit;
   DoAction((Sender as TPanel).Script);
 end;
@@ -228,8 +247,21 @@ begin
   end;
 end;
 
+procedure TFrameTown.ShowChar;
+begin
+  if IsChatMode then
+    HideChat;
+  Title := Panel10.Caption;
+  Panel10.Caption := bbCharName.Caption;
+  FrameChar.PageControl1.ActivePageIndex := 0;
+  FrameChar.BringToFront;
+  IsCharMode := True;
+end;
+
 procedure TFrameTown.ShowChat;
 begin
+  if IsCharMode then
+    HideChar;
   FrameChat.edChatMsg.Text := '';
   FrameChat.edChatMsg.SetFocus;
   Title := Panel10.Caption;
@@ -363,7 +395,7 @@ begin
     S := '';
     if JSON.TryGetValue('char_name', S) then
     begin
-      Panel8.Caption := S;
+      bbCharName.Caption := S;
       FrameBattle1.Label4.Caption := S;
     end;
     if JSON.TryGetValue('char_level', V) then
@@ -406,6 +438,15 @@ begin
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
     //
+    if JSON.TryGetValue('stat_kills', S) then
+      FormMain.FrameTown.FrameChar.ttStatKills.Caption :=
+        Format('Выиграно битв: %s', [S]);
+    if JSON.TryGetValue('stat_deads', S) then
+      FormMain.FrameTown.FrameChar.ttStatDeads.Caption :=
+        Format('Поражений: %s', [S]);
+    FormMain.FrameTown.FrameChar.ttWeapon.Caption := pnEqWeapon.Caption;
+    FormMain.FrameTown.FrameChar.ttArmor.Caption := pnEqArmor.Caption;
+    //
     S := '';
     if JSON.TryGetValue('enemy_name', S) then
       FormMain.FrameTown.FrameBattle1.lbEnemyName.Caption := S;
@@ -427,6 +468,14 @@ begin
   finally
     JSON.Free;
   end;
+end;
+
+procedure TFrameTown.bbCharNameClick(Sender: TObject);
+begin
+  if IsCharMode then
+    HideChar
+  else
+    ShowChar;
 end;
 
 procedure TFrameTown.bbChatClick(Sender: TObject);

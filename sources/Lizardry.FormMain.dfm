@@ -152,6 +152,14 @@ object FormMain: TFormMain
       Height = 712
       ExplicitWidth = 624
       ExplicitHeight = 712
+      inherited FrameChar: TFrameChar
+        Width = 624
+        Height = 487
+        ExplicitLeft = 0
+        ExplicitTop = 25
+        ExplicitWidth = 624
+        ExplicitHeight = 487
+      end
       inherited FrameChat: TFrameChat
         Width = 624
         Height = 487

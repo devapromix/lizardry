@@ -24,6 +24,7 @@ type
 var
   FormMain: TFormMain;
   IsChatMode: Boolean = False;
+  IsCharMode: Boolean = False;
   IsDebugMode: Boolean = False;
 
 implementation

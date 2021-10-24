@@ -21,7 +21,8 @@ uses
   Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame},
   Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt},
   Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg},
-  Lizardry.InventoryString in 'Lizardry.InventoryString.pas';
+  Lizardry.InventoryString in 'Lizardry.InventoryString.pas',
+  Lizardry.FrameChar in 'Lizardry.FrameChar.pas' {FrameChar: TFrame};
 
 {$R *.res}
 
