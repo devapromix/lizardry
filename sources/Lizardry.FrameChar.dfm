@@ -15,7 +15,7 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet4
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -25,16 +25,16 @@ object FrameChar: TFrameChar
       object ttWeapon: TLabel
         Left = 110
         Top = 16
-        Width = 121
+        Width = 66
         Height = 21
-        Caption = 'ttStatKills'
+        Caption = 'Weapon'
       end
       object ttArmor: TLabel
         Left = 110
         Top = 43
-        Width = 121
+        Width = 55
         Height = 21
-        Caption = 'ttStatDeads'
+        Caption = 'Armor'
       end
       object Label2: TLabel
         Left = 16
@@ -56,6 +56,36 @@ object FrameChar: TFrameChar
       ImageIndex = 1
       ExplicitWidth = 281
       ExplicitHeight = 157
+      object SG: TStringGrid
+        Left = 0
+        Top = 25
+        Width = 519
+        Height = 375
+        Align = alClient
+        Color = clBtnFace
+        RowCount = 16
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
+        ScrollBars = ssVertical
+        TabOrder = 0
+        ExplicitTop = 0
+        ExplicitHeight = 400
+        ColWidths = (
+          64
+          64
+          64
+          64
+          64)
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 519
+        Height = 25
+        Align = alTop
+        Caption = '3/15'
+        TabOrder = 1
+        OnClick = Panel1Click
+      end
     end
     object TabSheet3: TTabSheet
       Caption = #1057#1090#1072#1090#1080#1089#1090#1080#1082#1072
