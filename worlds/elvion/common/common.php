@@ -341,4 +341,11 @@ function get_value($value) {
 	return $r;
 }
 
+function add_enemies($enemy_idents) {
+	for($i = 1; $i <= 3; $i++) {
+		$r = $enemy_idents[array_rand($enemy_idents)];
+		add_enemy($i, $r);
+	}
+}
+
 ?>
