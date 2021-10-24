@@ -4,16 +4,51 @@ if ($action == 'graveyard') {
 
 	$user['title'] = 'Городское Кладбище';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = 'Вы на городском кладбище. Кругом могилы. В самом отдаленном уголке Кладбища находится Старый Склеп.';
+		
+		switch ($user['char_region']) {
+			case 1:
+				$user['description'] = 'Вы пришли на городское кладбище Вильмара. Кругом одни могилы и склепы. Эта земля принадлежит мертвым. Здесь всегда царит тишина и спокойствие. В отдалении виднеются родовые склепы.';
+				break;
+			case 2:
+				$user['description'] = 'Вы пришли на старое кладбище Морхольда. Здесь тихо и спокойно. Могилы расположены ровными рядами. За некоторыми ухаживают, некоторые заброшены. В самом отдаленном уголке Кладбища находится Старый Склеп. Металлическая решетка сорвана и валяется на земле у входа.';
+				break;
+			case 3:
+				$user['description'] = 'Вы пришли на кладбище. Ночь. Полная луна. Мертвая тишина. Вы на едине с каменными плитами и душами предков. Здесь так спокойно. Но лучше поскорее убраться отсюда и не тревожить мир мертвых.';
+				break;
+			case 4:
+				$user['description'] = 'Старое кладбище возле города. Миновав полуразрушенный каменный забор, Вы останавливаетесь возле склепа, полностью обвитого плющем. Здесь тихо и спокойно и можно надолго остаться, чтобы собраться с мыслями.';
+				break;
+			case 5:
+				$user['description'] = 'Вы посетили старое кладбище возле городских стен. Здесь царит тишина и спокойствие. Дует легкий тревожный северный ветер. Вы стоите в раздумии, что же делать дальше.';
+				break;
+			case 6:
+				$user['description'] = '';
+				break;
+			case 7:
+				$user['description'] = '';
+				break;
+			case 8:
+				$user['description'] = '';
+				break;
+			case 9:
+				$user['description'] = '';
+				break;
+		}
+		
 	}else{
-		$user['description'] = 'Ваша душа летает над могилами.';
+		$user['description'] = 'Вы в виде бестелесного создания бродите в мире духов и ищете ближайшее Кладбище. У одной из могил вы видите красивую девушку с большими крыльями за спиной. Она говорит, что может воскресить и вернуть в мир живых...';
 	}
+	
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Осмотреть Склеп';
-		$user['links'][1]['link'] = 'index.php?action=crypt';
+		switch ($user['char_region']) {
+			case 2:
+				$user['links'][1]['title'] = 'Осмотреть Склеп';
+				$user['links'][1]['link'] = 'index.php?action=crypt';
+				break;
+		}
 	} else {	
 		$user['links'][0]['title'] = 'Вернуться к жизни';
 		$user['links'][0]['link'] = 'index.php?action=graveyard&do=revive_in_graveyard';	
@@ -23,12 +58,16 @@ if ($action == 'graveyard') {
 		$user['char_life_cur'] = 1;
 		$user['char_mana_cur'] = 0;
 		update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-		$user['log'] = 'Вы вернулись в мир живых. Вы чувствуете сильную усталость и головокружение. Вам нужно отдохнуть и набраться сил.';
+		$user['description'] = 'Вы открываете глаза и понимаете, что вернулись в мир живых. На тело наваливаетеся сильная усталость,  кружится голова. Все происходящее кажется сном. Нужно отдохнуть и набраться сил.';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Покинуть Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Осмотреть Склеп';
-		$user['links'][1]['link'] = 'index.php?action=crypt';
+		switch ($user['char_region']) {
+			case 2:
+				$user['links'][1]['title'] = 'Осмотреть Склеп';
+				$user['links'][1]['link'] = 'index.php?action=crypt';
+				break;
+		}
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

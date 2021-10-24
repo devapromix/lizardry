@@ -1,20 +1,68 @@
 <?php
 
 if ($action == 'gate') {
-	$user['title'] = 'Врата Города';
+	$user['title'] = 'Врата в '.$user['char_region_town_name'];
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = 'Вы находитесь у главных ворот города.';
+		$user['description'] = 'Вы стоите у главных ворот в город. Здесь всегда полно народу - кто-то спешит в город, кто-то его покидает. Угрюмые стражники подозрительно всматриваются в каждого проходящего. Глубоко вдохнув полной грудью вы решаете, что пора двигаться дальше.';
 	}else{
-		$user['description'] = 'Ваша душа летает главными городскими воротами города.';
+		$user['description'] = 'Ваша душа парит над главными городскими воротами города. Вас с необъяснимой силой тянет к ближайшему кладбищу.';
 	}
 	$user['links'] = array();
-	if ($user['char_life_cur'] > 0) {	
-		$user['links'][0]['title'] = 'Темный Лес';
-		$user['links'][0]['link'] = 'index.php?action=forest';
-		$user['links'][1]['title'] = 'Городское Кладбище';
+	if ($user['char_life_cur'] > 0) {
+		
+		$user['links'][0]['title'] = 'Войти в '.$user['char_region_town_name'];
+		$user['links'][0]['link'] = 'index.php?action=town';
+		$user['links'][1]['title'] = 'Идти на Кладбище';
 		$user['links'][1]['link'] = 'index.php?action=graveyard';
-		$user['links'][2]['title'] = 'Войти в Город';
-		$user['links'][2]['link'] = 'index.php?action=town';
+		switch ($user['char_region']) {
+			case 1:
+				$user['links'][2]['title'] = 'Посетить Конюшни';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				$user['links'][3]['title'] = 'Темный Лес';
+				$user['links'][3]['link'] = 'index.php?action=forest';
+				break;
+			case 2:
+				$user['links'][2]['title'] = 'Посетить Конюшни';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				$user['links'][3]['title'] = 'Посетить Гавань';
+				$user['links'][3]['link'] = 'index.php?action=harbor';
+				$user['links'][4]['title'] = 'Лес Энтов';
+				$user['links'][4]['link'] = 'index.php?action=forest';
+				$user['links'][5]['title'] = 'Старая Гавань';
+				$user['links'][5]['link'] = 'index.php?action=old_harbor';
+				$user['links'][6]['title'] = 'Каменное Поле';
+				$user['links'][6]['link'] = 'index.php?action=stonefield';
+				break;
+			case 3:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=harbor';
+				break;
+			case 4:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 5:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 6:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 7:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 8:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+			case 9:
+				$user['links'][2]['title'] = 'Посетить Гавань';
+				$user['links'][2]['link'] = 'index.php?action=stables';
+				break;
+		}
+		
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';

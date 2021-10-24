@@ -14,6 +14,13 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
+	
+$tb_user = 'lizardry_users';
+$tb_item = 'lizardry_items';
+$tb_chat = 'lizardry_messages';
+$tb_enemy = 'lizardry_enemies';
+$tb_regions = 'lizardry_regions';
+
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -127,7 +134,25 @@ function add_item_to_shop($item_slot, $item_ident) {
 			$user['item_slot_5_values'] = item_values($item_ident);
 			update_user_table("item_slot_5=".$user['item_slot_5']);
 			break;
+		case 6:
+			$user['item_slot_6'] = $item_ident;
+			$user['item_slot_6_values'] = item_values($item_ident);
+			update_user_table("item_slot_6=".$user['item_slot_6']);
+			break;
 	}
+}
+
+function change_region($region_ident, $food, $gold) {
+	global $user, $tb_regions, $connection;
+	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$region = $result->fetch_assoc();
+	$user['char_region'] = $region['region_ident'];
+	$user['char_region_town_name'] = $region['region_town_name'];
+	$user['char_gold'] -= $gold;
+	$user['char_food'] -= $food;
+	update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_town_name='".$user['char_region_town_name']."'");
 }
 
 function check_user($user_name) {
@@ -183,7 +208,7 @@ function post_param($value, $default) {
 	return $res;
 }
 
-function add_event($type, $name){
+function add_event($type, $name, $level){
 	global $user;
 	$f = PATH."events".DS."events.txt";
 	$h = file($f);
@@ -206,6 +231,7 @@ function add_event($type, $name){
 	$data = array();
 	$data[] = $type;
 	$data[] = $name;
+	$data[] = $level;
 	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
@@ -213,14 +239,25 @@ function auto_battle() {
 	global $user;
 	
 	$r = '';
+	$rounds = 0;
+	$damages = 0;
 	
+	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
+	$r .= '--------------------------------------------------------#';
 	while(true) {
+
+		if (rand(1, 100) <= 1) {
+			$h = 1;
+			$user['char_life_cur'] += $h;
+			$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
+		}
 
 		if (rand(1, 5) >= 2) {
 			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
+				$damages += $d;
 				$user['enemy_life_cur'] -= $d;
 				if ($user['enemy_life_cur'] > 0) {
 					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
@@ -256,6 +293,7 @@ function auto_battle() {
 			$user['stat_deads']++;
 			$user['char_exp'] -= round($user['char_exp'] / 5);
 			$user['char_gold'] -= round($user['char_gold'] / 7);
+			$r .= '--------------------------------------------------------#';
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
 			break;
 		}
@@ -263,18 +301,51 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
-			$gold = $user['enemy_gold'];
+			$gold = get_value($user['enemy_gold']);
 			$user['char_gold'] += $gold;
-			$exp = $user['enemy_exp'];
+			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
-			$r .= 'Вы получаете '.$exp.' опыта.#';
-			$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
+			$r .= '--------------------------------------------------------#';
+			if ($exp > 0)
+				$r .= 'Вы получаете '.$exp.' опыта.#';
+			if ($gold <= 0)
+				$r .= 'Вы роетесь в останках '.$user['enemy_name'].', но ничего не находите.#';
+			else
+				$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			break;
-
 		}
+		$rounds++;
 	}
 	
+	$r .= '--------------------------------------------------------#';
+	$r .= 'Всего раундов: '.$rounds."#";
+	$r .= 'Сумма урона: '.$damages."#";
 	return $r;
+}
+
+function get_value($value) {
+	global $user;
+	$r = $value;
+	if ($user['enemy_level'] - 1 > $user['char_level'])
+		$r = $value + rand(round($value / 3), round($value / 2));
+	if ($user['enemy_level'] > $user['char_level'])
+		$r = $value + rand(round($value / 5), round($value / 4));
+	if ($user['char_level'] - 1 > $user['enemy_level'])
+		$r = rand(round($value / 3), round($value / 2));
+	if ($user['char_level'] - 2 > $user['enemy_level'])
+		$r = rand(round($value / 5), round($value / 4));
+	if ($user['char_level'] - 3 > $user['enemy_level'])
+		$r = rand(1, 3);
+	if ($user['char_level'] - 4 > $user['enemy_level'])
+		$r = 0;
+	return $r;
+}
+
+function add_enemies($enemy_idents) {
+	for($i = 1; $i <= 3; $i++) {
+		$r = $enemy_idents[array_rand($enemy_idents)];
+		add_enemy($i, $r);
+	}
 }
 
 ?>
