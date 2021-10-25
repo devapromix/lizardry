@@ -272,9 +272,7 @@ begin
       with FrameBattle1 do
       begin
         BringToFront;
-        RichEdit1.Clear;
-        RichEdit1.Lines.Append(S.Replace('#', #13#10));
-        SendMessage(RichEdit1.Handle, EM_SCROLL, SB_LINEDOWN, 0);
+        DrawBattleLog(S);
       end;
     //
     if JSON.TryGetValue('title', S) then

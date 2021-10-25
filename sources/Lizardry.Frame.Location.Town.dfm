@@ -396,6 +396,8 @@ object FrameTown: TFrameTown
           ExplicitHeight = 213
         end
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -629,7 +631,7 @@ object FrameTown: TFrameTown
           Height = 110
           ExplicitWidth = 335
           ExplicitHeight = 110
-          inherited RichEdit1: TRichEdit
+          inherited BattleLog: TRichEdit
             Width = 333
             Height = 108
             BevelInner = bvNone

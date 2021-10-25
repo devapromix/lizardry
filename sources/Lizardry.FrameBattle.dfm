@@ -17,7 +17,7 @@ object FrameBattle: TFrameBattle
     Height = 461
     Align = alClient
     TabOrder = 0
-    object RichEdit1: TRichEdit
+    object BattleLog: TRichEdit
       Left = 1
       Top = 1
       Width = 900
