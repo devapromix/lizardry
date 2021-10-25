@@ -390,10 +390,13 @@ begin
       JSON.TryGetValue('char_damage_max', Max) then
     begin
       Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
-      FrameBattle1.Label6.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      FrameBattle1.ttCharDamage.Caption := Format('Урон: %s-%s', [Cur, Max]);
     end;
     if JSON.TryGetValue('char_armor', S) then
+    begin
       Panel18.Caption := 'Броня: ' + S;
+      FrameBattle1.ttCharArmor.Caption := 'Броня: ' + S;
+    end;
     //
     if JSON.TryGetValue('char_equip_weapon_name', S) then
       pnEqWeapon.Caption := S;
@@ -423,8 +426,10 @@ begin
         Format('Здоровье: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then
-      FormMain.FrameTown.FrameBattle1.Label3.Caption :=
+      FormMain.FrameTown.FrameBattle1.ttEnemyDamage.Caption :=
         Format('Урон: %s-%s', [Cur, Max]);
+    if JSON.TryGetValue('enemy_armor', V) then
+      FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: ' + V;
     if JSON.TryGetValue('enemy_image', S) then
       FormMain.FrameTown.FrameBattle1.Image2.Picture.Bitmap.Handle :=
         LoadBitmap(hInstance, PChar(S));
