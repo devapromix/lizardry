@@ -240,7 +240,8 @@ function auto_battle() {
 	
 	$r = '';
 	$rounds = 0;
-	$damages = 0;
+	$char_damages = 0;
+	$enemy_damages = 0;
 	
 	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
 	$r .= '--------------------------------------------------------#';
@@ -248,8 +249,8 @@ function auto_battle() {
 
 		if (rand(1, 100) <= 1) {
 			$h = 1;
-			$user['char_life_cur'] += $h;
-			$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
+			//$user['char_life_cur'] += $h;
+			//$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
 		}
 
 		if (rand(1, 5) >= 2) {
@@ -257,7 +258,7 @@ function auto_battle() {
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				$damages += $d;
+				$char_damages += $d;
 				$user['enemy_life_cur'] -= $d;
 				if ($user['enemy_life_cur'] > 0) {
 					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
@@ -275,6 +276,7 @@ function auto_battle() {
 				if ($d <= 0) {
 					$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
 				} else {
+					$enemy_damages += $d;
 					$user['char_life_cur'] -= $d;
 					if ($user['char_life_cur'] > 0) {
 						$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
@@ -319,7 +321,7 @@ function auto_battle() {
 	
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
-	$r .= 'Сумма урона: '.$damages."#";
+	$r .= 'Сумма урона: '.$char_damages." (".$user['char_name'].") / ".$enemy_damages." (".$user['enemy_name'].")#";
 	return $r;
 }
 
