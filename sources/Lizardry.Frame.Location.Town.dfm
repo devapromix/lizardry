@@ -383,11 +383,14 @@ object FrameTown: TFrameTown
       Font.Style = []
       ParentFont = False
       TabOrder = 4
-      ExplicitLeft = -190
-      ExplicitTop = -187
+      ExplicitTop = 25
+      ExplicitWidth = 337
+      ExplicitHeight = 249
       inherited PageControl1: TPageControl
         Width = 337
         Height = 249
+        ExplicitWidth = 337
+        ExplicitHeight = 249
         inherited TabSheet1: TTabSheet
           ExplicitWidth = 329
           ExplicitHeight = 213
@@ -395,17 +398,21 @@ object FrameTown: TFrameTown
         inherited TabSheet2: TTabSheet
           ExplicitWidth = 329
           ExplicitHeight = 213
+          inherited SG: TStringGrid
+            Width = 329
+            Height = 188
+            ExplicitWidth = 329
+            ExplicitHeight = 188
+          end
+          inherited Panel1: TPanel
+            Width = 329
+            ExplicitWidth = 329
+          end
         end
         inherited TabSheet3: TTabSheet
           ExplicitLeft = 4
           ExplicitWidth = 329
           ExplicitHeight = 213
-        end
-        inherited TabSheet4: TTabSheet
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
@@ -426,7 +433,10 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         inherited edChatMsg: TEdit
           Width = 335
+          ExplicitLeft = 1
+          ExplicitTop = 1
           ExplicitWidth = 335
+          ExplicitHeight = 30
         end
       end
       inherited Panel2: TPanel

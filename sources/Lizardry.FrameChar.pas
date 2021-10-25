@@ -30,19 +30,35 @@ type
   public
     { Public declarations }
     procedure RefreshInventory(const S: string);
+    function GetItemJSON(): string;
   end;
 
 implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain;
+uses JSON, Lizardry.FormMain, Lizardry.FormInfo;
 
 { TFrameChar }
 
+function TFrameChar.GetItemJSON: string;
+var
+  JSONArray: TJSONArray;
+  I: Integer;
+begin
+  JSONArray := TJSONArray(FormInfo.RichEdit2.Text);
+  for I := 0 to JSONArray.Size - 1 do
+  begin
+//    AddButton(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('title'))
+//      .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I)).Get('link'))
+//      .JsonValue.Value);
+  end;
+
+end;
+
 procedure TFrameChar.Panel1Click(Sender: TObject);
 begin
-  RefreshInventory('1-1=1,2-1=8,3-4=6,12-2=4');
+  RefreshInventory('0-1-1=1,0-2-1=8,0-3-4=6,0-12-2=4');
 end;
 
 procedure TFrameChar.RefreshInventory(const S: string);

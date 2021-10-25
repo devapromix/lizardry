@@ -8,7 +8,11 @@ uses
 
 type
   TFormInfo = class(TForm)
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
     RichEdit1: TRichEdit;
+    TabSheet2: TTabSheet;
+    RichEdit2: TRichEdit;
   private
     { Private declarations }
   public

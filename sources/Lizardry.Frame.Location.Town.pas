@@ -77,7 +77,6 @@ type
     Title: string;
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
-    function GetEnemyImage(const I: string): string;
   public
     { Public declarations }
     procedure ShowChat;
@@ -103,40 +102,6 @@ var
 procedure TFrameTown.DoAction(S: string);
 begin
   ParseJSON(Server.Get(S));
-end;
-
-function TFrameTown.GetEnemyImage(const I: string): string;
-begin
-  case StrToInt(I) of
-    1:
-      Result := 'ENEMY_GRAY_WOLF';
-    2:
-      Result := 'ENEMY_BROWN_BEAR';
-    3:
-      Result := 'ENEMY_GIANT_SPIDER';
-    4:
-      Result := 'ENEMY_DARK_GOBLIN_SHAMAN';
-    5:
-      Result := 'ENEMY_DARK_GOBLIN_THIEF';
-    6:
-      Result := 'ENEMY_DARK_GOBLIN';
-    7:
-      Result := 'ENEMY_CAVE_GIANT';
-    8:
-      Result := 'ENEMY_BEAST';
-    9:
-      Result := 'ENEMY_TROLL';
-    10:
-      Result := 'ENEMY_BOSS_STONE_WORM';
-    11:
-      Result := 'ENEMY_UNDEAD_ARCHER';
-    12:
-      Result := 'ENEMY_UNDEAD_SHADOW';
-    13:
-      Result := 'ENEMY_UNDEAD_WARRIOR';
-    14:
-      Result := 'ENEMY_UNDEAD_WARLORD';
-  end;
 end;
 
 procedure TFrameTown.HideChar;

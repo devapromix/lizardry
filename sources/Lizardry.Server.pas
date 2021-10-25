@@ -12,7 +12,7 @@ type
     FURL: string;
   public
     function Get(AURL: string): string;
-    function GetFile: string;
+    function GetFromDB(const S: string): string;
     constructor Create(const AURL, AName: string);
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
@@ -107,13 +107,13 @@ begin
   end;
 end;
 
-function TServer.GetFile: string;
+function TServer.GetFromDB(const S: string): string;
 begin
-  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/characters/character.'
-    + LowerCase(FormMain.FrameLogin.edUserName.Text) + '.json');
+  Result := FIdHTTP.Get('http://' + URL + '/' + LowerCase(S) + '.php');
 end;
 
 {
+
   procedure TForm1.FormCreate(Sender: TObject);
   var
   ParamList: TStringList;
@@ -137,6 +137,13 @@ end;
   ParamList.Free;
   end;
   end;
+
+  function TServer.GetFile: string;
+  begin
+  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/characters/character.'
+  + LowerCase(FormMain.FrameLogin.edUserName.Text) + '.json');
+  end;
+
 }
 
 initialization

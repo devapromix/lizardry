@@ -49,6 +49,7 @@ type
   public
     { Public declarations }
     procedure LoadLastEvents;
+    procedure LoadFromDBItems;
   end;
 
 implementation
@@ -56,7 +57,7 @@ implementation
 {$R *.dfm}
 
 uses Registry, Lizardry.FormMain, Lizardry.Server, Lizardry.Frame.Location.Town,
-  Lizardry.Game, Lizardry.FormMsg;
+  Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
@@ -80,6 +81,12 @@ begin
   end
   else if ResponseCode = '1' then
   begin
+    try
+      LoadFromDBItems;
+    except
+      ShowMsg('Ошибка загрузки DB!');
+      Halt;
+    end;
     if IsChatMode then
       FormMain.FrameTown.HideChat;
     if IsCharMode then
@@ -214,6 +221,11 @@ begin
   except
     ShowMsg('Невозможно подключиться к серверу!');
   end;
+end;
+
+procedure TFrameLogin.LoadFromDBItems;
+begin
+  FormInfo.RichEdit2.Text := Server.GetFromDB('items');
 end;
 
 procedure TFrameLogin.LoadLastEvents;
