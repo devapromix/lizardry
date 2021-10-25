@@ -82,7 +82,7 @@ begin
   else if ResponseCode = '1' then
   begin
     try
-      LoadFromDBItems;
+      LoadFromDBItems;  {TODO: Выполнять в отдельном процессе}
     except
       ShowMsg('Ошибка загрузки DB!');
       Halt;

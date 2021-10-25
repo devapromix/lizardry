@@ -109,7 +109,8 @@ end;
 
 function TServer.GetFromDB(const S: string): string;
 begin
-  Result := FIdHTTP.Get('http://' + URL + '/' + LowerCase(S) + '.php');
+  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/' + LowerCase(S)
+    + '.php');
 end;
 
 {
