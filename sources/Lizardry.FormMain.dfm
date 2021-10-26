@@ -155,10 +155,45 @@ object FormMain: TFormMain
       inherited FrameChar: TFrameChar
         Width = 624
         Height = 487
-        ExplicitLeft = 0
-        ExplicitTop = 25
         ExplicitWidth = 624
         ExplicitHeight = 487
+        inherited PageControl1: TPageControl
+          Width = 624
+          Height = 487
+          ExplicitWidth = 624
+          ExplicitHeight = 487
+          inherited TabSheet1: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
+          end
+          inherited TabSheet2: TTabSheet
+            ExplicitWidth = 616
+            ExplicitHeight = 451
+            inherited SG: TStringGrid
+              Width = 616
+              Height = 426
+              ExplicitWidth = 616
+              ExplicitHeight = 426
+            end
+            inherited Panel1: TPanel
+              Width = 616
+              ExplicitWidth = 616
+            end
+          end
+          inherited TabSheet3: TTabSheet
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
+          end
+          inherited TabSheet4: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
+          end
+        end
       end
       inherited FrameChat: TFrameChat
         Width = 624
@@ -267,7 +302,7 @@ object FormMain: TFormMain
             Height = 348
             ExplicitWidth = 622
             ExplicitHeight = 348
-            inherited RichEdit1: TRichEdit
+            inherited BattleLog: TRichEdit
               Width = 620
               Height = 346
               ExplicitWidth = 620

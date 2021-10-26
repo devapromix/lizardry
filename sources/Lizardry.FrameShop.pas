@@ -11,6 +11,8 @@ uses
 type
   TFrameShop = class(TFrame)
     SG: TStringGrid;
+    Panel1: TPanel;
+    Label1: TLabel;
     procedure SGDblClick(Sender: TObject);
     procedure SGKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
@@ -18,13 +20,14 @@ type
   public
     { Public declarations }
     procedure DrawGrid;
+    procedure Welcome;
   end;
 
 implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormPrompt;
+uses Math, Lizardry.FormMain, Lizardry.Server, Lizardry.FormPrompt;
 
 const
   Msg = 'Купить %s за %s золотых?';
@@ -63,6 +66,26 @@ procedure TFrameShop.SGKeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = 13 then
     SGDblClick(Sender);
+end;
+
+procedure TFrameShop.Welcome;
+var
+  S, T: string;
+  R: TArray<string>;
+begin
+  T := 'В моей лавке вы можете купить лучшие товары в в округе!|' +
+    'Не спрашивайте меня, где я это достал, просто радуйтесь, что получаете так дешево.|'
+    + 'Покупайтете то, что вам нужно, сегодня. Завтра, возможно, нас уже не будет здесь.|'
+    + 'Все, что вы видиде, выставлено на продажу. Выбирайте!|' +
+    'Я могу протянуть вам руку помощи, если вы протянете мне руку с золотом.|' +
+    'Здесь есть предметы, которые могут вам пригодиться в путешествиях. Выбирайте!|'
+    + 'Добро пожаловать, путешественник! Не может быть, чтобы ни один из моих товаров не привлек вашего внимания.|'
+    + 'Я вижу, вы умеете отличить редкий товар. Пожалуйста, заходите. Выбирайте!|'
+    + 'Взгляните на мой товар. Возможно, вам что-то будет полезно.';
+  R := T.Split(['|']);
+  S := 'Хозяин лавки:' + #13#10;
+  S := S + ' - ' + R[Random(Length(R))] + #13#10;
+  Label1.Caption := S;
 end;
 
 end.

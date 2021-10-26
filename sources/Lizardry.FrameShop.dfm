@@ -12,7 +12,7 @@ object FrameShop: TFrameShop
   TabOrder = 0
   object SG: TStringGrid
     Left = 0
-    Top = 0
+    Top = 64
     Width = 910
     Height = 180
     Align = alTop
@@ -22,5 +22,29 @@ object FrameShop: TFrameShop
     TabOrder = 0
     OnDblClick = SGDblClick
     OnKeyDown = SGKeyDown
+    ExplicitLeft = 3
+    ExplicitTop = 216
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 910
+    Height = 64
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 0
+      Top = 0
+      Width = 910
+      Height = 64
+      Align = alClient
+      AutoSize = False
+      WordWrap = True
+      ExplicitLeft = 160
+      ExplicitTop = 32
+      ExplicitWidth = 66
+      ExplicitHeight = 21
+    end
   end
 end

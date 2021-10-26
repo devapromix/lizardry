@@ -340,6 +340,7 @@ begin
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
+          Welcome;
           SG.Cells[1, 0] := 'Броня';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then

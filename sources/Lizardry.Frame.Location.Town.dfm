@@ -444,6 +444,8 @@ object FrameTown: TFrameTown
       inherited Panel2: TPanel
         Width = 337
         Height = 217
+        ExplicitLeft = 0
+        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit
@@ -603,6 +605,12 @@ object FrameTown: TFrameTown
         Width = 335
         Height = 247
         Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 2
         ExplicitLeft = 1
         ExplicitTop = 1
