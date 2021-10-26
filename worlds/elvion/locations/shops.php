@@ -12,8 +12,10 @@ if ($action == 'shops') {
 	if ($user['char_life_cur'] > 0) {	
 		$user['links'][0]['title'] = 'На площадь города';
 		$user['links'][0]['link'] = 'index.php?action=town';
-		$user['links'][1]['title'] = 'Лавка Бронника';
-		$user['links'][1]['link'] = 'index.php?action=shop_armor';
+		$user['links'][1]['title'] = 'Лавка Оружейника';
+		$user['links'][1]['link'] = 'index.php?action=shop_weapon';
+		$user['links'][2]['title'] = 'Лавка Бронника';
+		$user['links'][2]['link'] = 'index.php?action=shop_armor';
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';
