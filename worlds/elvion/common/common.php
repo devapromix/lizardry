@@ -77,17 +77,24 @@ function equip_item($item_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$item = $result->fetch_assoc();
 
+	if ($user['char_gold'] < $item['item_price']) die('{"info":"Нужно больше золота!"}');
+	if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
+
 	switch($item['item_type']) {
 		case 0:
-			if ($user['char_gold'] >= $item['item_price']) {
-				if ($user['char_level'] >= $item['item_level']) {
-					$user['char_equip_armor_name'] = $item['item_name'];
-					$user['char_equip_armor_ident'] = $item['item_ident'];
-					$user['char_gold'] = $user['char_gold'] - $item['item_price'];
-					$user['char_armor'] = $item['item_armor'];
-					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
-				} else die('{"info":"Нужен уровень выше!"}');
-			} else die('{"info":"Нужно больше золота!"}');
+			$user['char_equip_armor_name'] = $item['item_name'];
+			$user['char_equip_armor_ident'] = $item['item_ident'];
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			$user['char_armor'] = $item['item_armor'];
+			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+			break;
+		case 1:
+			$user['char_equip_weapon_name'] = $item['item_name'];
+			$user['char_equip_weapon_ident'] = $item['item_ident'];
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			$user['char_min_damage'] = $item['item_min_damage'];
+			$user['char_max_damage'] = $item['item_max_damage'];
+			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_min_damage=".$user['char_min_damage'].",char_max_damage=".$user['char_max_damage'].",char_gold=".$user['char_gold']);
 			break;
 	}
 }

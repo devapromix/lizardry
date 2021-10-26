@@ -303,6 +303,10 @@ begin
         end;
         FormMain.FrameTown.FrameBank1.BringToFront;
       end
+      else if (S = 'loot') then
+      begin
+
+      end
       else if (S = 'tavern') then
       begin
         if JSON.TryGetValue('char_food', S) then
@@ -336,11 +340,29 @@ begin
       begin
         FormMain.FrameTown.FrameBattle1.BringToFront;
       end
+      else if (S = 'shop_weapon') then
+        with FormMain.FrameTown.FrameShop1 do
+        begin
+          DrawGrid;
+          Welcome;
+          ShopType := stWeapon;
+          SG.Cells[1, 0] := 'Оружие';
+          for K := 1 to 6 do
+            if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            begin
+              A := S.Split([',']);
+              for J := 0 to 3 do
+                SG.Cells[J + 1, K] := A[J];
+            end;
+          BringToFront;
+          SG.SetFocus;
+        end
       else if (S = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
           Welcome;
+          ShopType := stArmor;
           SG.Cells[1, 0] := 'Броня';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
