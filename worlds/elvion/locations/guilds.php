@@ -12,12 +12,10 @@ if ($action == 'guilds') {
 	if ($user['char_life_cur'] > 0) {	
 		$user['links'][0]['title'] = 'На площадь города';
 		$user['links'][0]['link'] = 'index.php?action=town';
-		$user['links'][1]['title'] = 'Гильдия Силы';
-		$user['links'][1]['link'] = 'index.php?action=guild_str';
-		$user['links'][2]['title'] = 'Гильдия Тела';
-		$user['links'][2]['link'] = 'index.php?action=guild_body';
-		$user['links'][3]['title'] = 'Гильдия Стражников';
-		$user['links'][3]['link'] = 'index.php?action=guild_adv';
+		$user['links'][1]['title'] = 'Гильдия Тела';
+		$user['links'][1]['link'] = 'index.php?action=guild_body';
+		$user['links'][2]['title'] = 'Гильдия Духа';
+		$user['links'][2]['link'] = 'index.php?action=guild_spirit';
 	} else {
 		$user['links'][0]['title'] = 'Городское Кладбище';
 		$user['links'][0]['link'] = 'index.php?action=graveyard';
@@ -25,34 +23,6 @@ if ($action == 'guilds') {
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
-}
-
-if ($action == 'guild_str') {
-
-	$user['title'] = 'Гильдия Силы';
-	$user['description'] = 'В Гильдии Силы можно увеличить минимальный и максимальный урон на 1 за каждый уровень.';
-	$user['links'] = array();
-	$user['links'][0]['title'] = 'Покинуть гильдию';
-	$user['links'][0]['link'] = 'index.php?action=guilds';	
-	$user['links'][1]['title'] = 'Приступить к тренировке';
-	$user['links'][1]['link'] = 'index.php?action=guild_str&do=train_in_guild_str';
-
-	if ($do == 'train_in_guild_str') {
-		if ($user['char_exp'] < get_char_level_exp($user['char_level'])) die('{"error":"Вам сначала нужно набраться опыта!"}');
-		$user['char_exp'] = $user['char_exp'] - get_char_level_exp($user['char_level']);
-		$user['char_level']++;
-		$user['char_damage_min']++;
-		$user['char_damage_max']++;
-		add_event(1, $user['char_name'], $user['char_level']);
-		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max']);
-		$user['log'] = 'Вы потренировались и стали лучше!';
-		$user['links'] = array();
-		$user['links'][0]['title'] = 'Назад';
-		$user['links'][0]['link'] = 'index.php?action=guild_str';
-	}
-
-	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
-	
 }
 
 if ($action == 'guild_body') {
@@ -83,27 +53,28 @@ if ($action == 'guild_body') {
 	
 }
 
-if ($action == 'guild_adv') {
+if ($action == 'guild_spirit') {
 
-	$user['title'] = 'Гильдия Стражников';
-	$user['description'] = 'В Гильдии Стражников можно увеличить максимальный урон на 2 за каждый уровень. ';
+	$user['title'] = 'Гильдия Духа';
+	$user['description'] = 'В Гильдии Духа можно увеличить запас маны на 10 за каждый уровень. ';
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Покинуть гильдию';
 	$user['links'][0]['link'] = 'index.php?action=guilds';	
 	$user['links'][1]['title'] = 'Приступить к тренировке';
-	$user['links'][1]['link'] = 'index.php?action=guild_adv&do=train_in_guild_adv';
+	$user['links'][1]['link'] = 'index.php?action=guild_spirit&do=train_in_guild_spirit';
 
-	if ($do == 'train_in_guild_adv') {
+	if ($do == 'train_in_guild_spirit') {
 		if ($user['char_exp'] < get_char_level_exp($user['char_level'])) die('{"error":"Вам сначала нужно набраться опыта!"}');
 		$user['char_exp'] = $user['char_exp'] - get_char_level_exp($user['char_level']);
 		$user['char_level']++;
-		$user['char_damage_max'] = $user['char_damage_max'] + 2;
+		$user['char_mana_cur'] = $user['char_mana_cur'] + 10;
+		$user['char_mana_max'] = $user['char_mana_max'] + 10;
 		add_event(1, $user['char_name'], $user['char_level']);
-		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_damage_max=".$user['char_damage_max']);
+		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_mana_cur=".$user['char_mana_cur'].",char_mana_max=".$user['char_mana_max']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		$user['links'][0]['title'] = 'Назад';
-		$user['links'][0]['link'] = 'index.php?action=guild_adv';
+		$user['links'][0]['link'] = 'index.php?action=guild_spirit';
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
