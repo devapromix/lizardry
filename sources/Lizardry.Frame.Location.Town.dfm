@@ -581,6 +581,7 @@ object FrameTown: TFrameTown
           ExplicitWidth = 335
           inherited Label1: TLabel
             Width = 335
+            ExplicitWidth = 335
           end
         end
       end

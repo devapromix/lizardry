@@ -25,13 +25,13 @@ if ($action == 'shops') {
 
 }
 
-if ($action == 'shop_weapon') {
+if ($action == 'shop_armor') {
 	
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
-	$user['title'] = 'Оружейная Лавка';
-	$user['description'] = '';
-	$user['mainframe'] = 'shop_weapon';
+	$user['title'] = '';
+	$user['description'] = 'Лавка Бронника';
+	$user['mainframe'] = 'shop_armor';
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Покинуть лавку';
 	$user['links'][0]['link'] = 'index.php?action=shops';
@@ -98,13 +98,13 @@ if ($action == 'shop_weapon') {
 
 }
 
-if ($action == 'shop_armor') {
+if ($action == 'shop_weapon') {
 	
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
-	$user['title'] = 'Лавка Бронника';
+	$user['title'] = 'Оружейная Лавка';
 	$user['description'] = '';
-	$user['mainframe'] = 'shop_armor';
+	$user['mainframe'] = 'shop_weapon';
 	$user['links'] = array();
 	$user['links'][0]['title'] = 'Покинуть лавку';
 	$user['links'][0]['link'] = 'index.php?action=shops';

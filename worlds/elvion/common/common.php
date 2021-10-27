@@ -92,9 +92,9 @@ function equip_item($item_ident) {
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
-			$user['char_min_damage'] = $item['item_min_damage'];
-			$user['char_max_damage'] = $item['item_max_damage'];
-			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_min_damage=".$user['char_min_damage'].",char_max_damage=".$user['char_max_damage'].",char_gold=".$user['char_gold']);
+			$user['char_damage_min'] = $item['item_damage_min'];
+			$user['char_damage_max'] = $item['item_damage_max'];
+			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			break;
 	}
 }
@@ -108,6 +108,9 @@ function item_values($item_ident) {
 	switch($item['item_type']) {
 		case 0:
 			return $item['item_name'].','.$item['item_armor'].','.$item['item_level'].','.$item['item_price'];
+			break;
+		case 1:
+			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
 	}
 }
