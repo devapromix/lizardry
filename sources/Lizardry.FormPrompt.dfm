@@ -38,6 +38,5 @@ object FormPrompt: TFormPrompt
     Align = alTop
     Caption = 'lbMessage'
     TabOrder = 0
-    ExplicitWidth = 600
   end
 end

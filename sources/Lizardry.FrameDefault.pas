@@ -1,4 +1,4 @@
-unit Lizardry.FrameDefault;
+﻿unit Lizardry.FrameDefault;
 
 interface
 

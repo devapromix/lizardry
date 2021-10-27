@@ -21,10 +21,6 @@ object FrameChat: TFrameChat
       Color = clBtnFace
       MaxLength = 250
       TabOrder = 0
-      ExplicitLeft = 4
-      ExplicitTop = 4
-      ExplicitWidth = 309
-      ExplicitHeight = 32
     end
   end
   object Panel2: TPanel
@@ -34,10 +30,6 @@ object FrameChat: TFrameChat
     Height = 423
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 80
-    ExplicitTop = 136
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object RichEdit1: TRichEdit
       Left = 1
       Top = 1
@@ -54,8 +46,6 @@ object FrameChat: TFrameChat
       ScrollBars = ssVertical
       TabOrder = 0
       Zoom = 100
-      ExplicitLeft = 2
-      ExplicitTop = 2
     end
   end
 end

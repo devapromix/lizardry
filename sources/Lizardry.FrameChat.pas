@@ -1,4 +1,4 @@
-unit Lizardry.FrameChat;
+﻿unit Lizardry.FrameChat;
 
 interface
 
