@@ -6,7 +6,7 @@ if ($action == 'bank') {
 	$user['description'] = 'Краткое описание банка.';
 	$user['frame'] = 'bank';
 	$user['links'] = array();
-	addlink('Вернуться в город', 'index.php?action=town');
+	go_to_the_town();
 	
 	if ($do == 'deposit') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');

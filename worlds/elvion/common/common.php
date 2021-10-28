@@ -211,6 +211,11 @@ function post_param($value, $default) {
 	return $res;
 }
 
+function outland($name) {
+	global $user;
+	
+}
+
 function add_event($type, $name, $level){
 	global $user;
 	$f = PATH."events".DS."events.txt";
@@ -353,16 +358,14 @@ function add_enemies($enemy_idents) {
 	}
 }
 
-function addnav($n, $t, $j) {
+function addlink($t, $j, $n = 0) {
 	global $user;
 	$user['links'][$n]['title'] = $t;
 	$user['links'][$n]['link'] = $j;	
 }
 
-function addlink($t, $j, $n = 0) {
-	global $user;
-	$user['links'][$n]['title'] = $t;
-	$user['links'][$n]['link'] = $j;	
+function go_to_the_town($t = 'Вернуться в город', $n = 0) {
+	addlink($t, 'index.php?action=town', $n);
 }
 
 function go_to_the_graveyard($t = 'Отправиться на кладбище', $n = 0) {

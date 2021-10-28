@@ -42,8 +42,8 @@ if ($action == 'tavern') {
 		}
 	$user['frame'] = 'tavern';	
 	$user['links'] = array();
-	addnav(0, 'Вернуться в город', 'index.php?action=town');
-	addnav(1, 'Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern');
+	go_to_the_town();
+	addlink('Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern', 1);
 	
 	if ($do == 'rest_in_tavern') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');

@@ -42,10 +42,10 @@ if ($action == 'stables') {
 			go_to_the_gate('Покинуть Конюшни');
 			switch ($user['char_region']) {
 				case 1:
-					addnav('Путешествие в Морхольд', 'index.php?action=stables&do=2', 1);
+					addlink('Путешествие в Морхольд', 'index.php?action=stables&do=2', 1);
 					break;
 				case 2:
-					addnav('Путешествие в Вильмар', 'index.php?action=stables&do=1', 1);
+					addlink('Путешествие в Вильмар', 'index.php?action=stables&do=1', 1);
 					break;
 			}
 		

@@ -2,6 +2,8 @@
 
 if ($action == 'old_harbor') {
 	
+	outland($action, [20,21,22]);
+	
 	$user['current_outlands'] = $action;
 	
 	add_enemies([20,21,22]);	
