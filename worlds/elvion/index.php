@@ -3,6 +3,7 @@ $res = '0';
 
 include 'common/common.php';
 include 'common/connect.php';
+include 'common/dbtables.php';
 
 $do = $_GET['do'];
 $action = $_GET['action'];

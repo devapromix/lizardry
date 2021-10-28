@@ -13,14 +13,7 @@ if (strlen($userpass) < 4) die('32');
 
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
-
 	
-$tb_user = 'lizardry_users';
-$tb_item = 'lizardry_items';
-$tb_chat = 'lizardry_messages';
-$tb_enemy = 'lizardry_enemies';
-$tb_regions = 'lizardry_regions';
-
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
