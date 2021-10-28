@@ -353,4 +353,9 @@ function add_enemies($enemy_idents) {
 	}
 }
 
+function addnav($n, $t, $j) {
+	$user['links'][$n]['title'] = $t;
+	$user['links'][$n]['link'] = $j;	
+}
+
 ?>

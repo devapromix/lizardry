@@ -42,10 +42,8 @@ if ($action == 'tavern') {
 		}
 	$user['frame'] = 'tavern';	
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Вернуться в город';
-	$user['links'][0]['link'] = 'index.php?action=town';	
-	$user['links'][1]['title'] = 'Снять комнату на ночь';
-	$user['links'][1]['link'] = 'index.php?action=tavern&do=rest_in_tavern';	
+	addnav(0, 'Вернуться в город', 'index.php?action=town');
+	addnav(1, 'Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern');
 	
 	if ($do == 'rest_in_tavern') {
 		if ($user['char_gold'] < 15) die('{"error":"Недостаточно денег!"}');

@@ -6,8 +6,7 @@ if ($action == 'bank') {
 	$user['description'] = 'Краткое описание банка.';
 	$user['frame'] = 'bank';
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Вернуться в город';
-	$user['links'][0]['link'] = 'index.php?action=town';	
+	addnav(0, 'Вернуться в город', 'index.php?action=town');
 	
 	if ($do == 'deposit') {
 		if ($amount <= 0) die('{"error":"Сумма должна быть больше 0!"}');
