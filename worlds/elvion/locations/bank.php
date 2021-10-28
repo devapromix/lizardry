@@ -9,6 +9,7 @@ if ($action == 'bank') {
 	addnav(0, 'Вернуться в город', 'index.php?action=town');
 	
 	if ($do == 'deposit') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($amount <= 0) die('{"error":"Сумма должна быть больше 0!"}');
 		if ($amount > $user['char_gold']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] -= $amount;
@@ -18,6 +19,7 @@ if ($action == 'bank') {
 	}
 	
 	if ($do == 'withdraw') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($amount <= 0) die('{"error":"Сумма должна быть больше 0!"}');
 		if ($amount > $user['char_bank']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] += $amount;

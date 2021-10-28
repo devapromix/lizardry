@@ -34,36 +34,28 @@ if ($action == 'stables') {
 					break;
 			}
 		
-		} else {
-			$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Вас с необъяснимой силой тянет к ближайшему кладбищу.';
-		}
+		} else shades();
+		
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			$user['links'][0]['title'] = 'Покинуть Конюшни';
-			$user['links'][0]['link'] = 'index.php?action=gate';
+			addnav(0, 'Покинуть Конюшни', 'index.php?action=gate');
 			switch ($user['char_region']) {
 				case 1:
-					$user['links'][1]['title'] = 'Путешествие в Морхольд';
-					$user['links'][1]['link'] = 'index.php?action=stables&do=2';
+					addnav(1, 'Путешествие в Морхольд', 'index.php?action=stables&do=2');
 					break;
 				case 2:
-					$user['links'][1]['title'] = 'Путешествие в Вильмар';
-					$user['links'][1]['link'] = 'index.php?action=stables&do=1';
+					addnav(1, 'Путешествие в Вильмар', 'index.php?action=stables&do=1');
 					break;
 			}
 		
-		} else {
-			$user['links'][0]['title'] = 'Городское Кладбище';
-			$user['links'][0]['link'] = 'index.php?action=graveyard';
-		}
+		} else addnav(0, 'Отправиться на Кладбище', 'index.php?action=graveyard');
 	
 	} else {
 		$user['title'] = 'Путешествие';
 		$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой регион и вот уже виднеются стены города.';
 		$user['links'] = array();
-		$user['links'][0]['title'] = 'Идти к воротам в город';
-		$user['links'][0]['link'] = 'index.php?action=gate';
+		addnav(0, 'Идти к воротам в город', 'index.php?action=gate');
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);

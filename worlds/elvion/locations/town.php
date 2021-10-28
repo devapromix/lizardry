@@ -35,9 +35,8 @@ if ($action == 'town') {
 				break;
 		}
 		
-	} else {
-		$user['description'] = 'Вы чувствуете необычайную легкость и безразличие ко всему происходящему. Ваша душа вздымается ввысь над городом. Вас с необъяснимой силой тянет к ближайшему кладбищу.';
-	}
+	} else shades();
+
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 
@@ -56,10 +55,7 @@ if ($action == 'town') {
 //				break;
 //		}
 		
-	} else {
-		$user['links'][0]['title'] = 'Отправиться на Кладбище';
-		$user['links'][0]['link'] = 'index.php?action=graveyard';
-	}
+	} else addnav(0, 'Отправиться на Кладбище', 'index.php?action=graveyard');
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
