@@ -396,8 +396,6 @@ object FrameTown: TFrameTown
           ExplicitHeight = 213
         end
         inherited TabSheet2: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -412,7 +410,6 @@ object FrameTown: TFrameTown
           end
         end
         inherited TabSheet3: TTabSheet
-          ExplicitLeft = 4
           ExplicitWidth = 329
           ExplicitHeight = 213
         end
@@ -435,17 +432,12 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         inherited edChatMsg: TEdit
           Width = 335
-          ExplicitLeft = 1
-          ExplicitTop = 1
           ExplicitWidth = 335
-          ExplicitHeight = 30
         end
       end
       inherited Panel2: TPanel
         Width = 337
         Height = 217
-        ExplicitLeft = 0
-        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit

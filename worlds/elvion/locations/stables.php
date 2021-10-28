@@ -39,23 +39,23 @@ if ($action == 'stables') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			addnav(0, 'Покинуть Конюшни', 'index.php?action=gate');
+			go_to_the_gate('Покинуть Конюшни');
 			switch ($user['char_region']) {
 				case 1:
-					addnav(1, 'Путешествие в Морхольд', 'index.php?action=stables&do=2');
+					addnav('Путешествие в Морхольд', 'index.php?action=stables&do=2', 1);
 					break;
 				case 2:
-					addnav(1, 'Путешествие в Вильмар', 'index.php?action=stables&do=1');
+					addnav('Путешествие в Вильмар', 'index.php?action=stables&do=1', 1);
 					break;
 			}
 		
-		} else addnav(0, 'Отправиться на Кладбище', 'index.php?action=graveyard');
+		} else go_to_the_graveyard();
 	
 	} else {
 		$user['title'] = 'Путешествие';
 		$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой регион и вот уже виднеются стены города.';
 		$user['links'] = array();
-		addnav(0, 'Идти к воротам в город', 'index.php?action=gate');
+		go_to_the_gate('Идти к воротам в город');
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);

@@ -14,10 +14,10 @@ if ($action == 'battle') {
 	$user['links'] = array();
 	$n = 0;
 	if ($user['char_life_cur'] > 0) {
-		addnav(0, 'Автобой!', 'index.php?action=auto_battle');
+		addlink('Автобой!', 'index.php?action=auto_battle');
 		$n++;
 	}
-	addnav($n, 'Назад', 'index.php?action='.$user['current_outlands']);
+	addlink('Назад', 'index.php?action='.$user['current_outlands'], $n);
 	
 	$user['battlelog'] = '';
 

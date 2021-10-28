@@ -299,7 +299,7 @@ begin
         if JSON.TryGetValue('char_gold', S) then
         begin
           F := StrToIntDef(S, 0);
-          FormMain.FrameTown.FrameBank1.Edit1.Text := IntToStr(F);
+          FormMain.FrameTown.FrameBank1.GoldEdit.Text := IntToStr(F);
         end;
         FormMain.FrameTown.FrameBank1.BringToFront;
       end

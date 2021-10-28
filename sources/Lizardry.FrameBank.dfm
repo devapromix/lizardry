@@ -17,14 +17,14 @@ object FrameBank: TFrameBank
     Height = 21
     Caption = #1047#1086#1083#1086#1090#1086': 0'
   end
-  object Edit1: TEdit
+  object GoldEdit: TEdit
     Left = 16
     Top = 16
     Width = 121
     Height = 29
     TabOrder = 0
     Text = '0'
-    OnKeyPress = Edit1KeyPress
+    OnKeyPress = GoldEditKeyPress
   end
   object bbDeposit: TBitBtn
     Left = 16
@@ -49,7 +49,7 @@ object FrameBank: TFrameBank
     Top = 16
     Width = 16
     Height = 29
-    Associate = Edit1
+    Associate = GoldEdit
     Max = 1000000
     TabOrder = 3
   end

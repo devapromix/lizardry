@@ -39,23 +39,23 @@ if ($action == 'harbor') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			addnav(0, 'Покинуть Гавань', 'index.php?action=gate');
+			go_to_the_gate('Покинуть Гавань');
 			switch ($user['char_region']) {
 				case 2:
-					addnav(1, 'Путешествие в Миран', 'index.php?action=harbor&do=3');
+					addlink('Путешествие в Миран', 'index.php?action=harbor&do=3', 1);
 					break;
 				case 3:
-					addnav(1, 'Путешествие в Морхольд', 'index.php?action=harbor&do=2');
+					addlink('Путешествие в Морхольд', 'index.php?action=harbor&do=2', 1);
 					break;
 			}
 		
-		} else addnav(0, 'Отправиться на Кладбище', 'index.php?action=graveyard');
+		} else go_to_the_graveyard();
 	
 	} else {
 		$user['title'] = 'Путешествие';
 		$user['description'] = 'После многих дней увлекательного морского путешествия Вы приплыли в другую гавань и вот уже виднеются стены города.';
 		$user['links'] = array();
-		addnav(0, 'Идти к воротам в город', 'index.php?action=gate');
+		go_to_the_gate('Идти к воротам в город');
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);

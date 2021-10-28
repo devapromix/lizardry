@@ -10,14 +10,14 @@ uses
 
 type
   TFrameBank = class(TFrame)
-    Edit1: TEdit;
+    GoldEdit: TEdit;
     bbDeposit: TBitBtn;
     bbWithdraw: TBitBtn;
     Label1: TLabel;
     UpDown1: TUpDown;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
-    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure GoldEditKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -36,10 +36,10 @@ var
 begin
   if IsChatMode or IsCharMode then
     Exit;
-  Sum := StrToIntDef(Edit1.Text, 0);
+  Sum := StrToIntDef(GoldEdit.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=deposit&amount=' + Sum.ToString));
-  Edit1.Text := '0';
+  GoldEdit.Text := '0';
 end;
 
 procedure TFrameBank.bbWithdrawClick(Sender: TObject);
@@ -48,13 +48,13 @@ var
 begin
   if IsChatMode or IsCharMode then
     Exit;
-  Sum := StrToIntDef(Edit1.Text, 0);
+  Sum := StrToIntDef(GoldEdit.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=withdraw&amount=' + Sum.ToString));
-  Edit1.Text := '0';
+  GoldEdit.Text := '0';
 end;
 
-procedure TFrameBank.Edit1KeyPress(Sender: TObject; var Key: Char);
+procedure TFrameBank.GoldEditKeyPress(Sender: TObject; var Key: Char);
 begin
   if IsChatMode or IsCharMode then
     Exit;

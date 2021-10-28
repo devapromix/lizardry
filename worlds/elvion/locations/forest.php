@@ -7,21 +7,15 @@ if ($action == 'forest') {
 	switch ($user['char_region']) {
 		case 1:
 			$user['title'] = 'Темный Лес';
-			add_enemy(1, rand(1, 3));
-			add_enemy(2, rand(1, 3));
-			add_enemy(3, rand(1, 3));
+			add_enemies([1,2,3]);
 			break;
 		case 2:
 			$user['title'] = 'Лес Энтов';
-			add_enemy(1, rand(16, 18));
-			add_enemy(2, rand(16, 18));
-			add_enemy(3, rand(16, 18));
+			add_enemies([17,18,19]);
 			break;
 		case 5:
 			$user['title'] = 'Лес Каменных Гигантов';
-			add_enemy(1, rand(1, 1));
-			add_enemy(2, rand(1, 1));
-			add_enemy(3, rand(1, 1));
+			add_enemies([17,18,19]);
 			break;
 	}
 		
@@ -38,25 +32,19 @@ if ($action == 'forest') {
 				$user['description'] = 'К югу от городских стен раскинулся на многие сотни миль Лес Каменных Гигантов. Любые сверхъестественные события связывают с Лесом – и зачастую, так оно и есть. Истории о гоблинах, призраках, феях и демонах рождаются под его ветвями – и каждая из них несет в себе зерно страшной правды. Правды, которую жители города знают лучше кого бы то ни было. Лес Каменных Гигантов опасен – всегда был таким  и всегда будет. И если не имеешь очень веских причин – избегай его окутанных тенью границ.';
 				break;
 		}
-	}else{
-		$user['description'] = 'Ваше бестелесное тело взмывает ввысь над ветвями все выше и выше. Вы ищете ближайшее кладбище...';
-	}
+	}else shades();
+	
 	$user['frame'] = 'outlands';
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		$user['links'][0]['title'] = 'Идти в сторону города';
-		$user['links'][0]['link'] = 'index.php?action=gate';
+		go_to_the_gate('Идти в сторону города');
 		switch ($user['char_region']) {
 			case 1:
-				$user['links'][1]['title'] = 'Осмотреть Серую Пещеру';
-				$user['links'][1]['link'] = 'index.php?action=graycave';
+				addlink('Осмотреть Серую Пещеру', 'index.php?action=graycave', 1);
 				break;
 		}
-	} else {
-		$user['links'][0]['title'] = 'Отправиться на кладбище';
-		$user['links'][0]['link'] = 'index.php?action=graveyard';
-	}
-
+	} else go_to_the_graveyard();
+	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }

@@ -39,23 +39,14 @@ if ($action == 'town') {
 
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-
-		$user['links'][0]['title'] = 'Покинуть '.$user['char_region_town_name'];
-		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Посетить Таверну';
-		$user['links'][1]['link'] = 'index.php?action=tavern';
-		$user['links'][2]['title'] = 'Отправиться в Банк';
-		$user['links'][2]['link'] = 'index.php?action=bank';
-		$user['links'][3]['title'] = 'Квартал Гильдий';
-		$user['links'][3]['link'] = 'index.php?action=guilds';
-		$user['links'][4]['title'] = 'Квартал Торговцев';
-		$user['links'][4]['link'] = 'index.php?action=shops';
-//		switch ($user['char_region']) {
-//			case 1:
-//				break;
-//		}
 		
-	} else addnav(0, 'Отправиться на Кладбище', 'index.php?action=graveyard');
+		go_to_the_gate('Покинуть '.$user['char_region_town_name']);
+		addnav(1, 'Посетить Таверну', 'index.php?action=tavern');
+		addnav(2, 'Отправиться в Банк', 'index.php?action=bank');
+		addnav(3, 'Квартал Гильдий', 'index.php?action=guilds');
+		addnav(4, 'Квартал Торговцев', 'index.php?action=shops');
+		
+	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
