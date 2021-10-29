@@ -5,21 +5,13 @@ if ($action == 'shops') {
 	$user['title'] = 'Квартал Торговцев';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = '';
-	}else{
-		$user['description'] = 'Ваша душа летает над городом.';
-	}
+	} else shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
-		$user['links'][0]['title'] = 'На площадь города';
-		$user['links'][0]['link'] = 'index.php?action=town';
-		$user['links'][1]['title'] = 'Лавка Оружейника';
-		$user['links'][1]['link'] = 'index.php?action=shop_weapon';
-		$user['links'][2]['title'] = 'Лавка Бронника';
-		$user['links'][2]['link'] = 'index.php?action=shop_armor';
-	} else {
-		$user['links'][0]['title'] = 'Городское Кладбище';
-		$user['links'][0]['link'] = 'index.php?action=graveyard';
-	}
+		go_to_the_town('Идти на площадь города')
+		addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
+		addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
+	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
@@ -33,8 +25,7 @@ if ($action == 'shop_armor') {
 	$user['description'] = 'Лавка Бронника';
 	$user['mainframe'] = 'shop_armor';
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Покинуть лавку';
-	$user['links'][0]['link'] = 'index.php?action=shops';
+	addlink('Покинуть лавку', 'index.php?action=shops');
 
 		switch ($user['char_region']) {
 			case 1:
@@ -106,8 +97,7 @@ if ($action == 'shop_weapon') {
 	$user['description'] = '';
 	$user['mainframe'] = 'shop_weapon';
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Покинуть лавку';
-	$user['links'][0]['link'] = 'index.php?action=shops';
+	addlink('Покинуть лавку', 'index.php?action=shops');
 
 		switch ($user['char_region']) {
 			case 1:
