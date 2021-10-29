@@ -270,30 +270,18 @@ function add_event($type, $name, $level){
 	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
-function auto_battle() {
-	global $user;
-	
+$stat = array();
+
+function char_battle_round() {
+	global $user, $stat;
 	$r = '';
-	$rounds = 0;
-	$char_damages = 0;
-	$enemy_damages = 0;
-	
-	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
-	$r .= '--------------------------------------------------------#';
-	while(true) {
-
-		if (rand(1, 100) <= 1) {
-			$h = 1;
-			//$user['char_life_cur'] += $h;
-			//$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
-		}
-
+	if (($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
 		if (rand(1, 5) >= 2) {
 			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				$char_damages += $d;
+				$stat['char_damages'] += $d;
 				$user['enemy_life_cur'] -= $d;
 				if ($user['enemy_life_cur'] > 0) {
 					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
@@ -303,27 +291,64 @@ function auto_battle() {
 			}
 		} else {
 			$r .= 'Вы промахиваетесь по '.$user['enemy_name'].'.#';
+			$stat['char_misses']++;
 		}		
-		
-		if ($user['enemy_life_cur'] > 0) {
-			if (rand(1, 5) >= 2) {
-				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
-				if ($d <= 0) {
-					$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
-				} else {
-					$enemy_damages += $d;
-					$user['char_life_cur'] -= $d;
-					if ($user['char_life_cur'] > 0) {
-						$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-					}else{
-						$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
-					}
-				}
+	}
+	return $r;
+}
+
+function enemy_battle_round() {
+	global $user, $stat;
+	$r = '';
+	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
+		if (rand(1, 5) >= 2) {
+			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
+			if ($d <= 0) {
+				$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
 			} else {
-				$r .= $user['enemy_name'].' промахивается по вам.#';
+				$stat['enemy_damages'] += $d;
+				$user['char_life_cur'] -= $d;
+				if ($user['char_life_cur'] > 0) {
+					$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+				}else{
+					$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+				}
 			}
+		} else {
+			$r .= $user['enemy_name'].' промахивается по вам.#';
+			$stat['enemy_misses']++;
 		}
+	}
+	return $r;
+}
+
+function auto_battle() {
+	global $user, $stat;
+	
+	$r = '';
+	$rounds = 0;
+	$stat['char_damages'] = 0;
+	$stat['enemy_damages'] = 0;
+	$stat['char_misses'] = 0;
+	$stat['enemy_misses'] = 0;
+	
+	$c = rand(0, 2);
+	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
+	if ($c == 0)
+		$r .= 'Вы бросаетесь в атаку!#';
+	else
+		$r .= $user['enemy_name'].' бросается в атаку!#';
+	$r .= '--------------------------------------------------------#';
+	while(true) {
 		
+		if ($c == 0) {
+			$r .= char_battle_round();
+			$r .= enemy_battle_round();
+		} else {
+			$r .= enemy_battle_round();
+			$r .= char_battle_round();
+		}
+
 		if ($user['char_life_cur'] <= 0) {
 			$user['char_life_cur'] = 0;
 			$user['char_mana_cur'] = 0;
@@ -352,11 +377,13 @@ function auto_battle() {
 			break;
 		}
 		$rounds++;
+		$c = rand(0, 2);
 	}
 	
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
-	$r .= 'Сумма урона: '.$char_damages." (".$user['char_name'].") / ".$enemy_damages." (".$user['enemy_name'].")#";
+	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
+	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
 	return $r;
 }
 
