@@ -33,11 +33,18 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	// Battle
 	include 'locations/battle.php';
 	include 'locations/auto_battle.php';
+	// Town
+	include 'locations/town.php';
+	// Tavern
+	include 'locations/tavern.php';
+	// Bank
+	include 'locations/bank.php';
 	// Gate
 	include 'locations/gate.php';
 	// Travel
 	include 'locations/travel.php';
-	include 'locations/stables.php';
+	// Outlands
+	include 'locations/outlands.php';
 	// Guilds
 	include 'locations/guilds.php';
 	// Shops
@@ -46,8 +53,6 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/graveyard.php';
 	// Crypt
 	include 'locations/crypt.php';
-	// Town
-	include 'locations/town.php';
 	// Forest
 	include 'locations/forest.php';
 	// Gray Cave
@@ -56,15 +61,6 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/deepcave.php';
 	// Stoneworm Lair
 	include 'locations/stonewormlair.php';
-	// Stone Field
-	include 'locations/stonefield.php';
-	// Tavern
-	include 'locations/tavern.php';
-	// Bank
-	include 'locations/bank.php';
-	// Harbor
-	include 'locations/harbor.php';
-	include 'locations/old_harbor.php';
 }
 
 mysqli_close($connection);
