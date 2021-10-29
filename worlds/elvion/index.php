@@ -51,16 +51,6 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/shops.php';
 	// Graveyard
 	include 'locations/graveyard.php';
-	// Crypt
-	include 'locations/crypt.php';
-	// Forest
-	//include 'locations/forest.php';
-	// Gray Cave
-	//include 'locations/graycave.php';
-	// Deep Cave
-	include 'locations/deepcave.php';
-	// Stoneworm Lair
-	include 'locations/stonewormlair.php';
 }
 
 mysqli_close($connection);
