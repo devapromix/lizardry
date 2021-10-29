@@ -8,7 +8,7 @@ if ($action == 'guilds') {
 	} else shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		go_to_the_town('Идти на площадь города')
+		go_to_the_town('Идти на площадь города');
 		addlink('Гильдия Тела', 'index.php?action=guild_body', 1);
 		addlink('Гильдия Духа', 'index.php?action=guild_spirit', 2);
 	} else go_to_the_graveyard();

@@ -14,19 +14,18 @@ if ($action == 'gate') {
 		switch ($user['char_region']) {
 			case 1:
 				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
-				addlink('Темный Лес', 'index.php?action=forest', 3);
+				addlink('Темный Лес', 'index.php?action=dark_forest', 3);
 				break;
 			case 2:
 				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
 				addlink('Посетить Гавань', 'index.php?action=harbor', 3);
-				addlink('Лес Энтов', 'index.php?action=forest', 4);
+				addlink('Лес Энтов', 'index.php?action=treant_forest', 4);
 				addlink('Старая Гавань', 'index.php?action=old_harbor', 5);
 				addlink('Каменное Поле', 'index.php?action=stonefield', 6);
 				break;
 			case 3:
 				addlink('Посетить Гавань', 'index.php?action=harbor', 2);
 				break;
-
 		}
 		
 	} else go_to_the_graveyard();

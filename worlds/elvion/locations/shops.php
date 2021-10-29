@@ -8,7 +8,7 @@ if ($action == 'shops') {
 	} else shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
-		go_to_the_town('Идти на площадь города')
+		go_to_the_town('Идти на площадь города');
 		addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
 		addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
 	} else go_to_the_graveyard();

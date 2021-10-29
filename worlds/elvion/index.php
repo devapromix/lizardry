@@ -54,9 +54,9 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	// Crypt
 	include 'locations/crypt.php';
 	// Forest
-	include 'locations/forest.php';
+	//include 'locations/forest.php';
 	// Gray Cave
-	include 'locations/graycave.php';
+	//include 'locations/graycave.php';
 	// Deep Cave
 	include 'locations/deepcave.php';
 	// Stoneworm Lair

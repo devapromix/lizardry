@@ -1,5 +1,6 @@
 <?php
 
+/*
 if ($action == 'crypt') {
 	
 	$user['current_outlands'] = $action;
@@ -20,5 +21,6 @@ if ($action == 'crypt') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
+*/
 
 ?>

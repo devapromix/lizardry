@@ -231,11 +231,13 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 		if (count($prev_location) > 0) {
 			addlink($prev_location[0], $prev_location[1], $n);
 			$n++;
-		} else if (count($next_location) > 0) {
+		}
+		if (count($next_location) > 0) {
 			addlink($next_location[0], $next_location[1], $n);
 			$n++;
 		}
-		else go_to_the_gate();
+		if ((count($prev_location) == 0)&&(count($prev_location) == 0))
+			go_to_the_gate();
 	} else
 		go_to_the_graveyard();
 

@@ -1,5 +1,5 @@
 <?php
-
+/*
 if ($action == 'deepcave') {
 
 	$user['current_outlands'] = $action;
@@ -29,5 +29,5 @@ if ($action == 'deepcave') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
-
+*/
 ?>
