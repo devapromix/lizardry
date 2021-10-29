@@ -35,37 +35,30 @@ if ($action == 'graveyard') {
 				break;
 		}
 		
-	}else{
-		$user['description'] = 'Вы в виде бестелесного создания бродите в мире духов и ищете ближайшее Кладбище. У одной из могил вы видите красивую девушку с большими крыльями за спиной. Она говорит, что может воскресить и вернуть в мир живых...';
+	} else {
+		$user['description'] = 'Вы в виде бестелесного создания бродите в мире теней. У одной из могил вы видите красивую девушку с большими крыльями за спиной. Она говорит, что может воскресить и вернуть в мир живых...';
 	}
 	
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		$user['links'][0]['title'] = 'Покинуть Кладбище';
-		$user['links'][0]['link'] = 'index.php?action=gate';
+		go_to_the_gate('Покинуть Кладбище');
 		switch ($user['char_region']) {
 			case 2:
-				$user['links'][1]['title'] = 'Осмотреть Склеп';
-				$user['links'][1]['link'] = 'index.php?action=crypt';
+				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
 				break;
 		}
-	} else {	
-		$user['links'][0]['title'] = 'Вернуться к жизни';
-		$user['links'][0]['link'] = 'index.php?action=graveyard&do=revive_in_graveyard';	
-	}
+	} else addlink('Вернуться к жизни', 'index.php?action=graveyard&do=revive_in_graveyard');
 	
 	if ($do == 'revive_in_graveyard') {
 		$user['char_life_cur'] = 1;
 		$user['char_mana_cur'] = 0;
 		update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-		$user['description'] = 'Вы открываете глаза и понимаете, что вернулись в мир живых. На тело наваливаетеся сильная усталость,  кружится голова. Все происходящее кажется сном. Нужно отдохнуть и набраться сил.';
+		$user['description'] = 'Вы открываете глаза и понимаете, что вернулись в мир живых. На тело наваливаетеся сильная усталость, кружится голова. Все происходящее кажется сном. Нужно отдохнуть и набраться сил.';
 		$user['links'] = array();
-		$user['links'][0]['title'] = 'Покинуть Кладбище';
-		$user['links'][0]['link'] = 'index.php?action=gate';
+		go_to_the_gate('Покинуть Кладбище');
 		switch ($user['char_region']) {
 			case 2:
-				$user['links'][1]['title'] = 'Осмотреть Склеп';
-				$user['links'][1]['link'] = 'index.php?action=crypt';
+				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
 				break;
 		}
 	}

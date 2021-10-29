@@ -422,7 +422,7 @@ function go_to_the_town($t = 'Вернуться в город', $n = 0) {
 	addlink($t, 'index.php?action=town', $n);
 }
 
-function go_to_the_graveyard($t = 'Отправиться на кладбище', $n = 0) {
+function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
 	addlink($t, 'index.php?action=graveyard', $n);
 }
 
