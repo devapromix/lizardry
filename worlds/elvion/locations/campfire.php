@@ -1,6 +1,6 @@
 <?php
 
-if ($action == 'camp') {
+if ($action == 'campfire') {
 	
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 	if ($user['char_food'] <= 0) die('{"error":"Вы не можете здесь отдыхать - нет провизии!"}');

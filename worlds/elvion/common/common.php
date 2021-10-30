@@ -381,7 +381,7 @@ function auto_battle() {
 		$rounds++;
 		$c = rand(0, 2);
 	}
-	
+
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
 	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";

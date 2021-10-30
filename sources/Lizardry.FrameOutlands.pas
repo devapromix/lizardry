@@ -33,7 +33,7 @@ procedure TFrameOutlands.Image1Click(Sender: TObject);
 begin
   if IsChatMode or IsCharMode then
     Exit;
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=camp'));
+  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=campfire'));
 end;
 
 procedure TFrameOutlands.Image2Click(Sender: TObject);
