@@ -11,8 +11,8 @@ if ($action == 'treant_forest') outland($action, [17,18,19]);
 if ($action == 'old_harbor') outland($action, [20,21,22]);
 if ($action == 'stonefield') outland($action, [23,24,25]);
 // #3
-if ($action == '+') outland($action, [26,27,28,29]);
-if ($action == '+') outland($action, [30,31,32]);
+if ($action == 'stone_giant_forest') outland($action, [26,27,28,29], [], ['Лунная Поляна', 'index.php?action=moon_meadow']);
+if ($action == 'moon_meadow') outland($action, [30,31,32], ['Лес Каменных Гигантов', 'index.php?action=stone_giant_forest']);
 if ($action == 'monast') outland($action, [33,34,35], [], ['Подвал Монастыря', 'index.php?action=cellar']);
 if ($action == 'cellar') outland($action, [36,37,38,39], ['Монастырь', 'index.php?action=monast']);
 // #4
