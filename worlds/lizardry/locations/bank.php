@@ -2,14 +2,54 @@
 
 if ($action == 'bank') {
 	
-	$user['title'] = 'Банк';
-	$user['description'] = 'Краткое описание банка.';
+		switch ($user['char_region']) {
+			case 1:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 2:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 3:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 4:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 5:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 6:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 7:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 8:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 9:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 10:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+		}
 	$user['frame'] = 'bank';
 	$user['links'] = array();
-	$user['links'][0]['title'] = 'Вернуться в город';
-	$user['links'][0]['link'] = 'index.php?action=town';	
+	go_to_the_town();
 	
 	if ($do == 'deposit') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($amount <= 0) die('{"error":"Сумма должна быть больше 0!"}');
 		if ($amount > $user['char_gold']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] -= $amount;
@@ -19,6 +59,7 @@ if ($action == 'bank') {
 	}
 	
 	if ($do == 'withdraw') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($amount <= 0) die('{"error":"Сумма должна быть больше 0!"}');
 		if ($amount > $user['char_bank']) die('{"error":"Введите правильную сумму!"}');
 		$user['char_gold'] += $amount;

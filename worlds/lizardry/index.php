@@ -3,6 +3,7 @@ $res = '0';
 
 include 'common/common.php';
 include 'common/connect.php';
+include 'common/dbtables.php';
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -25,45 +26,22 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 		$res = '1';
 	}
 	if ($action == 'version') {
-		$res = get_file_int(PATH.'version.txt');
+		$res = get_version();
 	}
-	// Camp
-	include 'locations/camp.php';
-	// Battle
+	if ($action == 'events') {
+		$res = get_events();
+	}
 	include 'locations/battle.php';
-	include 'locations/auto_battle.php';
-	// Gate
-	include 'locations/gate.php';
-	// Travel
-	include 'locations/travel.php';
-	include 'locations/stables.php';
-	// Guilds
-	include 'locations/guilds.php';
-	// Shops
-	include 'locations/shops.php';
-	// Graveyard
-	include 'locations/graveyard.php';
-	// Crypt
-	include 'locations/crypt.php';
-	// Town
+	include 'locations/campfire.php';
 	include 'locations/town.php';
-	// Forest
-	include 'locations/forest.php';
-	// Gray Cave
-	include 'locations/graycave.php';
-	// Deep Cave
-	include 'locations/deepcave.php';
-	// Stoneworm Lair
-	include 'locations/stonewormlair.php';
-	// Stone Field
-	include 'locations/stonefield.php';
-	// Tavern
 	include 'locations/tavern.php';
-	// Bank
 	include 'locations/bank.php';
-	// Harbor
-	include 'locations/harbor.php';
-	include 'locations/old_harbor.php';
+	include 'locations/gate.php';
+	include 'locations/travel.php';
+	include 'locations/outlands.php';
+	include 'locations/guilds.php';
+	include 'locations/shops.php';
+	include 'locations/graveyard.php';
 }
 
 mysqli_close($connection);

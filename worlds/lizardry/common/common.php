@@ -13,14 +13,7 @@ if (strlen($userpass) < 4) die('32');
 
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
-
 	
-$tb_user = 'lizardry_users';
-$tb_item = 'lizardry_items';
-$tb_chat = 'lizardry_messages';
-$tb_enemy = 'lizardry_enemies';
-$tb_regions = 'lizardry_regions';
-
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -77,17 +70,24 @@ function equip_item($item_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$item = $result->fetch_assoc();
 
+	if ($user['char_gold'] < $item['item_price']) die('{"info":"Нужно больше золота!"}');
+	if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
+
 	switch($item['item_type']) {
 		case 0:
-			if ($user['char_gold'] >= $item['item_price']) {
-				if ($user['char_level'] >= $item['item_level']) {
-					$user['char_equip_armor_name'] = $item['item_name'];
-					$user['char_equip_armor_ident'] = $item['item_ident'];
-					$user['char_gold'] = $user['char_gold'] - $item['item_price'];
-					$user['char_armor'] = $item['item_armor'];
-					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
-				} else die('{"info":"Нужен уровень выше!"}');
-			} else die('{"info":"Нужно больше золота!"}');
+			$user['char_equip_armor_name'] = $item['item_name'];
+			$user['char_equip_armor_ident'] = $item['item_ident'];
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			$user['char_armor'] = $item['item_armor'];
+			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+			break;
+		case 1:
+			$user['char_equip_weapon_name'] = $item['item_name'];
+			$user['char_equip_weapon_ident'] = $item['item_ident'];
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			$user['char_damage_min'] = $item['item_damage_min'];
+			$user['char_damage_max'] = $item['item_damage_max'];
+			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			break;
 	}
 }
@@ -101,6 +101,9 @@ function item_values($item_ident) {
 	switch($item['item_type']) {
 		case 0:
 			return $item['item_name'].','.$item['item_armor'].','.$item['item_level'].','.$item['item_price'];
+			break;
+		case 1:
+			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
 	}
 }
@@ -179,6 +182,10 @@ function get_char_level_exp($level) {
 	return $level * 100;
 }
 
+function get_version() {
+	return get_file_int(PATH.'version.txt');
+}
+
 function gettime() {
 	return date('d.m.Y H:i'); 
 }
@@ -208,56 +215,71 @@ function post_param($value, $default) {
 	return $res;
 }
 
-function add_event($type, $name, $level){
-	global $user;
-	$f = PATH."events".DS."events.txt";
-	$h = file($f);
-	if ($h) {
-		$c = count($h);
-		if ($c > 0) {
-			$fp = fopen($f,"w") or die("can't open file");
-			fwrite($fp, "");
-			fclose($fp);
-			$fp = fopen($f,"a");
-			$k = $c - 19;
-			if ($k < 0)
-				$k = 0;
-			for ($i = $k; $i < $c; $i++) {
-				fwrite($fp, $h[$i]);
-			}
-			fclose($fp);
+function outland($location_ident, $enemies, $prev_location = [], $next_location = []) {
+	global $user, $res, $connection, $tb_locations;
+	$user['current_outlands'] = $location_ident;
+	add_enemies($enemies);	
+	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$location = $result->fetch_assoc();
+
+	$user['title'] = $location['location_name'];
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $location['location_description'];
+	} else shades();
+	$user['frame'] = 'outlands';
+	$user['links'] = array();
+	$n = 0;
+	if ($user['char_life_cur'] > 0) {
+		if (count($prev_location) > 0) {
+			addlink($prev_location[0], $prev_location[1], $n);
+			$n++;
 		}
-	}
-	$data = array();
-	$data[] = $type;
-	$data[] = $name;
-	$data[] = $level;
-	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
+		if (count($prev_location) == 0) {
+			go_to_the_gate();
+			$n++;
+		}
+		if (count($next_location) > 0) {
+			addlink($next_location[0], $next_location[1], $n);
+			$n++;
+		}
+	} else
+		go_to_the_graveyard();
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+
 }
 
-function auto_battle() {
-	global $user;
-	
+function add_event($type, $name, $level = 1, $gender =0) {
+	global $connection, $user, $tb_events;
+	$query = "INSERT INTO ".$tb_events." (event_type,event_char_gender,event_char_name,event_char_level) VALUES(".$type.", ".$gender.", '".$name."', ".$level.")";
+	if (!mysqli_query($connection, $query)) {
+		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
+	}
+}
+
+function get_events() {
+	global $connection, $tb_events;
+	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level FROM ".$tb_events." LIMIT 10";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$events = $result->fetch_all(MYSQLI_ASSOC);
+	return json_encode($events, JSON_UNESCAPED_UNICODE);
+}
+
+$stat = array();
+
+function char_battle_round() {
+	global $user, $stat;
 	$r = '';
-	$rounds = 0;
-	$damages = 0;
-	
-	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
-	$r .= '--------------------------------------------------------#';
-	while(true) {
-
-		if (rand(1, 100) <= 1) {
-			$h = 1;
-			$user['char_life_cur'] += $h;
-			$r .= 'Верховный бог Мордок вмешивается в поединок и исцеляет вас на '.$h.' HP.#';
-		}
-
+	if (($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
 		if (rand(1, 5) >= 2) {
 			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				$damages += $d;
+				$stat['char_damages'] += $d;
 				$user['enemy_life_cur'] -= $d;
 				if ($user['enemy_life_cur'] > 0) {
 					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
@@ -267,26 +289,64 @@ function auto_battle() {
 			}
 		} else {
 			$r .= 'Вы промахиваетесь по '.$user['enemy_name'].'.#';
+			$stat['char_misses']++;
 		}		
-		
-		if ($user['enemy_life_cur'] > 0) {
-			if (rand(1, 5) >= 2) {
-				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
-				if ($d <= 0) {
-					$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
-				} else {
-					$user['char_life_cur'] -= $d;
-					if ($user['char_life_cur'] > 0) {
-						$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-					}else{
-						$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
-					}
-				}
+	}
+	return $r;
+}
+
+function enemy_battle_round() {
+	global $user, $stat;
+	$r = '';
+	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
+		if (rand(1, 5) >= 2) {
+			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
+			if ($d <= 0) {
+				$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
 			} else {
-				$r .= $user['enemy_name'].' промахивается по вам.#';
+				$stat['enemy_damages'] += $d;
+				$user['char_life_cur'] -= $d;
+				if ($user['char_life_cur'] > 0) {
+					$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+				}else{
+					$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+				}
 			}
+		} else {
+			$r .= $user['enemy_name'].' промахивается по вам.#';
+			$stat['enemy_misses']++;
 		}
+	}
+	return $r;
+}
+
+function auto_battle() {
+	global $user, $stat;
+	
+	$r = '';
+	$rounds = 0;
+	$stat['char_damages'] = 0;
+	$stat['enemy_damages'] = 0;
+	$stat['char_misses'] = 0;
+	$stat['enemy_misses'] = 0;
+	
+	$c = rand(0, 2);
+	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
+	if ($c == 0)
+		$r .= 'Вы бросаетесь в атаку!#';
+	else
+		$r .= $user['enemy_name'].' бросается в атаку!#';
+	$r .= '--------------------------------------------------------#';
+	while(true) {
 		
+		if ($c == 0) {
+			$r .= char_battle_round();
+			$r .= enemy_battle_round();
+		} else {
+			$r .= enemy_battle_round();
+			$r .= char_battle_round();
+		}
+
 		if ($user['char_life_cur'] <= 0) {
 			$user['char_life_cur'] = 0;
 			$user['char_mana_cur'] = 0;
@@ -315,11 +375,13 @@ function auto_battle() {
 			break;
 		}
 		$rounds++;
+		$c = rand(0, 2);
 	}
-	
+
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
-	$r .= 'Сумма урона: '.$damages."#";
+	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
+	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
 	return $r;
 }
 
@@ -346,6 +408,29 @@ function add_enemies($enemy_idents) {
 		$r = $enemy_idents[array_rand($enemy_idents)];
 		add_enemy($i, $r);
 	}
+}
+
+function addlink($t, $j, $n = 0) {
+	global $user;
+	$user['links'][$n]['title'] = $t;
+	$user['links'][$n]['link'] = $j;	
+}
+
+function go_to_the_town($t = 'Вернуться в город', $n = 0) {
+	addlink($t, 'index.php?action=town', $n);
+}
+
+function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
+	addlink($t, 'index.php?action=graveyard', $n);
+}
+
+function go_to_the_gate($t = 'Идти в сторону города', $n = 0) {
+	addlink($t, 'index.php?action=gate', $n);
+}
+
+function shades() {
+	global $user;
+	$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
 }
 
 ?>

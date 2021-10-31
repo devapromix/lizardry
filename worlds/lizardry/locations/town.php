@@ -33,33 +33,23 @@ if ($action == 'town') {
 			case 9:
 				$user['description'] = 'Бывший некогда небольшой дварфийской заставой Трон за последние десятилетия вырос до размеров огромного города, население которого пополнилось переселенцами всех известных рас, живущих друг с другом в мире и согласии. Сначала невдалеке от дварфийского поселения появились деревни других рас, а затем все они слились в один большой город с разнообразной архитектурой и множеством парков.';
 				break;
+			case 10:
+				$user['description'] = '';
+				break;
 		}
 		
-	} else {
-		$user['description'] = 'Вы чувствуете необычайную легкость и безразличие ко всему происходящему. Ваша душа вздымается ввысь над городом. Вас с необъяснимой силой тянет к ближайшему кладбищу.';
-	}
+	} else shades();
+
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-
-		$user['links'][0]['title'] = 'Покинуть '.$user['char_region_town_name'];
-		$user['links'][0]['link'] = 'index.php?action=gate';
-		$user['links'][1]['title'] = 'Посетить Таверну';
-		$user['links'][1]['link'] = 'index.php?action=tavern';
-		$user['links'][2]['title'] = 'Отправиться в Банк';
-		$user['links'][2]['link'] = 'index.php?action=bank';
-		$user['links'][3]['title'] = 'Квартал Гильдий';
-		$user['links'][3]['link'] = 'index.php?action=guilds';
-		$user['links'][4]['title'] = 'Квартал Торговцев';
-		$user['links'][4]['link'] = 'index.php?action=shops';
-//		switch ($user['char_region']) {
-//			case 1:
-//				break;
-//		}
 		
-	} else {
-		$user['links'][0]['title'] = 'Отправиться на Кладбище';
-		$user['links'][0]['link'] = 'index.php?action=graveyard';
-	}
+		go_to_the_gate('Покинуть '.$user['char_region_town_name']);
+		addlink('Посетить Таверну', 'index.php?action=tavern', 1);
+		addlink('Отправиться в Банк', 'index.php?action=bank', 2);
+		addlink('Квартал Гильдий', 'index.php?action=guilds', 3);
+		addlink('Квартал Торговцев', 'index.php?action=shops', 4);
+		
+	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
