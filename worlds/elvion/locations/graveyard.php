@@ -33,6 +33,9 @@ if ($action == 'graveyard') {
 			case 9:
 				$user['description'] = '';
 				break;
+			case 10:
+				$user['description'] = '';
+				break;
 		}
 		
 	} else {

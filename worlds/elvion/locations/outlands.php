@@ -1,7 +1,7 @@
 <?php
 
 // #1
-if ($action == 'dark_forest') outland($action, [1,2,3], ['Идти в сторону города', 'index.php?action=gate'], ['Серая Пещера', 'index.php?action=gray_cave']);
+if ($action == 'dark_forest') outland($action, [1,2,3], [], ['Серая Пещера', 'index.php?action=gray_cave']);
 if ($action == 'gray_cave') outland($action, [4,5,6], ['Темный Лес', 'index.php?action=dark_forest'], ['Глубокие Пещеры', 'index.php?action=deep_caves']);
 if ($action == 'deep_caves') outland($action, [7,8,9], ['Серая Пещера', 'index.php?action=gray_cave'], ['Логово Каменных Червей', 'index.php?action=stoneworm_lair']);
 if ($action == 'stoneworm_lair') outland($action, [10,11,12], ['Глубокие Пещеры', 'index.php?action=deep_caves']);
@@ -13,7 +13,7 @@ if ($action == 'stonefield') outland($action, [23,24,25]);
 // #3
 if ($action == '+') outland($action, [26,27,28,29]);
 if ($action == '+') outland($action, [30,31,32]);
-if ($action == 'monast') outland($action, [33,34,35]);
+if ($action == 'monast') outland($action, [33,34,35], [], ['Подвал Монастыря', 'index.php?action=cellar']);
 if ($action == 'cellar') outland($action, [36,37,38,39], ['Монастырь', 'index.php?action=monast']);
 // #4
 if ($action == '+') outland($action, [40,41,42,43]);

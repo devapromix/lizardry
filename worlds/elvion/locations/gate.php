@@ -25,6 +25,9 @@ if ($action == 'gate') {
 				break;
 			case 3:
 				addlink('Посетить Гавань', 'index.php?action=harbor', 2);
+				addlink('', 'index.php?action=', 3);
+				addlink('', 'index.php?action=', 4);
+				addlink('Монастырь', 'index.php?action=monast', 5);
 				break;
 		}
 		
