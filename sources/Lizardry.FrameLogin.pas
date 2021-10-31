@@ -45,7 +45,7 @@ type
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
-    function GetEventsText(const S: string): string;
+    function GetEventsText(const AJSON: string): string;
   public
     { Public declarations }
     procedure LoadLastEvents;
@@ -56,7 +56,8 @@ implementation
 
 {$R *.dfm}
 
-uses Registry, Lizardry.FormMain, Lizardry.Server, Lizardry.Frame.Location.Town,
+uses JSON, Registry, Lizardry.FormMain, Lizardry.Server,
+  Lizardry.Frame.Location.Town,
   Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
@@ -82,7 +83,7 @@ begin
   else if ResponseCode = '1' then
   begin
     try
-      LoadFromDBItems;  {TODO: Выполнять в отдельном процессе}
+      LoadFromDBItems; { TODO: Выполнять в отдельном процессе }
     except
       ShowMsg('Ошибка загрузки DB!');
       Halt;
@@ -150,31 +151,29 @@ begin
     bbLogin.Click;
 end;
 
-function TFrameLogin.GetEventsText(const S: string): string;
+function TFrameLogin.GetEventsText(const AJSON: string): string;
 var
-  SL: TStringList;
-  I: Integer;
-  R: TArray<string>;
+  JSONArray: TJSONArray;
+  I, T: Integer;
 begin
   Result := '';
-  SL := TStringList.Create;
-  try
-    SL.Text := S;
-    for I := SL.Count - 1 downto 0 do
-    begin
-      R := SL[I].Split([',']);
-      case StrToIntDef(R[0], 0) of
-        0:
-          Result := Result + Format('Новый герой %s прибыл в Елвинаар!', [R[1]]
-            ) + #13#10;
-        1:
-          Result := Result + Format('Герой %s повысил свой уровень до %s!',
-            [R[1], R[2]]) + #13#10;
-      end;
+  JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
+  for I := JSONArray.Size - 1 downto 0 do
+  begin
+    T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_type'))
+      .JsonValue.Value, 0);
+    T := 1;
+    case T of
+      0:
+        Result := Result + Format('%s прибыл в Елвинаар!',
+          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+          .JsonValue.Value]) + #13#10;
+      1:
+        Result := Result + Format('%s повысил свой уровень до %s!',
+          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+          .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+          .Get('event_char_level')).JsonValue.Value]) + #13#10;
     end;
-
-  finally
-    SL.Free;
   end;
 end;
 

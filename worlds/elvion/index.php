@@ -28,28 +28,16 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'version') {
 		$res = get_file_int(PATH.'version.txt');
 	}
-	// Camp
-	include 'locations/campfire.php';
-	// Battle
 	include 'locations/battle.php';
-//	include 'locations/auto_battle.php';
-	// Town
+	include 'locations/campfire.php';
 	include 'locations/town.php';
-	// Tavern
 	include 'locations/tavern.php';
-	// Bank
 	include 'locations/bank.php';
-	// Gate
 	include 'locations/gate.php';
-	// Travel
 	include 'locations/travel.php';
-	// Outlands
 	include 'locations/outlands.php';
-	// Guilds
 	include 'locations/guilds.php';
-	// Shops
 	include 'locations/shops.php';
-	// Graveyard
 	include 'locations/graveyard.php';
 }
 
