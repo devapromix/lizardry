@@ -182,6 +182,10 @@ function get_char_level_exp($level) {
 	return $level * 100;
 }
 
+function get_version() {
+	return get_file_int(PATH.'version.txt');
+}
+
 function gettime() {
 	return date('d.m.Y H:i'); 
 }

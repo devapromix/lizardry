@@ -26,7 +26,7 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 		$res = '1';
 	}
 	if ($action == 'version') {
-		$res = get_file_int(PATH.'version.txt');
+		$res = get_version();
 	}
 	if ($action == 'events') {
 		$res = get_events();

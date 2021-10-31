@@ -2,8 +2,48 @@
 
 if ($action == 'bank') {
 	
-	$user['title'] = 'Банк';
-	$user['description'] = 'Краткое описание банка.';
+		switch ($user['char_region']) {
+			case 1:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 2:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 3:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 4:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 5:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 6:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 7:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 8:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 9:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+			case 10:
+				$user['title'] = 'Банк';
+				$user['description'] = '';
+				break;
+		}
 	$user['frame'] = 'bank';
 	$user['links'] = array();
 	go_to_the_town();
