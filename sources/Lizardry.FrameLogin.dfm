@@ -1535,14 +1535,14 @@ object FrameLogin: TFrameLogin
         Width = 416
         Height = 22
         Align = alTop
-        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1087#1088#1086#1080#1096#1077#1089#1090#1074#1080#1103' '#1074' '#1084#1080#1088#1077' '#1045#1083#1074#1080#1085#1072#1072#1088':'
+        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1087#1088#1086#1080#1096#1077#1089#1090#1074#1080#1103' '#1074' Lizardry:'
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -19
         Font.Name = 'Courier New'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitWidth = 418
+        ExplicitWidth = 363
       end
       object Panel5: TPanel
         Left = 0
