@@ -392,10 +392,14 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         ExplicitHeight = 249
         inherited TabSheet1: TTabSheet
-          ExplicitWidth = 329
-          ExplicitHeight = 213
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -410,8 +414,16 @@ object FrameTown: TFrameTown
           end
         end
         inherited TabSheet3: TTabSheet
-          ExplicitWidth = 329
-          ExplicitHeight = 213
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
+        end
+        inherited TabSheet4: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end
@@ -536,6 +548,9 @@ object FrameTown: TFrameTown
         ExplicitTop = 1
         ExplicitWidth = 335
         ExplicitHeight = 198
+        inherited Image1: TImage
+          OnClick = FrameOutlands1Image1Click
+        end
       end
     end
     object Panel19: TPanel

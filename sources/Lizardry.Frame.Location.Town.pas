@@ -72,6 +72,7 @@ type
     procedure bbDebugClick(Sender: TObject);
     procedure bbChatClick(Sender: TObject);
     procedure bbCharNameClick(Sender: TObject);
+    procedure FrameOutlands1Image1Click(Sender: TObject);
   private
     { Private declarations }
     Title: string;
@@ -102,6 +103,12 @@ var
 procedure TFrameTown.DoAction(S: string);
 begin
   ParseJSON(Server.Get(S));
+end;
+
+procedure TFrameTown.FrameOutlands1Image1Click(Sender: TObject);
+begin
+  FrameOutlands1.Image1Click(Sender);
+
 end;
 
 procedure TFrameTown.HideChar;
@@ -438,12 +445,12 @@ begin
     //
     S := '';
     if JSON.TryGetValue('enemy_name', S) then
-      FormMain.FrameTown.FrameBattle1.lbEnemyName.Caption := S;
+      FormMain.FrameTown.FrameBattle1.ttEnemyName.Caption := S;
     if JSON.TryGetValue('enemy_level', V) then
-      FormMain.FrameTown.FrameBattle1.Label8.Caption := 'Уровень: ' + V;
+      FormMain.FrameTown.FrameBattle1.ttEnemyLevel.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('enemy_life_cur', Cur) and
       JSON.TryGetValue('enemy_life_max', Max) then
-      FormMain.FrameTown.FrameBattle1.Label2.Caption :=
+      FormMain.FrameTown.FrameBattle1.ttEnemyLife.Caption :=
         Format('Здоровье: %s/%s', [Cur, Max]);
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then

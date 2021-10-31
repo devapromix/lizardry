@@ -12,8 +12,8 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     ttEnemyDamage: TLabel;
-    Label2: TLabel;
-    lbEnemyName: TLabel;
+    ttEnemyLife: TLabel;
+    ttEnemyName: TLabel;
     Image2: TImage;
     Panel3: TPanel;
     Image1: TImage;
@@ -21,7 +21,7 @@ type
     Label5: TLabel;
     ttCharDamage: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
+    ttEnemyLevel: TLabel;
     BattleLog: TRichEdit;
     ttEnemyArmor: TLabel;
     ttCharArmor: TLabel;

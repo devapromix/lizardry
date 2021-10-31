@@ -39,23 +39,23 @@ object FrameBattle: TFrameBattle
     object ttEnemyDamage: TLabel
       Left = 144
       Top = 80
-      Width = 99
+      Width = 121
       Height = 21
-      Caption = #1059#1088#1086#1085': 1-2'
+      Caption = 'Damage: 1-2'
     end
-    object Label2: TLabel
+    object ttEnemyLife: TLabel
       Left = 144
       Top = 56
-      Width = 165
+      Width = 121
       Height = 21
-      Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 10/10'
+      Caption = 'Life: 10/10'
     end
-    object lbEnemyName: TLabel
+    object ttEnemyName: TLabel
       Left = 144
       Top = 11
-      Width = 110
+      Width = 44
       Height = 21
-      Caption = #1057#1077#1088#1099#1081' '#1042#1086#1083#1082
+      Caption = 'Name'
     end
     object Image2: TImage
       Left = 11
@@ -64,19 +64,19 @@ object FrameBattle: TFrameBattle
       Height = 110
       Stretch = True
     end
-    object Label8: TLabel
+    object ttEnemyLevel: TLabel
       Left = 144
       Top = 34
-      Width = 110
+      Width = 88
       Height = 21
-      Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
+      Caption = 'Level: 1'
     end
     object ttEnemyArmor: TLabel
       Left = 144
       Top = 104
       Width = 88
       Height = 21
-      Caption = #1041#1088#1086#1085#1103': 0'
+      Caption = 'Armor: 0'
     end
     object Panel3: TPanel
       Left = 564

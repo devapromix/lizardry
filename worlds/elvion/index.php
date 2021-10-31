@@ -29,10 +29,10 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 		$res = get_file_int(PATH.'version.txt');
 	}
 	// Camp
-	include 'locations/camp.php';
+	include 'locations/campfire.php';
 	// Battle
 	include 'locations/battle.php';
-	include 'locations/auto_battle.php';
+//	include 'locations/auto_battle.php';
 	// Town
 	include 'locations/town.php';
 	// Tavern
