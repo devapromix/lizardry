@@ -137,8 +137,6 @@ end;
 procedure TFrameLogin.ComboBox1Change(Sender: TObject);
 begin
   Server.Name := LowerCase(Trim(ComboBox1.Text));
-  Label3.Caption := Format('Последние проишествия в мире %s:',
-    [Trim(ComboBox1.Text)]);
   LoadLastEvents;
 end;
 
@@ -154,7 +152,7 @@ end;
 function TFrameLogin.GetEventsText(const AJSON: string): string;
 var
   JSONArray: TJSONArray;
-  I, T: Integer;
+  I, T, G: Integer;
 begin
   Result := '';
   JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
@@ -162,17 +160,29 @@ begin
   begin
     T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_type'))
       .JsonValue.Value, 0);
-    T := 1;
+    G := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+      .Get('event_char_gender')).JsonValue.Value, 0);
     case T of
       0:
-        Result := Result + Format('%s прибыл в Елвинаар!',
-          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-          .JsonValue.Value]) + #13#10;
+        if (G = 0) then
+          Result := Result + Format('Герой %s прибыл в Елвинаар!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value]) + #13#10
+        else
+          Result := Result + Format('Героиня %s прибылa в Елвинаар!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value]) + #13#10;
       1:
-        Result := Result + Format('%s повысил свой уровень до %s!',
-          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-          .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
-          .Get('event_char_level')).JsonValue.Value]) + #13#10;
+        if (G = 0) then
+          Result := Result + Format('Герой %s повысил свой уровень до %s!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+            .Get('event_char_level')).JsonValue.Value]) + #13#10
+        else
+          Result := Result + Format('Героиня %s повысила свой уровень до %s!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+            .Get('event_char_level')).JsonValue.Value]) + #13#10;
     end;
   end;
 end;
@@ -235,7 +245,7 @@ begin
     Exit;
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
-  StaticText1.Caption := GetEventsText(Server.Get('events.php?action=events'));
+  StaticText1.Caption := GetEventsText(Server.Get('index.php?action=events'));
 end;
 
 end.

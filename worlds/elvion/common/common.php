@@ -245,31 +245,21 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 
 }
 
-function add_event($type, $name, $level){
-	global $user;
-	$f = PATH."events".DS."events.txt";
-	$h = file($f);
-	if ($h) {
-		$c = count($h);
-		if ($c > 0) {
-			$fp = fopen($f,"w") or die("can't open file");
-			fwrite($fp, "");
-			fclose($fp);
-			$fp = fopen($f,"a");
-			$k = $c - 19;
-			if ($k < 0)
-				$k = 0;
-			for ($i = $k; $i < $c; $i++) {
-				fwrite($fp, $h[$i]);
-			}
-			fclose($fp);
-		}
+function add_event($type, $name, $level = 1, $gender =0) {
+	global $connection, $user, $tb_events;
+	$query = "INSERT INTO ".$tb_events." (event_type,event_char_gender,event_char_name,event_char_level) VALUES(".$type.", ".$gender.", '".$name."', ".$level.")";
+	if (!mysqli_query($connection, $query)) {
+		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 	}
-	$data = array();
-	$data[] = $type;
-	$data[] = $name;
-	$data[] = $level;
-	file_put_contents($f, print_r(implode(",", $data), true) . PHP_EOL, FILE_APPEND | LOCK_EX);
+}
+
+function get_events() {
+	global $connection, $tb_events;
+	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level FROM ".$tb_events." LIMIT 10";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$events = $result->fetch_all(MYSQLI_ASSOC);
+	return json_encode($events, JSON_UNESCAPED_UNICODE);
 }
 
 $stat = array();

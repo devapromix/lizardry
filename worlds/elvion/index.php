@@ -28,6 +28,9 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'version') {
 		$res = get_file_int(PATH.'version.txt');
 	}
+	if ($action == 'events') {
+		$res = get_events();
+	}
 	include 'locations/battle.php';
 	include 'locations/campfire.php';
 	include 'locations/town.php';
