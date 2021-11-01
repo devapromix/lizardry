@@ -579,8 +579,6 @@ object FrameTown: TFrameTown
         ExplicitHeight = 247
         inherited SG: TStringGrid
           Width = 335
-          ExplicitLeft = 0
-          ExplicitTop = 64
           ExplicitWidth = 335
         end
         inherited Panel1: TPanel

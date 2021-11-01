@@ -157,51 +157,54 @@ var
   I, T, G: Integer;
 begin
   Result := '';
-  JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
-  for I := JSONArray.Size - 1 downto 0 do
-  begin
-    T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_type'))
-      .JsonValue.Value, 0);
-    G := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
-      .Get('event_char_gender')).JsonValue.Value, 0);
-    case T of
-      0:
-        if (G = 0) then
-          Result := Result + Format('%s прибыл в Елвинаар!',
-            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-            .JsonValue.Value]) + #13#10
-        else
-          Result := Result + Format('%s прибылa в Елвинаар!',
-            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-            .JsonValue.Value]) + #13#10;
-      1:
-        if (G = 0) then
-          Result := Result + Format('%s поднялся на %s уровень!',
-            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
-            .Get('event_char_level')).JsonValue.Value]) + #13#10
-        else
-          Result := Result + Format('%s поднялась на %s уровень!',
-            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
-            .Get('event_char_level')).JsonValue.Value]) + #13#10;
-      2:
-        Result := Result + Format('%s теперь носит %s!',
-          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-          .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
-          .Get('event_str')).JsonValue.Value]) + #13#10
-      3:
-        if (G = 0) then
-          Result := Result + Format('%s погиб в локации %s!',
-            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
-            .Get('event_str')).JsonValue.Value]) + #13#10
-        else
-          Result := Result + Format('%s погибла в локации %s!',
+  try
+    JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
+    for I := JSONArray.Count - 1 downto 0 do
+    begin
+      T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_type')
+        ).JsonValue.Value, 0);
+      G := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+        .Get('event_char_gender')).JsonValue.Value, 0);
+      case T of
+        0:
+          if (G = 0) then
+            Result := Result + Format('%s прибыл в Елвинаар!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value]) + #13#10
+          else
+            Result := Result + Format('%s прибылa в Елвинаар!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value]) + #13#10;
+        1:
+          if (G = 0) then
+            Result := Result + Format('%s поднялся на %s уровень!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+              .Get('event_char_level')).JsonValue.Value]) + #13#10
+          else
+            Result := Result + Format('%s поднялась на %s уровень!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+              .Get('event_char_level')).JsonValue.Value]) + #13#10;
+        2:
+          Result := Result + Format('%s теперь носит %s!',
             [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
             .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
             .Get('event_str')).JsonValue.Value]) + #13#10;
+        3:
+          if (G = 0) then
+            Result := Result + Format('%s погиб в локации %s!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+              .Get('event_str')).JsonValue.Value]) + #13#10
+          else
+            Result := Result + Format('%s погибла в локации %s!',
+              [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+              .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+              .Get('event_str')).JsonValue.Value]) + #13#10;
+      end;
     end;
+  except
   end;
 end;
 

@@ -435,6 +435,9 @@ begin
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
     //
+    if JSON.TryGetValue('char_inventory', S) then
+      FormMain.FrameTown.FrameChar.RefreshInventory(S);
+    //
     if JSON.TryGetValue('stat_kills', S) then
       FormMain.FrameTown.FrameChar.ttStatKills.Caption :=
         Format('Выиграно битв: %s', [S]);

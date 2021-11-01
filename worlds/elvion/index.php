@@ -28,6 +28,9 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'version') {
 		$res = get_version();
 	}
+	if ($action == 'inventory') {
+		$res = get_inventory();
+	}
 	if ($action == 'events') {
 		$res = get_events();
 	}

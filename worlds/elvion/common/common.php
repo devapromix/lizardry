@@ -406,6 +406,121 @@ function get_value($value) {
 	return $r;
 }
 
+/*
+function has_item($id) {
+	global $user;
+	$inventory = $user['char_inventory'];
+	$pos = strripos($inventory, '-'.$id.'-');
+	if ($pos === false) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function mod_item($id, $value) {
+	global $user;
+	$inventory = $user['char_inventory'];
+	$items = split(',', $inventory);
+	for($i = 0; $i < count($items); $i++) {
+		
+	}
+}
+*/
+/*
+function has_item($id) {
+	global $user;
+	$inventory = $user['char_inventory'];
+	$pos = strripos($inventory, '"id":'.$id);
+	if ($pos === false) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function item_count($id) {
+	global $user;
+	$result = 0;
+	$items = json_decode($user['char_inventory'], true);
+	for($i = 0; $i < count($items); $i++) {
+		$item = $items[$i];
+		$item_id = $item['id'];
+		if ($item_id == $id) {
+			$result = $item['count'];
+			break;
+		}
+	}
+	return $result;
+}
+
+function item_modify($id, $value) {
+	global $user;
+	$items = json_decode($user['char_inventory'], true);
+	for($i = 0; $i < count($items); $i++) {
+		$item = $items[$i];
+		$item_id = $item['id'];
+		if ($item_id == $id) {
+			$count = $item['count'];
+			$count = $count + $value;
+			$items[$i]['count'] = $count;
+			if ($count <= 0)
+				unset($items[$i]);
+			$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
+			update_user_table("char_inventory='".$user['char_inventory']."'");
+			break;
+		}
+	}
+}
+
+function add_item($id, $count = 1) {
+	global $user;
+	if (has_item($id)) {
+		item_modify($id, $count);
+	} else {
+		$items = json_decode($user['char_inventory'], true);
+		$n = count($items);
+		$items[$n]['id'] = $id;
+		$items[$n]['count'] = $count;
+		$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
+		update_user_table("char_inventory='".$user['char_inventory']."'");
+	}
+}
+*/
+function get_inventory() {
+	global $user;
+	//$inventory = $user['char_inventory'];
+	
+	//item_modify(61, 1);
+	//add_item(61, 1);
+	//return item_count(99);
+	
+//	$items = array();
+	$items = json_decode($user['char_inventory'], true);
+
+	//$rr = $items[0];
+	//$v = $rr['id'];
+	//return $v;
+	
+	//$s = '0-61-0=6,0-33-1=1';
+	//return strripos($s, '-67-');
+	
+	//$rr = $items['61'];
+	//return $rr[1];
+	//$items = ['61' => 3];
+	//$items['61'] = 3;
+	//return $items['65'];
+	//if ($items['62'] == 5)
+	//	$items['62'] = 7;
+	//return var_dump($items['61']);
+	//$r = 0;
+	//if (isset($items['67']))
+	//	$r = $items['67'];
+	//return $r;
+	
+	return json_encode($items, JSON_UNESCAPED_UNICODE);
+}
+
 function add_enemies($enemy_idents) {
 	for($i = 1; $i <= 3; $i++) {
 		$r = $enemy_idents[array_rand($enemy_idents)];

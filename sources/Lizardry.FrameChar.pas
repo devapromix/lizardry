@@ -24,13 +24,12 @@ type
     TabSheet4: TTabSheet;
     SG: TStringGrid;
     Panel1: TPanel;
-    procedure Panel1Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure RefreshInventory(const S: string);
-    function GetItemJSON(): string;
+    function GetName(const Id: Integer): string;
   end;
 
 implementation
@@ -41,30 +40,34 @@ uses JSON, Lizardry.FormMain, Lizardry.FormInfo;
 
 { TFrameChar }
 
-function TFrameChar.GetItemJSON: string;
+function TFrameChar.GetName(const Id: Integer): string;
 var
   JSONArray: TJSONArray;
-  I: Integer;
+  I, ItemId: Integer;
 begin
-  JSONArray := TJSONArray(FormInfo.RichEdit2.Text);
-  for I := 0 to JSONArray.Count - 1 do
-  begin
-//    AddButton(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('title'))
-//      .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I)).Get('link'))
-//      .JsonValue.Value);
+  Result := '';
+  try
+    JSONArray := TJSONObject.ParseJSONValue(FormInfo.RichEdit2.Text)
+      as TJSONArray;
+    for I := JSONArray.Count - 1 downto 0 do
+    begin
+      ItemId := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+        .Get('item_ident')).JsonValue.Value, 0);
+      if ItemId = Id then
+      begin
+        Result := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('item_name'))
+          .JsonValue.Value;
+      end;
+    end;
+  except
   end;
-
-end;
-
-procedure TFrameChar.Panel1Click(Sender: TObject);
-begin
-  RefreshInventory('0-1-1=1,0-2-1=8,0-3-4=6,0-12-2=4');
 end;
 
 procedure TFrameChar.RefreshInventory(const S: string);
 var
-  N, T: TArray<string>;
-  W, I: Integer;
+  W, I, T: Integer;
+  C: string;
+  JSONArray: TJSONArray;
 begin
   W := FormMain.FrameTown.FrameShop1.Width - 140;
   SG.ColWidths[0] := 30;
@@ -78,15 +81,21 @@ begin
   end;
   SG.Cells[1, 0] := 'Название';
 
-  N := S.Split([',']);
-  for I := 0 to Length(N) - 1 do
-  begin
-    T := N[I].Split(['=']);
-    SG.Cells[0, I + 1] := IntToStr(I + 1);
-    SG.Cells[1, I + 1] := T[0];
-    SG.Cells[2, I + 1] := T[1] + 'x';
+  try
+    JSONArray := TJSONObject.ParseJSONValue(S) as TJSONArray;
+    for I := 0 to JSONArray.Count - 1 do
+    begin
+      T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('id'))
+        .JsonValue.Value, 0);
+      C := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('count'))
+        .JsonValue.Value;
+      SG.Cells[0, I + 1] := IntToStr(I + 1);
+      SG.Cells[1, I + 1] := GetName(T);
+      SG.Cells[2, I + 1] := C + 'x';
+    end;
+    Panel1.Caption := Format('%d/15', [JSONArray.Count]);
+  except
   end;
-  Panel1.Caption := Format('%d/15', [Length(N)]);
 end;
 
 end.
