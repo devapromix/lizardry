@@ -36,12 +36,14 @@ type
     ComboBox1: TComboBox;
     Label4: TLabel;
     SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
     procedure InfoClick(Sender: TObject);
     procedure bbUpdateClick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
@@ -56,7 +58,7 @@ implementation
 
 {$R *.dfm}
 
-uses JSON, Registry, Lizardry.FormMain, Lizardry.Server,
+uses JSON, ShellAPI, Registry, Lizardry.FormMain, Lizardry.Server,
   Lizardry.Frame.Location.Town,
   Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
 
@@ -246,6 +248,12 @@ begin
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
   StaticText1.Caption := GetEventsText(Server.Get('index.php?action=events'));
+end;
+
+procedure TFrameLogin.SpeedButton7Click(Sender: TObject);
+begin
+  ShellExecute(handle, 'open', 'https://github.com/devapromix/lizardry', nil,
+    nil, SW_SHOW);
 end;
 
 end.

@@ -22,8 +22,6 @@ object FrameShop: TFrameShop
     TabOrder = 0
     OnDblClick = SGDblClick
     OnKeyDown = SGKeyDown
-    ExplicitLeft = 3
-    ExplicitTop = 216
   end
   object Panel1: TPanel
     Left = 0

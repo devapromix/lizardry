@@ -56,6 +56,10 @@ object FrameChar: TFrameChar
     object TabSheet2: TTabSheet
       Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1100
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object SG: TStringGrid
         Left = 0
         Top = 25

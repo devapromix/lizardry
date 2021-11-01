@@ -47,7 +47,7 @@ var
   I: Integer;
 begin
   JSONArray := TJSONArray(FormInfo.RichEdit2.Text);
-  for I := 0 to JSONArray.Size - 1 do
+  for I := 0 to JSONArray.Count - 1 do
   begin
 //    AddButton(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('title'))
 //      .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I)).Get('link'))
