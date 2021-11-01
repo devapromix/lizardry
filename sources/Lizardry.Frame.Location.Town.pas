@@ -307,6 +307,7 @@ begin
         begin
           F := StrToIntDef(S, 0);
           FormMain.FrameTown.FrameBank1.GoldEdit.Text := IntToStr(F);
+          FormMain.FrameTown.FrameBank1.bbMyGold.Caption := IntToStr(F);
         end;
         FormMain.FrameTown.FrameBank1.BringToFront;
       end

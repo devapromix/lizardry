@@ -24,7 +24,7 @@ if ($action == 'registration') {
 	} else{
 		$query = "INSERT INTO ".$tb_user." (user_name, user_pass, char_name) VALUES ('".$username."', '".$userpass."', '".$charname."')";
 		if (mysqli_query($connection, $query)) {
-			add_event(0, $charname);
+			add_event(0, $charname, 1);
 			$res = '2';
 		} else {
 			die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');

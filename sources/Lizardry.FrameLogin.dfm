@@ -49,7 +49,7 @@ object FrameLogin: TFrameLogin
       Width = 248
       Height = 16
       Align = alBottom
-      Caption = 'v.0.0.8'
+      Caption = 'v.0.0.9'
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -13

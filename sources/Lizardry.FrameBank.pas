@@ -15,13 +15,28 @@ type
     bbWithdraw: TBitBtn;
     Label1: TLabel;
     UpDown1: TUpDown;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    bbMyGold: TSpeedButton;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
     procedure GoldEditKeyPress(Sender: TObject; var Key: Char);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure bbMyGoldClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    procedure Modify(const Value: Integer);
   end;
 
 implementation
@@ -40,6 +55,11 @@ begin
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=bank&do=deposit&amount=' + Sum.ToString));
   GoldEdit.Text := '0';
+end;
+
+procedure TFrameBank.bbMyGoldClick(Sender: TObject);
+begin
+  GoldEdit.Text := bbMyGold.Caption;
 end;
 
 procedure TFrameBank.bbWithdrawClick(Sender: TObject);
@@ -61,6 +81,46 @@ begin
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
       Key := #0;
+end;
+
+procedure TFrameBank.Modify(const Value: Integer);
+var
+  N: Integer;
+begin
+  N := StrToIntDef(GoldEdit.Text, 0);
+  if (N + Value) < 0 then Exit;
+  N := N + Value;
+  GoldEdit.Text := IntToStr(N);
+end;
+
+procedure TFrameBank.SpeedButton1Click(Sender: TObject);
+begin
+  Modify(10);
+end;
+
+procedure TFrameBank.SpeedButton2Click(Sender: TObject);
+begin
+  Modify(-10);
+end;
+
+procedure TFrameBank.SpeedButton3Click(Sender: TObject);
+begin
+  Modify(100);
+end;
+
+procedure TFrameBank.SpeedButton4Click(Sender: TObject);
+begin
+  Modify(-100);
+end;
+
+procedure TFrameBank.SpeedButton5Click(Sender: TObject);
+begin
+  Modify(1000);
+end;
+
+procedure TFrameBank.SpeedButton6Click(Sender: TObject);
+begin
+  Modify(-1000);
 end;
 
 end.
