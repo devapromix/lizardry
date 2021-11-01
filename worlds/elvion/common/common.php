@@ -80,6 +80,7 @@ function equip_item($item_ident) {
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
 			$user['char_armor'] = $item['item_armor'];
 			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
 			$user['char_equip_weapon_name'] = $item['item_name'];
@@ -88,6 +89,7 @@ function equip_item($item_ident) {
 			$user['char_damage_min'] = $item['item_damage_min'];
 			$user['char_damage_max'] = $item['item_damage_max'];
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
+			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 	}
 }
@@ -251,9 +253,9 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 
 }
 
-function add_event($type, $name, $level = 1, $gender =0) {
+function add_event($type, $name, $level = 1, $gender = 0, $str = '') {
 	global $connection, $user, $tb_events;
-	$query = "INSERT INTO ".$tb_events." (event_type,event_char_gender,event_char_name,event_char_level) VALUES(".$type.", ".$gender.", '".$name."', ".$level.")";
+	$query = "INSERT INTO ".$tb_events." (event_type,event_char_gender,event_char_name,event_char_level,event_str) VALUES(".$type.", ".$gender.", '".$name."', ".$level.", '".$str."')";
 	if (!mysqli_query($connection, $query)) {
 		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 	}
@@ -261,7 +263,7 @@ function add_event($type, $name, $level = 1, $gender =0) {
 
 function get_events() {
 	global $connection, $tb_events;
-	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level FROM ".$tb_events." LIMIT 10";
+	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str FROM ".$tb_events." LIMIT 10";
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$events = $result->fetch_all(MYSQLI_ASSOC);
@@ -355,6 +357,7 @@ function auto_battle() {
 			$user['char_gold'] -= round($user['char_gold'] / 7);
 			$r .= '--------------------------------------------------------#';
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
+			add_event(3, $user['char_name'], 1, $user['char_gender'], $user['title']);
 			break;
 		}
 		

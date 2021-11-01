@@ -167,24 +167,40 @@ begin
     case T of
       0:
         if (G = 0) then
-          Result := Result + Format('Герой %s прибыл в Елвинаар!',
+          Result := Result + Format('%s прибыл в Елвинаар!',
             [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
             .JsonValue.Value]) + #13#10
         else
-          Result := Result + Format('Героиня %s прибылa в Елвинаар!',
+          Result := Result + Format('%s прибылa в Елвинаар!',
             [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
             .JsonValue.Value]) + #13#10;
       1:
         if (G = 0) then
-          Result := Result + Format('Герой %s повысил свой уровень до %s!',
+          Result := Result + Format('%s поднялся на %s уровень!',
             [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
             .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
             .Get('event_char_level')).JsonValue.Value]) + #13#10
         else
-          Result := Result + Format('Героиня %s повысила свой уровень до %s!',
+          Result := Result + Format('%s поднялась на %s уровень!',
             [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
             .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
             .Get('event_char_level')).JsonValue.Value]) + #13#10;
+      2:
+        Result := Result + Format('%s теперь носит %s!',
+          [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+          .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+          .Get('event_str')).JsonValue.Value]) + #13#10
+      3:
+        if (G = 0) then
+          Result := Result + Format('%s погиб в локации %s!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+            .Get('event_str')).JsonValue.Value]) + #13#10
+        else
+          Result := Result + Format('%s погибла в локации %s!',
+            [TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
+            .JsonValue.Value, TJSONPair(TJSONObject(JSONArray.Get(I))
+            .Get('event_str')).JsonValue.Value]) + #13#10;
     end;
   end;
 end;

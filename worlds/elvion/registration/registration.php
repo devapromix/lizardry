@@ -7,6 +7,7 @@ include '../common/dbtables.php';
 
 
 $charname = $_GET['charname'];
+$chargender = $_GET['chargender'];
 $action = $_GET['action'];
 
 if ($charname == '') die('23');
@@ -22,9 +23,9 @@ if ($action == 'registration') {
 	if (check_user($username) == true) {
 		$res = '1';
 	} else{
-		$query = "INSERT INTO ".$tb_user." (user_name, user_pass, char_name) VALUES ('".$username."', '".$userpass."', '".$charname."')";
+		$query = "INSERT INTO ".$tb_user." (user_name, user_pass, char_name, char_gender) VALUES ('".$username."', '".$userpass."', '".$charname."', ".$chargender.")";
 		if (mysqli_query($connection, $query)) {
-			add_event(0, $charname, 1);
+			add_event(0, $charname, 1, $chargender);
 			$res = '2';
 		} else {
 			die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
