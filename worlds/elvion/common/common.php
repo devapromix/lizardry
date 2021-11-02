@@ -154,10 +154,11 @@ function change_region($region_ident, $food, $gold) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$region = $result->fetch_assoc();
 	$user['char_region'] = $region['region_ident'];
+	$user['char_region_level'] = $region['region_level'];
 	$user['char_region_town_name'] = $region['region_town_name'];
 	$user['char_gold'] -= $gold;
 	$user['char_food'] -= $food;
-	update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_town_name='".$user['char_region_town_name']."'");
+	update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
 }
 
 function check_user($user_name) {
