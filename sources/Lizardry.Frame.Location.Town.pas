@@ -303,6 +303,7 @@ begin
     begin
       if (S = 'bank') then
       begin
+        FormMain.FrameTown.FrameBank1.Welcome;
         if JSON.TryGetValue('char_gold', S) then
         begin
           F := StrToIntDef(S, 0);

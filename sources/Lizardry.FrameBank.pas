@@ -37,6 +37,7 @@ type
   public
     { Public declarations }
     procedure Modify(const Value: Integer);
+    procedure Welcome;
   end;
 
 implementation
@@ -44,6 +45,16 @@ implementation
 {$R *.dfm}
 
 uses Lizardry.Server, Lizardry.FormMain;
+
+const
+  T = 'Золотишко... Золотишко... Золотишко...|' +
+    'Мне нужно море золота! Я думаю и вам тоже!|' +
+    'Мы сбережем и приумножим ваш капитал!|' +
+    'Наш банк открыт в любое время суток. Заходите!|' +
+    'Раз монетка! Два монетка! Три монетка!..|' +
+    'Нужно больше золота! И вам, и нам...|' +
+    'Не нужно опасаться за ваши денежки. Они в надежных руках!|' +
+    'Добро пожаловать! Ваше золото в надежных руках!';
 
 procedure TFrameBank.bbDepositClick(Sender: TObject);
 var
@@ -88,7 +99,8 @@ var
   N: Integer;
 begin
   N := StrToIntDef(GoldEdit.Text, 0);
-  if (N + Value) < 0 then Exit;
+  if (N + Value) < 0 then
+    Exit;
   N := N + Value;
   GoldEdit.Text := IntToStr(N);
 end;
@@ -121,6 +133,17 @@ end;
 procedure TFrameBank.SpeedButton6Click(Sender: TObject);
 begin
   Modify(-1000);
+end;
+
+procedure TFrameBank.Welcome;
+var
+  S: string;
+  R: TArray<string>;
+begin
+  R := T.Split(['|']);
+  S := 'Банкир:' + #13#10;
+  S := S + ' - ' + R[Random(Length(R))] + #13#10;
+  FormMain.FrameTown.FrameInfo1.StaticText1.Caption := S;
 end;
 
 end.
