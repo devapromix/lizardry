@@ -124,11 +124,14 @@ end;
 
 procedure TFrameRegistration.bbRegistrationClick(Sender: TObject);
 var
-  ResponseCode, UserName, UserPass, CharName: string;
+  ResponseCode, UserName, UserPass, CharName, CharGender: string;
 begin
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
   CharName := Trim(edCharName.Text);
+  CharGender := '0';
+  if gdFemale.Checked then
+    CharGender := '1';
   if not TServer.IsInternetConnected then
   begin
     ShowMsg('Невозможно подключиться к серверу!');
@@ -137,7 +140,8 @@ begin
   FormMain.FrameLogin.edUserName.Text := UserName;
   FormMain.FrameLogin.edUserPass.Text := UserPass;
   ResponseCode := Server.Get
-    ('registration/registration.php?action=registration&charname=' + CharName);
+    ('registration/registration.php?action=registration&charname=' + CharName +
+    '&chargender=' + CharGender);
   FormMain.FrameLogin.edUserPass.Text := '';
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;
