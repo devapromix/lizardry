@@ -227,6 +227,9 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 	$location = $result->fetch_assoc();
 
 	$user['title'] = $location['location_name'];
+	$user['char_region_location_name'] = $location['location_name'];
+	update_user_table("char_region_location_name='".$user['char_region_location_name']."'");
+	
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = $location['location_description'];
 	} else shades();
@@ -263,7 +266,7 @@ function add_event($type, $name, $level = 1, $gender = 0, $str = '') {
 
 function get_events() {
 	global $connection, $tb_events;
-	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str FROM ".$tb_events." LIMIT 10";
+	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str FROM ".$tb_events." ORDER BY id  DESC LIMIT 0, 15";
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$events = $result->fetch_all(MYSQLI_ASSOC);
@@ -357,7 +360,7 @@ function auto_battle() {
 			$user['char_gold'] -= round($user['char_gold'] / 7);
 			$r .= '--------------------------------------------------------#';
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
-			add_event(3, $user['char_name'], 1, $user['char_gender'], $user['title']);
+			add_event(3, $user['char_name'], 1, $user['char_gender'], $user['char_region_location_name']);
 			break;
 		}
 		

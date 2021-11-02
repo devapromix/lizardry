@@ -160,7 +160,7 @@ begin
   Result := '';
   try
     JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
-    for I := JSONArray.Count - 1 downto 0 do
+    for I := 0 to JSONArray.Count - 1 do
     begin
       EvType := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
         .Get('event_type')).JsonValue.Value, 0);
