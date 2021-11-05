@@ -26,8 +26,8 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = rand($enemy['enemy_life_min'], $enemy['enemy_life_max']);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
-	$user['enemy_damage_min'] = $enemy['enemy_damage_min'];
-	$user['enemy_damage_max'] = $enemy['enemy_damage_max'];
+	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2) + 1;//$enemy['enemy_damage_min'];
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2) + 3;//$enemy['enemy_damage_max'];
 	$user['enemy_armor'] = $enemy['enemy_armor'];
 	$user['enemy_exp'] = $enemy['enemy_exp'];
 	$user['enemy_gold'] = rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
@@ -389,11 +389,24 @@ function auto_battle() {
 	$r .= 'Всего раундов: '.$rounds."#";
 	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
 	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
+	if (ch_level_exp()) {
+		$r .= '--------------------------------------------------------#';
+		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
+	}
+	return $r;
+}
+
+function ch_level_exp() {
+	global $user;
+	$r = false;
+	if ($user['char_exp'] > get_char_level_exp($user['char_level'] + 1))
+		$r = true;
 	return $r;
 }
 
 function get_value($value) {
 	global $user;
+	
 	if ($user['enemy_level'] - 1 > $user['char_level'])
 		$r = $value + rand(round($value / 3), round($value / 2));
 	else if ($user['enemy_level'] > $user['char_level'])
@@ -408,6 +421,13 @@ function get_value($value) {
 		$r = 0;
 	else if ($user['enemy_level'] <= $user['char_level'])
 		$r = $value;
+	
+	if (($r > 0) && (ch_level_exp())) {
+		$r = rand(round($value / 10), round($value / 5));
+		if ($r <= 0)
+			$r = 1;
+	}
+	
 	return $r;
 }
 
