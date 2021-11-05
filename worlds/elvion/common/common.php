@@ -394,19 +394,20 @@ function auto_battle() {
 
 function get_value($value) {
 	global $user;
-	$r = $value;
 	if ($user['enemy_level'] - 1 > $user['char_level'])
 		$r = $value + rand(round($value / 3), round($value / 2));
-	if ($user['enemy_level'] > $user['char_level'])
+	else if ($user['enemy_level'] > $user['char_level'])
 		$r = $value + rand(round($value / 5), round($value / 4));
-	if ($user['char_level'] - 1 > $user['enemy_level'])
+	else if ($user['char_level'] - 1 > $user['enemy_level'])
 		$r = rand(round($value / 3), round($value / 2));
-	if ($user['char_level'] - 2 > $user['enemy_level'])
+	else if ($user['char_level'] - 2 > $user['enemy_level'])
 		$r = rand(round($value / 5), round($value / 4));
-	if ($user['char_level'] - 3 > $user['enemy_level'])
+	else if ($user['char_level'] - 3 > $user['enemy_level'])
 		$r = rand(1, 3);
-	if ($user['char_level'] - 4 > $user['enemy_level'])
+	else if ($user['char_level'] - 4 > $user['enemy_level'])
 		$r = 0;
+	else if ($user['enemy_level'] <= $user['char_level'])
+		$r = $value;
 	return $r;
 }
 
