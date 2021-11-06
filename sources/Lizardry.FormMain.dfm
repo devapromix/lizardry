@@ -235,6 +235,16 @@ object FormMain: TFormMain
           Width = 622
           ExplicitWidth = 622
         end
+        inherited FrameLoot1: TFrameLoot
+          Width = 622
+          ExplicitWidth = 622
+          ExplicitHeight = 198
+          inherited SG: TStringGrid
+            Width = 622
+            ExplicitWidth = 622
+            ExplicitHeight = 198
+          end
+        end
       end
       inherited Panel19: TPanel
         Width = 624
@@ -255,6 +265,7 @@ object FormMain: TFormMain
             ExplicitWidth = 622
             inherited Label1: TLabel
               Width = 622
+              ExplicitWidth = 622
             end
           end
         end
@@ -275,12 +286,6 @@ object FormMain: TFormMain
             ExplicitWidth = 622
             ExplicitHeight = 351
           end
-        end
-        inherited FrameLoot1: TFrameLoot
-          Width = 622
-          Height = 485
-          ExplicitWidth = 622
-          ExplicitHeight = 485
         end
         inherited FrameBattle1: TFrameBattle
           Width = 622

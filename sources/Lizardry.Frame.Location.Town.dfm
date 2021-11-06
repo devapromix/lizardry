@@ -391,15 +391,7 @@ object FrameTown: TFrameTown
         Height = 249
         ExplicitWidth = 337
         ExplicitHeight = 249
-        inherited TabSheet1: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
-        end
         inherited TabSheet2: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -412,18 +404,6 @@ object FrameTown: TFrameTown
             Width = 329
             ExplicitWidth = 329
           end
-        end
-        inherited TabSheet3: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
-        end
-        inherited TabSheet4: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
         end
       end
     end
@@ -552,6 +532,31 @@ object FrameTown: TFrameTown
           OnClick = FrameOutlands1Image1Click
         end
       end
+      inline FrameLoot1: TFrameLoot
+        Left = 1
+        Top = 1
+        Width = 335
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 335
+        ExplicitHeight = 247
+        inherited SG: TStringGrid
+          Width = 335
+          Height = 198
+          ExplicitTop = 0
+          ExplicitWidth = 335
+          ExplicitHeight = 247
+        end
+      end
     end
     object Panel19: TPanel
       Left = 0
@@ -572,7 +577,7 @@ object FrameTown: TFrameTown
         Font.Name = 'Courier New'
         Font.Style = []
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 2
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 335
@@ -613,24 +618,6 @@ object FrameTown: TFrameTown
           ExplicitWidth = 335
           ExplicitHeight = 113
         end
-      end
-      inline FrameLoot1: TFrameLoot
-        Left = 1
-        Top = 1
-        Width = 335
-        Height = 247
-        Align = alClient
-        Font.Charset = RUSSIAN_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -19
-        Font.Name = 'Courier New'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 2
-        ExplicitLeft = 1
-        ExplicitTop = 1
-        ExplicitWidth = 335
-        ExplicitHeight = 247
       end
       inline FrameBattle1: TFrameBattle
         Left = 1

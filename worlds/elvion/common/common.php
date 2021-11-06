@@ -102,23 +102,33 @@ function pickup_equip_item() {
 
 	if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
 
+	$r = '';
 	switch($item['item_type']) {
 		case 0:
+			$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
 			$user['char_equip_armor_name'] = $item['item_name'];
 			$user['char_equip_armor_ident'] = $item['item_ident'];
 			$user['char_armor'] = $item['item_armor'];
-			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor']);
+			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
+			$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
+			$r .= 'Вы бросаете свой старый '.$user['char_equip_armor_name'];
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_damage_min'] = $item['item_damage_min'];
 			$user['char_damage_max'] = $item['item_damage_max'];
-			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max']);
+			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
+			$r .= ' и берете в руки новый '.$user['char_equip_armor_name'].'.';
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
+		case 8:
+		case 9:
+			$r .= 'Вы забираете себе '.$item['item_name'].'.';
+			break;
 	}
+	return $r;
 }
 
 function item_values($item_ident) {
@@ -305,19 +315,8 @@ $stat = array();
 
 function gen_loot() {
 	global $user, $tb_item, $connection;
-/*
-	if ($user['enemy_level'] < $user['char_level'] - 1) {
-		$loot_level = $user['char_region'];
-		$loot_type_array = [8];
-	} else if ($user['enemy_level'] > $user['char_level'] - 1) {
-		$loot_level = $user['char_level'];
-		$loot_type_array = [0,1];
-	} else {
-		$loot_level = $user['enemy_level'];
-		$loot_type_array = [0,1];
-	}
-*/
-	$loot_type_array = [0,1,8];
+
+	$loot_type_array = [0,1,8,9];
 	$loot_type = $loot_type_array[array_rand($loot_type_array)];
 	
 	if (($loot_type == 0)||($loot_type == 1)) {
@@ -336,9 +335,10 @@ function gen_loot() {
 	
 	$user['loot_slot_1'] = $item['item_ident'];
 	$user['loot_slot_1_name'] = $item['item_name'];
+	$user['loot_slot_1_type'] = $loot_type;
 	
 	if ($user['loot_slot_1'] > 0)
-		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
 function char_battle_round() {
@@ -442,9 +442,12 @@ function auto_battle() {
 			if ($exp > 0)
 				$r .= 'Вы получаете '.$exp.' опыта.#';
 			if ($gold <= 0)
-				$r .= 'Вы роетесь в останках '.$user['enemy_name'].', но ничего не находите.#';
+				$r .= 'Вы роетесь в останках '.$user['enemy_name'].', но не находите золота.#';
 			else
 				$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
+			if ($user['loot_slot_1'] > 0) {
+				$r .= 'Ваше внимание привлекает '.$user['loot_slot_1_name'].'.#';
+			}
 			break;
 		}
 		$rounds++;

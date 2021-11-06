@@ -314,7 +314,15 @@ begin
       end
       else if (S = 'loot') then
       begin
-
+        if JSON.TryGetValue('loot_slot_1_name', V) then
+          if V <> '' then
+            with FormMain.FrameTown.FrameLoot1 do
+            begin
+              DrawGrid;
+              SG.Cells[0, 1] := '1';
+              SG.Cells[1, 1] := V;
+              BringToFront;
+            end;
       end
       else if (S = 'tavern') then
       begin

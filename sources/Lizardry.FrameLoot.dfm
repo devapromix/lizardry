@@ -10,12 +10,21 @@ object FrameLoot: TFrameLoot
   Font.Style = []
   ParentFont = False
   TabOrder = 0
-  object Button1: TButton
-    Left = 24
-    Top = 104
-    Width = 137
-    Height = 25
-    Caption = #1042#1079#1103#1090#1100' '#1074#1089#1077
+  object SG: TStringGrid
+    Left = 0
+    Top = 0
+    Width = 709
+    Height = 461
+    Align = alClient
+    ColCount = 2
+    RowCount = 2
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
+    ParentColor = True
+    ScrollBars = ssVertical
     TabOrder = 0
+    OnDblClick = SGDblClick
+    ColWidths = (
+      64
+      64)
   end
 end
