@@ -27,7 +27,7 @@ if ($action == 'battle') {
 		$user['mainframe'] = 'outlands';
 		$user['links'] = array();
 		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
-		$user['battlelog'] = auto_battle();	
+		$user['battlelog'] = auto_battle();
 		update_user_table("enemy_name='',enemy_image='',char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills'].",stat_deads=".$user['stat_deads']);
 
 	}

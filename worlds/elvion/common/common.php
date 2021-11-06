@@ -93,6 +93,33 @@ function equip_item($item_ident) {
 			break;
 	}
 }
+function pickup_equip_item() {
+	global $user, $tb_item, $connection;
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['char_loot_item_ident'];
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
+
+	switch($item['item_type']) {
+		case 0:
+			$user['char_equip_armor_name'] = $item['item_name'];
+			$user['char_equip_armor_ident'] = $item['item_ident'];
+			$user['char_armor'] = $item['item_armor'];
+			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor']);
+			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			break;
+		case 1:
+			$user['char_equip_weapon_name'] = $item['item_name'];
+			$user['char_equip_weapon_ident'] = $item['item_ident'];
+			$user['char_damage_min'] = $item['item_damage_min'];
+			$user['char_damage_max'] = $item['item_damage_max'];
+			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max']);
+			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			break;
+	}
+}
 
 function item_values($item_ident) {
 	global $user, $tb_item, $connection;
@@ -276,6 +303,24 @@ function get_events() {
 
 $stat = array();
 
+function gen_loot() {
+	global $user;
+	if ($user['enemy_level'] < $user['char_level'] - 1)
+		$loot_level = 0;
+	else if ($user['enemy_level'] > $user['char_level'] - 1)
+		$loot_level = $user['char_level'];
+	else
+		$loot_level = $user['enemy_level'];
+	
+	
+	
+	$user['char_loot_item_ident'] = 0;
+	$user['char_loot_item_name'] = '';
+	
+	if ($user['char_loot_item_ident'] > 0)
+		update_user_table("char_loot_item_ident=".$user['char_loot_item_ident'].",char_loot_item_name='".$user['char_loot_item_name']."'");
+}
+
 function char_battle_round() {
 	global $user, $stat;
 	$r = '';
@@ -368,6 +413,7 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
+			gen_loot();
 			$gold = get_value($user['enemy_gold']);
 			$user['char_gold'] += $gold;
 			$exp = get_value($user['enemy_exp']);
