@@ -32,7 +32,7 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_exp'] = $enemy['enemy_exp'];
 	$user['enemy_gold'] = rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
 
-	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold']);
+	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
 }
 
@@ -95,7 +95,7 @@ function equip_item($item_ident) {
 }
 function pickup_equip_item() {
 	global $user, $tb_item, $connection;
-	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['char_loot_item_ident'];
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['loot_slot_1'];
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$item = $result->fetch_assoc();
@@ -304,21 +304,25 @@ function get_events() {
 $stat = array();
 
 function gen_loot() {
-	global $user;
+	global $user, $tb_item, $connection;
+
 	if ($user['enemy_level'] < $user['char_level'] - 1)
-		$loot_level = 0;
+		$loot_level = $user['char_region'];
 	else if ($user['enemy_level'] > $user['char_level'] - 1)
 		$loot_level = $user['char_level'];
 	else
 		$loot_level = $user['enemy_level'];
 	
+	$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".$loot_level." ORDER BY RAND() LIMIT 1";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
 	
+	$user['loot_slot_1'] = $item['item_ident'];
+	$user['loot_slot_1_name'] = $item['item_name'];
 	
-	$user['char_loot_item_ident'] = 0;
-	$user['char_loot_item_name'] = '';
-	
-	if ($user['char_loot_item_ident'] > 0)
-		update_user_table("char_loot_item_ident=".$user['char_loot_item_ident'].",char_loot_item_name='".$user['char_loot_item_name']."'");
+	if ($user['loot_slot_1'] > 0)
+		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
 function char_battle_round() {
