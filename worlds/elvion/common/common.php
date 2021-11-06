@@ -305,15 +305,31 @@ $stat = array();
 
 function gen_loot() {
 	global $user, $tb_item, $connection;
-
-	if ($user['enemy_level'] < $user['char_level'] - 1)
+/*
+	if ($user['enemy_level'] < $user['char_level'] - 1) {
 		$loot_level = $user['char_region'];
-	else if ($user['enemy_level'] > $user['char_level'] - 1)
+		$loot_type_array = [8];
+	} else if ($user['enemy_level'] > $user['char_level'] - 1) {
 		$loot_level = $user['char_level'];
-	else
+		$loot_type_array = [0,1];
+	} else {
 		$loot_level = $user['enemy_level'];
+		$loot_type_array = [0,1];
+	}
+*/
+	$loot_type_array = [0,1,8];
+	$loot_type = $loot_type_array[array_rand($loot_type_array)];
 	
-	$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".$loot_level." ORDER BY RAND() LIMIT 1";
+	if (($loot_type == 0)||($loot_type == 1)) {
+		if ($user['enemy_level'] > $user['char_level'])
+			$loot_level = $user['char_level'];
+		else 
+			$loot_level = $user['enemy_level'];
+	} else if (($loot_type == 8)||($loot_type == 9)) {
+		$loot_level = $user['char_region'];
+	}
+	
+	$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$item = $result->fetch_assoc();
