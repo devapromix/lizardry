@@ -316,29 +316,32 @@ $stat = array();
 function gen_loot() {
 	global $user, $tb_item, $connection;
 
-	$loot_type_array = [0,1,8,9];
-	$loot_type = $loot_type_array[array_rand($loot_type_array)];
+	if (rand(0,4) == 0) {
+
+		$loot_type_array = [0,1,8,9];
+		$loot_type = $loot_type_array[array_rand($loot_type_array)];
 	
-	if (($loot_type == 0)||($loot_type == 1)) {
-		if ($user['enemy_level'] > $user['char_level'])
-			$loot_level = $user['char_level'];
-		else 
-			$loot_level = $user['enemy_level'];
-	} else if (($loot_type == 8)||($loot_type == 9)) {
-		$loot_level = $user['char_region'];
+		if ((($loot_type == 0)||($loot_type == 1))&&(rand(0,9) == 0)) {
+			if ($user['enemy_level'] > $user['char_level'])
+				$loot_level = $user['char_level'];
+			else 
+				$loot_level = $user['enemy_level'];
+		} else if (($loot_type == 8)||($loot_type == 9)) {
+			$loot_level = $user['char_region'];
+		}
+	
+		$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".	$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$item = $result->fetch_assoc();
+	
+		$user['loot_slot_1'] = $item['item_ident'];
+		$user['loot_slot_1_name'] = $item['item_name'];
+		$user['loot_slot_1_type'] = $loot_type;
+	
+		if ($user['loot_slot_1'] > 0)
+			update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 	}
-	
-	$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$item = $result->fetch_assoc();
-	
-	$user['loot_slot_1'] = $item['item_ident'];
-	$user['loot_slot_1_name'] = $item['item_name'];
-	$user['loot_slot_1_type'] = $loot_type;
-	
-	if ($user['loot_slot_1'] > 0)
-		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
 function char_battle_round() {
