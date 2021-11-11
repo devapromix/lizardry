@@ -24,13 +24,13 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
-	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.9) + rand(10, 20);//rand($enemy['enemy_life_min'], $enemy['enemy_life_max']);
+	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.9) + rand(10, 20);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
-	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2) + 1;//$enemy['enemy_damage_min'];
-	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2) + 3;//$enemy['enemy_damage_max'];
-	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.7);//$enemy['enemy_armor'];
-	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));//$enemy['enemy_exp'];
-	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);//rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
+	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2) + 1;
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2) + 3;
+	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.7);
+	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
+	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
 	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
@@ -126,6 +126,7 @@ function pickup_equip_item() {
 		case 8:
 		case 9:
 			$r .= 'Вы забираете себе '.$item['item_name'].'.';
+			add_item($item['item_ident']);
 			break;
 	}
 	return $r;
@@ -517,7 +518,7 @@ function mod_item($id, $value) {
 	}
 }
 */
-/*
+
 function has_item($id) {
 	global $user;
 	$inventory = $user['char_inventory'];
@@ -576,7 +577,22 @@ function add_item($id, $count = 1) {
 		update_user_table("char_inventory='".$user['char_inventory']."'");
 	}
 }
-*/
+
+function item_ident_by_index($item_index) {
+	global $user;
+	$result = 0;
+	$items = json_decode($user['char_inventory'], true);
+	for($i = 0; $i < count($items); $i++) {
+		$item = $items[$i];
+		$item_id = $item['id'];
+		if ($i == ($item_index - 1)) {
+			$result = $item_id;
+			break;
+		}
+	}
+	return $result;
+}
+
 function get_inventory() {
 	global $user;
 	//$inventory = $user['char_inventory'];
