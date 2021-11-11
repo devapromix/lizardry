@@ -24,8 +24,10 @@ type
     TabSheet4: TTabSheet;
     SG: TStringGrid;
     Panel1: TPanel;
+    procedure SGDblClick(Sender: TObject);
   private
     { Private declarations }
+    ItCount: Integer;
   public
     { Public declarations }
     procedure RefreshInventory(const S: string);
@@ -36,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses JSON, Lizardry.FormMain, Lizardry.FormInfo;
+uses Math, JSON, Lizardry.FormMain, Lizardry.FormInfo, Lizardry.Server;
 
 { TFrameChar }
 
@@ -83,6 +85,7 @@ begin
 
   try
     JSONArray := TJSONObject.ParseJSONValue(S) as TJSONArray;
+    ItCount := JSONArray.Count;
     for I := 0 to JSONArray.Count - 1 do
     begin
       T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('id'))
@@ -96,6 +99,19 @@ begin
     Panel1.Caption := Format('%d/15', [JSONArray.Count]);
   except
   end;
+end;
+
+procedure TFrameChar.SGDblClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  I := SG.Row;
+  if Math.InRange(I, 1, ItCount) then
+    FormMain.FrameTown.ParseJSON
+      (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
+
+  //
+  // FormMain.FrameTown.bbCharNameClick(Sender);
 end;
 
 end.

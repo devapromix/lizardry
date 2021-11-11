@@ -63,6 +63,7 @@ object FrameChar: TFrameChar
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
         ScrollBars = ssVertical
         TabOrder = 0
+        OnDblClick = SGDblClick
         ColWidths = (
           64
           64

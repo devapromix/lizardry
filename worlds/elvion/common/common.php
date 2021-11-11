@@ -522,7 +522,7 @@ function mod_item($id, $value) {
 function has_item($id) {
 	global $user;
 	$inventory = $user['char_inventory'];
-	$pos = strripos($inventory, '"id":'.$id);
+	$pos = strripos($inventory, '"id":"'.$id.'"');
 	if ($pos === false) {
 		return false;
 	} else {

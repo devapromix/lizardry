@@ -16,7 +16,7 @@ if ($action == 'use_item') {
 		if (($item_ident > 0)&&(has_item($item_ident)))
 			item_modify($item_ident, -1);
 	}
-	$res = 999;
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }
 
 ?>
