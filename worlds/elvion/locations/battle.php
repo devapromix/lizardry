@@ -16,11 +16,24 @@ if ($action == 'battle') {
 	if ($user['char_life_cur'] > 0) {
 		addlink('Автобой!', 'index.php?action=battle&do=auto_battle');
 		$n++;
+		/*if (has_life_potions()) {
+			addlink('Выпить Рубиновый Эликсир!', 'index.php?action=battle&do=drink_life_elixir', $n);
+			$n++;
+		}*/
 	}
 	addlink('Назад', 'index.php?action='.$user['current_outlands'], $n);
 	
 	$user['battlelog'] = '';
 
+	/*if ($do == 'drink_life_elixir') {
+		
+		$user['title'] = 'Сражение!!!';
+		$user['mainframe'] = 'outlands';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=battle');
+		
+	}*/
+	
 	if ($do == 'auto_battle') {
 
 		$user['title'] = 'Сражение!!!';

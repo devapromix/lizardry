@@ -578,6 +578,35 @@ function add_item($id, $count = 1) {
 	}
 }
 
+function use_item($item_ident) {
+	global $user, $tb_item, $connection;
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	$result = '';
+	switch($item['item_type']) {
+		case 8:
+			$item_level = $item['item_level'];
+			$user['char_life_cur'] += $item_level * 25;
+			if ($user['char_life_cur'] > $user['char_life_max'])
+				$user['char_life_cur'] = $user['char_life_max'];
+			update_user_table("char_life_cur=".$user['char_life_cur']);
+			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
+			break;
+		case 9:
+			$item_level = $item['item_level'];
+			$user['char_mana_cur'] += $item_level * 35;
+			if ($user['char_mana_cur'] > $user['char_mana_max'])
+				$user['char_mana_cur'] = $user['char_mana_max'];
+			update_user_table("char_mana_cur=".$user['char_mana_cur']);
+			$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+			break;
+	}
+	return $result;
+}
+
 function item_ident_by_index($item_index) {
 	global $user;
 	$result = 0;
@@ -591,6 +620,10 @@ function item_ident_by_index($item_index) {
 		}
 	}
 	return $result;
+}
+
+function has_life_potions() {
+	return true;
 }
 
 function get_inventory() {

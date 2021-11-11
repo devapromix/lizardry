@@ -78,6 +78,8 @@ type
     Title: string;
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
+    procedure ChLifePanels(const Cur, Max: string);
+    procedure ChManaPanels(const Cur, Max: string);
   public
     { Public declarations }
     procedure ShowChat;
@@ -200,7 +202,7 @@ end;
 procedure TFrameTown.ParseJSON(AJSON, Section: string);
 var
   JSON: TJSONObject;
-  S: string;
+  S, Cur, Max: string;
 begin
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
@@ -213,6 +215,19 @@ begin
     begin
       if JSON.TryGetValue('info', S) then
         ShowMsg(S);
+    end;
+    if UpperCase(Section) = 'INV' then
+    begin
+      if JSON.TryGetValue('inventory', S) then
+      begin
+        FormMain.FrameTown.FrameChar.RefreshInventory(S);
+        if JSON.TryGetValue('char_life_cur', Cur) and
+          JSON.TryGetValue('char_life_max', Max) then
+          ChLifePanels(Cur, Max);
+        if JSON.TryGetValue('char_mana_cur', Cur) and
+          JSON.TryGetValue('char_mana_max', Max) then
+          ChManaPanels(Cur, Max);
+      end;
     end;
   finally
     JSON.Free;
@@ -242,6 +257,18 @@ begin
   IsChatMode := True;
 end;
 
+procedure TFrameTown.ChLifePanels(const Cur, Max: string);
+begin
+  Panel1.Width := Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
+  Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+  FrameBattle1.Label5.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+end;
+
+procedure TFrameTown.ChManaPanels(const Cur, Max: string);
+begin
+  Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
+end;
+
 procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
@@ -252,6 +279,11 @@ var
 begin
   MsgBox(AJSON);
   // Exit;
+  if AJSON.Contains('{"inventory":') then
+  begin
+    ParseJSON(AJSON, 'INV');
+    Exit;
+  end;
   if AJSON.Contains('{"error":') then
   begin
     ParseJSON(AJSON, 'ERROR');
@@ -416,14 +448,10 @@ begin
       Panel12.Caption := 'Золото: ' + S;
     if JSON.TryGetValue('char_life_cur', Cur) and
       JSON.TryGetValue('char_life_max', Max) then
-    begin
-      Panel1.Width := Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
-      Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
-      FrameBattle1.Label5.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
-    end;
+      ChLifePanels(Cur, Max);
     if JSON.TryGetValue('char_mana_cur', Cur) and
       JSON.TryGetValue('char_mana_max', Max) then
-      Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
+      ChManaPanels(Cur, Max);
     if JSON.TryGetValue('char_damage_min', Cur) and
       JSON.TryGetValue('char_damage_max', Max) then
     begin

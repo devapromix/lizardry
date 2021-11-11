@@ -80,6 +80,7 @@ begin
   begin
     SG.Cells[0, I] := '';
     SG.Cells[1, I] := '';
+    SG.Cells[2, I] := '';
   end;
   SG.Cells[1, 0] := 'Название';
 
@@ -101,6 +102,9 @@ begin
   end;
 end;
 
+//{"char_inventory":"[{\"id\":\"66\",\"count\":3},{\"id\":\"61\",\"count\":6}]"}
+//{"char_inventory":"[{\"id\":\"66\",\"count\":3},{\"id\":\"61\",\"count\":6}]"}
+
 procedure TFrameChar.SGDblClick(Sender: TObject);
 var
   I: Integer;
@@ -111,7 +115,7 @@ begin
       (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
 
   //
-  // FormMain.FrameTown.bbCharNameClick(Sender);
+  //FormMain.FrameTown.bbCharNameClick(Sender);
 end;
 
 end.

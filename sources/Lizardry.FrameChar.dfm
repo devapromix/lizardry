@@ -18,6 +18,8 @@ object FrameChar: TFrameChar
     ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = -48
+    ExplicitTop = 3
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
       object ttWeapon: TLabel
