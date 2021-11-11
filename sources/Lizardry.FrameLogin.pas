@@ -97,14 +97,16 @@ begin
     FormMain.FrameTown.DoAction('index.php?action=town');
     FormMain.FrameTown.BringToFront;
     //
-    if CheckBox1.Checked then
     begin
       Reg := TRegistry.Create;
       try
         Reg.RootKey := HKEY_CURRENT_USER;
         Reg.OpenKey('\SOFTWARE\Lizardry', True);
-        Reg.WriteString('UserName', UserName);
-        Reg.WriteString('UserPass', UserPass);
+        if CheckBox1.Checked then
+        begin
+          Reg.WriteString('UserName', UserName);
+          Reg.WriteString('UserPass', UserPass);
+        end;
         Reg.WriteInteger('Server', ComboBox1.ItemIndex);
       finally
         Reg.Free;

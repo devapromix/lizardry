@@ -580,6 +580,8 @@ function add_item($id, $count = 1) {
 
 function use_item($item_ident) {
 	global $user, $tb_item, $connection;
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+	
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');

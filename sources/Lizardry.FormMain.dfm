@@ -160,6 +160,8 @@ object FormMain: TFormMain
         inherited PageControl1: TPageControl
           Width = 624
           Height = 487
+          ExplicitLeft = 0
+          ExplicitTop = 0
           ExplicitWidth = 624
           ExplicitHeight = 487
           inherited TabSheet2: TTabSheet
@@ -238,11 +240,9 @@ object FormMain: TFormMain
         inherited FrameLoot1: TFrameLoot
           Width = 622
           ExplicitWidth = 622
-          ExplicitHeight = 198
           inherited SG: TStringGrid
             Width = 622
             ExplicitWidth = 622
-            ExplicitHeight = 198
           end
         end
       end
