@@ -24,13 +24,13 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
-	$user['enemy_life_max'] = rand($enemy['enemy_life_min'], $enemy['enemy_life_max']);
+	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.9) + rand(10, 20);//rand($enemy['enemy_life_min'], $enemy['enemy_life_max']);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2) + 1;//$enemy['enemy_damage_min'];
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2) + 3;//$enemy['enemy_damage_max'];
 	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.7);//$enemy['enemy_armor'];
-	$user['enemy_exp'] = $enemy['enemy_exp'];
-	$user['enemy_gold'] = rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
+	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));//$enemy['enemy_exp'];
+	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);//rand($enemy['enemy_gold_min'], $enemy['enemy_gold_max']);
 
 	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
@@ -321,6 +321,7 @@ function gen_loot() {
 	if (rand(0,4) == 0) {
 
 		$loot_type_array = [0,1,8,9];
+		$loot_level = $user['char_region'];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
 	
 		if ((($loot_type == 0)||($loot_type == 1))&&(rand(0,9) == 0)) {
