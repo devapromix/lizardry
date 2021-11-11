@@ -58,7 +58,7 @@ object FrameBank: TFrameBank
     OnClick = SpeedButton5Click
   end
   object SpeedButton6: TSpeedButton
-    Left = 245
+    Left = 247
     Top = 115
     Width = 25
     Height = 22
@@ -66,11 +66,19 @@ object FrameBank: TFrameBank
     OnClick = SpeedButton6Click
   end
   object bbMyGold: TSpeedButton
-    Left = 166
+    Left = 195
     Top = 143
-    Width = 104
+    Width = 75
     Height = 22
     OnClick = bbMyGoldClick
+  end
+  object SpeedButton7: TSpeedButton
+    Left = 166
+    Top = 143
+    Width = 23
+    Height = 22
+    Caption = 'X'
+    OnClick = SpeedButton7Click
   end
   object GoldEdit: TEdit
     Left = 16

@@ -22,6 +22,7 @@ type
     SpeedButton5: TSpeedButton;
     SpeedButton6: TSpeedButton;
     bbMyGold: TSpeedButton;
+    SpeedButton7: TSpeedButton;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
     procedure GoldEditKeyPress(Sender: TObject; var Key: Char);
@@ -32,6 +33,7 @@ type
     procedure SpeedButton4Click(Sender: TObject);
     procedure SpeedButton6Click(Sender: TObject);
     procedure bbMyGoldClick(Sender: TObject);
+    procedure SpeedButton7Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -133,6 +135,11 @@ end;
 procedure TFrameBank.SpeedButton6Click(Sender: TObject);
 begin
   Modify(-1000);
+end;
+
+procedure TFrameBank.SpeedButton7Click(Sender: TObject);
+begin
+  GoldEdit.Text := '0';
 end;
 
 procedure TFrameBank.Welcome;
