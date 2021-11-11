@@ -125,7 +125,7 @@ function pickup_equip_item() {
 			break;
 		case 8:
 		case 9:
-			$r .= 'Вы забираете себе '.$item['item_name'].'.';
+			$r .= 'Вы забираете себе '.$item['item_name'].' ('.$item['item_level'].')'.'.';
 			add_item($item['item_ident']);
 			break;
 	}
@@ -319,32 +319,40 @@ $stat = array();
 function gen_loot() {
 	global $user, $tb_item, $connection;
 
-	if (rand(0,4) == 0) {
+	if (rand(0,3) == 0) {
 
-		$loot_type_array = [0,1,8,9];
+		$next = true;
 		$loot_level = $user['char_region'];
+		$loot_type_array = [0,1,8,9];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
-	
-		if ((($loot_type == 0)||($loot_type == 1))&&(rand(0,9) == 0)) {
-			if ($user['enemy_level'] > $user['char_level'])
-				$loot_level = $user['char_level'];
-			else 
+
+		if (($loot_level > 1)&&(rand(0, 4) == 0))
+			$loot_level--;
+		
+		switch($loot_type) {
+			case 0:
 				$loot_level = $user['enemy_level'];
-		} else if (($loot_type == 8)||($loot_type == 9)) {
-			$loot_level = $user['char_region'];
+				$next = (rand(0, 12) == 0);
+				break;
+			case 1:
+				$loot_level = $user['enemy_level'];
+				$next = (rand(0, 11) == 0);
+				break;
+				
 		}
+		if ($next) {
+			$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".	$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
 	
-		$query = "SELECT item_ident,item_name FROM ".$tb_item." WHERE item_level=".	$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
-		$result = mysqli_query($connection, $query) 
-			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-		$item = $result->fetch_assoc();
+			$user['loot_slot_1'] = $item['item_ident'];
+			$user['loot_slot_1_name'] = $item['item_name'].' ('.$item['item_level'].')';
+			$user['loot_slot_1_type'] = $loot_type;
 	
-		$user['loot_slot_1'] = $item['item_ident'];
-		$user['loot_slot_1_name'] = $item['item_name'];
-		$user['loot_slot_1_type'] = $loot_type;
-	
-		if ($user['loot_slot_1'] > 0)
-			update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+			if ($user['loot_slot_1'] > 0)
+				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+		}
 	}
 }
 
@@ -497,28 +505,6 @@ function get_value($value) {
 	return $r;
 }
 
-/*
-function has_item($id) {
-	global $user;
-	$inventory = $user['char_inventory'];
-	$pos = strripos($inventory, '-'.$id.'-');
-	if ($pos === false) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
-function mod_item($id, $value) {
-	global $user;
-	$inventory = $user['char_inventory'];
-	$items = split(',', $inventory);
-	for($i = 0; $i < count($items); $i++) {
-		
-	}
-}
-*/
-
 function has_item($id) {
 	global $user;
 	$inventory = $user['char_inventory'];
@@ -553,7 +539,7 @@ function item_modify($id, $value) {
 		$item_id = $item['id'];
 		if ($item_id == $id) {
 			$count = $item['count'];
-			$count = $count + $value;
+			$count += $value;
 			$items[$i]['count'] = $count;
 			if ($count <= 0)
 				unset($items[$i]);
