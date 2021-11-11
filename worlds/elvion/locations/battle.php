@@ -33,7 +33,7 @@ if ($action == 'battle') {
 				case 1:
 					$m = 'Взять оружие!';
 					break;
-				case 8: case 9:
+				case 8: case 9: case 10:
 					$m = 'Взять эликсир!';
 					break;
 				default:

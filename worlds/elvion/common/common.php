@@ -125,6 +125,7 @@ function pickup_equip_item() {
 			break;
 		case 8:
 		case 9:
+		case 10:
 			$r .= 'Вы забираете себе '.$item['item_name'].' ('.$item['item_level'].')'.'.';
 			add_item($item['item_ident']);
 			break;
@@ -323,7 +324,7 @@ function gen_loot() {
 
 		$next = true;
 		$loot_level = $user['char_region'];
-		$loot_type_array = [0,1,8,9];
+		$loot_type_array = [0,1,8,9,10];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
 
 		if (($loot_level > 1)&&(rand(0, 4) == 0))
@@ -585,11 +586,17 @@ function use_item($item_ident) {
 			break;
 		case 9:
 			$item_level = $item['item_level'];
-			$user['char_mana_cur'] += $item_level * 35;
+			$user['char_mana_cur'] += $item_level * 25;
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
 				$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_mana_cur=".$user['char_mana_cur']);
 			$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+			break;
+		case 10:
+			$item_level = $item['item_level'];
+			$user['char_life_cur'] += $item_level * 25;
+			update_user_table("char_life_cur=".$user['char_life_cur']);
+			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
 	}
 	return $result;
@@ -608,10 +615,6 @@ function item_ident_by_index($item_index) {
 		}
 	}
 	return $result;
-}
-
-function has_life_potions() {
-	return true;
 }
 
 function get_inventory() {
