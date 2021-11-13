@@ -91,6 +91,11 @@ function equip_item($item_ident) {
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
+		case 8:	case 9:	case 10:
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			add_item($item['item_ident']);
+			update_user_table("char_gold=".$user['char_gold']);
+			break;
 	}
 }
 function pickup_equip_item() {

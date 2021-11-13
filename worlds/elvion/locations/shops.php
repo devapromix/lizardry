@@ -217,17 +217,17 @@ if ($action == 'shop_alchemy') {
 
 	if ($do == 'buy') {
 		if ($itemslot == '1')
-			add_item($user['item_slot_1']);
+			equip_item($user['item_slot_1']);
 		if ($itemslot == '2')
-			add_item($user['item_slot_2']);
+			equip_item($user['item_slot_2']);
 		if ($itemslot == '3')
-			add_item($user['item_slot_3']);
+			equip_item($user['item_slot_3']);
 		if ($itemslot == '4')
-			add_item($user['item_slot_4']);
+			equip_item($user['item_slot_4']);
 		if ($itemslot == '5')
-			add_item($user['item_slot_5']);
+			equip_item($user['item_slot_5']);
 		if ($itemslot == '6')
-			add_item($user['item_slot_6']);
+			equip_item($user['item_slot_6']);
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

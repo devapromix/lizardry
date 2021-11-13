@@ -75,6 +75,10 @@ begin
     stWeapon:
       Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
         'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
+    // Alchemy
+    stAlchemy:
+      Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+        'index.php?action=shop_alchemy&do=buy&itemslot=' + IntToStr(I));
     // Armor
   else
     Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
