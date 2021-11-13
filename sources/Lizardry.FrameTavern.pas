@@ -27,7 +27,8 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg;
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg,
+  Lizardry.Frame.Location.Town;
 
 procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
@@ -46,11 +47,19 @@ procedure TFrameTavern.bbPriceClick(Sender: TObject);
 var
   S: string;
 begin
+  {
+    1. 15 - 10  70
+    2. 30 - 20  140
+    3. 45 - 30  210
+    4. 60 - 40  280
+    5. 75 - 50  350
+  }
   S := 'Цены на товары и услуги:' + #13#10 +
   //
-    'Ночь в Таверне --> 15 зол.' + #13#10 +
+    'Отдых в Таверне --> ' + IntToStr((RegionLevel * 10) +
+    Round((RegionLevel * 10) / 2)) + ' зол.' + #13#10 +
   //
-    'Пакет провианта --> 10 зол.' + #13#10;
+    'Пакет провианта --> ' + IntToStr(RegionLevel * 10) + ' зол.' + #13#10;
   ShowMsg(S);
 end;
 

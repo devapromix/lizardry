@@ -389,15 +389,13 @@ object FrameTown: TFrameTown
       inherited PageControl1: TPageControl
         Width = 337
         Height = 249
+        ExplicitLeft = 0
+        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 249
-        inherited TabSheet1: TTabSheet
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
-        end
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -410,18 +408,6 @@ object FrameTown: TFrameTown
             Width = 329
             ExplicitWidth = 329
           end
-        end
-        inherited TabSheet3: TTabSheet
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
-        end
-        inherited TabSheet4: TTabSheet
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end

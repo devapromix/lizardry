@@ -92,6 +92,9 @@ type
     function IsActPanels: Boolean;
   end;
 
+var
+  RegionLevel: Integer = 1;
+
 implementation
 
 {$R *.dfm}
@@ -433,6 +436,8 @@ begin
       bbCharName.Caption := S;
       FrameBattle1.Label4.Caption := S;
     end;
+    if JSON.TryGetValue('char_region_level', S) then
+      RegionLevel := StrToIntDef(S, 1);
     if JSON.TryGetValue('char_level', V) then
     begin
       Panel11.Caption := 'Уровень: ' + V;
