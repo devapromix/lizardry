@@ -9,7 +9,7 @@ uses
   Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids;
 
 type
-  TShopType = (stWeapon, stArmor);
+  TShopType = (stWeapon, stArmor, stAlchemy);
 
 type
   TFrameShop = class(TFrame)

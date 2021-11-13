@@ -146,6 +146,9 @@ function item_values($item_ident) {
 		case 1:
 			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
+		case 8:	case 9:	case 10:
+			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			break;
 	}
 }
 

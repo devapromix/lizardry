@@ -421,8 +421,6 @@ object FrameTown: TFrameTown
       inherited PageControl1: TPageControl
         Width = 337
         Height = 249
-        ExplicitLeft = 0
-        ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 249
         inherited TabSheet1: TTabSheet

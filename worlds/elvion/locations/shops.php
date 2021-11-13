@@ -11,6 +11,7 @@ if ($action == 'shops') {
 		go_to_the_town('Идти на площадь города');
 		addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
 		addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
+		addlink('Лавка Алхимика', 'index.php?action=shop_alchemy', 3);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -23,7 +24,7 @@ if ($action == 'shop_armor') {
 
 	$user['title'] = '';
 	$user['description'] = 'Лавка Бронника';
-	$user['mainframe'] = 'shop_armor';
+	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
@@ -95,7 +96,7 @@ if ($action == 'shop_weapon') {
 
 	$user['title'] = 'Оружейная Лавка';
 	$user['description'] = '';
-	$user['mainframe'] = 'shop_weapon';
+	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
@@ -155,6 +156,78 @@ if ($action == 'shop_weapon') {
 			equip_item($user['item_slot_5']);
 		if ($itemslot == '6')
 			equip_item($user['item_slot_6']);
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
+}
+
+if ($action == 'shop_alchemy') {
+	
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+	$user['title'] = 'Лавка Алхимика';
+	$user['description'] = '';
+	$user['mainframe'] = $action;
+	$user['links'] = array();
+	addlink('Покинуть лавку', 'index.php?action=shops');
+
+		switch ($user['char_region_level']) {
+			case 1:
+				add_item_to_shop(1, 61);
+				add_item_to_shop(2, 66);
+				add_item_to_shop(3, 71);
+				//add_item_to_shop(4, 34);
+				//add_item_to_shop(5, 35);
+				//add_item_to_shop(6, 36);
+				break;
+			case 2:
+				add_item_to_shop(1, 62);
+				add_item_to_shop(2, 67);
+				add_item_to_shop(3, 72);
+				//add_item_to_shop(4, 40);
+				//add_item_to_shop(5, 41);
+				//add_item_to_shop(6, 42);
+				break;
+			case 3:
+				add_item_to_shop(1, 63);
+				add_item_to_shop(2, 68);
+				add_item_to_shop(3, 73);
+				//add_item_to_shop(4, 46);
+				//add_item_to_shop(5, 47);
+				//add_item_to_shop(6, 48);
+				break;
+			case 4:
+				add_item_to_shop(1, 64);
+				add_item_to_shop(2, 69);
+				add_item_to_shop(3, 74);
+				//add_item_to_shop(4, 52);
+				//add_item_to_shop(5, 53);
+				//add_item_to_shop(6, 54);
+				break;
+			case 5:
+				add_item_to_shop(1, 65);
+				add_item_to_shop(2, 70);
+				add_item_to_shop(3, 75);
+				//add_item_to_shop(4, 58);
+				//add_item_to_shop(5, 59);
+				//add_item_to_shop(6, 60);
+				break;
+		}
+
+	if ($do == 'buy') {
+		if ($itemslot == '1')
+			add_item($user['item_slot_1']);
+		if ($itemslot == '2')
+			add_item($user['item_slot_2']);
+		if ($itemslot == '3')
+			add_item($user['item_slot_3']);
+		if ($itemslot == '4')
+			add_item($user['item_slot_4']);
+		if ($itemslot == '5')
+			add_item($user['item_slot_5']);
+		if ($itemslot == '6')
+			add_item($user['item_slot_6']);
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

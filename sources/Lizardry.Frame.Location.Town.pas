@@ -428,6 +428,23 @@ begin
             end;
           BringToFront;
           SG.SetFocus;
+        end
+      else if (S = 'shop_alchemy') then
+        with FormMain.FrameTown.FrameShop1 do
+        begin
+          DrawGrid;
+          Welcome;
+          ShopType := stAlchemy;
+          SG.Cells[1, 0] := 'Эликсир';
+          for K := 1 to 6 do
+            if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            begin
+              A := S.Split([',']);
+              for J := 0 to 3 do
+                SG.Cells[J + 1, K] := A[J];
+            end;
+          BringToFront;
+          SG.SetFocus;
         end;
     end
     else
