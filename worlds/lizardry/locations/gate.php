@@ -28,6 +28,21 @@ if ($action == 'gate') {
 				addlink('Лес Каменных Гигантов', 'index.php?action=stone_giant_forest', 3);
 				addlink('Монастырь', 'index.php?action=monast', 4);
 				break;
+			case 4:
+				addlink('Заброшенные Рудники', 'index.php?action=abandoned_mines', 2);
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+			case 9:
+				break;
+			case 10:
+				break;
 		}
 		
 	} else go_to_the_graveyard();

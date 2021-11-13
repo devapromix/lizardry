@@ -16,7 +16,7 @@ if ($action == 'moon_meadow') outland($action, [30,31,32], ['Лес Каменн
 if ($action == 'monast') outland($action, [33,34,35], [], ['Подвал Монастыря', 'index.php?action=cellar']);
 if ($action == 'cellar') outland($action, [36,37,38,39], ['Монастырь', 'index.php?action=monast']);
 // #4
-if ($action == '+') outland($action, [40,41,42,43]);
+if ($action == 'abandoned_mines') outland($action, [40,41,42,43]);
 if ($action == '+') outland($action, [44,45,46]);
 if ($action == '+') outland($action, [47,48,49]);
 if ($action == '+') outland($action, [50,51,52]);

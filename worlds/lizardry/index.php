@@ -9,7 +9,9 @@ $do = $_GET['do'];
 $action = $_GET['action'];
 $amount = $_GET['amount'];
 $itemslot = $_GET['itemslot'];
+$lootslot = $_GET['lootslot'];
 $enemyslot = $_GET['enemyslot'];
+$itemindex = $_GET['itemindex'];
 
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$connection) {
@@ -28,9 +30,13 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'version') {
 		$res = get_version();
 	}
+	if ($action == 'inventory') {
+		$res = get_inventory();
+	}
 	if ($action == 'events') {
 		$res = get_events();
 	}
+	include 'locations/pickup.php';
 	include 'locations/battle.php';
 	include 'locations/campfire.php';
 	include 'locations/town.php';

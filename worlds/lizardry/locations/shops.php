@@ -27,7 +27,7 @@ if ($action == 'shop_armor') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
-		switch ($user['char_region']) {
+		switch ($user['char_region_level']) {
 			case 1:
 				add_item_to_shop(1, 1);
 				add_item_to_shop(2, 2);
@@ -99,7 +99,7 @@ if ($action == 'shop_weapon') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
-		switch ($user['char_region']) {
+		switch ($user['char_region_level']) {
 			case 1:
 				add_item_to_shop(1, 31);
 				add_item_to_shop(2, 32);
