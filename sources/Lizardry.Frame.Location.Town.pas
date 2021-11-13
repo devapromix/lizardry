@@ -67,6 +67,8 @@ type
     Panel1: TPanel;
     bbCharName: TSpeedButton;
     FrameChar: TFrameChar;
+    MPPanel: TPanel;
+    Panel3: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -243,7 +245,7 @@ begin
     HideChat;
   Title := Panel10.Caption;
   Panel10.Caption := bbCharName.Caption;
-  FrameChar.PageControl1.ActivePageIndex := 0;
+  FrameChar.PageControl1.ActivePageIndex := 1;
   FrameChar.BringToFront;
   IsCharMode := True;
 end;
@@ -269,6 +271,7 @@ end;
 
 procedure TFrameTown.ChManaPanels(const Cur, Max: string);
 begin
+  Panel3.Width := Round(Cur.ToInteger / Max.ToInteger * MPPanel.Width);
   Panel16.Caption := Format('Мана: %s/%s', [Cur, Max]);
 end;
 

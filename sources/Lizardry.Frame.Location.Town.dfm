@@ -59,7 +59,7 @@ object FrameTown: TFrameTown
     object Panel12: TPanel
       Tag = 5
       Left = 1
-      Top = 256
+      Top = 261
       Width = 278
       Height = 25
       Align = alTop
@@ -67,6 +67,7 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
+      ExplicitTop = 256
     end
     object Panel13: TPanel
       Tag = 5
@@ -95,7 +96,7 @@ object FrameTown: TFrameTown
     object Panel15: TPanel
       Tag = 5
       Left = 1
-      Top = 231
+      Top = 236
       Width = 278
       Height = 25
       Align = alTop
@@ -103,11 +104,12 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
+      ExplicitTop = 231
     end
     object Panel16: TPanel
       Tag = 5
       Left = 1
-      Top = 106
+      Top = 111
       Width = 278
       Height = 25
       Align = alTop
@@ -115,6 +117,7 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
+      ExplicitTop = 106
     end
     object Panel11: TPanel
       Tag = 4
@@ -142,7 +145,7 @@ object FrameTown: TFrameTown
     object Panel17: TPanel
       Tag = 5
       Left = 1
-      Top = 156
+      Top = 161
       Width = 278
       Height = 25
       Align = alTop
@@ -150,11 +153,12 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
+      ExplicitTop = 156
     end
     object Panel18: TPanel
       Tag = 5
       Left = 1
-      Top = 206
+      Top = 211
       Width = 278
       Height = 25
       Align = alTop
@@ -162,11 +166,12 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
+      ExplicitTop = 206
     end
     object pnEqWeapon: TPanel
       Tag = 5
       Left = 1
-      Top = 131
+      Top = 136
       Width = 278
       Height = 25
       Align = alTop
@@ -174,11 +179,12 @@ object FrameTown: TFrameTown
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
       TabOrder = 9
+      ExplicitTop = 131
     end
     object pnEqArmor: TPanel
       Tag = 5
       Left = 1
-      Top = 181
+      Top = 186
       Width = 278
       Height = 25
       Align = alTop
@@ -186,6 +192,7 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
+      ExplicitTop = 181
     end
     object HPPanel: TPanel
       Tag = 5
@@ -207,6 +214,31 @@ object FrameTown: TFrameTown
         Alignment = taLeftJustify
         BevelOuter = bvNone
         Color = clRed
+        ParentBackground = False
+        TabOrder = 0
+      end
+    end
+    object MPPanel: TPanel
+      Tag = 5
+      Left = 1
+      Top = 106
+      Width = 278
+      Height = 5
+      Align = alTop
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      ParentBackground = False
+      TabOrder = 12
+      ExplicitTop = 100
+      object Panel3: TPanel
+        Tag = 5
+        Left = 1
+        Top = 0
+        Width = 278
+        Height = 5
+        Alignment = taLeftJustify
+        BevelOuter = bvNone
+        Color = clBlue
         ParentBackground = False
         TabOrder = 0
       end
@@ -393,9 +425,13 @@ object FrameTown: TFrameTown
         ExplicitTop = 0
         ExplicitWidth = 337
         ExplicitHeight = 249
-        inherited TabSheet2: TTabSheet
+        inherited TabSheet1: TTabSheet
           ExplicitLeft = 4
           ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
+        end
+        inherited TabSheet2: TTabSheet
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -408,6 +444,18 @@ object FrameTown: TFrameTown
             Width = 329
             ExplicitWidth = 329
           end
+        end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
+        end
+        inherited TabSheet4: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end
