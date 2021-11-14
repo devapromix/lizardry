@@ -600,6 +600,12 @@ function item_info($item_ident) {
 		case 10:
 			$ef = 'Увеличение здоровья на '.strval($item['item_level']*25).' ед.';
 			break;
+		case 11:
+			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
+			break;
+		case 12:
+			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
+			break;
 	}
 	if ($ef == '')
 		die('{"item":""}');
