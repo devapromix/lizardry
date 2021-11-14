@@ -82,6 +82,7 @@ type
     procedure AddButton(const Title, Script: string);
     procedure ChLifePanels(const Cur, Max: string);
     procedure ChManaPanels(const Cur, Max: string);
+    procedure ChExpPanels(const Cur, Max: string);
   public
     { Public declarations }
     procedure ShowChat;
@@ -262,6 +263,12 @@ begin
   IsChatMode := True;
 end;
 
+procedure TFrameTown.ChExpPanels(const Cur, Max: string);
+begin
+  // Panel3.Width := Round(Cur.ToInteger / Max.ToInteger * MPPanel.Width);
+  // Panel13.Caption := Format('Опыт: %s/%s', [Cur, Max]);
+end;
+
 procedure TFrameTown.ChLifePanels(const Cur, Max: string);
 begin
   Panel1.Width := Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
@@ -402,6 +409,7 @@ begin
           Welcome;
           ShopType := stWeapon;
           SG.Cells[1, 0] := 'Оружие';
+          SG.Cells[2, 0] := 'Урон';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
             begin
@@ -418,7 +426,8 @@ begin
           DrawGrid;
           Welcome;
           ShopType := stArmor;
-          SG.Cells[1, 0] := 'Броня';
+          SG.Cells[1, 0] := 'Доспех';
+          SG.Cells[2, 0] := 'Броня';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
             begin
@@ -436,6 +445,7 @@ begin
           Welcome;
           ShopType := stAlchemy;
           SG.Cells[1, 0] := 'Эликсир';
+          SG.Cells[2, 0] := 'Сила';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
             begin
@@ -464,6 +474,9 @@ begin
       FrameBattle1.Label7.Caption := 'Уровень: ' + V;
     end;
     if JSON.TryGetValue('char_exp', S) then
+      // if JSON.TryGetValue('char_exp_cur', Cur) and
+      // JSON.TryGetValue('char_exp_max', Max) then
+      // ChExpPanels(Cur, Max);
       Panel13.Caption := 'Опыт: ' + S + '/' + IntToStr(StrToIntDef(V, 1) * 100);
     if JSON.TryGetValue('char_food', S) then
     begin

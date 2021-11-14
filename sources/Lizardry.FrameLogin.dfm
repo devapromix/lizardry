@@ -1787,6 +1787,8 @@ object FrameLogin: TFrameLogin
         Height = 231
         Align = alClient
         TabOrder = 1
+        ExplicitLeft = -4
+        ExplicitTop = 48
       end
     end
     object Panel6: TPanel
