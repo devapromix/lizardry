@@ -24,7 +24,7 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
-	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.8) + rand(5, 20);
+	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.7) + rand(5, 20);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2.05) + 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2.05) + rand(2, 3);
@@ -571,6 +571,40 @@ function add_item($id, $count = 1) {
 		$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
 		update_user_table("char_inventory='".$user['char_inventory']."'");
 	}
+}
+
+function get_region_item_level($item_level) {
+	$result = 1;
+	if ($item_level > 1)
+		$result = ($item_level - 1) * 12;
+	return $result;
+}
+
+function item_info($item_ident) {
+	global $user, $tb_item, $connection;
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	$ef = '';
+	switch($item['item_type']) {
+		case 8:
+			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
+			break;
+		case 9:
+			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
+			break;
+		case 10:
+			$ef = 'Увеличение здоровья на '.strval($item['item_level']*25).' ед.';
+			break;
+	}
+	if ($ef == '')
+		die('{"item":""}');
+	else
+		die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
 }
 
 function use_item($item_ident) {

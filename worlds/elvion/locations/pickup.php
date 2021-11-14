@@ -10,6 +10,17 @@ if ($action == 'pickup_loot') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }
 
+if ($action == 'item_info') {
+	
+	if ($itemindex > 0) {
+		$item_ident = item_ident_by_index($itemindex);
+		if (($item_ident > 0)&&(has_item($item_ident))){
+			item_info($item_ident);
+		}
+	}
+	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).'}';
+}
+
 if ($action == 'use_item') {
 	
 	$h = '';

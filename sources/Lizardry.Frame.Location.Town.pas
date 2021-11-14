@@ -212,6 +212,11 @@ var
 begin
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
+    if UpperCase(Section) = 'ITEM' then
+    begin
+      if JSON.TryGetValue('item', S) then
+        FormMain.FrameTown.FrameChar.ttInfo.Caption := S;
+    end;
     if UpperCase(Section) = 'ERROR' then
     begin
       if JSON.TryGetValue('error', S) then
@@ -246,6 +251,7 @@ begin
     HideChat;
   Title := Panel10.Caption;
   Panel10.Caption := bbCharName.Caption;
+  FrameChar.ttInfo.Caption := '';
   FrameChar.PageControl1.ActivePageIndex := 1;
   FrameChar.BringToFront;
   IsCharMode := True;
@@ -305,6 +311,11 @@ begin
   if AJSON.Contains('{"info":') then
   begin
     ParseJSON(AJSON, 'INFO');
+    Exit;
+  end;
+  if AJSON.Contains('{"item":') then
+  begin
+    ParseJSON(AJSON, 'ITEM');
     Exit;
   end;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;

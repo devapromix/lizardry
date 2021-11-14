@@ -18,8 +18,6 @@ object FrameChar: TFrameChar
     ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -48
-    ExplicitTop = 3
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
       object ttWeapon: TLabel
@@ -58,14 +56,16 @@ object FrameChar: TFrameChar
         Left = 0
         Top = 25
         Width = 519
-        Height = 375
+        Height = 311
         Align = alClient
         Color = clBtnFace
         RowCount = 16
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
         ScrollBars = ssVertical
         TabOrder = 0
+        OnClick = SGClick
         OnDblClick = SGDblClick
+        ExplicitHeight = 375
         ColWidths = (
           64
           64
@@ -81,6 +81,26 @@ object FrameChar: TFrameChar
         Align = alTop
         Caption = '3/15'
         TabOrder = 1
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 336
+        Width = 519
+        Height = 64
+        Align = alBottom
+        TabOrder = 2
+        object ttInfo: TLabel
+          Left = 1
+          Top = 1
+          Width = 517
+          Height = 62
+          Align = alClient
+          Alignment = taCenter
+          AutoSize = False
+          WordWrap = True
+          ExplicitLeft = 0
+          ExplicitTop = 6
+        end
       end
     end
     object TabSheet3: TTabSheet

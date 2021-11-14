@@ -24,7 +24,10 @@ type
     TabSheet4: TTabSheet;
     SG: TStringGrid;
     Panel1: TPanel;
+    Panel2: TPanel;
+    ttInfo: TLabel;
     procedure SGDblClick(Sender: TObject);
+    procedure SGClick(Sender: TObject);
   private
     { Private declarations }
     ItCount: Integer;
@@ -97,13 +100,23 @@ begin
       SG.Cells[1, I + 1] := GetName(T);
       SG.Cells[2, I + 1] := C + 'x';
     end;
-    Panel1.Caption := Format('%d/15', [JSONArray.Count]);
+    Panel1.Caption := Format('%d/' + IntToStr(SG.RowCount - 1),
+      [JSONArray.Count]);
   except
   end;
 end;
 
-//{"char_inventory":"[{\"id\":\"66\",\"count\":3},{\"id\":\"61\",\"count\":6}]"}
-//{"char_inventory":"[{\"id\":\"66\",\"count\":3},{\"id\":\"61\",\"count\":6}]"}
+procedure TFrameChar.SGClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  I := SG.Row;
+  if Math.InRange(I, 1, ItCount) then
+    FormMain.FrameTown.ParseJSON
+      (Server.Get('index.php?action=item_info&itemindex=' + IntToStr(I)))
+  else
+    ttInfo.Caption := '';
+end;
 
 procedure TFrameChar.SGDblClick(Sender: TObject);
 var
@@ -113,9 +126,6 @@ begin
   if Math.InRange(I, 1, ItCount) then
     FormMain.FrameTown.ParseJSON
       (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
-
-  //
-  //FormMain.FrameTown.bbCharNameClick(Sender);
 end;
 
 end.
