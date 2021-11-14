@@ -26,8 +26,8 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.8) + rand(5, 20);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
-	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2.2) + 1;
-	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2.1) + rand(2, 3);
+	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2.05) + 1;
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2.05) + rand(2, 3);
 	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.6);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
