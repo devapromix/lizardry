@@ -598,7 +598,7 @@ function item_info($item_ident) {
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
 			break;
 		case 10:
-			$ef = 'Увеличение здоровья на '.strval($item['item_level']*25).' ед.';
+			$ef = 'Увеличивает макс. запас здоровья на '.strval($item['item_level']*25).' ед.';
 			break;
 		case 11:
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
@@ -623,8 +623,12 @@ function use_item($item_ident) {
 	$item = $result->fetch_assoc();
 
 	$result = '';
+
+	if ($user['char_level'] < get_region_item_level($item['item_level'])) die('{"info":"Нужен уровень выше!"}');
+
 	switch($item['item_type']) {
 		case 8:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_life_cur'] += $item_level * 25;
 			if ($user['char_life_cur'] > $user['char_life_max'])
@@ -633,6 +637,7 @@ function use_item($item_ident) {
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
 		case 9:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_mana_cur'] += $item_level * 25;
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
@@ -641,6 +646,7 @@ function use_item($item_ident) {
 			$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 10:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_life_cur'] += $item_level * 25;
 			update_user_table("char_life_cur=".$user['char_life_cur']);
