@@ -69,6 +69,8 @@ type
     FrameChar: TFrameChar;
     MPPanel: TPanel;
     Panel3: TPanel;
+    XPPanel: TPanel;
+    Panel4: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -271,8 +273,8 @@ end;
 
 procedure TFrameTown.ChExpPanels(const Cur, Max: string);
 begin
-  // Panel3.Width := Round(Cur.ToInteger / Max.ToInteger * MPPanel.Width);
-  // Panel13.Caption := Format('Опыт: %s/%s', [Cur, Max]);
+  Panel4.Width := Round(Cur.ToInteger / Max.ToInteger * XPPanel.Width);
+  Panel13.Caption := Format('Опыт: %s/%s', [Cur, Max]);
 end;
 
 procedure TFrameTown.ChLifePanels(const Cur, Max: string);
@@ -484,11 +486,10 @@ begin
       Panel11.Caption := 'Уровень: ' + V;
       FrameBattle1.Label7.Caption := 'Уровень: ' + V;
     end;
-    if JSON.TryGetValue('char_exp', S) then
-      // if JSON.TryGetValue('char_exp_cur', Cur) and
-      // JSON.TryGetValue('char_exp_max', Max) then
-      // ChExpPanels(Cur, Max);
-      Panel13.Caption := 'Опыт: ' + S + '/' + IntToStr(StrToIntDef(V, 1) * 100);
+    if JSON.TryGetValue('char_exp', Cur) then
+    begin
+      ChExpPanels(Cur, IntToStr(StrToIntDef(V, 1) * 100));
+    end;
     if JSON.TryGetValue('char_food', S) then
     begin
       Panel15.Caption := 'Провизия: ' + S + '/7';
