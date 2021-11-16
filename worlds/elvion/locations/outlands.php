@@ -19,7 +19,7 @@ if ($action == 'cellar') outland($action, [36,37,38,39], ['Монастырь', 
 if ($action == 'abandoned_mines') outland($action, [40,41,42,43]);
 if ($action == 'icy_lake') outland($action, [44,45,46]);
 if ($action == '+') outland($action, [47,48,49]);
-if ($action == '+') outland($action, [50,51,52]);
+if ($action == 'vulture_valley') outland($action, [50,51,52]);
 // #5
 if ($action == '+') outland($action, [53,54,55,56]);
 if ($action == '+') outland($action, [57,58,59]);

@@ -314,6 +314,14 @@ function add_event($type, $name, $level = 1, $gender = 0, $str = '') {
 	}
 }
 
+function get_loot_level() {
+	global $user;
+	$r = $user['enemy_level'];
+	if ($r > $user['char_level'])
+		$r = $user['char_level'];
+	return $r;
+}
+
 function get_events() {
 	global $connection, $tb_events;
 	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str FROM ".$tb_events." ORDER BY id  DESC LIMIT 0, 15";
@@ -340,11 +348,11 @@ function gen_loot() {
 		
 		switch($loot_type) {
 			case 0:
-				$loot_level = $user['enemy_level'];
+				$loot_level = get_loot_level();
 				$next = (rand(0, 12) == 0);
 				break;
 			case 1:
-				$loot_level = $user['enemy_level'];
+				$loot_level = get_loot_level();
 				$next = (rand(0, 11) == 0);
 				break;
 				
