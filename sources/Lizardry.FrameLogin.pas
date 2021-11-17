@@ -52,13 +52,14 @@ type
     { Public declarations }
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
+    procedure LoadFromDBEnemies;
   end;
 
 implementation
 
 {$R *.dfm}
 
-uses JSON, ShellAPI, Registry, Lizardry.FormMain, Lizardry.Server,
+uses JSON, ShellAPI, IOUtils, Registry, Lizardry.FormMain, Lizardry.Server,
   Lizardry.Frame.Location.Town,
   Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
 
@@ -74,22 +75,37 @@ begin
     ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
+    Panel5.Caption := 'Подтверждение авторизации...';
+    Application.ProcessMessages;
   ResponseCode := Server.Get('index.php?action=login');
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;
   if ResponseCode = '0' then
   begin
+    Panel5.Caption := 'Ошибка!';
+    Application.ProcessMessages;
     ShowMsg('Ошибка авторизации!');
     Exit;
   end
   else if ResponseCode = '1' then
   begin
+    Panel5.Caption := 'Готово!';
+    Application.ProcessMessages;
+    Sleep(500);
+    Panel5.Caption := 'Проверка ресурсов...';
+    Application.ProcessMessages;
     try
-      LoadFromDBItems; { TODO: Выполнять в отдельном процессе }
+      { TODO: Выполнять в отдельном процессе }
+      LoadFromDBItems;
+      LoadFromDBEnemies;
     except
       ShowMsg('Ошибка загрузки DB!');
       Halt;
     end;
+    Panel5.Caption := 'Выполняется вход...';
+    Application.ProcessMessages;
+    Sleep(500);
+    Panel5.Caption := '';
     if IsChatMode then
       FormMain.FrameTown.HideChat;
     if IsCharMode then
@@ -248,6 +264,47 @@ begin
   except
     ShowMsg('Невозможно подключиться к серверу!');
   end;
+end;
+
+procedure TFrameLogin.LoadFromDBEnemies;
+var
+  JSONArray: TJSONArray;
+  I: Integer;
+  ImageName: string;
+  FS: TFileStream;
+begin
+  FormInfo.MobImagesPath.Caption := TPath.GetHomePath + '\Lizardry\Images\';
+  ForceDirectories(FormInfo.MobImagesPath.Caption);
+  FormInfo.MemoMobImages.Text := Server.GetFromDB('enemies');
+  Panel5.Caption := 'Проверка и загрузка изображений...';
+  Application.ProcessMessages;
+  try
+    JSONArray := TJSONObject.ParseJSONValue(FormInfo.MemoMobImages.Text)
+      as TJSONArray;
+    for I := JSONArray.Count - 1 downto 0 do
+    begin
+      ImageName := LowerCase(TJSONPair(TJSONObject(JSONArray.Get(I))
+        .Get('enemy_image')).JsonValue.Value);
+      if not FileExists(FormInfo.MobImagesPath.Caption + ImageName + '.jpg')
+      then
+      begin
+        FS := TFileStream.Create(FormInfo.MobImagesPath.Caption + '\' +
+          ImageName + '.jpg', fmCreate);
+        try
+          Panel5.Caption := 'Загрузка изображения: ' + ImageName +
+            '.jpg' + '...';
+          Application.ProcessMessages;
+          FormMain.idHTTP.Get('http://' + Server.URL + '/images/' + ImageName +
+            '.jpg', FS);
+        finally
+          FS.Free;
+          Panel5.Caption := '';
+        end;
+      end;
+    end;
+  except
+  end;
+  Panel5.Caption := '';
 end;
 
 procedure TFrameLogin.LoadFromDBItems;

@@ -20,13 +20,11 @@ object FormInfo: TFormInfo
     Top = 0
     Width = 749
     Height = 458
-    ActivePage = TabSheet2
+    ActivePage = TabSheet3
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1051#1086#1082#1072#1094#1080#1103
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object RichEdit1: TRichEdit
         Left = 0
         Top = 0
@@ -42,8 +40,6 @@ object FormInfo: TFormInfo
         ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
-        ExplicitWidth = 749
-        ExplicitHeight = 458
       end
     end
     object TabSheet2: TTabSheet
@@ -64,8 +60,37 @@ object FormInfo: TFormInfo
         ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
-        ExplicitWidth = 749
-        ExplicitHeight = 458
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1103' '#1084#1086#1073#1086#1074
+      ImageIndex = 2
+      object MemoMobImages: TMemo
+        Left = 0
+        Top = 25
+        Width = 741
+        Height = 405
+        Align = alClient
+        ReadOnly = True
+        TabOrder = 0
+        ExplicitLeft = 96
+        ExplicitTop = 96
+        ExplicitWidth = 185
+        ExplicitHeight = 89
+      end
+      object MobImagesPath: TPanel
+        Left = 0
+        Top = 0
+        Width = 741
+        Height = 25
+        Align = alTop
+        Alignment = taLeftJustify
+        BevelOuter = bvNone
+        Caption = 'MobImagesPath'
+        TabOrder = 1
+        ExplicitLeft = 144
+        ExplicitTop = 16
+        ExplicitWidth = 185
       end
     end
   end

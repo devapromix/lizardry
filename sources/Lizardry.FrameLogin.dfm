@@ -1778,6 +1778,12 @@ object FrameLogin: TFrameLogin
         Height = 20
         Align = alTop
         BevelOuter = bvNone
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clGray
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 0
       end
       object StaticText1: TStaticText
@@ -1787,8 +1793,6 @@ object FrameLogin: TFrameLogin
         Height = 231
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = -4
-        ExplicitTop = 48
       end
     end
     object Panel6: TPanel

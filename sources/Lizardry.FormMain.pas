@@ -5,16 +5,24 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Lizardry.FrameLogin, Lizardry.FrameRegistration, Lizardry.Frame.Location.Town;
+  Lizardry.FrameLogin, Lizardry.FrameRegistration, Lizardry.Frame.Location.Town,
+  IdAntiFreezeBase, IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP;
 
 type
   TFormMain = class(TForm)
     FrameLogin: TFrameLogin;
     FrameRegistration: TFrameRegistration;
     FrameTown: TFrameTown;
+    IdHTTP: TIdHTTP;
+    IdAntiFreeze: TIdAntiFreeze;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure IdHTTPWork(ASender: TObject; AWorkMode: TWorkMode;
+      AWorkCount: Int64);
+    procedure IdHTTPWorkBegin(ASender: TObject; AWorkMode: TWorkMode;
+      AWorkCountMax: Int64);
   private
     { Private declarations }
   public
@@ -26,6 +34,7 @@ var
   IsChatMode: Boolean = False;
   IsCharMode: Boolean = False;
   IsDebugMode: Boolean = False;
+  TheEnd: Integer;
 
 implementation
 
@@ -74,6 +83,19 @@ begin
   finally
     Reg.Free;
   end;
+end;
+
+procedure TFormMain.IdHTTPWork(ASender: TObject; AWorkMode: TWorkMode;
+  AWorkCount: Int64);
+begin
+  TheEnd := AWorkCount;
+end;
+
+procedure TFormMain.IdHTTPWorkBegin(ASender: TObject; AWorkMode: TWorkMode;
+  AWorkCountMax: Int64);
+begin
+  if TheEnd = AWorkCountMax then
+    FrameLogin.Image1.Picture.LoadFromFile('111.jpg');
 end;
 
 end.

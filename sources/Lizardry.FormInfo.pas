@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls;
 
 type
   TFormInfo = class(TForm)
@@ -13,6 +13,9 @@ type
     RichEdit1: TRichEdit;
     TabSheet2: TTabSheet;
     RichEdit2: TRichEdit;
+    TabSheet3: TTabSheet;
+    MemoMobImages: TMemo;
+    MobImagesPath: TPanel;
   private
     { Private declarations }
   public
