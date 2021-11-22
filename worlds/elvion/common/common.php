@@ -410,21 +410,26 @@ function enemy_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
-		if (rand(1, $user['char_armor']) <= rand(1, $user['enemy_armor'])) {
+		if (rand(1, $user['char_armor'] + 10) <= rand(1, $user['enemy_armor'])) {
 			if (rand(1, 100) > $user['skill_dodge']) {
-				$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
-				$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], $user['char_level']);
-				$stat['enemy_hits']++;
-				if ($d <= 0) {
-					$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
-				} else {
-					$stat['enemy_damages'] += $d;
-					$user['char_life_cur'] -= $d;
-					if ($user['char_life_cur'] > 0) {
-						$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-					}else{
-						$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+				if (rand(1, 100) > $user['skill_parry']) {
+					$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+					$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], $user['char_level']);
+					$stat['enemy_hits']++;
+					if ($d <= 0) {
+						$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
+					} else {
+						$stat['enemy_damages'] += $d;
+						$user['char_life_cur'] -= $d;
+						if ($user['char_life_cur'] > 0) {
+							$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+						}else{
+							$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+						}
 					}
+				} else {
+					$r .= 'Вы парируете атаку '.$user['enemy_name'].'.#';
+					$stat['char_parries']++;
 				}
 			} else {
 				$r .= 'Вы ловко уклоняетесь от атаки '.$user['enemy_name'].'.#';
@@ -446,6 +451,7 @@ function auto_battle() {
 	$stat['char_damages'] = 0;
 	$stat['enemy_damages'] = 0;
 	$stat['char_dodges'] = 0;
+	$stat['char_parries'] = 0;
 	$stat['char_hits'] = 0;
 	$stat['enemy_hits'] = 0;
 	$stat['char_misses'] = 0;
@@ -512,7 +518,7 @@ function auto_battle() {
 	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
 	$r .= 'Попадания: '.$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
 	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
-	$r .= 'Уклонения: '.$stat['char_dodges']."#";
+	$r .= 'Уклонение / Парирование: '.$stat['char_dodges']." / ".$stat['char_parries']."#";
 	if (ch_level_exp()) {
 		$r .= '--------------------------------------------------------#';
 		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
