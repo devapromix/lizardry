@@ -30,7 +30,7 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
-	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.45);
+	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
@@ -376,7 +376,7 @@ function gen_loot() {
 }
 
 function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
-	return $atk_damage;// - $def_armor;
+	return $atk_damage - round($atk_damage * $def_armor / 100);
 }
 
 function char_battle_round() {
