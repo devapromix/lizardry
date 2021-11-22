@@ -427,7 +427,8 @@ function enemy_battle_round() {
 					}
 				}
 			} else {
-			$r .= 'Вы ловко уклоняетесь от атаки '.$user['enemy_name'].'.#';
+				$r .= 'Вы ловко уклоняетесь от атаки '.$user['enemy_name'].'.#';
+				$stat['char_dodges']++;
 			}
 		} else {
 			$r .= $user['enemy_name'].' промахивается по вам.#';
@@ -444,6 +445,7 @@ function auto_battle() {
 	$rounds = 0;
 	$stat['char_damages'] = 0;
 	$stat['enemy_damages'] = 0;
+	$stat['char_dodges'] = 0;
 	$stat['char_hits'] = 0;
 	$stat['enemy_hits'] = 0;
 	$stat['char_misses'] = 0;
@@ -510,6 +512,7 @@ function auto_battle() {
 	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
 	$r .= 'Попадания: '.$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
 	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
+	$r .= 'Уклонения: '.$stat['char_dodges']."#";
 	if (ch_level_exp()) {
 		$r .= '--------------------------------------------------------#';
 		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';

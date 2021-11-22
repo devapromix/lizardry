@@ -20,6 +20,8 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
+    Edit3: TEdit;
+    Edit4: TEdit;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -37,6 +39,7 @@ implementation
 procedure TForm1.Button1Click(Sender: TObject);
 var
   CharLevel, EnemyLevel: Integer;
+  CharClass, EnemyClass: Integer;
   CharHP, EnemyHP: Integer;
   CharDamage, EnemyDamage: Integer;
   CharArmor, EnemyArmor: Integer;
@@ -45,12 +48,18 @@ begin
   CharLevel := StrToIntDef(Edit1.Text, 1);
   EnemyLevel := StrToIntDef(Edit2.Text, 1);
 
-  CharHP := 25 + (CharLevel * 5);
-  EnemyHP := 25 + (EnemyLevel * 5);
+  CharClass := StrToIntDef(Edit3.Text, 1);
+  EnemyClass := StrToIntDef(Edit4.Text, 1);
+
+  CharHP := 25 + (CharLevel * (CharClass + 4));
+  EnemyHP := 25 + (EnemyLevel * (EnemyClass + 4));
+
   CharDamage := Round(CharLevel * 0.5) + 2;
   EnemyDamage := Round(EnemyLevel * 0.5) + 2;
+
   CharArmor := Round((CharLevel * 0.5) + 0.5);
   EnemyArmor := Round((EnemyLevel * 0.5) + 0.5);
+
   CharTurns := Round(CharHP / CharDamage);
   EnemyTurns := Round(EnemyHP / EnemyDamage);
 

@@ -94,4 +94,20 @@ object Form1: TForm1
     TabOrder = 2
     OnClick = Button1Click
   end
+  object Edit3: TEdit
+    Left = 24
+    Top = 69
+    Width = 49
+    Height = 21
+    TabOrder = 3
+    Text = '1'
+  end
+  object Edit4: TEdit
+    Left = 384
+    Top = 69
+    Width = 49
+    Height = 21
+    TabOrder = 4
+    Text = '1'
+  end
 end
