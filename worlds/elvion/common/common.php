@@ -27,10 +27,10 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
-	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + rand(1, 2);
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
-	$user['enemy_armor'] = round(($enemy['enemy_level'] * 0.5) + 0.5);
+	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.45);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
@@ -410,10 +410,10 @@ function enemy_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
-		if (rand(1, $user['char_armor']) <= rand(1, $user['enemy_armor'])) {
+		if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
 			if (rand(1, 100) > $user['skill_dodge']) {
 				if (rand(1, 100) > $user['skill_parry']) {
-					if (rand(1, 100) > 5) {
+					if (rand(1, 100) > 5) { // Расовый навык уклонения у людей, ящеров и эльфов
 						$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
 						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
 						$stat['enemy_hits']++;
@@ -429,8 +429,8 @@ function enemy_battle_round() {
 							}
 						}
 					} else {
-						$r .= 'Ваш расовый навык позволяет уклониться от атаки '.$user['enemy_name'].'.#';
-					$stat['char_dodges']++;
+						$r .= 'Ваш расовый навык позволяет уклониться от атаки!#';
+						$stat['char_dodges']++;
 					}
 				} else {
 					$r .= 'Вы парируете атаку '.$user['enemy_name'].'.#';
