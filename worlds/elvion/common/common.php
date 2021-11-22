@@ -24,11 +24,13 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
-	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.7) + rand(5, 20);
+	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
-	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2.05) + 1;
-	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2.05) + rand(2, 3);
-	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.6);
+	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + rand(1, 2);
+	if ($user['enemy_damage_min'] < 1)
+		$user['enemy_damage_min'] = 1;
+	$user['enemy_armor'] = round(($enemy['enemy_level'] * 0.5) + 0.5);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
@@ -373,12 +375,18 @@ function gen_loot() {
 	}
 }
 
+function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
+	return $atk_damage;// - $def_armor;
+}
+
 function char_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
-		if (rand(1, 5) >= 2) {
-			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
+		if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
+			$d = rand($user['char_damage_min'], $user['char_damage_max']);
+			$d = get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
+			$stat['char_hits']++;
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
@@ -402,8 +410,10 @@ function enemy_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
-		if (rand(1, 5) >= 2) {
-			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
+		if (rand(1, $user['char_armor']) <= rand(1, $user['enemy_armor'])) {
+			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+			$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], $user['char_level']);
+			$stat['enemy_hits']++;
 			if ($d <= 0) {
 				$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
 			} else {
@@ -430,6 +440,8 @@ function auto_battle() {
 	$rounds = 0;
 	$stat['char_damages'] = 0;
 	$stat['enemy_damages'] = 0;
+	$stat['char_hits'] = 0;
+	$stat['enemy_hits'] = 0;
 	$stat['char_misses'] = 0;
 	$stat['enemy_misses'] = 0;
 	
@@ -451,7 +463,10 @@ function auto_battle() {
 		}
 
 		if ($user['char_life_cur'] <= 0) {
-			$user['char_life_cur'] = 0;
+			$user['char_life_cur'] = $user['char_life_max'];//debug
+			
+
+			//$user['char_life_cur'] = 0;
 			$user['char_mana_cur'] = 0;
 			$user['stat_deads']++;
 			$user['char_exp'] -= round($user['char_exp'] / 5);
@@ -489,6 +504,7 @@ function auto_battle() {
 	$r .= '--------------------------------------------------------#';
 	$r .= 'Всего раундов: '.$rounds."#";
 	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
+	$r .= 'Попадания: '.$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
 	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
 	if (ch_level_exp()) {
 		$r .= '--------------------------------------------------------#';
@@ -751,6 +767,10 @@ function rest_in_tavern_cost() {
 function food_in_tavern_cost() {
 	global $user;
 	return $user['char_region_level'] * 10;
+}
+
+function get_char_life($level) {
+	return ($level * 5) + 25;
 }
 
 ?>

@@ -9,12 +9,40 @@ if ($action == 'guilds') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		go_to_the_town('Идти на площадь города');
-		addlink('Гильдия Тела', 'index.php?action=guild_body', 1);
-		addlink('Гильдия Духа', 'index.php?action=guild_spirit', 2);
+		addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
+		addlink('Гильдия Тела', 'index.php?action=guild_body', 2);
+		addlink('Гильдия Духа', 'index.php?action=guild_spirit', 3);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
+}
+
+if ($action == 'guild_main') {
+
+	$user['title'] = 'Тренировочный Зал';
+	$user['description'] = 'После тренировки с тренером в Тренировочном Зале Вы получаете новый уровень и очки развития навыков, которые можете потратить на изучение новых или развитие уже известных навыков. Сейчас у Вас '.$user['char_lp'].' оч.';
+	$user['links'] = array();
+	addlink('Покинуть зал', 'index.php?action=guilds');
+	addlink('Приступить к тренировке', 'index.php?action=guild_main&do=train_in_guild_main', 1);
+
+	if ($do == 'train_in_guild_main') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
+		if ($user['char_exp'] < get_char_level_exp($user['char_level'])) die('{"error":"Сначала нужно набраться опыта!"}');
+		$user['char_exp'] = $user['char_exp'] - get_char_level_exp($user['char_level']);
+		$user['char_level']++;
+		$user['char_lp']++;
+		$user['char_life_cur'] = get_char_life($user['char_level']);
+		$user['char_life_max'] = get_char_life($user['char_level']);
+		add_event(1, $user['char_name'], $user['char_level']);
+		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
+		$user['log'] = 'Вы потренировались и стали лучше!';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_main');
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+	
 }
 
 if ($action == 'guild_body') {
