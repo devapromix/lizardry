@@ -386,6 +386,10 @@ function get_glancing_blow_damage($damage){
 	return $r;
 }
 
+function get_crushing_blow_damage($damage) {
+	return $damage * rand(4, 5);
+}
+
 function char_battle_round() {
 	global $user, $stat;
 	$r = '';
@@ -417,6 +421,13 @@ function char_battle_round() {
 						$r .= 'Вы наносите критический удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
 					}
 				} else {
+					$crushing_blow_damage = get_crushing_blow_damage($d);
+					if ((rand(1, 100) < 10)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
+						$stat['char_damages'] += $crushing_blow_damage;
+						$user['enemy_life_cur'] -= $crushing_blow_damage;
+						$r .= 'Вы наносите сокрушающий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
+						return $r;
+					}
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
 					if ($user['enemy_life_cur'] > 0) {
