@@ -424,8 +424,8 @@ function char_battle_round() {
 					$crushing_blow_damage = get_crushing_blow_damage($d);
 					if ((rand(1, 100) < 10)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
 						$stat['char_damages'] += $crushing_blow_damage;
-						$user['enemy_life_cur'] -= $crushing_blow_damage;
-						$r .= 'Вы наносите сокрушающий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
+						$user['enemy_life_cur'] = 0;
+						$r .= 'Вы наносите сокрушающий удар на '.$crushing_blow_damage.' HP и убиваете '.$user['enemy_name'].'!#';
 						return $r;
 					}
 					$stat['char_damages'] += $d;
