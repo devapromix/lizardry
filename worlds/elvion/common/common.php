@@ -379,6 +379,13 @@ function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
 	return $atk_damage - round($atk_damage * $def_armor / 100);
 }
 
+function get_glancing_blow_damage($damage){
+	$r = round($damage / rand(2, 3));
+	if ($r < 1)
+		$r = 1;
+	return $r;
+}
+
 function char_battle_round() {
 	global $user, $stat;
 	$r = '';
@@ -391,6 +398,16 @@ function char_battle_round() {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
 				if (rand(1, 100) < 10) {
+					$d = get_glancing_blow_damage($d);
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите скользящий удар и раните '.$user['enemy_name'].' на '.$d.' HP.#';
+					} else {
+						$r .= 'Вы наносите скользящий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
+					return $r;
+				} else if (rand(1, 100) < 10) {
 					$d += $user['char_damage_max'];
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
