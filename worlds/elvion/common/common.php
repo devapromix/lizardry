@@ -390,12 +390,23 @@ function char_battle_round() {
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				$stat['char_damages'] += $d;
-				$user['enemy_life_cur'] -= $d;
-				if ($user['enemy_life_cur'] > 0) {
-					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
-				}else{
-					$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+				if (rand(1, 100) < 10) {
+					$d += $user['char_damage_max'];
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите критический удар и раните '.$user['enemy_name'].' на '.$d.' HP!#';
+					} else {
+						$r .= 'Вы наносите критический удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
+					}
+				} else {
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
+					} else {
+						$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
 				}
 			}
 		} else {
