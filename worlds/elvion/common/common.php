@@ -416,7 +416,7 @@ function char_battle_round() {
 						$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
 					}
 					return $r;
-				} else if (rand(1, 100) <= 10) {
+				} else if (rand(1, 100) <= 5) {
 					$d = get_glancing_blow_damage($d);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
@@ -468,12 +468,26 @@ function enemy_battle_round() {
 			if (rand(1, 100) > $user['skill_dodge']) {
 				if (rand(1, 100) > $user['skill_parry']) {
 					if (rand(1, 100) > 10) { // Расовый навык уклонения у людей, ящеров и эльфов
-						$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+						if (rand(1, 3) > 1)
+							$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+						else
+							$d = $user['enemy_damage_min'];
 						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
 						$stat['enemy_hits']++;
 						if ($d <= 0) {
 							$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
 						} else {
+							if (rand(1, 100) <= 15) {
+								$d = get_glancing_blow_damage($d);
+								$stat['enemy_damages'] += $d;
+								$user['char_life_cur'] -= $d;
+								if ($user['char_life_cur'] > 0) {
+									$r .= $user['enemy_name'].' наносит скользящий удар и ранит вас на '.$d.' HP.#';
+								} else {
+									$r .= $user['enemy_name'].' наносит скользящий удар на '.$d.' HP и убивает вас.#';
+								}
+								return $r;
+							}
 							$stat['enemy_damages'] += $d;
 							$user['char_life_cur'] -= $d;
 							if ($user['char_life_cur'] > 0) {
