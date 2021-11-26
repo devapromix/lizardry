@@ -405,7 +405,7 @@ function char_battle_round() {
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				if (rand(1, 100) < 80) {
+				if (rand(1, 100) <= $user['skill_bewil']) {
 					$d = get_bewildering_strike_damage($d);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
@@ -416,7 +416,7 @@ function char_battle_round() {
 						$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
 					}
 					return $r;
-				} else if (rand(1, 100) < 10) {
+				} else if (rand(1, 100) <= 10) {
 					$d = get_glancing_blow_damage($d);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
@@ -426,7 +426,7 @@ function char_battle_round() {
 						$r .= 'Вы наносите скользящий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
 					}
 					return $r;
-				} else if (rand(1, 100) < 10) {
+				} else if (rand(1, 100) <= 1) {
 					$d += $user['char_damage_max'];
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
@@ -437,7 +437,7 @@ function char_battle_round() {
 					}
 				} else {
 					$crushing_blow_damage = get_crushing_blow_damage($d);
-					if ((rand(1, 100) < 10)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
+					if ((rand(1, 100) <= 0)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
 						$stat['char_damages'] += $crushing_blow_damage;
 						$user['enemy_life_cur'] = 0;
 						$r .= 'Вы наносите сокрушающий удар на '.$crushing_blow_damage.' HP и убиваете '.$user['enemy_name'].'!#';
@@ -467,7 +467,7 @@ function enemy_battle_round() {
 		if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
 			if (rand(1, 100) > $user['skill_dodge']) {
 				if (rand(1, 100) > $user['skill_parry']) {
-					if (rand(1, 100) > 5) { // Расовый навык уклонения у людей, ящеров и эльфов
+					if (rand(1, 100) > 10) { // Расовый навык уклонения у людей, ящеров и эльфов
 						$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
 						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
 						$stat['enemy_hits']++;
