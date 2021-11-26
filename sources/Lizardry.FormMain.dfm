@@ -356,6 +356,21 @@ object FormMain: TFormMain
             inherited Panel3: TPanel
               Left = 284
               ExplicitLeft = 284
+              inherited Label4: TLabel
+                Visible = False
+              end
+              inherited Label5: TLabel
+                Visible = False
+              end
+              inherited ttCharDamage: TLabel
+                Visible = False
+              end
+              inherited Label7: TLabel
+                Visible = False
+              end
+              inherited ttCharArmor: TLabel
+                Visible = False
+              end
             end
           end
         end

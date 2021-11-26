@@ -387,7 +387,11 @@ function get_glancing_blow_damage($damage){
 }
 
 function get_crushing_blow_damage($damage) {
-	return $damage * rand(4, 5);
+	return $damage * rand(3, 5);
+}
+
+function get_bewildering_strike_damage($damage) {
+	return rand(round($damage * 0.75), round($damage * 1.2));
 }
 
 function char_battle_round() {
@@ -401,7 +405,18 @@ function char_battle_round() {
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				if (rand(1, 100) < 10) {
+				if (rand(1, 100) < 80) {
+					$d = get_bewildering_strike_damage($d);
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите ошеломляющий удар и раните '.$user['enemy_name'].' на '.$d.' HP! '.$user['enemy_name'].' в смятении.#';
+						$r .= char_battle_round();
+					} else {
+						$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
+					return $r;
+				} else if (rand(1, 100) < 10) {
 					$d = get_glancing_blow_damage($d);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;

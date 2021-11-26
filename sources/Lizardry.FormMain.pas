@@ -94,8 +94,8 @@ end;
 procedure TFormMain.IdHTTPWorkBegin(ASender: TObject; AWorkMode: TWorkMode;
   AWorkCountMax: Int64);
 begin
-  if TheEnd = AWorkCountMax then
-    FrameLogin.Image1.Picture.LoadFromFile('111.jpg');
+//  if TheEnd = AWorkCountMax then
+//    FrameLogin.Image1.Picture.LoadFromFile('111.jpg');
 end;
 
 end.
