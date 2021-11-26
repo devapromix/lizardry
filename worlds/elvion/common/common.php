@@ -566,7 +566,9 @@ function auto_battle() {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
 			gen_loot();
-			$gold = get_value($user['enemy_gold']);
+			$gold = get_value($user['enemy_gold']); 
+			if ($gold > 0)
+				$gold += ($user['char_region_level'] * 10);
 			$user['char_gold'] += $gold;
 			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
