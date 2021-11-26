@@ -573,11 +573,11 @@ function auto_battle() {
 	}
 
 	$r .= '--------------------------------------------------------#';
-	$r .= 'Всего раундов: '.$rounds."#";
-	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
-	$r .= 'Попадания: '.$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
-	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
-	$r .= 'Уклонение / Парирование: '.$stat['char_dodges']." / ".$stat['char_parries']."#";
+	$r .= "Всего раундов: ".$rounds."#";
+	$r .= "Сумма урона: ".$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
+	$r .= "Попадания: ".$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
+	$r .= "Промахи: ".$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
+	$r .= "Уклон.: ".$stat['char_dodges']." Парир.: ".$stat['char_parries']."#";
 	if (ch_level_exp()) {
 		$r .= '--------------------------------------------------------#';
 		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
