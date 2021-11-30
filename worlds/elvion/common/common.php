@@ -557,10 +557,8 @@ function auto_battle() {
 		}
 
 		if ($user['char_life_cur'] <= 0) {
-			$user['char_life_cur'] = $user['char_life_max'];//debug
-			
-
-			//$user['char_life_cur'] = 0;
+			//$user['char_life_cur'] = $user['char_life_max'];//debug
+			$user['char_life_cur'] = 0;
 			$user['char_mana_cur'] = 0;
 			$user['stat_deads']++;
 			$user['char_exp'] -= round($user['char_exp'] / 5);

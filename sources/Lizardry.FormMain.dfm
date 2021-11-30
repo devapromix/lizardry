@@ -142,42 +142,6 @@ object FormMain: TFormMain
       Height = 712
       ExplicitLeft = 904
       ExplicitHeight = 712
-      inherited Panel12: TPanel
-        ExplicitTop = 266
-      end
-      inherited Panel13: TPanel
-        ExplicitTop = 56
-      end
-      inherited Panel14: TPanel
-        ExplicitTop = 86
-      end
-      inherited Panel15: TPanel
-        ExplicitTop = 241
-      end
-      inherited Panel16: TPanel
-        ExplicitTop = 116
-      end
-      inherited Panel17: TPanel
-        ExplicitTop = 166
-      end
-      inherited Panel18: TPanel
-        ExplicitTop = 216
-      end
-      inherited pnEqWeapon: TPanel
-        ExplicitTop = 141
-      end
-      inherited pnEqArmor: TPanel
-        ExplicitTop = 191
-      end
-      inherited HPPanel: TPanel
-        ExplicitTop = 81
-      end
-      inherited MPPanel: TPanel
-        ExplicitTop = 111
-      end
-      inherited XPPanel: TPanel
-        ExplicitTop = 51
-      end
     end
     inherited LeftPanel: TPanel
       Height = 712
@@ -199,8 +163,6 @@ object FormMain: TFormMain
           ExplicitWidth = 624
           ExplicitHeight = 487
           inherited TabSheet2: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 32
             ExplicitWidth = 616
             ExplicitHeight = 451
             inherited SG: TStringGrid
@@ -356,21 +318,6 @@ object FormMain: TFormMain
             inherited Panel3: TPanel
               Left = 284
               ExplicitLeft = 284
-              inherited Label4: TLabel
-                Visible = False
-              end
-              inherited Label5: TLabel
-                Visible = False
-              end
-              inherited ttCharDamage: TLabel
-                Visible = False
-              end
-              inherited Label7: TLabel
-                Visible = False
-              end
-              inherited ttCharArmor: TLabel
-                Visible = False
-              end
             end
           end
         end

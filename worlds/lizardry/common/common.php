@@ -24,11 +24,13 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
-	$user['enemy_life_max'] = round($enemy['enemy_level'] * 4.9) + rand(10, 20);
+	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
-	$user['enemy_damage_min'] = round($enemy['enemy_level'] / 2) + 1;
-	$user['enemy_damage_max'] = round($enemy['enemy_level'] / 2) + 3;
-	$user['enemy_armor'] = round($enemy['enemy_level'] / 2.7);
+	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
+	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
+	if ($user['enemy_damage_min'] < 1)
+		$user['enemy_damage_min'] = 1;
+	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
@@ -91,6 +93,11 @@ function equip_item($item_ident) {
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
+		case 8:	case 9:	case 10:
+			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			add_item($item['item_ident']);
+			update_user_table("char_gold=".$user['char_gold']);
+			break;
 	}
 }
 function pickup_equip_item() {
@@ -114,13 +121,13 @@ function pickup_equip_item() {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
-			$r .= 'Вы бросаете свой старый '.$user['char_equip_armor_name'];
+			$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_damage_min'] = $item['item_damage_min'];
 			$user['char_damage_max'] = $item['item_damage_max'];
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
-			$r .= ' и берете в руки новый '.$user['char_equip_armor_name'].'.';
+			$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 8:
@@ -145,6 +152,9 @@ function item_values($item_ident) {
 			break;
 		case 1:
 			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
+			break;
+		case 8:	case 9:	case 10:
+			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
 			break;
 	}
 }
@@ -306,6 +316,14 @@ function add_event($type, $name, $level = 1, $gender = 0, $str = '') {
 	}
 }
 
+function get_loot_level() {
+	global $user;
+	$r = $user['enemy_level'];
+	if ($r > $user['char_level'])
+		$r = $user['char_level'];
+	return $r;
+}
+
 function get_events() {
 	global $connection, $tb_events;
 	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str FROM ".$tb_events." ORDER BY id  DESC LIMIT 0, 15";
@@ -332,11 +350,11 @@ function gen_loot() {
 		
 		switch($loot_type) {
 			case 0:
-				$loot_level = $user['enemy_level'];
+				$loot_level = get_loot_level();
 				$next = (rand(0, 12) == 0);
 				break;
 			case 1:
-				$loot_level = $user['enemy_level'];
+				$loot_level = get_loot_level();
 				$next = (rand(0, 11) == 0);
 				break;
 				
@@ -357,21 +375,81 @@ function gen_loot() {
 	}
 }
 
+function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
+	return $atk_damage - round($atk_damage * $def_armor / 100);
+}
+
+function get_glancing_blow_damage($damage){
+	$r = round($damage / rand(2, 3));
+	if ($r < 1)
+		$r = 1;
+	return $r;
+}
+
+function get_crushing_blow_damage($damage) {
+	return $damage * rand(3, 5);
+}
+
+function get_bewildering_strike_damage($damage) {
+	return rand(round($damage * 0.75), round($damage * 1.2));
+}
+
 function char_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
-		if (rand(1, 5) >= 2) {
-			$d = rand($user['char_damage_min'], $user['char_damage_max']) - $user['enemy_armor'];
+		if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
+			$d = rand($user['char_damage_min'], $user['char_damage_max']);
+			$d = get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
+			$stat['char_hits']++;
 			if ($d <= 0) {
 				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 			} else {
-				$stat['char_damages'] += $d;
-				$user['enemy_life_cur'] -= $d;
-				if ($user['enemy_life_cur'] > 0) {
-					$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
-				}else{
-					$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+				if (rand(1, 100) <= $user['skill_bewil']) {
+					$d = get_bewildering_strike_damage($d);
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите ошеломляющий удар и раните '.$user['enemy_name'].' на '.$d.' HP! '.$user['enemy_name'].' в смятении.#';
+						$r .= char_battle_round();
+					} else {
+						$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
+					return $r;
+				} else if (rand(1, 100) <= 5) {
+					$d = get_glancing_blow_damage($d);
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите скользящий удар и раните '.$user['enemy_name'].' на '.$d.' HP.#';
+					} else {
+						$r .= 'Вы наносите скользящий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
+					return $r;
+				} else if (rand(1, 100) <= 1) {
+					$d += $user['char_damage_max'];
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы наносите критический удар и раните '.$user['enemy_name'].' на '.$d.' HP!#';
+					} else {
+						$r .= 'Вы наносите критический удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
+					}
+				} else {
+					$crushing_blow_damage = get_crushing_blow_damage($d);
+					if ((rand(1, 100) <= 0)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
+						$stat['char_damages'] += $crushing_blow_damage;
+						$user['enemy_life_cur'] = 0;
+						$r .= 'Вы наносите сокрушающий удар на '.$crushing_blow_damage.' HP и убиваете '.$user['enemy_name'].'!#';
+						return $r;
+					}
+					$stat['char_damages'] += $d;
+					$user['enemy_life_cur'] -= $d;
+					if ($user['enemy_life_cur'] > 0) {
+						$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
+					} else {
+						$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
+					}
 				}
 			}
 		} else {
@@ -386,18 +464,49 @@ function enemy_battle_round() {
 	global $user, $stat;
 	$r = '';
 	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
-		if (rand(1, 5) >= 2) {
-			$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']) - $user['char_armor'];
-			if ($d <= 0) {
-				$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
-			} else {
-				$stat['enemy_damages'] += $d;
-				$user['char_life_cur'] -= $d;
-				if ($user['char_life_cur'] > 0) {
-					$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-				}else{
-					$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+		if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
+			if (rand(1, 100) > $user['skill_dodge']) {
+				if (rand(1, 100) > $user['skill_parry']) {
+					if (rand(1, 100) > 10) { // Расовый навык уклонения у людей, ящеров и эльфов
+						if (rand(1, 3) > 1)
+							$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
+						else
+							$d = $user['enemy_damage_min'];
+						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
+						$stat['enemy_hits']++;
+						if ($d <= 0) {
+							$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
+						} else {
+							if (rand(1, 100) <= 15) {
+								$d = get_glancing_blow_damage($d);
+								$stat['enemy_damages'] += $d;
+								$user['char_life_cur'] -= $d;
+								if ($user['char_life_cur'] > 0) {
+									$r .= $user['enemy_name'].' наносит скользящий удар и ранит вас на '.$d.' HP.#';
+								} else {
+									$r .= $user['enemy_name'].' наносит скользящий удар на '.$d.' HP и убивает вас.#';
+								}
+								return $r;
+							}
+							$stat['enemy_damages'] += $d;
+							$user['char_life_cur'] -= $d;
+							if ($user['char_life_cur'] > 0) {
+								$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+							} else {
+								$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
+							}
+						}
+					} else {
+						$r .= 'Ваш расовый навык позволяет уклониться от атаки!#';
+						$stat['char_dodges']++;
+					}
+				} else {
+					$r .= 'Вы парируете атаку '.$user['enemy_name'].'.#';
+					$stat['char_parries']++;
 				}
+			} else {
+				$r .= 'Вы ловко уклоняетесь от атаки '.$user['enemy_name'].'.#';
+				$stat['char_dodges']++;
 			}
 		} else {
 			$r .= $user['enemy_name'].' промахивается по вам.#';
@@ -414,6 +523,10 @@ function auto_battle() {
 	$rounds = 0;
 	$stat['char_damages'] = 0;
 	$stat['enemy_damages'] = 0;
+	$stat['char_dodges'] = 0;
+	$stat['char_parries'] = 0;
+	$stat['char_hits'] = 0;
+	$stat['enemy_hits'] = 0;
 	$stat['char_misses'] = 0;
 	$stat['enemy_misses'] = 0;
 	
@@ -434,7 +547,17 @@ function auto_battle() {
 			$r .= char_battle_round();
 		}
 
+		if ((rand(1, 100) > (($user['skill_run'] * 3) + 20))&&($user['char_life_cur'] > 0)) {
+			$r .= 'Вы пытаетесь уклониться от боя... ';
+			if ($user['char_life_cur'] < round($user['char_life_max'] / 10)) {
+				$r .= 'Вы отступаете!#';
+				break;
+			} else
+				$r .= $user['enemy_name'].' хитрее...';
+		}
+
 		if ($user['char_life_cur'] <= 0) {
+			//$user['char_life_cur'] = $user['char_life_max'];//debug
 			$user['char_life_cur'] = 0;
 			$user['char_mana_cur'] = 0;
 			$user['stat_deads']++;
@@ -450,7 +573,9 @@ function auto_battle() {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
 			gen_loot();
-			$gold = get_value($user['enemy_gold']);
+			$gold = get_value($user['enemy_gold']); 
+			if ($gold > 0)
+				$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
 			$user['char_gold'] += $gold;
 			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
@@ -471,9 +596,11 @@ function auto_battle() {
 	}
 
 	$r .= '--------------------------------------------------------#';
-	$r .= 'Всего раундов: '.$rounds."#";
-	$r .= 'Сумма урона: '.$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
-	$r .= 'Промахи: '.$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
+	$r .= "Всего раундов: ".$rounds."#";
+	$r .= "Сумма урона: ".$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
+	$r .= "Попадания: ".$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
+	$r .= "Промахи: ".$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
+	$r .= "Уклон.: ".$stat['char_dodges']." Парир.: ".$stat['char_parries']."#";
 	if (ch_level_exp()) {
 		$r .= '--------------------------------------------------------#';
 		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
@@ -565,6 +692,46 @@ function add_item($id, $count = 1) {
 	}
 }
 
+function get_region_item_level($item_level) {
+	$result = 1;
+	if ($item_level > 1)
+		$result = ($item_level - 1) * 12;
+	return $result;
+}
+
+function item_info($item_ident) {
+	global $user, $tb_item, $connection;
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	$ef = '';
+	switch($item['item_type']) {
+		case 8:
+			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
+			break;
+		case 9:
+			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
+			break;
+		case 10:
+			$ef = 'Увеличивает макс. запас здоровья на '.strval($item['item_level']*25).' ед.';
+			break;
+		case 11:
+			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
+			break;
+		case 12:
+			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
+			break;
+	}
+	if ($ef == '')
+		die('{"item":""}');
+	else
+		die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
+}
+
 function use_item($item_ident) {
 	global $user, $tb_item, $connection;
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
@@ -575,8 +742,12 @@ function use_item($item_ident) {
 	$item = $result->fetch_assoc();
 
 	$result = '';
+
+	if ($user['char_level'] < get_region_item_level($item['item_level'])) die('{"info":"Нужен уровень выше!"}');
+
 	switch($item['item_type']) {
 		case 8:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_life_cur'] += $item_level * 25;
 			if ($user['char_life_cur'] > $user['char_life_max'])
@@ -585,6 +756,7 @@ function use_item($item_ident) {
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
 		case 9:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_mana_cur'] += $item_level * 25;
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
@@ -593,6 +765,7 @@ function use_item($item_ident) {
 			$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 10:
+			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
 			$user['char_life_cur'] += $item_level * 25;
 			update_user_table("char_life_cur=".$user['char_life_cur']);
@@ -689,6 +862,10 @@ function rest_in_tavern_cost() {
 function food_in_tavern_cost() {
 	global $user;
 	return $user['char_region_level'] * 10;
+}
+
+function get_char_life($level) {
+	return ($level * 5) + 25;
 }
 
 ?>
