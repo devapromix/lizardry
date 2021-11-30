@@ -547,13 +547,14 @@ function auto_battle() {
 			$r .= char_battle_round();
 		}
 
-		if ((rand(1, 100) > (($user['skill_run'] * 3) + 20))&&($user['char_life_cur'] > 0)) {
-			$r .= 'Вы пытаетесь уклониться от боя... ';
-			if ($user['char_life_cur'] < round($user['char_life_max'] / 10)) {
+		if (($user['char_life_cur'] < round($user['char_life_max'] / 10))
+			&&($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
+			$r .= 'Вы пытаетесь уклониться от боя...#';
+			if (rand(1, 100) <= (($user['skill_run'] * 5) + 25)) {
 				$r .= 'Вы отступаете!#';
 				break;
 			} else
-				$r .= $user['enemy_name'].' хитрее...';
+				$r .= $user['enemy_name'].' бросается в атаку!#';
 		}
 
 		if ($user['char_life_cur'] <= 0) {

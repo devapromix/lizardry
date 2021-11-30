@@ -62,7 +62,7 @@ if ($action == 'guild_warrior') {
 	if ($user['char_lp'] > 0)
 		$t .= 'Выбирайте навык и приступайте к тренировкам.';
 	else
-		$t .= 'К сожалению я не могу тренировать вас.';
+		$t .= 'К сожалению я не могу сейчас тренировать вас - нужны очки развития навыков.';
 	$t .= '##Ваши навыки:#============#';
 	if ($user['skill_dodge'] > 0)
 		$t .= 'Уклонение: '.$user['skill_dodge'].'/50#';
@@ -73,10 +73,20 @@ if ($action == 'guild_warrior') {
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Тренировать "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge', 1);
-	addlink('Тренировать "Парирование"', 'index.php?action=guild_warrior&do=train_parry', 2);
-	addlink('Тренировать "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil', 3);
+	addlink('Информация по навыкам', 'index.php?action=guild_warrior&do=info', 1);
+	addlink('Тренировать "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge', 2);
+	addlink('Тренировать "Парирование"', 'index.php?action=guild_warrior&do=train_parry', 3);
+	addlink('Тренировать "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil', 4);
 
+	if ($do == 'info') {
+		$user['description'] = 'Вы просите мастера рассказать вам больше о навыках воина. Старый гном что-то невнятно бурчит себе под нос, но соглашается:#- Какой навык интересует? Выбирай.';
+		$user['links'] = array();
+		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior');
+		addlink('Навык "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge_info', 1);
+		addlink('Навык "Парирование"', 'index.php?action=guild_warrior&do=train_parry_info', 2);
+		addlink('Навык "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil_info', 3);
+	}
+	
 	if ($do == 'train_dodge') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($user['char_lp'] == 0) die('{"error":"Для тренировки нужны очки развития навыков!"}');
@@ -89,7 +99,12 @@ if ($action == 'guild_warrior') {
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_warrior');
 	}
-
+	if ($do == 'train_dodge_info') {
+		$user['description'] = 'Развитие навыка "Уклонение" позволит вам более часто уклоняться от вражеских атак и избегать урона. Вероятность уклониться от вражеского удара (используя навык) равна '.$user['skill_dodge'].'%.';
+		$user['links'] = array();
+		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+	}
+	
 	if ($do == 'train_parry') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($user['char_lp'] == 0) die('{"error":"Для тренировки нужны очки развития навыков!"}');
@@ -102,7 +117,14 @@ if ($action == 'guild_warrior') {
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_warrior');
 	}
-if ($do == 'train_bewil') {
+
+	if ($do == 'train_parry_info') {
+		$user['description'] = 'Парирование позволяет вам отбить в сторону удар врага и таким образом избежать урона. Вероятность парировать атаку противника равна '.$user['skill_parry'].'%.';
+		$user['links'] = array();
+		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+	}
+	
+	if ($do == 'train_bewil') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($user['char_lp'] == 0) die('{"error":"Для тренировки нужны очки развития навыков!"}');
 		if ($user['skill_bewil'] >= 50) die('{"error":"Вы достигли максимума в развитии навыка!"}');
@@ -115,6 +137,12 @@ if ($do == 'train_bewil') {
 		addlink('Назад', 'index.php?action=guild_warrior');
 	}
 
+	if ($do == 'train_bewil_info') {
+		$user['description'] = 'Ошеломляющий удар позволяет вам обескуражить врага и пока враг находится в смятении провести еще одну атаку за этот раунд. Вероятность того, что вы обрушите на врага ошеломляющий удар равна '.$user['skill_bewil'].'%.';
+		$user['links'] = array();
+		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+	}
+	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 	
 }
