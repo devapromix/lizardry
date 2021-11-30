@@ -547,6 +547,14 @@ function auto_battle() {
 			$r .= char_battle_round();
 		}
 
+		if ((rand(1, 100) > (($user['skill_run'] * 3) + 20))&&($user['char_life_cur'] > 0)) {
+			$r .= 'Вы пытаетесь отступить... ';
+			if ($user['char_life_cur'] < round($user['char_life_max'] / 10)) {
+				$r .= 'Вы отступаете.#';
+				break;
+			}
+		}
+
 		if ($user['char_life_cur'] <= 0) {
 			$user['char_life_cur'] = $user['char_life_max'];//debug
 			
@@ -568,7 +576,7 @@ function auto_battle() {
 			gen_loot();
 			$gold = get_value($user['enemy_gold']); 
 			if ($gold > 0)
-				$gold += ($user['char_region_level'] * 10);
+				$gold += ($user['char_region_level'] * rand(6, 10));
 			$user['char_gold'] += $gold;
 			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
