@@ -99,7 +99,10 @@ begin
       ShowMsg('Получен не верный ответ от сервера: 0!');
   except
     on E: Exception do
+    begin
       ShowMsg(FIdHTTP.ResponseText);
+      ShowError(Result);
+    end;
     on E: EIdHTTPProtocolException do
       ShowMsg(E.ErrorMessage);
     on E: EIdHTTPProtocolException do

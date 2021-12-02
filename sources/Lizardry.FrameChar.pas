@@ -103,6 +103,7 @@ begin
     Panel1.Caption := Format('%d/' + IntToStr(SG.RowCount - 1),
       [JSONArray.Count]);
   except
+    ShowError(S);
   end;
 end;
 

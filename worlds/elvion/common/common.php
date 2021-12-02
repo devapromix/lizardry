@@ -711,9 +711,11 @@ function item_modify($id, $value) {
 		if ($item_id == $id) {
 			$count = $item['count'];
 			$count += $value;
-			$items[$i]['count'] = $count;
-			if ($count <= 0)
+			if ($count <= 0) {
 				unset($items[$i]);
+			} else {
+				$items[$i]['count'] = $count;
+			}
 			$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
 			update_user_table("char_inventory='".$user['char_inventory']."'");
 			break;

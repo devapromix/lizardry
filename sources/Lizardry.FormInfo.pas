@@ -3,8 +3,10 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
+  Vcl.ExtCtrls;
 
 type
   TFormInfo = class(TForm)
@@ -16,6 +18,8 @@ type
     TabSheet3: TTabSheet;
     MemoMobImages: TMemo;
     MobImagesPath: TPanel;
+    TabSheet4: TTabSheet;
+    ErrorMemo: TMemo;
   private
     { Private declarations }
   public
@@ -26,6 +30,7 @@ var
   FormInfo: TFormInfo;
 
 procedure MsgBox(const S: string);
+procedure ShowError(const S: string);
 
 implementation
 
@@ -35,6 +40,12 @@ procedure MsgBox(const S: string);
 begin
   FormInfo.RichEdit1.Clear;
   FormInfo.RichEdit1.Lines.Append(S);
+end;
+
+procedure ShowError(const S: string);
+begin
+  FormInfo.ErrorMemo.Clear;
+  FormInfo.ErrorMemo.Lines.Append(S);
 end;
 
 end.
