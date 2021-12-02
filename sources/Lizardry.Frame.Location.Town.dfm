@@ -67,7 +67,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
       TabOrder = 1
-      ExplicitTop = 261
     end
     object Panel13: TPanel
       Tag = 5
@@ -80,7 +79,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
       TabOrder = 2
-      ExplicitTop = 51
     end
     object Panel14: TPanel
       Tag = 5
@@ -93,7 +91,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
       TabOrder = 3
-      ExplicitTop = 81
     end
     object Panel15: TPanel
       Tag = 5
@@ -106,7 +103,6 @@ object FrameTown: TFrameTown
       Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
       ParentBackground = False
       TabOrder = 4
-      ExplicitTop = 236
     end
     object Panel16: TPanel
       Tag = 5
@@ -119,7 +115,6 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
-      ExplicitTop = 111
     end
     object Panel11: TPanel
       Tag = 4
@@ -155,7 +150,6 @@ object FrameTown: TFrameTown
       Caption = #1059#1088#1086#1085': 2-3'
       ParentBackground = False
       TabOrder = 7
-      ExplicitTop = 161
     end
     object Panel18: TPanel
       Tag = 5
@@ -168,7 +162,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103': 0'
       ParentBackground = False
       TabOrder = 8
-      ExplicitTop = 211
     end
     object pnEqWeapon: TPanel
       Tag = 5
@@ -181,7 +174,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
       TabOrder = 9
-      ExplicitTop = 136
     end
     object pnEqArmor: TPanel
       Tag = 5
@@ -194,7 +186,6 @@ object FrameTown: TFrameTown
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
       TabOrder = 10
-      ExplicitTop = 186
     end
     object HPPanel: TPanel
       Tag = 5
@@ -207,7 +198,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 11
-      ExplicitTop = 76
       object Panel1: TPanel
         Tag = 5
         Left = 1
@@ -232,7 +222,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 12
-      ExplicitTop = 106
       object Panel3: TPanel
         Tag = 5
         Left = 1
@@ -257,7 +246,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 13
-      ExplicitTop = 50
       object Panel4: TPanel
         Tag = 5
         Left = 1
@@ -452,6 +440,8 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         ExplicitHeight = 249
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid

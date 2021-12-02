@@ -395,14 +395,17 @@ begin
       else if (S = 'outlands') then
       begin
         if JSON.TryGetValue('enemy_slot_1_image', S) then
-          FormMain.FrameTown.FrameOutlands1.Image2.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(S));
+          if (S <> '') then
+            FormMain.FrameTown.FrameOutlands1.Image2.Picture.LoadFromFile
+              (FormInfo.MobImagesPath.Caption + S + '.jpg');
         if JSON.TryGetValue('enemy_slot_2_image', S) then
-          FormMain.FrameTown.FrameOutlands1.Image3.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(S));
+          if (S <> '') then
+            FormMain.FrameTown.FrameOutlands1.Image3.Picture.LoadFromFile
+              (FormInfo.MobImagesPath.Caption + S + '.jpg');
         if JSON.TryGetValue('enemy_slot_3_image', S) then
-          FormMain.FrameTown.FrameOutlands1.Image4.Picture.Bitmap.Handle :=
-            LoadBitmap(hInstance, PChar(S));
+          if (S <> '') then
+            FormMain.FrameTown.FrameOutlands1.Image4.Picture.LoadFromFile
+              (FormInfo.MobImagesPath.Caption + S + '.jpg');
         FormMain.FrameTown.FrameOutlands1.BringToFront;
       end;
     end
@@ -550,8 +553,9 @@ begin
     if JSON.TryGetValue('enemy_armor', V) then
       FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: ' + V;
     if JSON.TryGetValue('enemy_image', S) then
-      FormMain.FrameTown.FrameBattle1.Image2.Picture.Bitmap.Handle :=
-        LoadBitmap(hInstance, PChar(S));
+      if (S <> '') then
+        FormMain.FrameTown.FrameBattle1.Image2.Picture.LoadFromFile
+          (FormInfo.MobImagesPath.Caption + S + '.jpg');
     LastCode := Code;
     FormMain.Refresh;
   finally

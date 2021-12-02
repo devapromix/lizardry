@@ -39,7 +39,6 @@ var
 implementation
 
 {$R *.dfm}
-{$R images.res}
 
 uses Registry, Lizardry.FormInfo, Lizardry.FormMsg;
 
