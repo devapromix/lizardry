@@ -395,15 +395,18 @@ begin
       else if (S = 'outlands') then
       begin
         if JSON.TryGetValue('enemy_slot_1_image', S) then
-          if (S <> '') then
+          if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S +
+            '.jpg')) then
             FormMain.FrameTown.FrameOutlands1.Image2.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
         if JSON.TryGetValue('enemy_slot_2_image', S) then
-          if (S <> '') then
+          if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S +
+            '.jpg')) then
             FormMain.FrameTown.FrameOutlands1.Image3.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
         if JSON.TryGetValue('enemy_slot_3_image', S) then
-          if (S <> '') then
+          if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S +
+            '.jpg')) then
             FormMain.FrameTown.FrameOutlands1.Image4.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
         FormMain.FrameTown.FrameOutlands1.BringToFront;
@@ -553,7 +556,8 @@ begin
     if JSON.TryGetValue('enemy_armor', V) then
       FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: ' + V;
     if JSON.TryGetValue('enemy_image', S) then
-      if (S <> '') then
+      if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S + '.jpg'))
+      then
         FormMain.FrameTown.FrameBattle1.Image2.Picture.LoadFromFile
           (FormInfo.MobImagesPath.Caption + S + '.jpg');
     LastCode := Code;
