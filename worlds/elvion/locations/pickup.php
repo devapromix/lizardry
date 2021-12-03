@@ -3,9 +3,7 @@
 if ($action == 'pickup_loot') {
 
 	$user['title'] = 'Находка!';
-	
 	$user['description'] = pickup_equip_item();
-
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }
@@ -22,7 +20,7 @@ if ($action == 'item_info') {
 }
 
 if ($action == 'use_item') {
-	
+
 	$h = '';
 	if ($itemindex > 0) {
 		$item_ident = item_ident_by_index($itemindex);

@@ -75,8 +75,8 @@ begin
     ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
-    Panel5.Caption := 'Подтверждение авторизации...';
-    Application.ProcessMessages;
+  Panel5.Caption := 'Подтверждение авторизации...';
+  Application.ProcessMessages;
   ResponseCode := Server.Get('index.php?action=login');
   if TServer.CheckLoginErrors(ResponseCode) then
     Exit;
@@ -294,7 +294,7 @@ begin
           Panel5.Caption := 'Загрузка изображения: ' + ImageName +
             '.jpg' + '...';
           Application.ProcessMessages;
-          FormMain.idHTTP.Get('http://' + Server.URL + '/images/' + ImageName +
+          Server.IdHTTP.Get('http://' + Server.URL + '/images/' + ImageName +
             '.jpg', FS);
         finally
           FS.Free;

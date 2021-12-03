@@ -20,6 +20,8 @@ type
     MobImagesPath: TPanel;
     TabSheet4: TTabSheet;
     ErrorMemo: TMemo;
+    TabSheet5: TTabSheet;
+    InvMemo: TMemo;
   private
     { Private declarations }
   public
@@ -30,6 +32,7 @@ var
   FormInfo: TFormInfo;
 
 procedure MsgBox(const S: string);
+procedure InvError(const S: string);
 procedure ShowError(const S: string);
 
 implementation
@@ -46,6 +49,12 @@ procedure ShowError(const S: string);
 begin
   FormInfo.ErrorMemo.Clear;
   FormInfo.ErrorMemo.Lines.Append(S);
+end;
+
+procedure InvError(const S: string);
+begin
+  FormInfo.InvMemo.Clear;
+  FormInfo.InvMemo.Lines.Append(S);
 end;
 
 end.

@@ -20,9 +20,10 @@ object FormInfo: TFormInfo
     Top = 0
     Width = 749
     Height = 458
-    ActivePage = TabSheet3
+    ActivePage = TabSheet5
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = -32
     object TabSheet1: TTabSheet
       Caption = #1051#1086#1082#1072#1094#1080#1103
       object RichEdit1: TRichEdit
@@ -98,6 +99,22 @@ object FormInfo: TFormInfo
         ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 0
+      end
+    end
+    object TabSheet5: TTabSheet
+      Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1100
+      ImageIndex = 4
+      object InvMemo: TMemo
+        Left = 0
+        Top = 0
+        Width = 741
+        Height = 430
+        Align = alClient
+        TabOrder = 0
+        ExplicitLeft = 104
+        ExplicitTop = 96
+        ExplicitWidth = 185
+        ExplicitHeight = 89
       end
     end
   end
