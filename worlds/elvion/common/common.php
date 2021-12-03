@@ -716,6 +716,7 @@ function item_modify($id, $value) {
 			} else {
 				$items[$i]['count'] = $count;
 			}
+			$items = array_values($items);
 			$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
 			update_user_table("char_inventory='".$user['char_inventory']."'");
 			break;

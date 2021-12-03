@@ -127,6 +127,7 @@ begin
   if Math.InRange(I, 1, ItCount) then
     FormMain.FrameTown.ParseJSON
       (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
+  ttInfo.Caption := '';
 end;
 
 end.
