@@ -155,6 +155,7 @@ begin
   else
     S := 'Вам нужно боновить клиент!';
   FormMain.FrameUpdate.ttInfo.Caption := S;
+  FormMain.FrameUpdate.ttUpdate.Caption := '';
   FormMain.FrameUpdate.BringToFront;
 end;
 
@@ -281,6 +282,7 @@ begin
   ForceDirectories(FormInfo.MobImagesPath.Caption);
   FormInfo.MemoMobImages.Text := Server.GetFromDB('enemies');
   Panel5.Caption := 'Проверка и загрузка изображений...';
+  FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;
   try
     JSONArray := TJSONObject.ParseJSONValue(FormInfo.MemoMobImages.Text)
@@ -297,12 +299,14 @@ begin
         try
           Panel5.Caption := 'Загрузка изображения: ' + ImageName +
             '.jpg' + '...';
+          FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
           Application.ProcessMessages;
           Server.IdHTTP.Get('http://' + Server.URL + '/images/' + ImageName +
             '.jpg', FS);
         finally
           FS.Free;
           Panel5.Caption := '';
+          FormMain.FrameUpdate.ttUpdate.Caption := '';
         end;
       end;
     end;

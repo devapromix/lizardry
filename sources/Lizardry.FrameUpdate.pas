@@ -17,11 +17,14 @@ type
     bbOpenSite: TBitBtn;
     SpeedButton5: TSpeedButton;
     ttInfo: TLabel;
-    BitBtn1: TBitBtn;
+    bbUpdImages: TBitBtn;
+    ttUpdate: TLabel;
+    SpeedButton1: TSpeedButton;
     procedure bbBackClick(Sender: TObject);
     procedure bbOpenSiteClick(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure bbUpdImagesClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,9 +49,14 @@ begin
     nil, SW_SHOW);
 end;
 
-procedure TFrameUpdate.BitBtn1Click(Sender: TObject);
+procedure TFrameUpdate.bbUpdImagesClick(Sender: TObject);
 begin
   FormMain.FrameLogin.LoadFromDBEnemies(True);
+end;
+
+procedure TFrameUpdate.SpeedButton1Click(Sender: TObject);
+begin
+  ShowMsg('Принудительная загрузка и обновление всех изображений.');
 end;
 
 procedure TFrameUpdate.SpeedButton5Click(Sender: TObject);
