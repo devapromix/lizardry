@@ -162,7 +162,15 @@ object FormMain: TFormMain
           Height = 487
           ExplicitWidth = 624
           ExplicitHeight = 487
+          inherited TabSheet1: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
+          end
           inherited TabSheet2: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
             ExplicitWidth = 616
             ExplicitHeight = 451
             inherited SG: TStringGrid
@@ -185,6 +193,18 @@ object FormMain: TFormMain
                 ExplicitWidth = 614
               end
             end
+          end
+          inherited TabSheet3: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
+          end
+          inherited TabSheet4: TTabSheet
+            ExplicitLeft = 4
+            ExplicitTop = 32
+            ExplicitWidth = 519
+            ExplicitHeight = 400
           end
         end
       end
@@ -320,6 +340,36 @@ object FormMain: TFormMain
               ExplicitLeft = 284
             end
           end
+        end
+      end
+    end
+  end
+  inline FrameUpdate: TFrameUpdate
+    Left = 0
+    Top = 0
+    Width = 1184
+    Height = 712
+    Align = alClient
+    TabOrder = 3
+    ExplicitLeft = 384
+    ExplicitTop = 232
+    inherited Panel1: TPanel
+      Height = 712
+    end
+    inherited Panel2: TPanel
+      Width = 934
+      Height = 712
+      ExplicitLeft = 250
+      ExplicitTop = 0
+      ExplicitWidth = 408
+      ExplicitHeight = 436
+      inherited Panel3: TPanel
+        Width = 932
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 406
+        inherited Image1: TImage
+          Width = 932
         end
       end
     end

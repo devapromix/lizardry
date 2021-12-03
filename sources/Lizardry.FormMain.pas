@@ -7,13 +7,14 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Lizardry.FrameLogin, Lizardry.FrameRegistration, Lizardry.Frame.Location.Town,
   IdAntiFreezeBase, IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPConnection,
-  IdTCPClient, IdHTTP;
+  IdTCPClient, IdHTTP, Lizardry.FrameUpdate;
 
 type
   TFormMain = class(TForm)
     FrameLogin: TFrameLogin;
     FrameRegistration: TFrameRegistration;
     FrameTown: TFrameTown;
+    FrameUpdate: TFrameUpdate;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);

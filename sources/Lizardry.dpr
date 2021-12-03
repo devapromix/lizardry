@@ -22,7 +22,8 @@ uses
   Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt},
   Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg},
   Lizardry.InventoryString in 'Lizardry.InventoryString.pas',
-  Lizardry.FrameChar in 'Lizardry.FrameChar.pas' {FrameChar: TFrame};
+  Lizardry.FrameChar in 'Lizardry.FrameChar.pas' {FrameChar: TFrame},
+  Lizardry.FrameUpdate in 'Lizardry.FrameUpdate.pas' {FrameUpdate: TFrame};
 
 {$R *.res}
 

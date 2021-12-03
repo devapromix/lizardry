@@ -36,14 +36,12 @@ type
     ComboBox1: TComboBox;
     Label4: TLabel;
     SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
     procedure InfoClick(Sender: TObject);
     procedure bbUpdateClick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
-    procedure SpeedButton7Click(Sender: TObject);
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
@@ -52,14 +50,14 @@ type
     { Public declarations }
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
-    procedure LoadFromDBEnemies;
+    procedure LoadFromDBEnemies(F: Boolean = False);
   end;
 
 implementation
 
 {$R *.dfm}
 
-uses JSON, ShellAPI, IOUtils, Registry, Lizardry.FormMain, Lizardry.Server,
+uses JSON, IOUtils, Registry, Lizardry.FormMain, Lizardry.Server,
   Lizardry.Frame.Location.Town,
   Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
 
@@ -144,14 +142,20 @@ begin
 end;
 
 procedure TFrameLogin.bbUpdateClick(Sender: TObject);
+var
+  S: string;
 begin
+  S := '';
   if not TServer.IsInternetConnected then
   begin
-    ShowMsg('Невозможно подключиться к серверу!');
-    Exit;
-  end;
-  if not IsNewClientVersion then
-    ShowMsg('Вы используете самую новую версию клиента!');
+    S := 'Невозможно подключиться к серверу!';
+  end
+  else if not IsNewClientVersion then
+    S := 'Вы используете самую новую версию клиента!'
+  else
+    S := 'Вам нужно боновить клиент!';
+  FormMain.FrameUpdate.ttInfo.Caption := S;
+  FormMain.FrameUpdate.BringToFront;
 end;
 
 procedure TFrameLogin.ComboBox1Change(Sender: TObject);
@@ -266,7 +270,7 @@ begin
   end;
 end;
 
-procedure TFrameLogin.LoadFromDBEnemies;
+procedure TFrameLogin.LoadFromDBEnemies(F: Boolean = False);
 var
   JSONArray: TJSONArray;
   I: Integer;
@@ -285,7 +289,7 @@ begin
     begin
       ImageName := LowerCase(TJSONPair(TJSONObject(JSONArray.Get(I))
         .Get('enemy_image')).JsonValue.Value);
-      if not FileExists(FormInfo.MobImagesPath.Caption + ImageName + '.jpg')
+      if F or not FileExists(FormInfo.MobImagesPath.Caption + ImageName + '.jpg')
       then
       begin
         FS := TFileStream.Create(FormInfo.MobImagesPath.Caption + '\' +
@@ -321,12 +325,6 @@ begin
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
   StaticText1.Caption := GetEventsText(Server.Get('index.php?action=events'));
-end;
-
-procedure TFrameLogin.SpeedButton7Click(Sender: TObject);
-begin
-  ShellExecute(handle, 'open', 'https://github.com/devapromix/lizardry', nil,
-    nil, SW_SHOW);
 end;
 
 end.

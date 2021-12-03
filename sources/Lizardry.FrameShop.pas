@@ -49,7 +49,8 @@ procedure TFrameShop.DrawGrid;
 var
   W, I: Integer;
 begin
-  W := FormMain.FrameTown.FrameShop1.Width - 340;
+//  W := FormMain.FrameTown.FrameShop1.Width - 340;
+  W := FormMain.Width - 340;
   SG.ColWidths[0] := 30;
   SG.ColWidths[1] := W;
   SG.ColWidths[2] := 100;
