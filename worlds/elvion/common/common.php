@@ -213,6 +213,31 @@ function add_item_to_shop($item_slot, $item_ident) {
 	}
 }
 
+function get_slot_item_ident($item_slot) {
+	global $user;
+	
+	switch($item_slot) {
+		case 1:
+			return $user['item_slot_1'];
+			break;
+		case 2:
+			return $user['item_slot_2'];
+			break;
+		case 3:
+			return $user['item_slot_3'];
+			break;
+		case 4:
+			return $user['item_slot_4'];
+			break;
+		case 5:
+			return $user['item_slot_5'];
+			break;
+		case 6:
+			return $user['item_slot_6'];
+			break;
+	}
+}
+
 function change_region($region_ident, $food, $gold) {
 	global $user, $tb_regions, $connection;
 	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
@@ -676,8 +701,13 @@ function get_value($value) {
 	return $r;
 }
 
+function trophy_price($price, $count) {
+	global $user;
+	return $price * ($count * $user['char_region'] * 0.35);
+}
+
 function trophy_list() {
-	global $user, $tb_item, $connection;
+	global $tb_item, $connection;
 	
 	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
 	$result = mysqli_query($connection, $query) 
@@ -691,7 +721,7 @@ function trophy_list() {
 		$id = $item['item_ident'];
 		if (has_item($id)) {
 			$count = item_count($id);
-			$price = $item['item_price'] * $count * $user['char_region'];
+			$price = trophy_price($item['item_price'], $count);
 			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
 			$gold += $price;
 		}
@@ -719,7 +749,7 @@ function trophy_trade() {
 		if (has_item($id)) {
 			$count = item_count($id);
 			if ($count > 0) {
-				$price = $item['item_price'] * $count * $user['char_region'];
+				$price = trophy_price($item['item_price'], $count);
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);
@@ -811,7 +841,16 @@ function item_info($item_ident) {
 	$item = $result->fetch_assoc();
 
 	$ef = '';
+	$eq = '';
 	switch($item['item_type']) {
+		case 0:
+			$ef = 'Броня: '.$item['item_armor'];
+			$eq = 'Кожаный Доспех.';
+			break;
+		case 1:
+			$ef = 'Урон: '.$item['item_damage_min'].'-'.$item['item_damage_max'];
+			$eq = 'Одноручный Меч.';
+			break;
 		case 8:
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
 			break;
@@ -819,7 +858,7 @@ function item_info($item_ident) {
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
 			break;
 		case 10:
-			$ef = 'Увеличивает макс. запас здоровья на '.strval($item['item_level']*25).' ед.';
+			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*25).' ед.';
 			break;
 		case 11:
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
@@ -830,8 +869,11 @@ function item_info($item_ident) {
 	}
 	if ($ef == '')
 		die('{"item":""}');
-	else
-		die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
+	else 
+		if ($eq != '')
+			die('{"item":"'.$item['item_name'].'\n'.$eq.' Уровень предмета: '.$item['item_level'].'\n'.$ef.'"}');
+		else
+			die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
 }
 
 function use_item($item_ident) {

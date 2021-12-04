@@ -217,7 +217,10 @@ begin
     if UpperCase(Section) = 'ITEM' then
     begin
       if JSON.TryGetValue('item', S) then
+      begin
         FormMain.FrameTown.FrameChar.ttInfo.Caption := S;
+        FormMain.FrameTown.FrameShop1.ttInfo.Caption := S;
+      end;
     end;
     if UpperCase(Section) = 'ERROR' then
     begin

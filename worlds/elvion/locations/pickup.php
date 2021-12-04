@@ -8,6 +8,15 @@ if ($action == 'pickup_loot') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }
 
+if ($action == 'shop_item_info') {
+
+	if ($itemslot > 0) {
+		$item_ident = get_slot_item_ident($itemslot);
+		item_info($item_ident);
+	}
+
+}
+
 if ($action == 'item_info') {
 	
 	if ($itemindex > 0) {

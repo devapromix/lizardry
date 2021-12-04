@@ -14,12 +14,13 @@ object FrameShop: TFrameShop
     Left = 0
     Top = 64
     Width = 910
-    Height = 180
+    Height = 190
     Align = alTop
     Color = clBtnFace
     RowCount = 7
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
     TabOrder = 0
+    OnClick = SGClick
     OnDblClick = SGDblClick
     OnKeyDown = SGKeyDown
   end
@@ -43,6 +44,29 @@ object FrameShop: TFrameShop
       ExplicitTop = 32
       ExplicitWidth = 66
       ExplicitHeight = 21
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 254
+    Width = 910
+    Height = 64
+    Align = alTop
+    TabOrder = 2
+    ExplicitTop = 336
+    ExplicitWidth = 519
+    object ttInfo: TLabel
+      Left = 1
+      Top = 1
+      Width = 908
+      Height = 62
+      Align = alClient
+      Alignment = taCenter
+      AutoSize = False
+      WordWrap = True
+      ExplicitLeft = 0
+      ExplicitTop = 6
+      ExplicitWidth = 517
     end
   end
 end

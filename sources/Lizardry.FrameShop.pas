@@ -16,8 +16,11 @@ type
     SG: TStringGrid;
     Panel1: TPanel;
     Label1: TLabel;
+    Panel2: TPanel;
+    ttInfo: TLabel;
     procedure SGDblClick(Sender: TObject);
     procedure SGKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure SGClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,8 +52,7 @@ procedure TFrameShop.DrawGrid;
 var
   W, I: Integer;
 begin
-//  W := FormMain.FrameTown.FrameShop1.Width - 340;
-  W := FormMain.Width - 340;
+  W := FormMain.FrameTown.FrameShop1.Width - 340;
   SG.ColWidths[0] := 30;
   SG.ColWidths[1] := W;
   SG.ColWidths[2] := 100;
@@ -62,6 +64,17 @@ begin
   SG.Cells[2, 0] := 'Броня';
   SG.Cells[3, 0] := 'Уровень';
   SG.Cells[4, 0] := 'Цена';
+end;
+
+procedure TFrameShop.SGClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  if IsChatMode or IsCharMode then
+    Exit;
+  I := SG.Row;
+  FormMain.FrameTown.ParseJSON
+    (Server.Get('index.php?action=shop_item_info&itemslot=' + IntToStr(I)));
 end;
 
 procedure TFrameShop.SGDblClick(Sender: TObject);

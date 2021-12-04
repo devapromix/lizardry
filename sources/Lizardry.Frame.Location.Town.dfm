@@ -651,6 +651,9 @@ object FrameTown: TFrameTown
             ExplicitWidth = 335
           end
         end
+        inherited Panel2: TPanel
+          Width = 335
+        end
       end
       inline FrameInfo1: TFrameInfo
         Left = 1
