@@ -4,13 +4,14 @@ if ($action == 'guilds') {
 	
 	$user['title'] = 'Квартал Гильдий';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = '';
+		$user['description'] = 'Вы спускаетесь в нижнюю часть города. Здесь тихо и не так многолюдно как в центральной части города.';
 	} else shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		go_to_the_town('Идти на площадь города');
 		addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
 		addlink('Гильдия Воинов', 'index.php?action=guild_warrior', 2);
+		addlink('Гильдия Охотников', 'index.php?action=guild_hunter', 3);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -144,7 +145,29 @@ if ($action == 'guild_warrior') {
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
-	
+
+}
+
+if ($action == 'guild_hunter') {
+
+	$user['title'] = 'Гильдия Охотников';
+	$t = 'Вы входите в светлый просторный зал. Вас встречает высокий эльф в добротной кожаной броне:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Охотников. У нас можно улучшить свои навыки или изучить новые.#Также я щедро плачу золотом за ценные охотничьи трофеи.##';
+	$t .= trophy_list();
+	$user['description'] = $t;
+	$user['links'] = array();
+	addlink('Покинуть гильдию', 'index.php?action=guilds');
+	addlink('Продать Трофеи', 'index.php?action=guild_hunter&do=trophy_trade', 1);
+
+	if ($do == 'trophy_trade') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$gold = trophy_trade();
+		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_hunter');
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
 }
 
 ?>

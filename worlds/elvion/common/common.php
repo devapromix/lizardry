@@ -145,7 +145,7 @@ function pickup_equip_item() {
 			add_item($item['item_ident']);
 			break;
 		case 21:
-			$r = 'Вы забираете'.$item['item_name'].' себе.';
+			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			add_item($item['item_ident']);
 			break;
 	}
@@ -674,6 +674,62 @@ function get_value($value) {
 	}
 	
 	return $r;
+}
+
+function trophy_list() {
+	global $user, $tb_item, $connection;
+	
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	
+	$r = '';
+	$t = '';
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			$price = $item['item_price'] * $count * $user['char_region'];
+			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
+			$gold += $price;
+		}
+	}
+	
+	if ($t != '') {
+		$r .= 'Ваши трофеи:#============#'.$t;
+		$r .= '============#Всего: '.$gold.' зол.';
+	}
+	
+	return $r;
+}
+
+function trophy_trade() {
+	global $user, $tb_item, $connection;
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			if ($count > 0) {
+				$price = $item['item_price'] * $count * $user['char_region'];
+				$user['char_gold'] += $price;
+				$gold += $price;
+				item_modify($id, -$count);
+			}
+		}
+	}
+	
+	update_user_table("char_gold=".$user['char_gold']);
+
+	return $gold;
 }
 
 function has_item($id) {
