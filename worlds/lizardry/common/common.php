@@ -34,7 +34,7 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 
-	update_user_table("enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
+	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
 }
 
@@ -93,7 +93,12 @@ function equip_item($item_ident) {
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
-		case 8:	case 9:	case 10:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
 			add_item($item['item_ident']);
 			update_user_table("char_gold=".$user['char_gold']);
@@ -133,7 +138,14 @@ function pickup_equip_item() {
 		case 8:
 		case 9:
 		case 10:
+		case 11:
+		case 12:
+		case 13:
 			$r .= 'Вы забираете себе '.$item['item_name'].' ('.$item['item_level'].')'.'.';
+			add_item($item['item_ident']);
+			break;
+		case 21:
+			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			add_item($item['item_ident']);
 			break;
 	}
@@ -153,7 +165,12 @@ function item_values($item_ident) {
 		case 1:
 			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
-		case 8:	case 9:	case 10:
+		case 8:	
+		case 9:	
+		case 10:
+		case 11:
+		case 12:
+		case 13:
 			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
 			break;
 	}
@@ -192,6 +209,31 @@ function add_item_to_shop($item_slot, $item_ident) {
 			$user['item_slot_6'] = $item_ident;
 			$user['item_slot_6_values'] = item_values($item_ident);
 			update_user_table("item_slot_6=".$user['item_slot_6']);
+			break;
+	}
+}
+
+function get_slot_item_ident($item_slot) {
+	global $user;
+	
+	switch($item_slot) {
+		case 1:
+			return $user['item_slot_1'];
+			break;
+		case 2:
+			return $user['item_slot_2'];
+			break;
+		case 3:
+			return $user['item_slot_3'];
+			break;
+		case 4:
+			return $user['item_slot_4'];
+			break;
+		case 5:
+			return $user['item_slot_5'];
+			break;
+		case 6:
+			return $user['item_slot_6'];
 			break;
 	}
 }
@@ -336,15 +378,35 @@ function get_events() {
 $stat = array();
 
 function gen_loot() {
-	global $user, $tb_item, $connection;
+	global $user, $tb_item, $tb_enemy, $connection;
 
-	if (rand(0,3) == 0) {
+	if (rand(1,2) == 1) {
+		$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$enemy = $result->fetch_assoc();
+
+		$trophy_ident = $enemy['enemy_trophy'];
+		if ($trophy_ident > 0) {
+			$query = "SELECT item_name FROM ".$tb_item." WHERE item_ident=".$trophy_ident;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+		
+			$user['loot_slot_1'] = $trophy_ident;
+			$user['loot_slot_1_name'] = $item['item_name'];
+			$user['loot_slot_1_type'] = 21;
+	
+			if ($user['loot_slot_1'] > 0)
+				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+		}
+	} else if (rand(0,3) == 0) {
 
 		$next = true;
 		$loot_level = $user['char_region'];
 		$loot_type_array = [0,1,8,9,10];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
-
+		
 		if (($loot_level > 1)&&(rand(0, 4) == 0))
 			$loot_level--;
 		
@@ -357,10 +419,10 @@ function gen_loot() {
 				$loot_level = get_loot_level();
 				$next = (rand(0, 11) == 0);
 				break;
-				
 		}
+		
 		if ($next) {
-			$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".	$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+			$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
 			$result = mysqli_query($connection, $query) 
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			$item = $result->fetch_assoc();
@@ -373,6 +435,10 @@ function gen_loot() {
 				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 		}
 	}
+}
+
+function gen_trophy() {
+	
 }
 
 function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
@@ -573,6 +639,7 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
+			gen_trophy();
 			gen_loot();
 			$gold = get_value($user['enemy_gold']); 
 			if ($gold > 0)
@@ -634,6 +701,67 @@ function get_value($value) {
 	return $r;
 }
 
+function trophy_price($price, $count) {
+	global $user;
+	return $price * round($count * $user['char_region'] * 0.35);
+}
+
+function trophy_list() {
+	global $tb_item, $connection;
+	
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	
+	$r = '';
+	$t = '';
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			$price = trophy_price($item['item_price'], $count);
+			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
+			$gold += $price;
+		}
+	}
+	
+	if ($t != '') {
+		$r .= 'Ваши трофеи:#============#'.$t;
+		$r .= '============#Всего: '.$gold.' зол.';
+	}
+	
+	return $r;
+}
+
+function trophy_trade() {
+	global $user, $tb_item, $connection;
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			if ($count > 0) {
+				$price = trophy_price($item['item_price'], $count);
+				$user['char_gold'] += $price;
+				$gold += $price;
+				item_modify($id, -$count);
+			}
+		}
+	}
+	
+	update_user_table("char_gold=".$user['char_gold']);
+
+	return $gold;
+}
+
 function has_item($id) {
 	global $user;
 	$inventory = $user['char_inventory'];
@@ -669,9 +797,12 @@ function item_modify($id, $value) {
 		if ($item_id == $id) {
 			$count = $item['count'];
 			$count += $value;
-			$items[$i]['count'] = $count;
-			if ($count <= 0)
+			if ($count <= 0) {
 				unset($items[$i]);
+			} else {
+				$items[$i]['count'] = $count;
+			}
+			$items = array_values($items);
 			$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
 			update_user_table("char_inventory='".$user['char_inventory']."'");
 			break;
@@ -710,7 +841,16 @@ function item_info($item_ident) {
 	$item = $result->fetch_assoc();
 
 	$ef = '';
+	$eq = '';
 	switch($item['item_type']) {
+		case 0:
+			$ef = 'Броня: '.$item['item_armor'];
+			$eq = 'Кожаный Доспех.';
+			break;
+		case 1:
+			$ef = 'Урон: '.$item['item_damage_min'].'-'.$item['item_damage_max'];
+			$eq = 'Одноручный Меч.';
+			break;
 		case 8:
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
 			break;
@@ -718,7 +858,7 @@ function item_info($item_ident) {
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
 			break;
 		case 10:
-			$ef = 'Увеличивает макс. запас здоровья на '.strval($item['item_level']*25).' ед.';
+			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*25).' ед.';
 			break;
 		case 11:
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
@@ -729,8 +869,11 @@ function item_info($item_ident) {
 	}
 	if ($ef == '')
 		die('{"item":""}');
-	else
-		die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
+	else 
+		if ($eq != '')
+			die('{"item":"'.$item['item_name'].'\n'.$eq.' Уровень предмета: '.$item['item_level'].'\n'.$ef.'"}');
+		else
+			die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
 }
 
 function use_item($item_ident) {
