@@ -703,7 +703,7 @@ function get_value($value) {
 
 function trophy_price($price, $count) {
 	global $user;
-	return $price * ($count * $user['char_region'] * 0.35);
+	return $price * round($count * $user['char_region'] * 0.35);
 }
 
 function trophy_list() {
