@@ -64,6 +64,7 @@ begin
   SG.Cells[2, 0] := 'Броня';
   SG.Cells[3, 0] := 'Уровень';
   SG.Cells[4, 0] := 'Цена';
+  ttInfo.Caption := '';
 end;
 
 procedure TFrameShop.SGClick(Sender: TObject);

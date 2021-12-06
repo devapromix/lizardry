@@ -53,8 +53,6 @@ object FrameShop: TFrameShop
     Height = 64
     Align = alTop
     TabOrder = 2
-    ExplicitTop = 336
-    ExplicitWidth = 519
     object ttInfo: TLabel
       Left = 1
       Top = 1
