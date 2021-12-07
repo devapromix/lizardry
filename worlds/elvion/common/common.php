@@ -163,10 +163,20 @@ function item_values($item_ident) {
 			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
 		case 8:	
+			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			break;
 		case 9:	
+			return $item['item_name'].','.strval($item['item_level']*10).','.$item['item_level'].','.$item['item_price'];
+			break;
 		case 10:
+			return $item['item_name'].','.strval($item['item_level']*20).','.$item['item_level'].','.$item['item_price'];
+			break;
 		case 11:
+			return $item['item_name'].','.strval($item['item_level']*15).','.$item['item_level'].','.$item['item_price'];
+			break;
 		case 12:
+			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			break;
 		case 13:
 			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
 			break;
@@ -852,13 +862,13 @@ function item_info($item_ident) {
 			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
 			break;
 		case 9:
-			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. маны.';
+			$ef = 'Восполнение '.strval($item['item_level']*10).' ед. маны.';
 			break;
 		case 10:
-			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*25).' ед.';
+			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*20).' ед.';
 			break;
 		case 11:
-			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья и маны.';
+			$ef = 'Восполнение '.strval($item['item_level']*15).' ед. здоровья и маны.';
 			break;
 		case 12:
 			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
@@ -902,7 +912,7 @@ function use_item($item_ident) {
 		case 9:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_mana_cur'] += $item_level * 25;
+			$user['char_mana_cur'] += $item_level * 10;
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
 				$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_mana_cur=".$user['char_mana_cur']);
@@ -911,7 +921,7 @@ function use_item($item_ident) {
 		case 10:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] += $item_level * 25;
+			$user['char_life_cur'] += $item_level * 20;
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
@@ -921,7 +931,7 @@ function use_item($item_ident) {
 			$user['char_life_cur'] += $item_level * 15;
 			if ($user['char_life_cur'] > $user['char_life_max'])
 				$user['char_life_cur'] = $user['char_life_max'];
-			$user['char_mana_cur'] += $item_level * 5;
+			$user['char_mana_cur'] += $item_level * 15;
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
 				$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
