@@ -468,7 +468,7 @@ begin
           Welcome;
           ShopType := stAlchemy;
           SG.Cells[1, 0] := 'Эликсир';
-          SG.Cells[2, 0] := 'Сила';
+          SG.Cells[2, 0] := 'Мощь';
           for K := 1 to 6 do
             if JSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
             begin

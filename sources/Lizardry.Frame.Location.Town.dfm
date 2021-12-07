@@ -440,6 +440,8 @@ object FrameTown: TFrameTown
         ExplicitWidth = 337
         ExplicitHeight = 249
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 329
           ExplicitHeight = 213
           inherited SG: TStringGrid
@@ -653,6 +655,10 @@ object FrameTown: TFrameTown
         end
         inherited Panel2: TPanel
           Width = 335
+          ExplicitWidth = 335
+          inherited ttInfo: TLabel
+            Width = 333
+          end
         end
       end
       inline FrameInfo1: TFrameInfo

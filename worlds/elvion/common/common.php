@@ -163,22 +163,22 @@ function item_values($item_ident) {
 			return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 			break;
 		case 8:	
-			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 9:	
-			return $item['item_name'].','.strval($item['item_level']*10).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*10).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 10:
-			return $item['item_name'].','.strval($item['item_level']*20).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*20).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 11:
-			return $item['item_name'].','.strval($item['item_level']*15).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*15).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 12:
-			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 13:
-			return $item['item_name'].','.strval($item['item_level']*25).','.$item['item_level'].','.$item['item_price'];
+			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 	}
 }
