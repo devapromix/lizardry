@@ -639,7 +639,7 @@ function auto_battle() {
 			$user['char_gold'] -= round($user['char_gold'] / 7);
 			$r .= '--------------------------------------------------------#';
 			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
-			add_event(3, $user['char_name'], 1, $user['char_gender'], $user['char_region_location_name']);
+			//add_event(3, $user['char_name'], 1, $user['char_gender'], $user['char_region_location_name']);
 			break;
 		}
 		

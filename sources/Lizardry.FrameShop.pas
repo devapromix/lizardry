@@ -59,7 +59,13 @@ begin
   SG.ColWidths[3] := 100;
   SG.ColWidths[4] := 100;
   for I := 1 to 6 do
+  begin
     SG.Cells[0, I] := IntToStr(I);
+    SG.Cells[1, 0] := '';
+    SG.Cells[2, 0] := '';
+    SG.Cells[3, 0] := '';
+    SG.Cells[4, 0] := '';
+  end;
   SG.Cells[1, 0] := 'Название';
   SG.Cells[2, 0] := 'Броня';
   SG.Cells[3, 0] := 'Уровень';
@@ -74,8 +80,11 @@ begin
   if IsChatMode or IsCharMode then
     Exit;
   I := SG.Row;
-  FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=shop_item_info&itemslot=' + IntToStr(I)));
+  if (SG.Cells[1, I] = '') then
+    ttInfo.Caption := ''
+  else
+    FormMain.FrameTown.ParseJSON
+      (Server.Get('index.php?action=shop_item_info&itemslot=' + IntToStr(I)));
 end;
 
 procedure TFrameShop.SGDblClick(Sender: TObject);
@@ -85,20 +94,23 @@ begin
   if IsChatMode or IsCharMode then
     Exit;
   I := SG.Row;
-  case ShopType of
-    // Weapon
-    stWeapon:
-      Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-        'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
-    // Alchemy
-    stAlchemy:
-      Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-        'index.php?action=shop_alchemy&do=buy&itemslot=' + IntToStr(I));
-    // Armor
+  if (SG.Cells[1, I] = '') then
+    ttInfo.Caption := ''
   else
-    Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-      'index.php?action=shop_armor&do=buy&itemslot=' + IntToStr(I));
-  end;
+    case ShopType of
+      // Weapon
+      stWeapon:
+        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+          'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
+      // Alchemy
+      stAlchemy:
+        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+          'index.php?action=shop_alchemy&do=buy&itemslot=' + IntToStr(I));
+      // Armor
+    else
+      Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+        'index.php?action=shop_armor&do=buy&itemslot=' + IntToStr(I));
+    end;
 end;
 
 procedure TFrameShop.SGKeyDown(Sender: TObject; var Key: Word;
