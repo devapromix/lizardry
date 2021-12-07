@@ -404,7 +404,7 @@ function gen_loot() {
 
 		$next = true;
 		$loot_level = $user['char_region'];
-		$loot_type_array = [0,1,8,9,10];
+		$loot_type_array = [0,1,8,9,10,11];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
 		
 		if (($loot_level > 1)&&(rand(0, 4) == 0))
@@ -861,10 +861,13 @@ function item_info($item_ident) {
 			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*25).' ед.';
 			break;
 		case 11:
-			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
+			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья и маны.';
 			break;
 		case 12:
 			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
+			break;
+		case 13:
+			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
 			break;
 	}
 	if ($ef == '')
@@ -914,6 +917,18 @@ function use_item($item_ident) {
 			$user['char_life_cur'] += $item_level * 25;
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
+			break;
+		case 11:
+			item_modify($item_ident, -1);
+			$item_level = $item['item_level'];
+			$user['char_life_cur'] += $item_level * 20;
+			if ($user['char_life_cur'] > $user['char_life_max'])
+				$user['char_life_cur'] = $user['char_life_max'];
+			$user['char_mana_cur'] += $item_level * 5;
+			if ($user['char_mana_cur'] > $user['char_mana_max'])
+				$user['char_mana_cur'] = $user['char_mana_max'];
+			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 	}
 	return $result;

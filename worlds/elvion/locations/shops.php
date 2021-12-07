@@ -177,7 +177,7 @@ if ($action == 'shop_alchemy') {
 				add_item_to_shop(1, 61);
 				add_item_to_shop(2, 66);
 				add_item_to_shop(3, 71);
-				//add_item_to_shop(4, 34);
+				add_item_to_shop(4, 76);
 				//add_item_to_shop(5, 35);
 				//add_item_to_shop(6, 36);
 				break;
@@ -185,7 +185,7 @@ if ($action == 'shop_alchemy') {
 				add_item_to_shop(1, 62);
 				add_item_to_shop(2, 67);
 				add_item_to_shop(3, 72);
-				//add_item_to_shop(4, 40);
+				add_item_to_shop(4, 77);
 				//add_item_to_shop(5, 41);
 				//add_item_to_shop(6, 42);
 				break;
@@ -193,7 +193,7 @@ if ($action == 'shop_alchemy') {
 				add_item_to_shop(1, 63);
 				add_item_to_shop(2, 68);
 				add_item_to_shop(3, 73);
-				//add_item_to_shop(4, 46);
+				add_item_to_shop(4, 78);
 				//add_item_to_shop(5, 47);
 				//add_item_to_shop(6, 48);
 				break;
@@ -201,7 +201,7 @@ if ($action == 'shop_alchemy') {
 				add_item_to_shop(1, 64);
 				add_item_to_shop(2, 69);
 				add_item_to_shop(3, 74);
-				//add_item_to_shop(4, 52);
+				add_item_to_shop(4, 79);
 				//add_item_to_shop(5, 53);
 				//add_item_to_shop(6, 54);
 				break;
@@ -209,7 +209,7 @@ if ($action == 'shop_alchemy') {
 				add_item_to_shop(1, 65);
 				add_item_to_shop(2, 70);
 				add_item_to_shop(3, 75);
-				//add_item_to_shop(4, 58);
+				add_item_to_shop(4, 80);
 				//add_item_to_shop(5, 59);
 				//add_item_to_shop(6, 60);
 				break;
