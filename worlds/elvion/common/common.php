@@ -141,9 +141,6 @@ function pickup_equip_item() {
 		case 11:
 		case 12:
 		case 13:
-			$r .= 'Вы забираете себе '.$item['item_name'].' ('.$item['item_level'].')'.'.';
-			add_item($item['item_ident']);
-			break;
 		case 21:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			add_item($item['item_ident']);
@@ -921,7 +918,7 @@ function use_item($item_ident) {
 		case 11:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] += $item_level * 20;
+			$user['char_life_cur'] += $item_level * 15;
 			if ($user['char_life_cur'] > $user['char_life_max'])
 				$user['char_life_cur'] = $user['char_life_max'];
 			$user['char_mana_cur'] += $item_level * 5;
