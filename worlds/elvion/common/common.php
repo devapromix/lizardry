@@ -387,7 +387,7 @@ $stat = array();
 function gen_loot() {
 	global $user, $tb_item, $tb_enemy, $connection;
 
-	if (rand(1,2) == 1) {
+	if (rand(1,3) == 1) {
 		$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
 		$result = mysqli_query($connection, $query) 
 			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
@@ -407,7 +407,7 @@ function gen_loot() {
 			if ($user['loot_slot_1'] > 0)
 				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 		}
-	} else if (rand(0,3) == 0) {
+	} else if (rand(1,4) == 1) {
 
 		$next = true;
 		$loot_level = $user['char_region'];
@@ -420,11 +420,11 @@ function gen_loot() {
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 12) == 0);
+				$next = (rand(0, 9) == 0);
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 11) == 0);
+				$next = (rand(0, 9) == 0);
 				break;
 		}
 		
