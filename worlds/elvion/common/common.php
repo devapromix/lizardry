@@ -593,7 +593,7 @@ function auto_battle() {
 	global $user, $stat;
 	
 	$r = '';
-	$rounds = 0;
+	$rounds = 1;
 	$stat['char_damages'] = 0;
 	$stat['enemy_damages'] = 0;
 	$stat['char_dodges'] = 0;
@@ -609,9 +609,9 @@ function auto_battle() {
 		$r .= 'Вы бросаетесь в атаку!#';
 	else
 		$r .= $user['enemy_name'].' бросается в атаку!#';
-	$r .= '--------------------------------------------------------#';
 	while(true) {
 		
+		$r .= '--- '.strval($rounds).'-й раунд: ---#';
 		if ($c == 0) {
 			$r .= char_battle_round();
 			$r .= enemy_battle_round();
