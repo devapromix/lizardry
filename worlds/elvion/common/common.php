@@ -435,7 +435,7 @@ function gen_loot() {
 			$item = $result->fetch_assoc();
 	
 			$user['loot_slot_1'] = $item['item_ident'];
-			$user['loot_slot_1_name'] = $item['item_name'].' ('.$item['item_level'].')';
+			$user['loot_slot_1_name'] = $item['item_name'];
 			$user['loot_slot_1_type'] = $loot_type;
 	
 			if ($user['loot_slot_1'] > 0)
