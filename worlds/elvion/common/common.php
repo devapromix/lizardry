@@ -589,7 +589,7 @@ function enemy_battle_round() {
 	return $r;
 }
 
-function auto_battle($show_rounds = 1) {
+function auto_battle() {
 	global $user, $stat;
 	
 	$r = '';
@@ -611,8 +611,7 @@ function auto_battle($show_rounds = 1) {
 		$r .= $user['enemy_name'].' первым бросается в атаку!#';
 	while(true) {
 		
-		if ($show_rounds == 1)
-			$r .= '--- '.strval($rounds).'-й раунд: ---#';
+		$r .= '--- '.strval($rounds).'-й раунд: ---#';
 		if ($c == 0) {
 			$r .= char_battle_round();
 			$r .= enemy_battle_round();

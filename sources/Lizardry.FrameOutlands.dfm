@@ -1313,6 +1313,7 @@ object FrameOutlands: TFrameOutlands
     OnClick = Image1Click
   end
   object Image2: TImage
+    Tag = 1
     Left = 207
     Top = 3
     Width = 200
@@ -1322,21 +1323,23 @@ object FrameOutlands: TFrameOutlands
     OnClick = Image2Click
   end
   object Image3: TImage
+    Tag = 2
     Left = 413
     Top = 3
     Width = 200
     Height = 200
     Cursor = crHandPoint
     Stretch = True
-    OnClick = Image3Click
+    OnClick = Image2Click
   end
   object Image4: TImage
+    Tag = 3
     Left = 619
     Top = 3
     Width = 200
     Height = 200
     Cursor = crHandPoint
     Stretch = True
-    OnClick = Image4Click
+    OnClick = Image2Click
   end
 end

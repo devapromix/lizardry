@@ -15,8 +15,6 @@ type
     Image4: TImage;
     procedure Image1Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
-    procedure Image3Click(Sender: TObject);
-    procedure Image4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,23 +39,7 @@ begin
   if IsChatMode or IsCharMode then
     Exit;
   FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=battle&enemyslot=1'));
-end;
-
-procedure TFrameOutlands.Image3Click(Sender: TObject);
-begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=battle&enemyslot=2'));
-end;
-
-procedure TFrameOutlands.Image4Click(Sender: TObject);
-begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=battle&enemyslot=3'));
+    (Server.Get('index.php?action=battle&enemyslot=' + IntToStr((Sender as TImage).Tag)));
 end;
 
 end.
