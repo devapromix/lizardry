@@ -36,7 +36,6 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'events') {
 		$res = get_events();
 	}
-	include 'locations/pickup.php';
 	include 'locations/battle.php';
 	include 'locations/campfire.php';
 	include 'locations/town.php';
