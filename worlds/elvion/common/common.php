@@ -526,7 +526,7 @@ function char_battle_round() {
 				}
 			}
 		} else {
-			$r .= 'Вы промахиваетесь по '.$user['enemy_name'].'.#';
+			$r .= 'Вы пытаетесь атаковать, но промахиваетесь по '.$user['enemy_name'].'.#';
 			$stat['char_misses']++;
 		}		
 	}
@@ -548,7 +548,7 @@ function enemy_battle_round() {
 						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
 						$stat['enemy_hits']++;
 						if ($d <= 0) {
-							$r .= $user['enemy_name'].' не может пробить вашу защиту.#';
+							$r .= $user['enemy_name'].' атакует, но не может пробить вашу защиту.#';
 						} else {
 							if (rand(1, 100) <= 15) {
 								$d = get_glancing_blow_damage($d);
@@ -570,7 +570,7 @@ function enemy_battle_round() {
 							}
 						}
 					} else {
-						$r .= 'Ваш расовый навык позволяет уклониться от атаки!#';
+						$r .= $user['enemy_name'].' пытается атаковать, но ваш расовый навык позволяет уклониться от атаки!#';
 						$stat['char_dodges']++;
 					}
 				} else {
@@ -589,7 +589,7 @@ function enemy_battle_round() {
 	return $r;
 }
 
-function auto_battle() {
+function auto_battle($show_rounds = 1) {
 	global $user, $stat;
 	
 	$r = '';
@@ -606,12 +606,13 @@ function auto_battle() {
 	$c = rand(0, 2);
 	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
 	if ($c == 0)
-		$r .= 'Вы бросаетесь в атаку!#';
+		$r .= 'Вы первыми бросаетесь в атаку!#';
 	else
-		$r .= $user['enemy_name'].' бросается в атаку!#';
+		$r .= $user['enemy_name'].' первым бросается в атаку!#';
 	while(true) {
 		
-		$r .= '--- '.strval($rounds).'-й раунд: ---#';
+		if ($show_rounds == 1)
+			$r .= '--- '.strval($rounds).'-й раунд: ---#';
 		if ($c == 0) {
 			$r .= char_battle_round();
 			$r .= enemy_battle_round();
@@ -622,12 +623,12 @@ function auto_battle() {
 
 		if (($user['char_life_cur'] < round($user['char_life_max'] / 10))
 			&&($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
-			$r .= 'Вы пытаетесь уклониться от боя...#';
+			$r .= 'Понимая, что результат боя складывается не в вашу пользу, вы пытаетесь уклониться от боя...#';
 			if (rand(1, 100) <= (($user['skill_run'] * 5) + 25)) {
 				$r .= 'Вы отступаете!#';
 				break;
 			} else
-				$r .= $user['enemy_name'].' бросается в атаку!#';
+				$r .= $user['enemy_name'].' снова бросается в атаку!#';
 		}
 
 		if ($user['char_life_cur'] <= 0) {
