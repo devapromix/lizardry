@@ -710,7 +710,7 @@ function get_value($value) {
 
 function trophy_price($price, $count) {
 	global $user;
-	return $price * round($count * $user['char_region'] * 0.35);
+	return $count * round($price * $user['char_region'] * 0.35);
 }
 
 function trophy_list() {
@@ -735,7 +735,7 @@ function trophy_list() {
 	}
 	
 	if ($t != '') {
-		$r .= 'Ваши трофеи:#============#'.$t;
+		$r .= 'Трофеи:#============#'.$t;
 		$r .= '============#Всего: '.$gold.' зол.';
 	}
 	
@@ -757,6 +757,66 @@ function trophy_trade() {
 			$count = item_count($id);
 			if ($count > 0) {
 				$price = trophy_price($item['item_price'], $count);
+				$user['char_gold'] += $price;
+				$gold += $price;
+				item_modify($id, -$count);
+			}
+		}
+	}
+	
+	update_user_table("char_gold=".$user['char_gold']);
+
+	return $gold;
+}
+
+function swords_price($price, $count) {
+	return $count * round($price * 0.35);
+}
+
+function swords_list() {
+	global $tb_item, $connection;
+	
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=1";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	
+	$r = '';
+	$t = '';
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			$price = swords_price($item['item_price'], $count);
+			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
+			$gold += $price;
+		}
+	}
+	
+	if ($t != '') {
+		$r .= 'Одноручные Мечи:#============#'.$t;
+		$r .= '============#Всего: '.$gold.' зол.';
+	}
+	
+	return $r;
+}
+
+function swords_trade() {
+	global $user, $tb_item, $connection;
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=1";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			if ($count > 0) {
+				$price = swords_price($item['item_price'], $count);
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);

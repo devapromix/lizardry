@@ -12,6 +12,7 @@ if ($action == 'guilds') {
 		addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
 		addlink('Гильдия Воинов', 'index.php?action=guild_warrior', 2);
 		addlink('Гильдия Охотников', 'index.php?action=guild_hunter', 3);
+		addlink('Гильдия Кузнецов', 'index.php?action=guild_forge', 4);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -164,6 +165,28 @@ if ($action == 'guild_hunter') {
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_hunter');
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
+}
+
+if ($action == 'guild_forge') {
+
+	$user['title'] = 'Гильдия Кузнецов';
+	$t = 'Вы входите в Кузницу. К вам выходит старый гном в испачканой угльной пылью одежде:#-Приветствую, '.$user['char_name'].'! Рад видеть тебя в Гильдии Кузнецов. У нас ты можешь потренироваться, отремонтировать свою экипировку, купить нужные вещи кузнеца или продать старое оружие.##';
+	$t .= swords_list();
+	$user['description'] = $t;
+	$user['links'] = array();
+	addlink('Покинуть гильдию', 'index.php?action=guilds');
+	addlink('Продать Оружие', 'index.php?action=guild_forge&do=weapon_trade', 1);
+
+	if ($do == 'weapon_trade') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$gold = swords_trade();
+		$user['description'] = 'Вы продали старое оружие и заработали '.$gold.' золотых монет.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_forge');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
