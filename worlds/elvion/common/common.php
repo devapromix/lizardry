@@ -627,7 +627,7 @@ function auto_battle() {
 				$r .= 'Вы отступаете!#';
 				break;
 			} else
-				$r .= $user['enemy_name'].' снова бросается в атаку!#';
+				$r .= 'Неудачно! '.$user['enemy_name'].' снова бросается в атаку! Поединок продолжается...#';
 		}
 
 		if ($user['char_life_cur'] <= 0) {
@@ -706,127 +706,6 @@ function get_value($value) {
 	}
 	
 	return $r;
-}
-
-function trophy_price($price, $count) {
-	global $user;
-	return $count * round($price * $user['char_region'] * 0.35);
-}
-
-function trophy_list() {
-	global $tb_item, $connection;
-	
-	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	
-	$r = '';
-	$t = '';
-	$gold = 0;
-	foreach ($items as $item) {
-		$id = $item['item_ident'];
-		if (has_item($id)) {
-			$count = item_count($id);
-			$price = trophy_price($item['item_price'], $count);
-			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
-			$gold += $price;
-		}
-	}
-	
-	if ($t != '') {
-		$r .= 'Трофеи:#============#'.$t;
-		$r .= '============#Всего: '.$gold.' зол.';
-	}
-	
-	return $r;
-}
-
-function trophy_trade() {
-	global $user, $tb_item, $connection;
-
-	$query = "SELECT * FROM ".$tb_item." WHERE item_type=21";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-	$gold = 0;
-	foreach ($items as $item) {
-		$id = $item['item_ident'];
-		if (has_item($id)) {
-			$count = item_count($id);
-			if ($count > 0) {
-				$price = trophy_price($item['item_price'], $count);
-				$user['char_gold'] += $price;
-				$gold += $price;
-				item_modify($id, -$count);
-			}
-		}
-	}
-	
-	update_user_table("char_gold=".$user['char_gold']);
-
-	return $gold;
-}
-
-function swords_price($price, $count) {
-	return $count * round($price * 0.35);
-}
-
-function swords_list() {
-	global $tb_item, $connection;
-	
-	$query = "SELECT * FROM ".$tb_item." WHERE item_type=1";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	
-	$r = '';
-	$t = '';
-	$gold = 0;
-	foreach ($items as $item) {
-		$id = $item['item_ident'];
-		if (has_item($id)) {
-			$count = item_count($id);
-			$price = swords_price($item['item_price'], $count);
-			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
-			$gold += $price;
-		}
-	}
-	
-	if ($t != '') {
-		$r .= 'Одноручные Мечи:#============#'.$t;
-		$r .= '============#Всего: '.$gold.' зол.';
-	}
-	
-	return $r;
-}
-
-function swords_trade() {
-	global $user, $tb_item, $connection;
-
-	$query = "SELECT * FROM ".$tb_item." WHERE item_type=1";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-	$gold = 0;
-	foreach ($items as $item) {
-		$id = $item['item_ident'];
-		if (has_item($id)) {
-			$count = item_count($id);
-			if ($count > 0) {
-				$price = swords_price($item['item_price'], $count);
-				$user['char_gold'] += $price;
-				$gold += $price;
-				item_modify($id, -$count);
-			}
-		}
-	}
-	
-	update_user_table("char_gold=".$user['char_gold']);
-
-	return $gold;
 }
 
 function has_item($id) {
@@ -1092,6 +971,87 @@ function food_in_tavern_cost() {
 
 function get_char_life($level) {
 	return ($level * 5) + 25;
+}
+
+function inv_item_price($type, $price, $count) {
+	global $user;
+	$r = 0;
+	switch($type) {
+		case 0:
+		case 1:
+			$r = $count * round($price * 0.35);
+			break;
+		case 21:
+			$r = $count * round($price * $user['char_region'] * 0.35);
+			break;
+	}
+	return $r;
+}
+
+function inv_item_list($type) {
+	global $tb_item, $connection;
+	
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	
+	$r = '';
+	$t = '';
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			$price = inv_item_price($type, $item['item_price'], $count);
+			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
+			$gold += $price;
+		}
+	}
+	
+	if ($t != '') {
+		switch($type) {
+			case 0:
+				$r .= 'Ваши брони:';
+				break;
+			case 1:
+				$r .= 'Ваше оружие:';
+				break;
+			case 21:
+				$r .= 'Ваши трофеи:';
+				break;
+		}
+		$r .= '#============#'.$t.'============#Всего: '.$gold.' зол.';
+	}
+	
+	return $r;
+}
+
+function inv_item_trade($type) {
+	global $user, $tb_item, $connection;
+
+	$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+	$gold = 0;
+	foreach ($items as $item) {
+		$id = $item['item_ident'];
+		if (has_item($id)) {
+			$count = item_count($id);
+			if ($count > 0) {
+				$price = inv_item_price($type, $item['item_price'], $count);
+				$user['char_gold'] += $price;
+				$gold += $price;
+				item_modify($id, -$count);
+			}
+		}
+	}
+	
+	update_user_table("char_gold=".$user['char_gold']);
+
+	return $gold;
 }
 
 ?>
