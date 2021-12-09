@@ -77,6 +77,7 @@ function equip_item($item_ident) {
 
 	switch($item['item_type']) {
 		case 0:
+			add_item($user['char_equip_armor_ident']);
 			$user['char_equip_armor_name'] = $item['item_name'];
 			$user['char_equip_armor_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -85,6 +86,7 @@ function equip_item($item_ident) {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
+			add_item($user['char_equip_weapon_ident']);
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -117,6 +119,7 @@ function pickup_equip_item() {
 	$r = '';
 	switch($item['item_type']) {
 		case 0:
+			add_item($user['char_equip_armor_ident']);
 			$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
 			$user['char_equip_armor_name'] = $item['item_name'];
 			$user['char_equip_armor_ident'] = $item['item_ident'];
@@ -126,6 +129,7 @@ function pickup_equip_item() {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
+			add_item($user['char_equip_weapon_ident']);
 			$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];

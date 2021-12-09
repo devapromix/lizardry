@@ -155,7 +155,7 @@ if ($action == 'guild_hunter') {
 
 	$user['title'] = 'Гильдия Охотников';
 	$t = 'Вы входите в светлый просторный зал, обставленый чучелами различных птиц и зверей. Вас встречает высокий эльф в добротной кожаной броне и длинным луком за плечами:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Охотников. У нас можно улучшить свои навыки охоты или изучить новые.#Также я щедро плачу золотом за ценные охотничьи трофеи.##';
-	$t .= inv_items_list(21);
+	$t .= inv_item_list(21);
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -163,7 +163,7 @@ if ($action == 'guild_hunter') {
 
 	if ($do == 'trophy_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_items_trade(21);
+		$gold = inv_item_trade(21);
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_hunter');
@@ -177,7 +177,7 @@ if ($action == 'guild_forge') {
 
 	$user['title'] = 'Гильдия Кузнецов';
 	$t = 'Вы входите в Кузницу. К вам выходит старый гном в испачканой угльной пылью одежде:#-Приветствую, '.$user['char_name'].'! Рад видеть тебя в Гильдии Кузнецов. У нас ты можешь потренироваться, отремонтировать свою экипировку, купить нужные вещи кузнеца или продать старое оружие.##';
-	$t .= inv_items_list(1);
+	$t .= inv_item_list(1);
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -185,7 +185,7 @@ if ($action == 'guild_forge') {
 
 	if ($do == 'weapon_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_items_trade(1);
+		$gold = inv_item_trade(1);
 		$user['description'] = 'Вы продали старое оружие и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_forge');
@@ -199,7 +199,7 @@ if ($action == 'guild_lw') {
 
 	$user['title'] = 'Гильдия Кожевников';
 	$t = 'В Гильдии Кожевников к вам подходит красивая эльфийка в дорогой кожаной эльфийской броне:#-Здраствуйте! Рада видеть вас в нашей гильдии. Мы рады помочь каждому путнику, кому нужна наша помощь. Я с удовольствием обучаю исскуству снятия кожи с убитых животных и достаточно дорого выкупаю уже не нужную кожаную броню.##';
-	$t .= inv_items_list(0);
+	$t .= inv_item_list(0);
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -207,7 +207,7 @@ if ($action == 'guild_lw') {
 
 	if ($do == 'armor_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_items_trade(0);
+		$gold = inv_item_trade(0);
 		$user['description'] = 'Вы продали старую кожаную броню и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_lw');
