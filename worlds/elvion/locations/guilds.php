@@ -28,7 +28,7 @@ if ($action == 'guild_main') {
 	$user['links'] = array();
 	addlink('Покинуть зал', 'index.php?action=guilds');
 	addlink('Приступить к тренировке', 'index.php?action=guild_main&do=train_in_guild_main', 1);
-	addlink('Забыть все навыки!', 'index.php?action=guild_main&do=clear', 2);
+	addlink('Забыть все навыки!', 'index.php?action=guild_main&do=try_clear', 2);
 
 	if ($do == 'train_in_guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
@@ -45,11 +45,19 @@ if ($action == 'guild_main') {
 		addlink('Назад', 'index.php?action=guild_main');
 	}
 	
+	if ($do == 'try_clear') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
+		$user['description'] = 'Вы подтверждаете, что готовы сбросить все очки развития навыков персонажа?';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_main');
+		addlink('Подтвердить!', 'index.php?action=guild_main&do=clear', 1);
+	}
+	
 	if ($do == 'clear') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
 		$user['description'] = 'Вы входите в маленькую комнатушку. Мастер дает прочитать вам магический свиток. Через мгновение вы понимаете, что забыли все свои навыки и все надо начинать с самого начала.';
 		$user['char_lp'] = $user['char_level'];
-		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0");
+		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
 		$user['log'] = 'Вы забыли все!';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_main');
