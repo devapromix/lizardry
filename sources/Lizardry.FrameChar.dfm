@@ -15,11 +15,15 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet2
+    ActivePage = TabSheet4
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object ttWeapon: TLabel
         Left = 110
         Top = 16
@@ -65,7 +69,6 @@ object FrameChar: TFrameChar
         TabOrder = 0
         OnClick = SGClick
         OnDblClick = SGDblClick
-        ExplicitTop = 20
         ColWidths = (
           64
           64
