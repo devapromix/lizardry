@@ -72,6 +72,8 @@ end;
 
 procedure TFrameBank.bbMyGoldClick(Sender: TObject);
 begin
+  if IsChatMode or IsCharMode then
+    Exit;
   GoldEdit.Text := bbMyGold.Caption;
 end;
 
@@ -100,6 +102,8 @@ procedure TFrameBank.Modify(const Value: Integer);
 var
   N: Integer;
 begin
+  if IsChatMode or IsCharMode then
+    Exit;
   N := StrToIntDef(GoldEdit.Text, 0);
   if (N + Value) < 0 then
     Exit;
@@ -139,6 +143,8 @@ end;
 
 procedure TFrameBank.SpeedButton7Click(Sender: TObject);
 begin
+  if IsChatMode or IsCharMode then
+    Exit;
   GoldEdit.Text := '0';
 end;
 
