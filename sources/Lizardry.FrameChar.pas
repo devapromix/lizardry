@@ -78,6 +78,7 @@ begin
   SG.ColWidths[0] := 30;
   SG.ColWidths[1] := W;
   SG.ColWidths[2] := 100;
+  ttInfo.Caption := '';
 
   for I := 1 to 16 do
   begin

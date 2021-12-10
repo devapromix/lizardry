@@ -59,12 +59,13 @@ object FrameChar: TFrameChar
         Height = 311
         Align = alClient
         Color = clBtnFace
-        RowCount = 31
+        RowCount = 101
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
         ScrollBars = ssVertical
         TabOrder = 0
         OnClick = SGClick
         OnDblClick = SGDblClick
+        ExplicitTop = 20
         ColWidths = (
           64
           64
@@ -78,7 +79,7 @@ object FrameChar: TFrameChar
         Width = 519
         Height = 25
         Align = alTop
-        Caption = '3/15'
+        Caption = '0/100'
         TabOrder = 1
       end
       object Panel2: TPanel
