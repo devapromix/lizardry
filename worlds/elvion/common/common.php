@@ -107,6 +107,7 @@ function equip_item($item_ident) {
 			break;
 	}
 }
+
 function pickup_equip_item() {
 	global $user, $tb_item, $connection;
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['loot_slot_1'];
@@ -128,7 +129,10 @@ function pickup_equip_item() {
 				update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
 				$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
 				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
-			} else add_item($item['item_ident']);
+			} else {
+				$r = 'Вы забираете '.$item['item_name'].' себе.';
+				add_item($item['item_ident']);
+			}
 			break;
 		case 1:
 			if ($item['item_ident'] > $user['char_equip_weapon_ident']) {
@@ -141,7 +145,10 @@ function pickup_equip_item() {
 				update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
 				$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
 				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
-			} else add_item($item['item_ident']);
+			} else {
+				$r = 'Вы забираете '.$item['item_name'].' себе.';
+				add_item($item['item_ident']);
+			}
 			break;
 		case 8:
 		case 9:
@@ -428,11 +435,11 @@ function gen_loot() {
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 9) == 0);
+				$next = (rand(0, 3) == 0);
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 9) == 0);
+				$next = (rand(0, 3) == 0);
 				break;
 		}
 		
