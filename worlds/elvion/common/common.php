@@ -447,11 +447,11 @@ function gen_loot() {
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 3) == 0);
+				$next = (rand(0, 2) == 0);
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 3) == 0);
+				$next = (rand(0, 2) == 0);
 				break;
 		}
 		
