@@ -1072,6 +1072,7 @@ function inv_item_trade($type) {
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);
+				save_to_log($item['item_name'].' (x'.$count.') - предмет(ы) продан(ы).');
 			}
 		}
 	}
