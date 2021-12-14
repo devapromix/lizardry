@@ -77,7 +77,9 @@ function equip_item($item_ident) {
 
 	switch($item['item_type']) {
 		case 0:
+			save_to_log($user['char_equip_armor_name'].' - предмет перемещен в инвентарь.');
 			add_item($user['char_equip_armor_ident']);
+			save_to_log($item['item_name'].' - предмет куплен и надет.');
 			$user['char_equip_armor_name'] = $item['item_name'];
 			$user['char_equip_armor_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -86,7 +88,9 @@ function equip_item($item_ident) {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
+			save_to_log($user['char_equip_weapon_name'].' - предмет перемещен в инвентарь.');
 			add_item($user['char_equip_weapon_ident']);
+			save_to_log($item['item_name'].' - предмет куплен и надет.');
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -102,6 +106,7 @@ function equip_item($item_ident) {
 		case 12:
 		case 13:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
 			add_item($item['item_ident']);
 			update_user_table("char_gold=".$user['char_gold']);
 			break;
@@ -121,6 +126,7 @@ function pickup_equip_item() {
 	switch($item['item_type']) {
 		case 0:
 			if ($item['item_ident'] > $user['char_equip_armor_ident']) {
+				save_to_log($user['char_equip_armor_name'].' - предмет перемещен в инвентарь.');
 				add_item($user['char_equip_armor_ident']);
 				$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
 				$user['char_equip_armor_name'] = $item['item_name'];
@@ -128,14 +134,17 @@ function pickup_equip_item() {
 				$user['char_armor'] = $item['item_armor'];
 				update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
 				$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
+				save_to_log($user['char_equip_armor_name'].' - предмет надет.');
 				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			} else {
+				save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 				$r = 'Вы забираете '.$item['item_name'].' себе.';
 				add_item($item['item_ident']);
 			}
 			break;
 		case 1:
 			if ($item['item_ident'] > $user['char_equip_weapon_ident']) {
+				save_to_log($user['char_equip_weapon_name'].' - предмет перемещен в инвентарь.');
 				add_item($user['char_equip_weapon_ident']);
 				$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
 				$user['char_equip_weapon_name'] = $item['item_name'];
@@ -144,8 +153,10 @@ function pickup_equip_item() {
 				$user['char_damage_max'] = $item['item_damage_max'];
 				update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
 				$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
+				save_to_log($user['char_equip_weapon_name'].' - предмет надет.');
 				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			} else {
+				save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 				$r = 'Вы забираете '.$item['item_name'].' себе.';
 				add_item($item['item_ident']);
 			}
@@ -158,6 +169,7 @@ function pickup_equip_item() {
 		case 13:
 		case 21:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
+			save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 			add_item($item['item_ident']);
 			break;
 	}
@@ -1067,6 +1079,14 @@ function inv_item_trade($type) {
 	update_user_table("char_gold=".$user['char_gold']);
 
 	return $gold;
+}
+
+function save_to_log($msg) {
+	global $connection, $user, $tb_log;
+	$query = "INSERT INTO ".$tb_log." (log_char_name,log_message) VALUES('".$user['char_name']."', '".$msg."')";
+	if (!mysqli_query($connection, $query)) {
+		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
+	}
 }
 
 ?>
