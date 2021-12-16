@@ -105,6 +105,7 @@ type
 
 var
   RegionLevel: Integer = 1;
+  CurrentOutlands: string = '';
 
 implementation
 
@@ -420,17 +421,13 @@ begin
         end;
         FormMain.FrameTown.FrameBank1.BringToFront;
       end
-      else if (S = 'loot') then
+      else if (S = 'campfire') then
       begin
-        if JSON.TryGetValue('loot_slot_1_name', V) then
-          if V <> '' then
-            with FormMain.FrameTown.FrameLoot1 do
-            begin
-              DrawGrid;
-              SG.Cells[0, 1] := '1';
-              SG.Cells[1, 1] := V;
-              BringToFront;
-            end;
+        if JSON.TryGetValue('current_outlands', S) then
+        begin
+          CurrentOutlands := S;
+          FormMain.FrameTown.FrameLoot1.BringToFront;
+        end;
       end
       else if (S = 'tavern') then
       begin
