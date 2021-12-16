@@ -71,6 +71,7 @@ type
     Panel3: TPanel;
     XPPanel: TPanel;
     Panel4: TPanel;
+    Panel2: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -95,6 +96,7 @@ type
     procedure ParseJSON(AJSON: string); overload;
     procedure ParseJSON(AJSON, Section: string); overload;
     function IsActPanels: Boolean;
+    function GetRaceName(const N: Byte): string;
   end;
 
 var
@@ -119,6 +121,13 @@ procedure TFrameTown.FrameOutlands1Image1Click(Sender: TObject);
 begin
   FrameOutlands1.Image1Click(Sender);
 
+end;
+
+function TFrameTown.GetRaceName(const N: Byte): string;
+const
+  RaceName: array [0 .. 3] of string = ('Человек', 'Эльф', 'Гном', 'Ящер');
+begin
+  Result := RaceName[N];
 end;
 
 procedure TFrameTown.HideChar;
@@ -490,6 +499,10 @@ begin
     begin
       bbCharName.Caption := S;
       FrameBattle1.Label4.Caption := S;
+    end;
+    if JSON.TryGetValue('char_race', S) then
+    begin
+      Panel2.Caption := 'Раса: ' + GetRaceName(StrToIntDef(S, 0));
     end;
     if JSON.TryGetValue('char_region_level', S) then
       RegionLevel := StrToIntDef(S, 1);
