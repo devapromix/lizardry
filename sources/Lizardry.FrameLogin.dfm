@@ -796,7 +796,7 @@ object FrameLogin: TFrameLogin
       Width = 185
       Height = 33
       Cursor = crHandPoint
-      Caption = #1054#1073#1085#1086#1074#1083#1077#1085#1080#1077
+      Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1086
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
       Font.Height = -19

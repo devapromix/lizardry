@@ -202,8 +202,10 @@ end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
-    Exit;
+  if IsChatMode then
+    bbChatClick(Sender);
+  if IsCharMode then
+    bbCharNameClick(Sender);
   DoAction((Sender as TPanel).Script);
 end;
 
