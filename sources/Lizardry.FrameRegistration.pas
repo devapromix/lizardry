@@ -65,6 +65,7 @@ type
     wpBow: TLabel;
     wpDagger: TLabel;
     wpHammer: TLabel;
+    StaticText1: TStaticText;
     procedure bbBackClick(Sender: TObject);
     procedure bbRegistrationClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
@@ -200,6 +201,7 @@ begin
   ClearRaces;
   rcHuman.Check;
   Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
   ClearGenders;
   gdMale.Check;
   ClearWeapons;
@@ -310,12 +312,14 @@ procedure TFrameRegistration.rcElfClick(Sender: TObject);
 begin
   ClearRaces;
   rcElf.Check;
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(1);
 end;
 
 procedure TFrameRegistration.rcGnomeClick(Sender: TObject);
 begin
   ClearRaces;
   rcGnome.Check;
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(2);
 end;
 
 procedure TFrameRegistration.rcHumanClick(Sender: TObject);
@@ -323,12 +327,14 @@ begin
   ClearRaces;
   rcHuman.Check;
   Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
 end;
 
 procedure TFrameRegistration.rcLizardClick(Sender: TObject);
 begin
   ClearRaces;
   rcLizard.Check;
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(3);
 end;
 
 procedure TFrameRegistration.wpAxeClick(Sender: TObject);

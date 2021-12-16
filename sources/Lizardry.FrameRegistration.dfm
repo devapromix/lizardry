@@ -2,7 +2,7 @@ object FrameRegistration: TFrameRegistration
   Left = 0
   Top = 0
   Width = 992
-  Height = 617
+  Height = 800
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
   Font.Height = -19
@@ -14,9 +14,10 @@ object FrameRegistration: TFrameRegistration
     Left = 0
     Top = 0
     Width = 250
-    Height = 617
+    Height = 800
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 617
     object Label1: TLabel
       Left = 24
       Top = 21
@@ -559,10 +560,11 @@ object FrameRegistration: TFrameRegistration
     Left = 250
     Top = 0
     Width = 742
-    Height = 617
+    Height = 800
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitHeight = 617
     object Panel3: TPanel
       Left = 0
       Top = 0
@@ -1252,15 +1254,16 @@ object FrameRegistration: TFrameRegistration
       Left = 0
       Top = 225
       Width = 742
-      Height = 392
+      Height = 575
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitHeight = 392
       object Image2: TImage
-        Left = 160
+        Left = 208
         Top = 55
-        Width = 200
-        Height = 200
+        Width = 152
+        Height = 154
       end
       object Label4: TLabel
         Left = 24
@@ -2024,6 +2027,15 @@ object FrameRegistration: TFrameRegistration
         Cursor = crHandPoint
         Caption = #1052#1086#1083#1086#1090' '#1074#1086#1081#1085#1099' (3-4)'
         OnClick = wpHammerClick
+      end
+      object StaticText1: TStaticText
+        Left = 24
+        Top = 215
+        Width = 336
+        Height = 289
+        Alignment = taCenter
+        AutoSize = False
+        TabOrder = 0
       end
     end
   end

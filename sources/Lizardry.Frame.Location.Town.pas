@@ -72,12 +72,15 @@ type
     XPPanel: TPanel;
     Panel4: TPanel;
     Panel2: TPanel;
+    SpeedButton3: TSpeedButton;
+    Label1: TLabel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
     procedure bbChatClick(Sender: TObject);
     procedure bbCharNameClick(Sender: TObject);
     procedure FrameOutlands1Image1Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
   private
     { Private declarations }
     Title: string;
@@ -97,6 +100,7 @@ type
     procedure ParseJSON(AJSON, Section: string); overload;
     function IsActPanels: Boolean;
     function GetRaceName(const N: Byte): string;
+    function GetRaceDescription(const N: Byte): string;
   end;
 
 var
@@ -121,6 +125,32 @@ procedure TFrameTown.FrameOutlands1Image1Click(Sender: TObject);
 begin
   FrameOutlands1.Image1Click(Sender);
 
+end;
+
+function TFrameTown.GetRaceDescription(const N: Byte): string;
+const
+  RaceName: array [0 .. 3] of string =
+    ('Люди - жители Североземья. Испокон веков населяли эти земли. ' +
+    'Со временем расселились по всему миру. Люди в меру высоки, достаточно ' +
+    'стройны и сильны. У них нет особых преимуществ перед другими расами.',
+    'Эльфы - древние жители этого мира. Давным-давно они населяли леса ' +
+    'всех континентов, но со временем их вытеснили другие расы. ' +
+    'Теперь эльфы населяют только дремучие пралеса южных земель. ' +
+    'Эльфы высоки, стройны и ловки. От других рас их отличают мудрость ' +
+    'и превосходные познания в магических науках.',
+    'Гномы - коренные жители горных королевств востока и запада континента. ' +
+    'Но сейчас их встречают в горах как северных, так и южных земель. ' +
+    'Невысоки ростом, но коренасты и чрезвычайно сильны. Добывают минералы и ' +
+    'руды, из них делают замечательные топоры, щиты и клинки и занимаются ' +
+    'торговлей по всему миру. Из них получаются отличные воины и кузнецы.',
+    'Ящеры - болотные жители центральной экваториальной части континента. ' +
+    'Внешне похожи на большых ящериц. Все тело покрыто тонкой чешуйчатой ' +
+    'кожей. На голове бывают разные роговые наросты. ' +
+    'Стройны. Заметно выше людей, но ниже эльфов ростом. Достаточно умны. ' +
+    'Хорошо плавают и умеют дышать под водой.' +
+    'От других рас отличаются высокой ловкостью и изворотливостью.');
+begin
+  Result := RaceName[N];
 end;
 
 function TFrameTown.GetRaceName(const N: Byte): string;
@@ -283,6 +313,11 @@ begin
   Panel10.Caption := 'ЧАТ';
   FrameChat.BringToFront;
   IsChatMode := True;
+end;
+
+procedure TFrameTown.SpeedButton3Click(Sender: TObject);
+begin
+  ShowMsg(Label1.Caption);
 end;
 
 procedure TFrameTown.ChExpPanels(const Cur, Max: string);
@@ -503,6 +538,7 @@ begin
     if JSON.TryGetValue('char_race', S) then
     begin
       Panel2.Caption := 'Раса: ' + GetRaceName(StrToIntDef(S, 0));
+      Label1.Caption := GetRaceDescription(StrToIntDef(S, 0));
     end;
     if JSON.TryGetValue('char_region_level', S) then
       RegionLevel := StrToIntDef(S, 1);
