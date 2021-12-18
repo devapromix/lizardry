@@ -30,6 +30,9 @@ if ($action == 'gate') {
 				break;
 			case 4:
 				addlink('Заброшенные Рудники', 'index.php?action=abandoned_mines', 2);
+				addlink('Ледяное Озеро', 'index.php?action=icy_lake', 3);
+				addlink('Долина Грифов', 'index.php?action=vulture_valley', 4);
+				addlink('Храм Глубин', 'index.php?action=cathedral_of_the_deep', 5);
 				break;
 			case 5:
 				break;
