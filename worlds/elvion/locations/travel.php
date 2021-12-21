@@ -123,5 +123,66 @@ if ($action == 'harbor') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
 }
+if ($action == 'dir_tower') {
+
+	$travel = false;
+	
+	if ($do == 3) {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		//if ($user['char_level'] < 24) die('{"info":"Для путешествия в другой регион нужен 24-й уровень!"}');
+		//if ($user['char_food'] < 2) die('{"info":"Возьмите в дорогу не менее четырех мешков провизии!"}');
+		//if ($user['char_gold'] < 800) die('{"info":"Возьмите в дорогу не менее 800 золотых монет!"}');
+		$travel = true;
+		change_region($do, 2, 0);
+	}
+	if ($do == 4) {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		//if ($user['char_level'] < 24) die('{"info":"Для путешествия в другой регион нужен 24-й уровень!"}');
+		//if ($user['char_food'] < 2) die('{"info":"Возьмите в дорогу не менее четырех мешков провизии!"}');
+		//if ($user['char_gold'] < 800) die('{"info":"Возьмите в дорогу не менее 800 золотых монет!"}');
+		$travel = true;
+		change_region($do, 2, 0);
+	}
+	
+	if (!$travel) {
+		$user['title'] = 'Башня Дирижаблей';
+		if ($user['char_life_cur'] > 0) {
+		
+			switch ($user['char_region']) {
+				case 3:
+					$user['description'] = 'Вы пришли в Гавань Морхольда. Здесь можно найти корабль в Миран. Но нужно выполнить определенные  условия:#Уровень персонажа - не менее 24-го.#Взять в дорогу хотя бы 2-a пакета с провиантом.#И последнее - Вы должны заплатить капитану за проез в Миран 800 золотых монет.';
+					break;
+				case 4:
+					$user['description'] = 'В гавани Мирана не многолюдно, но все заняты работой. Здесь можно отыскать корабль, капитан которого согласится взять Вас на борт до Морхольда. Но нужно выполнить определенные условия:#Уровень героя - не менее 24-го.#С собою иметь не менее 2-х пакетов с провиантом.#Стоимость - 800 золотых монет.';
+					break;
+			}
+		
+		} else shades();
+		
+		$user['links'] = array();
+		if ($user['char_life_cur'] > 0) {
+
+			go_to_the_gate('Покинуть Башню');
+			switch ($user['char_region']) {
+				case 3:
+					addlink('Путешествие в Толесад', 'index.php?action=dir_tower&do=4', 1);
+					break;
+				case 4:
+					addlink('Путешествие в Миран', 'index.php?action=dir_tower&do=3', 1);
+					break;
+			}
+		
+		} else go_to_the_graveyard();
+	
+	} else {
+		$user['title'] = 'Путешествие';
+		$user['description'] = 'После нескольких дней увлекательного воздушного путешествия на борту дирижабля Вы прилетели в другой город и вот уже виднеются высокие городские стены.';
+		$user['links'] = array();
+		go_to_the_gate('Идти к воротам в город');
+	}
+	
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+	
+}
 
 ?>
