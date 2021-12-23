@@ -123,6 +123,7 @@ if ($action == 'harbor') {
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
 }
+
 if ($action == 'dir_tower') {
 
 	$travel = false;
@@ -177,6 +178,63 @@ if ($action == 'dir_tower') {
 	} else {
 		$user['title'] = 'Путешествие';
 		$user['description'] = 'После нескольких дней увлекательного воздушного путешествия на борту дирижабля Вы прилетели в другой город и вот уже виднеются высокие городские стены.';
+		$user['links'] = array();
+		go_to_the_gate('Идти к воротам в город');
+	}
+	
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+	
+}
+
+if ($action == 'fly') {
+
+	$travel = false;
+	$travel_level = 1;
+	$travel_food = 0;
+	$travel_gold = 0;
+	
+	if (($do == 4)||($do == 5)) {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		if ($user['char_level'] < $travel_level) die('{"info":"Для путешествия в другой регион нужен '.$travel_level.'-й уровень!"}');
+		if ($user['char_food'] < $travel_food) die('{"info":"Возьмите в дорогу не менее '.$travel_food.'-х мешков провизии!"}');
+		if ($user['char_gold'] < $travel_gold) die('{"info":"Возьмите в дорогу не менее '.$travel_gold.' золотых монет!"}');
+		$travel = true;
+		change_region($do, $travel_food, 0);
+	}
+	
+	if (!$travel) {
+		$user['title'] = 'Утес Ветрокрылов';
+		if ($user['char_life_cur'] > 0) {
+		
+			switch ($user['char_region']) {
+				case 4:
+					$user['description'] = 'Вы пришли в Гавань Морхольда. Здесь можно найти корабль в Миран. Но нужно выполнить определенные  условия:#Уровень персонажа - не менее 24-го.#Взять в дорогу хотя бы 2-a пакета с провиантом.#И последнее - Вы должны заплатить капитану за проез в Миран 800 золотых монет.';
+					break;
+				case 5:
+					$user['description'] = 'В гавани Мирана не многолюдно, но все заняты работой. Здесь можно отыскать корабль, капитан которого согласится взять Вас на борт до Морхольда. Но нужно выполнить определенные условия:#Уровень героя - не менее 24-го.#С собою иметь не менее 2-х пакетов с провиантом.#Стоимость - 800 золотых монет.';
+					break;
+			}
+		
+		} else shades();
+		
+		$user['links'] = array();
+		if ($user['char_life_cur'] > 0) {
+
+			go_to_the_gate('Покинуть Утес');
+			switch ($user['char_region']) {
+				case 4:
+					addlink('Путешествие в Эндалион', 'index.php?action=fly&do=5', 1);
+					break;
+				case 5:
+					addlink('Путешествие в Толесад', 'index.php?action=fly&do=4', 1);
+					break;
+			}
+		
+		} else go_to_the_graveyard();
+	
+	} else {
+		$user['title'] = 'Путешествие';
+		$user['description'] = 'После нескольких дней увлекательного воздушного путешествия на спине ветрокрыла Вы прилетели в другой город и вот уже виднеются высокие городские стены.';
 		$user['links'] = array();
 		go_to_the_gate('Идти к воротам в город');
 	}

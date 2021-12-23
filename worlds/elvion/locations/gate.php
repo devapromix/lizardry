@@ -31,12 +31,15 @@ if ($action == 'gate') {
 				break;
 			case 4:
 				addlink('Башня Дирижаблей', 'index.php?action=dir_tower', 2);
-				addlink('Заброшенные Рудники', 'index.php?action=abandoned_mines', 3);
-				addlink('Ледяное Озеро', 'index.php?action=icy_lake', 4);
-				addlink('Долина Грифов', 'index.php?action=vulture_valley', 5);
-				addlink('Храм Глубин', 'index.php?action=cathedral_of_the_deep', 6);
+				addlink('Утес Ветрокрылов', 'index.php?action=fly', 3);
+				addlink('Заброшенные Рудники', 'index.php?action=abandoned_mines', 4);
+				addlink('Ледяное Озеро', 'index.php?action=icy_lake', 5);
+				addlink('Долина Грифов', 'index.php?action=vulture_valley', 6);
+				addlink('Храм Глубин', 'index.php?action=cathedral_of_the_deep', 7);
 				break;
 			case 5:
+				addlink('Утес Ветрокрылов', 'index.php?action=fly', 2);
+				addlink('Посетить Гавань', 'index.php?action=harbor', 3);
 				break;
 			case 6:
 				break;
