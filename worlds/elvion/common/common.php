@@ -272,6 +272,15 @@ function get_slot_item_ident($item_slot) {
 	}
 }
 
+function get_region_town_name($region_ident) {
+	global $user, $tb_regions, $connection;
+	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$region = $result->fetch_assoc();
+	return $region['region_town_name'];
+}
+
 function change_region($region_ident, $food, $gold) {
 	global $user, $tb_regions, $connection;
 	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
@@ -1088,6 +1097,22 @@ function save_to_log($msg) {
 	if (!mysqli_query($connection, $query)) {
 		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 	}
+}
+
+function check_travel_req($level, $food, $gold) {
+	global $user;
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
+		if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
+		if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
+}
+
+function after_travel() {
+	global $user;
+	$user['title'] = 'Путешествие';
+	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
+	$user['links'] = array();
+	go_to_the_gate('Идти к воротам в город');
 }
 
 ?>
