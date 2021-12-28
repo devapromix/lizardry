@@ -4,8 +4,8 @@ if ($action == 'stables') {
 
 	$travel = false;
 	$travel_level = 1;
-	$travel_food = 0;
-	$travel_gold = 0;
+	$travel_food = 3;
+	$travel_gold = 200;
 	
 	if (($do == 1)||($do == 2)) {
 		check_travel_req($travel_level, $travel_food, $travel_gold);
@@ -51,8 +51,8 @@ if ($action == 'harbor') {
 
 	$travel = false;
 	$travel_level = 1;
-	$travel_food = 0;
-	$travel_gold = 0;
+	$travel_food = 4;
+	$travel_gold = 500;
 	
 	if (($do == 2)||($do == 3)) {
 		check_travel_req($travel_level, $travel_food, $travel_gold);
@@ -98,8 +98,8 @@ if ($action == 'dir_tower') {
 
 	$travel = false;
 	$travel_level = 1;
-	$travel_food = 0;
-	$travel_gold = 0;
+	$travel_food = 4;
+	$travel_gold = 800;
 	
 	if (($do == 3)||($do == 4)) {
 		check_travel_req($travel_level, $travel_food, $travel_gold);
@@ -145,8 +145,8 @@ if ($action == 'fly') {
 
 	$travel = false;
 	$travel_level = 1;
-	$travel_food = 0;
-	$travel_gold = 0;
+	$travel_food = 3;
+	$travel_gold = 1100;
 	
 	if (($do == 4)||($do == 5)) {
 		check_travel_req($travel_level, $travel_food, $travel_gold);
