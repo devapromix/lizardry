@@ -3,7 +3,7 @@
 if ($action == 'stables') {
 
 	$travel = false;
-	$travel_level = 1;
+	$travel_level = 12;
 	$travel_food = 3;
 	$travel_gold = 200;
 	
@@ -50,7 +50,7 @@ if ($action == 'stables') {
 if ($action == 'harbor') {
 
 	$travel = false;
-	$travel_level = 1;
+	$travel_level = 24;
 	$travel_food = 4;
 	$travel_gold = 500;
 	
@@ -97,7 +97,7 @@ if ($action == 'harbor') {
 if ($action == 'dir_tower') {
 
 	$travel = false;
-	$travel_level = 1;
+	$travel_level = 36;
 	$travel_food = 4;
 	$travel_gold = 800;
 	
@@ -144,7 +144,7 @@ if ($action == 'dir_tower') {
 if ($action == 'fly') {
 
 	$travel = false;
-	$travel_level = 1;
+	$travel_level = 48;
 	$travel_food = 3;
 	$travel_gold = 1100;
 	
