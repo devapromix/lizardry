@@ -77,7 +77,9 @@ function equip_item($item_ident) {
 
 	switch($item['item_type']) {
 		case 0:
+			save_to_log($user['char_equip_armor_name'].' - предмет перемещен в инвентарь.');
 			add_item($user['char_equip_armor_ident']);
+			save_to_log($item['item_name'].' - предмет куплен и надет.');
 			$user['char_equip_armor_name'] = $item['item_name'];
 			$user['char_equip_armor_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -86,7 +88,9 @@ function equip_item($item_ident) {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		case 1:
+			save_to_log($user['char_equip_weapon_name'].' - предмет перемещен в инвентарь.');
 			add_item($user['char_equip_weapon_ident']);
+			save_to_log($item['item_name'].' - предмет куплен и надет.');
 			$user['char_equip_weapon_name'] = $item['item_name'];
 			$user['char_equip_weapon_ident'] = $item['item_ident'];
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -102,11 +106,13 @@ function equip_item($item_ident) {
 		case 12:
 		case 13:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
+			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
 			add_item($item['item_ident']);
 			update_user_table("char_gold=".$user['char_gold']);
 			break;
 	}
 }
+
 function pickup_equip_item() {
 	global $user, $tb_item, $connection;
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['loot_slot_1'];
@@ -119,25 +125,41 @@ function pickup_equip_item() {
 	$r = '';
 	switch($item['item_type']) {
 		case 0:
-			add_item($user['char_equip_armor_ident']);
-			$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
-			$user['char_equip_armor_name'] = $item['item_name'];
-			$user['char_equip_armor_ident'] = $item['item_ident'];
-			$user['char_armor'] = $item['item_armor'];
-			update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
-			$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
-			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			if ($item['item_ident'] > $user['char_equip_armor_ident']) {
+				save_to_log($user['char_equip_armor_name'].' - предмет перемещен в инвентарь.');
+				add_item($user['char_equip_armor_ident']);
+				$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
+				$user['char_equip_armor_name'] = $item['item_name'];
+				$user['char_equip_armor_ident'] = $item['item_ident'];
+				$user['char_armor'] = $item['item_armor'];
+				update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
+				$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
+				save_to_log($user['char_equip_armor_name'].' - предмет надет.');
+				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			} else {
+				save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
+				$r = 'Вы забираете '.$item['item_name'].' себе.';
+				add_item($item['item_ident']);
+			}
 			break;
 		case 1:
-			add_item($user['char_equip_weapon_ident']);
-			$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
-			$user['char_equip_weapon_name'] = $item['item_name'];
-			$user['char_equip_weapon_ident'] = $item['item_ident'];
-			$user['char_damage_min'] = $item['item_damage_min'];
-			$user['char_damage_max'] = $item['item_damage_max'];
-			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
-			$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
-			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			if ($item['item_ident'] > $user['char_equip_weapon_ident']) {
+				save_to_log($user['char_equip_weapon_name'].' - предмет перемещен в инвентарь.');
+				add_item($user['char_equip_weapon_ident']);
+				$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
+				$user['char_equip_weapon_name'] = $item['item_name'];
+				$user['char_equip_weapon_ident'] = $item['item_ident'];
+				$user['char_damage_min'] = $item['item_damage_min'];
+				$user['char_damage_max'] = $item['item_damage_max'];
+				update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
+				$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
+				save_to_log($user['char_equip_weapon_name'].' - предмет надет.');
+				add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+			} else {
+				save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
+				$r = 'Вы забираете '.$item['item_name'].' себе.';
+				add_item($item['item_ident']);
+			}
 			break;
 		case 8:
 		case 9:
@@ -147,6 +169,7 @@ function pickup_equip_item() {
 		case 13:
 		case 21:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
+			save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 			add_item($item['item_ident']);
 			break;
 	}
@@ -247,6 +270,15 @@ function get_slot_item_ident($item_slot) {
 			return $user['item_slot_6'];
 			break;
 	}
+}
+
+function get_region_town_name($region_ident) {
+	global $user, $tb_regions, $connection;
+	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$region = $result->fetch_assoc();
+	return $region['region_town_name'];
 }
 
 function change_region($region_ident, $food, $gold) {
@@ -424,11 +456,11 @@ function gen_loot() {
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 9) == 0);
+				$next = (rand(0, 2) == 0);
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 9) == 0);
+				$next = (rand(0, 2) == 0);
 				break;
 		}
 		
@@ -1049,6 +1081,7 @@ function inv_item_trade($type) {
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);
+				save_to_log($item['item_name'].' (x'.$count.') - предмет(ы) продан(ы).');
 			}
 		}
 	}
@@ -1056,6 +1089,34 @@ function inv_item_trade($type) {
 	update_user_table("char_gold=".$user['char_gold']);
 
 	return $gold;
+}
+
+function save_to_log($msg) {
+	global $connection, $user, $tb_log;
+	$query = "INSERT INTO ".$tb_log." (log_char_name,log_message) VALUES('".$user['char_name']."', '".$msg."')";
+	if (!mysqli_query($connection, $query)) {
+		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
+	}
+}
+
+function check_travel_req($level, $food, $gold) {
+	global $user;
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+	if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
+	if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
+	if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
+}
+
+function after_travel() {
+	global $user;
+	$user['title'] = 'Путешествие';
+	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
+	$user['links'] = array();
+	go_to_the_gate('Идти к воротам в город');
+}
+
+function travel_req($level, $food, $gold) {
+	return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собою иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
 }
 
 ?>
