@@ -28,7 +28,7 @@ if ($action == 'guild_main') {
 	$user['links'] = array();
 	addlink('Покинуть зал', 'index.php?action=guilds');
 	addlink('Приступить к тренировке', 'index.php?action=guild_main&do=train_in_guild_main', 1);
-	addlink('Забыть все навыки!', 'index.php?action=guild_main&do=clear', 2);
+	addlink('Забыть все навыки!', 'index.php?action=guild_main&do=try_clear', 2);
 
 	if ($do == 'train_in_guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
@@ -45,11 +45,19 @@ if ($action == 'guild_main') {
 		addlink('Назад', 'index.php?action=guild_main');
 	}
 	
+	if ($do == 'try_clear') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
+		$user['description'] = 'Вы подтверждаете, что готовы сбросить все очки развития навыков персонажа?';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_main');
+		addlink('Подтвердить!', 'index.php?action=guild_main&do=clear', 1);
+	}
+	
 	if ($do == 'clear') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
 		$user['description'] = 'Вы входите в маленькую комнатушку. Мастер дает прочитать вам магический свиток. Через мгновение вы понимаете, что забыли все свои навыки и все надо начинать с самого начала.';
 		$user['char_lp'] = $user['char_level'];
-		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0");
+		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
 		$user['log'] = 'Вы забыли все!';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_main');
@@ -73,7 +81,7 @@ if ($action == 'guild_warrior') {
 	if ($user['skill_parry'] > 0)
 		$t .= 'Парирование: '.$user['skill_parry'].'/50#';
 	if ($user['skill_bewil'] > 0)
-		$t .= 'Ошеломление: '.$user['skill_bewil'].'/50#';
+		$t .= 'Ошеломление: '.$user['skill_bewil'].'/25#';
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -131,7 +139,7 @@ if ($action == 'guild_warrior') {
 	if ($do == 'train_bewil') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($user['char_lp'] == 0) die('{"error":"Для тренировки нужны очки развития навыков!"}');
-		if ($user['skill_bewil'] >= 50) die('{"error":"Вы достигли максимума в развитии навыка!"}');
+		if ($user['skill_bewil'] >= 25) die('{"error":"Вы достигли максимума в развитии навыка!"}');
 		$user['char_lp']--;
 		$user['skill_bewil']++;
 		$user['description'] = 'Вы тренируете ошеломляющий удар. Пока враг в растерянности, вы атакуете снова и снова. В умение "Ошеломление" вложено '.$user['skill_bewil'].' оч.';
@@ -176,7 +184,7 @@ if ($action == 'guild_hunter') {
 if ($action == 'guild_forge') {
 
 	$user['title'] = 'Гильдия Кузнецов';
-	$t = 'Вы входите в Кузницу. К вам выходит старый гном в испачканой угльной пылью одежде:#-Приветствую, '.$user['char_name'].'! Рад видеть тебя в Гильдии Кузнецов. У нас ты можешь потренироваться, отремонтировать свою экипировку, купить нужные вещи кузнеца или продать старое оружие.##';
+	$t = 'Вы входите в Кузницу. К вам выходит старый гном в испачканой угoльной пылью одежде:#-Приветствую, '.$user['char_name'].'! Рад видеть тебя в Гильдии Кузнецов. У нас ты можешь потренироваться, отремонтировать свою экипировку, купить нужные вещи кузнеца или продать старое оружие.##';
 	$t .= inv_item_list(1);
 	$user['description'] = $t;
 	$user['links'] = array();
