@@ -29,7 +29,7 @@ if ($action == 'stables') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			go_to_the_gate('Покинуть Конюшни');
+			go_to_the_gate();
 			switch ($user['char_region']) {
 				case 1:
 					addlink('Путешествие в '.get_region_town_name(2), 'index.php?action=stables&do=2', 1);
@@ -76,7 +76,7 @@ if ($action == 'harbor') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			go_to_the_gate('Покинуть Гавань');
+			go_to_the_gate();
 			switch ($user['char_region']) {
 				case 2:
 					addlink('Путешествие в '.get_region_town_name(3), 'index.php?action=harbor&do=3', 1);
@@ -123,7 +123,7 @@ if ($action == 'dir_tower') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			go_to_the_gate('Покинуть Башню Дирижаблей');
+			go_to_the_gate();
 			switch ($user['char_region']) {
 				case 3:
 					addlink('Путешествие в '.get_region_town_name(4), 'index.php?action=dir_tower&do=4', 1);
@@ -170,7 +170,7 @@ if ($action == 'fly') {
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			go_to_the_gate('Покинуть Утес Ветрокрылов');
+			go_to_the_gate();
 			switch ($user['char_region']) {
 				case 4:
 					addlink('Путешествие в '.get_region_town_name(5), 'index.php?action=fly&do=5', 1);
