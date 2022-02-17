@@ -50,6 +50,7 @@ type
     { Public declarations }
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
+    procedure LoadFromDBMessages;
     procedure LoadFromDBEnemies(F: Boolean = False);
   end;
 
@@ -319,6 +320,12 @@ end;
 procedure TFrameLogin.LoadFromDBItems;
 begin
   FormInfo.RichEdit2.Text := Server.GetFromDB('items');
+end;
+
+procedure TFrameLogin.LoadFromDBMessages;
+begin
+  FormMain.FrameTown.FrameChat.RichEdit1.Text :=
+    Server.GetFromDB('messages/messages');
 end;
 
 procedure TFrameLogin.LoadLastEvents;

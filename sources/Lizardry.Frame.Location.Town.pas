@@ -314,6 +314,7 @@ begin
   Panel10.Caption := 'ЧАТ';
   FrameChat.BringToFront;
   IsChatMode := True;
+  FormMain.FrameLogin.LoadFromDBMessages;
 end;
 
 procedure TFrameTown.SpeedButton3Click(Sender: TObject);

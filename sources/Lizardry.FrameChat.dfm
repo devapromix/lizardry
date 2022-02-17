@@ -21,6 +21,7 @@ object FrameChat: TFrameChat
       Color = clBtnFace
       MaxLength = 250
       TabOrder = 0
+      OnKeyDown = edChatMsgKeyDown
     end
   end
   object Panel2: TPanel
