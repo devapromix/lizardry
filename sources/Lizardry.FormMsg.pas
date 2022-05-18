@@ -32,8 +32,12 @@ implementation
 
 {$R *.dfm}
 
+uses Lizardry.FormMain;
+
 procedure ShowMsg(const S: string);
 begin
+  FormMsg.Left := (FormMain.Width div 2) - (FormMsg.Width div 2);
+  FormMsg.Top := (FormMain.Height div 2) - (FormMsg.Height div 2);
   FormMsg.Label1.Caption := S;
   FormMsg.ShowModal;
 end;

@@ -1,9 +1,11 @@
 object FormMsg: TFormMsg
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Lizardry'
-  ClientHeight = 453
-  ClientWidth = 559
+  ClientHeight = 463
+  ClientWidth = 569
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
@@ -15,47 +17,56 @@ object FormMsg: TFormMsg
   TextHeight = 21
   object Panel1: TPanel
     Left = 0
-    Top = 203
-    Width = 559
+    Top = 213
+    Width = 569
     Height = 200
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 203
+    ExplicitWidth = 559
     object Label1: TLabel
       Left = 0
       Top = 33
-      Width = 559
+      Width = 569
       Height = 167
       Align = alClient
       Alignment = taCenter
       AutoSize = False
       WordWrap = True
       ExplicitTop = 6
+      ExplicitWidth = 559
     end
     object Panel3: TPanel
       Left = 0
       Top = 0
-      Width = 559
+      Width = 569
       Height = 33
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitWidth = 559
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 403
-    Width = 559
+    Top = 413
+    Width = 569
     Height = 50
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 403
+    ExplicitWidth = 559
     object Button1: TButton
       Left = 231
       Top = 9
       Width = 113
       Height = 35
+      Cursor = crHandPoint
+      Cancel = True
       Caption = 'OK'
+      Default = True
       ModalResult = 1
       TabOrder = 0
     end
@@ -63,16 +74,18 @@ object FormMsg: TFormMsg
   object Panel5: TPanel
     Left = 0
     Top = 0
-    Width = 559
-    Height = 203
+    Width = 569
+    Height = 213
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 559
+    ExplicitHeight = 203
     object Image1: TImage
       Left = 0
       Top = 0
-      Width = 559
-      Height = 203
+      Width = 569
+      Height = 213
       Align = alClient
       Center = True
       Picture.Data = {
@@ -739,6 +752,7 @@ object FormMsg: TFormMsg
         A3145C89E070381C0E87A3145C89E070381C0E87A3145C89E070381C0E87A314
         5C89E070381C0E87A3145C89E070381C0E87A3145C89E070381C0E87A3145C89
         E070381C0E87A314FF07D124984982FD6DD20000000049454E44AE426082}
+      ExplicitWidth = 559
       ExplicitHeight = 200
     end
   end
