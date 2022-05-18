@@ -23,7 +23,6 @@ object FormInfo: TFormInfo
     ActivePage = TabSheet5
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = -32
     object TabSheet1: TTabSheet
       Caption = #1051#1086#1082#1072#1094#1080#1103
       object RichEdit1: TRichEdit
@@ -111,10 +110,6 @@ object FormInfo: TFormInfo
         Height = 430
         Align = alClient
         TabOrder = 0
-        ExplicitLeft = 104
-        ExplicitTop = 96
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
   end

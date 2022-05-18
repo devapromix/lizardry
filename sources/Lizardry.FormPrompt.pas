@@ -34,6 +34,8 @@ uses Lizardry.Server, Lizardry.FormMain;
 
 procedure Prompt(const TextMessage, ButOkText, ButOkLink: string);
 begin
+  FormPrompt.Left := (FormMain.Width div 2) - (FormPrompt.Width div 2);
+  FormPrompt.Top := (FormMain.Height div 2) - (FormPrompt.Height div 2);
   FormPrompt.lbMessage.Caption := TextMessage;
   FormPrompt.bbOK.Caption := ButOkText;
   FormPrompt.OkLink := ButOkLink;
