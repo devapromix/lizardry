@@ -67,7 +67,7 @@ begin
     SG.Cells[4, 0] := '';
   end;
   SG.Cells[1, 0] := 'Название';
-  SG.Cells[2, 0] := 'Броня';
+  SG.Cells[2, 0] := 'Значение';
   SG.Cells[3, 0] := 'Уровень';
   SG.Cells[4, 0] := 'Цена';
   ttInfo.Caption := '';
