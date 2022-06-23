@@ -180,6 +180,7 @@ var
   I, EvType, EvLevel, EvGender: Integer;
   EvName, EvStr: string;
 begin
+  // ShowMessage(AJSON);
   Result := '';
   try
     JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
@@ -321,6 +322,8 @@ begin
 end;
 
 procedure TFrameLogin.LoadLastEvents;
+var
+  S: string;
 begin
   if not TServer.IsInternetConnected then
   begin
@@ -328,7 +331,9 @@ begin
     Exit;
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
-  StaticText1.Caption := GetEventsText(Server.Get('index.php?action=events'));
+  S := Server.Get('index.php?action=events');
+  if (S[1] = '[') then
+    StaticText1.Caption := GetEventsText(S);
 end;
 
 end.
