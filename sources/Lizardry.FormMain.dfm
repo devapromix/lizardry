@@ -274,6 +274,10 @@ object FormMain: TFormMain
           end
           inherited Panel2: TPanel
             Width = 602
+            ExplicitWidth = 602
+            inherited ttInfo: TLabel
+              Width = 600
+            end
           end
         end
         inherited FrameInfo1: TFrameInfo
@@ -335,6 +339,9 @@ object FormMain: TFormMain
     inherited Panel1: TPanel
       Height = 712
       ExplicitHeight = 712
+      inherited bbOpenSite: TBitBtn
+        OnClick = FrameUpdatebbOpenSiteClick
+      end
     end
     inherited Panel2: TPanel
       Width = 934

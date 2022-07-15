@@ -45,9 +45,9 @@ begin
       // ShowMessage(S);
     end;
     edChatMsg.Text := '';
-    Key := 0;
     FormMain.FrameLogin.LoadFromDBMessages;
   end;
+  Key := 0;
 end;
 
 end.

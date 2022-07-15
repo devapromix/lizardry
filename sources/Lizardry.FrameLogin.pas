@@ -323,9 +323,28 @@ begin
 end;
 
 procedure TFrameLogin.LoadFromDBMessages;
+var
+  CharName, CharMessage: string;
+  JSONArray: TJSONArray;
+  I: Integer;
 begin
-  FormMain.FrameTown.FrameChat.RichEdit1.Text :=
-    Server.GetFromDB('messages/messages');
+  try
+    JSONArray := TJSONObject.ParseJSONValue
+      (Server.GetFromDB('messages/messages')) as TJSONArray;
+    FormMain.FrameTown.FrameChat.RichEdit1.Clear;
+    for I := JSONArray.Count - 1 downto 0 do
+    begin
+      CharName := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('message_author'))
+        .JsonValue.Value;
+      CharMessage :=
+        Trim(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('message_text'))
+        .JsonValue.Value);
+      if (CharMessage <> EmptyStr) then
+        FormMain.FrameTown.FrameChat.RichEdit1.Lines.Append
+          (Format('%s: %s', [CharName, CharMessage]));
+    end;
+  except
+  end;
 end;
 
 procedure TFrameLogin.LoadLastEvents;

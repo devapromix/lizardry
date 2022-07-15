@@ -18,6 +18,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FrameUpdatebbOpenSiteClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -75,6 +76,12 @@ begin
   finally
     Reg.Free;
   end;
+end;
+
+procedure TFormMain.FrameUpdatebbOpenSiteClick(Sender: TObject);
+begin
+  FrameUpdate.bbOpenSiteClick(Sender);
+
 end;
 
 end.
