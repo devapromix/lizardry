@@ -17,7 +17,6 @@ object FrameRegistration: TFrameRegistration
     Height = 800
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 617
     object Label1: TLabel
       Left = 24
       Top = 21
@@ -564,7 +563,6 @@ object FrameRegistration: TFrameRegistration
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitHeight = 617
     object Panel3: TPanel
       Left = 0
       Top = 0
@@ -1258,7 +1256,6 @@ object FrameRegistration: TFrameRegistration
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitHeight = 392
       object Image2: TImage
         Left = 208
         Top = 55
@@ -2032,7 +2029,7 @@ object FrameRegistration: TFrameRegistration
         Left = 24
         Top = 215
         Width = 336
-        Height = 289
+        Height = 338
         Alignment = taCenter
         AutoSize = False
         TabOrder = 0

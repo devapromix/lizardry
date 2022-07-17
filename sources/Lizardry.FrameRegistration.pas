@@ -94,6 +94,7 @@ type
     procedure ClearWeapons;
     procedure ClearArmors;
     procedure ClearHelms;
+    procedure LoadImage(S: string);
   public
     { Public declarations }
     procedure Clear;
@@ -103,7 +104,8 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg;
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg, Lizardry.FormInfo,
+  System.IOUtils;
 
 procedure TFrameRegistration.arLeatherArmorClick(Sender: TObject);
 begin
@@ -268,6 +270,14 @@ procedure TFrameRegistration.gdMaleClick(Sender: TObject);
 begin
   ClearGenders;
   gdMale.Check;
+  if rcHuman.Checked then
+    LoadImage('Human');
+  if rcElf.Checked then
+    LoadImage('Elf');
+  if rcGnome.Checked then
+    LoadImage('Gnome');
+  if rcLizard.Checked then
+    LoadImage('Lizard');
 end;
 
 procedure TFrameRegistration.InfoClick(Sender: TObject);
@@ -308,10 +318,25 @@ begin
   ShowMsg(S);
 end;
 
+procedure TFrameRegistration.LoadImage(S: string);
+var
+  F: string;
+begin
+  S := 'player_' + LowerCase(S);
+  if gdMale.Checked then
+    S := S + '_male';
+  if gdFemale.Checked then
+    S := S + '_female';
+  F := TPath.GetHomePath + '\Lizardry\Images\' + S + '.jpg';
+  if FileExists(F) then
+    Image2.Picture.LoadFromFile(F);
+end;
+
 procedure TFrameRegistration.rcElfClick(Sender: TObject);
 begin
   ClearRaces;
   rcElf.Check;
+  LoadImage('Elf');
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(1);
 end;
 
@@ -319,6 +344,7 @@ procedure TFrameRegistration.rcGnomeClick(Sender: TObject);
 begin
   ClearRaces;
   rcGnome.Check;
+  LoadImage('Gnome');
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(2);
 end;
 
@@ -326,7 +352,7 @@ procedure TFrameRegistration.rcHumanClick(Sender: TObject);
 begin
   ClearRaces;
   rcHuman.Check;
-  Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
+  LoadImage('Human');
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
 end;
 
@@ -334,6 +360,7 @@ procedure TFrameRegistration.rcLizardClick(Sender: TObject);
 begin
   ClearRaces;
   rcLizard.Check;
+  LoadImage('Lizard');
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(3);
 end;
 
@@ -385,6 +412,7 @@ procedure TLabel.Check;
 begin
   Self.Caption := '> ' + Trim(Self.Caption);
   Self.Font.Style := [fsBold];
+  FChecked := True;
 end;
 
 procedure TLabel.UnCheck;
@@ -392,6 +420,7 @@ begin
   Self.Caption := StringReplace(Self.Caption, '>', ' ', [rfReplaceAll]);
   Self.Caption := '  ' + Trim(Self.Caption);
   Self.Font.Style := [];
+  FChecked := False;
 end;
 
 end.
