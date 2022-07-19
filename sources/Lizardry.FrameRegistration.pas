@@ -201,12 +201,12 @@ begin
   edUserName.Text := '';
   edUserPass.Text := '';
   edCharName.Text := '';
-  ClearRaces;
-  rcHuman.Check;
-  Image2.Picture.Bitmap.Handle := LoadBitmap(hInstance, 'PLAYER_WARRIOR');
-  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
   ClearGenders;
   gdMale.Check;
+  ClearRaces;
+  rcHuman.Check;
+  LoadImages;
+  StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
   ClearWeapons;
   wpSword.Check;
   ClearArmors;
