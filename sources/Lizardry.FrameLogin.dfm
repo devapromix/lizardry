@@ -1532,7 +1532,7 @@ object FrameLogin: TFrameLogin
       object Label3: TLabel
         Left = 0
         Top = 20
-        Width = 363
+        Width = 416
         Height = 22
         Align = alTop
         Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1087#1088#1086#1080#1096#1077#1089#1090#1074#1080#1103' '#1074' Lizardry:'
@@ -1542,6 +1542,7 @@ object FrameLogin: TFrameLogin
         Font.Name = 'Courier New'
         Font.Style = [fsBold]
         ParentFont = False
+        ExplicitWidth = 363
       end
       object Panel5: TPanel
         Left = 0
@@ -1561,8 +1562,8 @@ object FrameLogin: TFrameLogin
       object StaticText1: TStaticText
         Left = 0
         Top = 42
-        Width = 4
-        Height = 4
+        Width = 416
+        Height = 231
         Align = alClient
         TabOrder = 1
       end

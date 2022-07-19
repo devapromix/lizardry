@@ -95,6 +95,7 @@ type
     procedure ClearArmors;
     procedure ClearHelms;
     procedure LoadImage(S: string);
+    procedure LoadImages;
   public
     { Public declarations }
     procedure Clear;
@@ -264,20 +265,14 @@ procedure TFrameRegistration.gdFemaleClick(Sender: TObject);
 begin
   ClearGenders;
   gdFemale.Check;
+  LoadImages;
 end;
 
 procedure TFrameRegistration.gdMaleClick(Sender: TObject);
 begin
   ClearGenders;
   gdMale.Check;
-  if rcHuman.Checked then
-    LoadImage('Human');
-  if rcElf.Checked then
-    LoadImage('Elf');
-  if rcGnome.Checked then
-    LoadImage('Gnome');
-  if rcLizard.Checked then
-    LoadImage('Lizard');
+  LoadImages;
 end;
 
 procedure TFrameRegistration.InfoClick(Sender: TObject);
@@ -332,11 +327,23 @@ begin
     Image2.Picture.LoadFromFile(F);
 end;
 
+procedure TFrameRegistration.LoadImages;
+begin
+  if rcHuman.Checked then
+    LoadImage('Human');
+  if rcElf.Checked then
+    LoadImage('Elf');
+  if rcGnome.Checked then
+    LoadImage('Gnome');
+  if rcLizard.Checked then
+    LoadImage('Lizard');
+end;
+
 procedure TFrameRegistration.rcElfClick(Sender: TObject);
 begin
   ClearRaces;
   rcElf.Check;
-  LoadImage('Elf');
+  LoadImages;
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(1);
 end;
 
@@ -344,7 +351,7 @@ procedure TFrameRegistration.rcGnomeClick(Sender: TObject);
 begin
   ClearRaces;
   rcGnome.Check;
-  LoadImage('Gnome');
+  LoadImages;
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(2);
 end;
 
@@ -352,7 +359,7 @@ procedure TFrameRegistration.rcHumanClick(Sender: TObject);
 begin
   ClearRaces;
   rcHuman.Check;
-  LoadImage('Human');
+  LoadImages;
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(0);
 end;
 
@@ -360,7 +367,7 @@ procedure TFrameRegistration.rcLizardClick(Sender: TObject);
 begin
   ClearRaces;
   rcLizard.Check;
-  LoadImage('Lizard');
+  LoadImages;
   StaticText1.Caption := FormMain.FrameTown.GetRaceDescription(3);
 end;
 
