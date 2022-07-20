@@ -2,7 +2,7 @@ object FrameTown: TFrameTown
   Left = 0
   Top = 0
   Width = 897
-  Height = 474
+  Height = 508
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
   Font.Height = -19
@@ -14,10 +14,11 @@ object FrameTown: TFrameTown
     Left = 617
     Top = 0
     Width = 280
-    Height = 474
+    Height = 508
     Align = alRight
     ParentBackground = False
     TabOrder = 0
+    ExplicitHeight = 474
     object CharNamePanel: TPanel
       Tag = 1
       Left = 1
@@ -389,11 +390,12 @@ object FrameTown: TFrameTown
     Left = 0
     Top = 0
     Width = 300
-    Height = 474
+    Height = 508
     Align = alLeft
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
+    ExplicitHeight = 474
     object LinkPanel1: TPanel
       Tag = 1
       Left = 0
@@ -539,15 +541,16 @@ object FrameTown: TFrameTown
     Left = 300
     Top = 0
     Width = 317
-    Height = 474
+    Height = 508
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitHeight = 474
     inline FrameChar: TFrameChar
       Left = 0
       Top = 25
       Width = 317
-      Height = 249
+      Height = 283
       Align = alClient
       Font.Charset = RUSSIAN_CHARSET
       Font.Color = clWindowText
@@ -561,7 +564,7 @@ object FrameTown: TFrameTown
       ExplicitHeight = 249
       inherited PageControl1: TPageControl
         Width = 317
-        Height = 249
+        Height = 283
         ExplicitWidth = 317
         ExplicitHeight = 249
         inherited TabSheet1: TTabSheet
@@ -571,13 +574,11 @@ object FrameTown: TFrameTown
           ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 213
           inherited SG: TStringGrid
             Width = 309
-            Height = 124
+            Height = 158
             ExplicitWidth = 309
             ExplicitHeight = 124
           end
@@ -586,7 +587,7 @@ object FrameTown: TFrameTown
             ExplicitWidth = 309
           end
           inherited Panel2: TPanel
-            Top = 149
+            Top = 183
             Width = 309
             ExplicitTop = 149
             ExplicitWidth = 309
@@ -614,30 +615,32 @@ object FrameTown: TFrameTown
       Left = 0
       Top = 25
       Width = 317
-      Height = 249
+      Height = 283
       Align = alClient
       TabOrder = 3
       ExplicitTop = 25
       ExplicitWidth = 317
       ExplicitHeight = 249
       inherited Panel1: TPanel
-        Top = 217
+        Top = 251
         Width = 317
         ExplicitTop = 217
         ExplicitWidth = 317
         inherited edChatMsg: TEdit
           Width = 315
+          ExplicitLeft = 1
+          ExplicitTop = 1
           ExplicitWidth = 315
         end
       end
       inherited Panel2: TPanel
         Width = 317
-        Height = 217
+        Height = 251
         ExplicitWidth = 317
         ExplicitHeight = 217
         inherited RichEdit1: TRichEdit
           Width = 315
-          Height = 215
+          Height = 249
           ExplicitWidth = 315
           ExplicitHeight = 215
         end
@@ -668,11 +671,12 @@ object FrameTown: TFrameTown
     end
     object FramePanel: TPanel
       Left = 0
-      Top = 274
+      Top = 308
       Width = 317
       Height = 200
       Align = alBottom
       TabOrder = 1
+      ExplicitTop = 274
       inline FrameBank1: TFrameBank
         Left = 1
         Top = 1
@@ -759,9 +763,10 @@ object FrameTown: TFrameTown
       Left = 0
       Top = 25
       Width = 317
-      Height = 249
+      Height = 283
       Align = alClient
       TabOrder = 2
+      ExplicitHeight = 249
       object Label1: TLabel
         Left = 104
         Top = 192
@@ -774,7 +779,7 @@ object FrameTown: TFrameTown
         Left = 1
         Top = 1
         Width = 315
-        Height = 247
+        Height = 281
         Align = alClient
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
@@ -812,7 +817,7 @@ object FrameTown: TFrameTown
         Left = 1
         Top = 1
         Width = 315
-        Height = 247
+        Height = 281
         Align = alClient
         TabOrder = 1
         ExplicitLeft = 1
@@ -820,14 +825,14 @@ object FrameTown: TFrameTown
         ExplicitWidth = 315
         ExplicitHeight = 247
         inherited StaticText2: TStaticText
-          Top = 113
+          Top = 147
           Width = 315
           ExplicitTop = 113
           ExplicitWidth = 315
         end
         inherited StaticText1: TStaticText
           Width = 315
-          Height = 113
+          Height = 147
           ExplicitWidth = 315
           ExplicitHeight = 113
         end
@@ -836,7 +841,7 @@ object FrameTown: TFrameTown
         Left = 1
         Top = 1
         Width = 315
-        Height = 247
+        Height = 281
         Align = alClient
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
@@ -851,12 +856,12 @@ object FrameTown: TFrameTown
         ExplicitHeight = 247
         inherited Panel1: TPanel
           Width = 315
-          Height = 110
+          Height = 144
           ExplicitWidth = 315
           ExplicitHeight = 110
           inherited BattleLog: TRichEdit
             Width = 313
-            Height = 108
+            Height = 142
             BevelInner = bvNone
             BevelOuter = bvNone
             BorderStyle = bsNone
