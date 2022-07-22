@@ -45,6 +45,9 @@ if ($action == 'gate') {
 				addlink('Забытый Лес', 'index.php?action=forgotten_forest', 6);
 				break;
 			case 6:
+				addlink('Башня Дирижаблей', 'index.php?action=dir_tower', 2);
+				addlink('Посетить Гавань', 'index.php?action=harbor', 3);
+				addlink('Красная Пустыня', 'index.php?action=red_desert', 4);
 				break;
 			case 7:
 				break;

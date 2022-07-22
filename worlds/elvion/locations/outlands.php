@@ -26,7 +26,7 @@ if ($action == 'dark_valley') outland($action, [57,58,59]);
 if ($action == 'forgotten_forest') outland($action, [60,61,62], [], ['Пещера Боли', 'index.php?action=cave_of_pain']);
 if ($action == 'cave_of_pain') outland($action, [63,64,65], ['Забытый Лес', 'index.php?action=forgotten_forest']);
 // #6
-if ($action == '+') outland($action, [66,67,68,69]);
+if ($action == 'red_desert') outland($action, [66,67,68,69]);
 if ($action == '+') outland($action, [70,71,72]);
 if ($action == '+') outland($action, [73,74,75]);
 if ($action == '+') outland($action, [76,77,78]);
