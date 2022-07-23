@@ -50,11 +50,22 @@ if ($action == 'stables') {
 if ($action == 'harbor') {
 
 	$travel = false;
-	$travel_level = 24;
-	$travel_food = 4;
-	$travel_gold = 500;
+	switch ($user['char_region']) {
+		case 2:
+		case 3:
+			$travel_level = 24;
+			$travel_food = 4;
+			$travel_gold = 500;
+			break;
+		case 5:
+		case 6:
+			$travel_level = 60;
+			$travel_food = 4;
+			$travel_gold = 1600;
+			break;
+	}
 	
-	if (($do == 2)||($do == 3)) {
+	if (($do == 2)||($do == 3)||($do == 5)||($do == 6)) {
 		check_travel_req($travel_level, $travel_food, $travel_gold);
 		$travel = true;
 		change_region($do, $travel_food, $travel_gold);
@@ -67,6 +78,8 @@ if ($action == 'harbor') {
 			switch ($user['char_region']) {
 				case 2:
 				case 3:
+				case 5:
+				case 6:
 					$user['description'] = 'В гавани не многолюдно, но все заняты работой. Здесь достаточно легко отыскать корабль, капитан которого согласится взять вас на борт.'.travel_req($travel_level, $travel_food, $travel_gold);
 					break;
 			}
@@ -83,6 +96,12 @@ if ($action == 'harbor') {
 					break;
 				case 3:
 					addlink('Путешествие в '.get_region_town_name(2), 'index.php?action=harbor&do=2', 1);
+					break;
+				case 5:
+					addlink('Путешествие в '.get_region_town_name(6), 'index.php?action=harbor&do=6', 1);
+					break;
+				case 6:
+					addlink('Путешествие в '.get_region_town_name(5), 'index.php?action=harbor&do=5', 1);
 					break;
 			}
 		
