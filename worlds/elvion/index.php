@@ -2,6 +2,7 @@
 $res = '0';
 
 include 'common/common.php';
+include 'common/locations.php';
 include 'common/connect.php';
 include 'common/dbtables.php';
 
