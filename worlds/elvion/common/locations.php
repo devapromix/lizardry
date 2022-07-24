@@ -25,12 +25,31 @@ function travel_to($action, $do, $regions) {
 	}
 	
 	if (!$travel) {
-		$user['title'] = 'Гавань';
+		if ($action == 'stables')
+			$user['title'] = 'Конюшни';
+		if ($action == 'harbor')
+			$user['title'] = 'Гавань';
+		if ($action == 'dir_tower')
+			$user['title'] = 'Башня Дирижаблей';
+		if ($action == 'fly')
+			$user['title'] = 'Утес Ветрокрылов';
+		if ($action == 'portal')
+			$user['title'] = 'Портал';
 		if ($user['char_life_cur'] > 0) {
 		
 			for ($i = 0; $i < count($regions); $i++) {
 				if (($user['char_region'] == $regions[$i])||($user['char_region'] == $regions[$i] + 1)) {
-					$user['description'] = 'В гавани не многолюдно, но все заняты работой. Здесь достаточно легко отыскать корабль, капитан которого согласится взять вас на борт.'.travel_req($travel_level, $travel_food, $travel_gold);
+					if ($action == 'stables')
+						$user['description'] = 'В городских конюшнях всегда можно найти караванщика, который за звонкую монету готов отвезти вас хоть на край света.';
+					if ($action == 'harbor')
+						$user['description'] = 'В гавани не многолюдно, но все заняты работой. Здесь достаточно легко отыскать корабль, капитан которого согласится взять вас на борт.';
+					if ($action == 'dir_tower')
+						$user['description'] = 'На вершине башни пришвартованы несколько дирижаблей и достаточно легко отыскать пилота готового отвезти вас в другой регион.';
+					if ($action == 'fly')
+						$user['description'] = 'На Утесе всегда много свободных ветрокрылов и не так сложно отыскать погонщика, который согласится отвезти вас в другой город.';
+					if ($action == 'portal')
+						$user['description'] = 'У Портала всегда можно отыскать мага, который за некоторое денежное вознаграждение согласится отправить вас в другой город.';
+					$user['description'] .= travel_req($travel_level, $travel_food, $travel_gold);
 					break;
 				}
 			}
