@@ -22,8 +22,8 @@ if ($action == 'shop_armor') {
 	
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
-	$user['title'] = '';
-	$user['description'] = 'Лавка Бронника';
+	$user['title'] = 'Лавка Бронника';
+	$user['description'] = '';
 	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
