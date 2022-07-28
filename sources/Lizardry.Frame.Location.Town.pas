@@ -549,7 +549,8 @@ begin
     end;
     if JSON.TryGetValue('char_exp', Cur) then
     begin
-      ChExpPanels(Cur, IntToStr(StrToIntDef(V, 1) * 100));
+      ChExpPanels(Cur, IntToStr(StrToIntDef(V, 1) *
+        ((StrToIntDef(V, 1) - 1) + 100)));
     end;
     if JSON.TryGetValue('char_food', S) then
     begin

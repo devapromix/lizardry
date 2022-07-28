@@ -3,7 +3,8 @@ unit Unit1;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Math,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
@@ -13,8 +14,11 @@ type
     Memo1: TMemo;
     Button1: TButton;
     Button2: TButton;
+    Button3: TButton;
+    Edit2: TEdit;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,6 +64,26 @@ begin
     if Odd(I) then
       Inc(H, 50);
   end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  Level: Integer;
+  Exp, MaxExp, CurExp: Integer;
+  Count: Integer;
+begin
+  Exp := 0;
+  Level := StrToIntDef(Edit2.Text, 1);
+  MaxExp := (Level * ((Level - 1) + 100));
+  Count := 0;
+  CurExp := 0;
+  while (CurExp < MaxExp) do
+  begin
+    Exp := (Level * 3) + RandomRange(Round(Level * 0.1), Round(Level * 0.3));
+    Inc(CurExp, Exp);
+    Inc(Count);
+  end;
+  ShowMessage(IntToStr(Count));
 end;
 
 end.
