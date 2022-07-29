@@ -9,7 +9,8 @@ uses
   Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
   Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
   Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop,
-  Lizardry.FrameChar, Lizardry.FrameAfterBattle, Lizardry.FrameBeforeBattle;
+  Lizardry.FrameChar, Lizardry.FrameAfterBattle, Lizardry.FrameBeforeBattle,
+  Lizardry.FrameGetLoot;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -76,6 +77,7 @@ type
     Label1: TLabel;
     FrameAfterBattle1: TFrameAfterBattle;
     FrameBeforeBattle1: TFrameBeforeBattle;
+    FrameGetLoot1: TFrameGetLoot;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -441,6 +443,14 @@ begin
         begin
           CurrentOutlands := S;
           FormMain.FrameTown.FrameLoot1.BringToFront;
+        end;
+      end
+      else if (S = 'get_loot') then
+      begin
+        if JSON.TryGetValue('current_outlands', S) then
+        begin
+          CurrentOutlands := S;
+          FormMain.FrameTown.FrameGetLoot1.BringToFront;
         end;
       end
       else if (S = 'before_battle') then

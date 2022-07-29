@@ -769,8 +769,10 @@ object FrameTown: TFrameTown
         Font.Style = []
         ParentFont = False
         TabOrder = 5
-        ExplicitLeft = -439
-        ExplicitTop = -32
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 315
+        ExplicitHeight = 198
       end
       inline FrameBeforeBattle1: TFrameBeforeBattle
         Left = 1
@@ -785,6 +787,24 @@ object FrameTown: TFrameTown
         Font.Style = []
         ParentFont = False
         TabOrder = 6
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 315
+        ExplicitHeight = 198
+      end
+      inline FrameGetLoot1: TFrameGetLoot
+        Left = 1
+        Top = 1
+        Width = 315
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
         ExplicitLeft = -439
         ExplicitTop = -32
       end

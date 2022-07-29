@@ -25,7 +25,8 @@ uses
   Lizardry.FrameChar in 'Lizardry.FrameChar.pas' {FrameChar: TFrame},
   Lizardry.FrameUpdate in 'Lizardry.FrameUpdate.pas' {FrameUpdate: TFrame},
   Lizardry.FrameAfterBattle in 'Lizardry.FrameAfterBattle.pas' {FrameAfterBattle: TFrame},
-  Lizardry.FrameBeforeBattle in 'Lizardry.FrameBeforeBattle.pas' {FrameBeforeBattle: TFrame};
+  Lizardry.FrameBeforeBattle in 'Lizardry.FrameBeforeBattle.pas' {FrameBeforeBattle: TFrame},
+  Lizardry.FrameGetLoot in 'Lizardry.FrameGetLoot.pas' {FrameGetLoot: TFrame};
 
 {$R *.res}
 
