@@ -497,7 +497,7 @@ function char_battle_round() {
 					}
 					return $r;
 				} else if (rand(1, 100) <= 1) {
-					$d += $user['char_damage_max'];
+					$d += rand($user['char_damage_max'], $user['char_damage_max'] * 2);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
 					if ($user['enemy_life_cur'] > 0) {
