@@ -25,6 +25,10 @@ type
     BattleLog: TRichEdit;
     ttEnemyArmor: TLabel;
     ttCharArmor: TLabel;
+    CharHPPanel: TPanel;
+    Panel5: TPanel;
+    EnemyHPPanel: TPanel;
+    ttEnemyLifeBar: TPanel;
   private
     { Private declarations }
   public

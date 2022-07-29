@@ -48,6 +48,7 @@ if ($action == 'gate') {
 				addlink('Башня Дирижаблей', 'index.php?action=dir_tower', 2);
 				addlink('Посетить Гавань', 'index.php?action=harbor', 3);
 				addlink('Красная Пустыня', 'index.php?action=red_desert', 4);
+				addlink('Огненное Море', 'index.php?action=fire_sea', 5);
 				break;
 			case 7:
 				break;

@@ -12,86 +12,102 @@ object FrameBattle: TFrameBattle
   TabOrder = 0
   object Panel1: TPanel
     Left = 0
-    Top = 137
+    Top = 160
     Width = 902
-    Height = 461
+    Height = 438
     Align = alClient
     TabOrder = 0
+    ExplicitTop = 137
+    ExplicitHeight = 461
     object BattleLog: TRichEdit
       Left = 1
       Top = 1
       Width = 900
-      Height = 459
+      Height = 436
       Align = alClient
       ScrollBars = ssVertical
       TabOrder = 0
       Zoom = 100
+      ExplicitLeft = 0
+      ExplicitTop = 6
+      ExplicitHeight = 426
     end
   end
   object Panel2: TPanel
     Left = 0
     Top = 0
     Width = 902
-    Height = 137
+    Height = 160
     Align = alTop
+    BevelOuter = bvNone
     Caption = 'VS'
     TabOrder = 1
+    ExplicitTop = 26
     object ttEnemyDamage: TLabel
       Left = 144
-      Top = 80
+      Top = 103
       Width = 121
       Height = 21
       Caption = 'Damage: 1-2'
     end
     object ttEnemyLife: TLabel
       Left = 144
-      Top = 56
+      Top = 79
       Width = 121
       Height = 21
       Caption = 'Life: 10/10'
     end
     object ttEnemyName: TLabel
       Left = 144
-      Top = 11
+      Top = 34
       Width = 44
-      Height = 21
+      Height = 22
       Caption = 'Name'
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
     end
     object Image2: TImage
       Left = 11
-      Top = 11
+      Top = 34
       Width = 118
       Height = 110
       Stretch = True
     end
     object ttEnemyLevel: TLabel
       Left = 144
-      Top = 34
+      Top = 57
       Width = 88
       Height = 21
       Caption = 'Level: 1'
     end
     object ttEnemyArmor: TLabel
       Left = 144
-      Top = 104
+      Top = 127
       Width = 88
       Height = 21
       Caption = 'Armor: 0'
     end
     object Panel3: TPanel
-      Left = 564
-      Top = 1
+      Left = 565
+      Top = 0
       Width = 337
-      Height = 135
+      Height = 160
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 564
+      ExplicitTop = 1
+      ExplicitHeight = 135
       DesignSize = (
         337
-        135)
+        160)
       object Image1: TImage
-        Left = 207
-        Top = 11
+        Left = 199
+        Top = 34
         Width = 118
         Height = 110
         Anchors = [akTop, akRight]
@@ -1444,20 +1460,25 @@ object FrameBattle: TFrameBattle
           589776E3636F4BB612C2D3487098FBABD4D5992E0C4309F28C7614514102DB4B
           24B1EFCE38A7EE6FEF3514545C0FFFD9}
         Stretch = True
-        ExplicitLeft = 180
       end
       object Label4: TLabel
-        Left = 134
-        Top = 10
+        Left = 126
+        Top = 33
         Width = 55
-        Height = 21
+        Height = 22
         Alignment = taRightJustify
         Anchors = [akTop, akRight]
         Caption = #1043#1077#1088#1086#1081
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object Label5: TLabel
-        Left = 28
-        Top = 55
+        Left = 20
+        Top = 78
         Width = 165
         Height = 21
         Alignment = taRightJustify
@@ -1465,8 +1486,8 @@ object FrameBattle: TFrameBattle
         Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 10/10'
       end
       object ttCharDamage: TLabel
-        Left = 94
-        Top = 79
+        Left = 86
+        Top = 102
         Width = 99
         Height = 21
         Alignment = taRightJustify
@@ -1474,8 +1495,8 @@ object FrameBattle: TFrameBattle
         Caption = #1059#1088#1086#1085': 1-2'
       end
       object Label7: TLabel
-        Left = 83
-        Top = 33
+        Left = 75
+        Top = 56
         Width = 110
         Height = 21
         Alignment = taRightJustify
@@ -1483,13 +1504,66 @@ object FrameBattle: TFrameBattle
         Caption = #1059#1088#1086#1074#1077#1085#1100': 1'
       end
       object ttCharArmor: TLabel
-        Left = 105
-        Top = 103
+        Left = 97
+        Top = 126
         Width = 88
         Height = 21
         Alignment = taRightJustify
         Anchors = [akTop, akRight]
         Caption = #1041#1088#1086#1085#1103': 0'
+      end
+      object CharHPPanel: TPanel
+        Tag = 5
+        Left = 39
+        Top = 10
+        Width = 278
+        Height = 15
+        Margins.Right = 30
+        Alignment = taRightJustify
+        Anchors = [akTop, akRight, akBottom]
+        BevelOuter = bvNone
+        BorderStyle = bsSingle
+        ParentBackground = False
+        TabOrder = 0
+        object Panel5: TPanel
+          Tag = 5
+          Left = -4
+          Top = 0
+          Width = 278
+          Height = 11
+          Margins.Right = 50
+          Align = alRight
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Color = clRed
+          ParentBackground = False
+          TabOrder = 0
+        end
+      end
+    end
+    object EnemyHPPanel: TPanel
+      Tag = 5
+      Left = 11
+      Top = 10
+      Width = 278
+      Height = 15
+      Alignment = taLeftJustify
+      BevelOuter = bvNone
+      BorderStyle = bsSingle
+      ParentBackground = False
+      TabOrder = 1
+      object ttEnemyLifeBar: TPanel
+        Tag = 5
+        Left = 0
+        Top = 0
+        Width = 278
+        Height = 11
+        Align = alLeft
+        Alignment = taLeftJustify
+        BevelOuter = bvNone
+        Color = clRed
+        ParentBackground = False
+        TabOrder = 0
       end
     end
   end

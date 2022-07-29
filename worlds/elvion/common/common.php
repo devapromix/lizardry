@@ -546,6 +546,7 @@ function enemy_battle_round() {
 						$stat['enemy_hits']++;
 						if ($d <= 0) {
 							$r .= $user['enemy_name'].' атакует, но не может пробить вашу защиту.#';
+							$d = 0;
 						} else {
 							if (rand(1, 100) <= 15) {
 								$d = get_glancing_blow_damage($d);

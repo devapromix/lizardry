@@ -87,6 +87,7 @@ type
     procedure ClearButtons;
     procedure AddButton(const Title, Script: string);
     procedure ChLifePanels(const Cur, Max: string);
+    procedure ChEnemyLifePanels(const Cur, Max: string);
     procedure ChManaPanels(const Cur, Max: string);
     procedure ChExpPanels(const Cur, Max: string);
   public
@@ -324,6 +325,12 @@ begin
   ShowMsg(Label1.Caption);
 end;
 
+procedure TFrameTown.ChEnemyLifePanels(const Cur, Max: string);
+begin
+  FormMain.FrameTown.FrameBattle1.ttEnemyLifeBar.Width :=
+    Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
+end;
+
 procedure TFrameTown.ChExpPanels(const Cur, Max: string);
 begin
   Panel4.Width := Round(Cur.ToInteger / Max.ToInteger * XPPanel.Width);
@@ -334,6 +341,8 @@ procedure TFrameTown.ChLifePanels(const Cur, Max: string);
 begin
   Panel1.Width := Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
   Panel14.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
+  FrameBattle1.Panel5.Width :=
+    Round(Cur.ToInteger / Max.ToInteger * HPPanel.Width);
   FrameBattle1.Label5.Caption := Format('Здоровье: %s/%s', [Cur, Max]);
 end;
 
@@ -603,8 +612,11 @@ begin
       FormMain.FrameTown.FrameBattle1.ttEnemyLevel.Caption := 'Уровень: ' + V;
     if JSON.TryGetValue('enemy_life_cur', Cur) and
       JSON.TryGetValue('enemy_life_max', Max) then
+    begin
       FormMain.FrameTown.FrameBattle1.ttEnemyLife.Caption :=
         Format('Здоровье: %s/%s', [Cur, Max]);
+      ChEnemyLifePanels(Cur, Max);
+    end;
     if JSON.TryGetValue('enemy_damage_min', Cur) and
       JSON.TryGetValue('enemy_damage_max', Max) then
       FormMain.FrameTown.FrameBattle1.ttEnemyDamage.Caption :=
