@@ -18,7 +18,6 @@ object FrameTown: TFrameTown
     Align = alRight
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 474
     object CharNamePanel: TPanel
       Tag = 1
       Left = 1
@@ -395,7 +394,6 @@ object FrameTown: TFrameTown
     BevelOuter = bvNone
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 474
     object LinkPanel1: TPanel
       Tag = 1
       Left = 0
@@ -545,7 +543,6 @@ object FrameTown: TFrameTown
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 474
     inline FrameChar: TFrameChar
       Left = 0
       Top = 25
@@ -561,12 +558,12 @@ object FrameTown: TFrameTown
       TabOrder = 4
       ExplicitTop = 25
       ExplicitWidth = 317
-      ExplicitHeight = 249
+      ExplicitHeight = 283
       inherited PageControl1: TPageControl
         Width = 317
         Height = 283
         ExplicitWidth = 317
-        ExplicitHeight = 249
+        ExplicitHeight = 283
         inherited TabSheet1: TTabSheet
           ExplicitLeft = 4
           ExplicitTop = 32
@@ -574,13 +571,15 @@ object FrameTown: TFrameTown
           ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 309
-          ExplicitHeight = 213
+          ExplicitHeight = 247
           inherited SG: TStringGrid
             Width = 309
             Height = 158
             ExplicitWidth = 309
-            ExplicitHeight = 124
+            ExplicitHeight = 158
           end
           inherited Panel1: TPanel
             Width = 309
@@ -589,7 +588,7 @@ object FrameTown: TFrameTown
           inherited Panel2: TPanel
             Top = 183
             Width = 309
-            ExplicitTop = 149
+            ExplicitTop = 183
             ExplicitWidth = 309
             inherited ttInfo: TLabel
               Width = 307
@@ -620,11 +619,11 @@ object FrameTown: TFrameTown
       TabOrder = 3
       ExplicitTop = 25
       ExplicitWidth = 317
-      ExplicitHeight = 249
+      ExplicitHeight = 283
       inherited Panel1: TPanel
         Top = 251
         Width = 317
-        ExplicitTop = 217
+        ExplicitTop = 251
         ExplicitWidth = 317
         inherited edChatMsg: TEdit
           Width = 315
@@ -637,12 +636,12 @@ object FrameTown: TFrameTown
         Width = 317
         Height = 251
         ExplicitWidth = 317
-        ExplicitHeight = 217
+        ExplicitHeight = 251
         inherited RichEdit1: TRichEdit
           Width = 315
           Height = 249
           ExplicitWidth = 315
-          ExplicitHeight = 215
+          ExplicitHeight = 249
         end
       end
     end
@@ -676,7 +675,6 @@ object FrameTown: TFrameTown
       Height = 200
       Align = alBottom
       TabOrder = 1
-      ExplicitTop = 274
       inline FrameBank1: TFrameBank
         Left = 1
         Top = 1
@@ -758,6 +756,38 @@ object FrameTown: TFrameTown
         ExplicitWidth = 315
         ExplicitHeight = 198
       end
+      inline FrameAfterBattle1: TFrameAfterBattle
+        Left = 1
+        Top = 1
+        Width = 315
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 5
+        ExplicitLeft = -439
+        ExplicitTop = -32
+      end
+      inline FrameBeforeBattle1: TFrameBeforeBattle
+        Left = 1
+        Top = 1
+        Width = 315
+        Height = 198
+        Align = alClient
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        ExplicitLeft = -439
+        ExplicitTop = -32
+      end
     end
     object Panel19: TPanel
       Left = 0
@@ -766,7 +796,6 @@ object FrameTown: TFrameTown
       Height = 283
       Align = alClient
       TabOrder = 2
-      ExplicitHeight = 249
       object Label1: TLabel
         Left = 104
         Top = 192
@@ -791,7 +820,7 @@ object FrameTown: TFrameTown
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 315
-        ExplicitHeight = 247
+        ExplicitHeight = 281
         inherited SG: TStringGrid
           Width = 315
           ExplicitWidth = 315
@@ -823,18 +852,18 @@ object FrameTown: TFrameTown
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 315
-        ExplicitHeight = 247
+        ExplicitHeight = 281
         inherited StaticText2: TStaticText
           Top = 147
           Width = 315
-          ExplicitTop = 113
+          ExplicitTop = 147
           ExplicitWidth = 315
         end
         inherited StaticText1: TStaticText
           Width = 315
           Height = 147
           ExplicitWidth = 315
-          ExplicitHeight = 113
+          ExplicitHeight = 147
         end
       end
       inline FrameBattle1: TFrameBattle
@@ -853,15 +882,15 @@ object FrameTown: TFrameTown
         ExplicitLeft = 1
         ExplicitTop = 1
         ExplicitWidth = 315
-        ExplicitHeight = 247
+        ExplicitHeight = 281
         inherited Panel1: TPanel
           Width = 315
-          Height = 144
+          Height = 121
           ExplicitWidth = 315
-          ExplicitHeight = 110
+          ExplicitHeight = 121
           inherited BattleLog: TRichEdit
             Width = 313
-            Height = 142
+            Height = 119
             BevelInner = bvNone
             BevelOuter = bvNone
             BorderStyle = bsNone
@@ -871,15 +900,15 @@ object FrameTown: TFrameTown
             PlainText = True
             ReadOnly = True
             ExplicitWidth = 313
-            ExplicitHeight = 108
+            ExplicitHeight = 119
           end
         end
         inherited Panel2: TPanel
           Width = 315
           ExplicitWidth = 315
           inherited Panel3: TPanel
-            Left = -23
-            ExplicitLeft = -23
+            Left = -22
+            ExplicitLeft = -22
           end
         end
       end

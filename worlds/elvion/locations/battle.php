@@ -11,6 +11,7 @@ if ($action == 'battle') {
 
 	$user['title'] = 'Сражение!!!';
 	$user['mainframe'] = 'outlands';
+	$user['frame'] = 'before_battle';
 	$user['links'] = array();
 	$n = 0;
 	if ($user['char_life_cur'] > 0) {
@@ -25,6 +26,7 @@ if ($action == 'battle') {
 
 		$user['title'] = 'Сражение!!!';
 		$user['mainframe'] = 'outlands';
+		$user['frame'] = $action;
 		$user['battlelog'] = auto_battle();
 		$user['links'] = array();
 		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
@@ -40,7 +42,7 @@ if ($action == 'battle') {
 					$m = 'Взять трофей!';
 					break;
 				default:
-					$m = 'Надеть броню!';
+					$m = 'Взять броню!';
 			}
 			addlink($m, 'index.php?action=pickup_loot&lootslot=1', 1);
 		}
@@ -58,6 +60,7 @@ if ($action == 'pickup_loot') {
 
 	$user['title'] = 'Находка!';
 	$user['description'] = pickup_equip_item();
+	$user['frame'] = 'battle';
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }

@@ -9,7 +9,7 @@ uses
   Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
   Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
   Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop,
-  Lizardry.FrameChar;
+  Lizardry.FrameChar, Lizardry.FrameAfterBattle, Lizardry.FrameBeforeBattle;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -74,6 +74,8 @@ type
     Panel2: TPanel;
     SpeedButton3: TSpeedButton;
     Label1: TLabel;
+    FrameAfterBattle1: TFrameAfterBattle;
+    FrameBeforeBattle1: TFrameBeforeBattle;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -439,6 +441,22 @@ begin
         begin
           CurrentOutlands := S;
           FormMain.FrameTown.FrameLoot1.BringToFront;
+        end;
+      end
+      else if (S = 'before_battle') then
+      begin
+        if JSON.TryGetValue('current_outlands', S) then
+        begin
+          CurrentOutlands := S;
+          FormMain.FrameTown.FrameBeforeBattle1.BringToFront;
+        end;
+      end
+      else if (S = 'battle') then
+      begin
+        if JSON.TryGetValue('current_outlands', S) then
+        begin
+          CurrentOutlands := S;
+          FormMain.FrameTown.FrameAfterBattle1.BringToFront;
         end;
       end
       else if (S = 'tavern') then
