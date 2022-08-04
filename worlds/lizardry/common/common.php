@@ -318,7 +318,7 @@ function update_user_table($s) {
 }
 
 function get_char_level_exp($level) {
-	return $level * 100;
+	return $level * (($level - 1) + 100);
 }
 
 function get_version() {
@@ -352,45 +352,6 @@ function post_param($value, $default) {
 		$res = $_POST[$value];
 	}
 	return $res;
-}
-
-function outland($location_ident, $enemies, $prev_location = [], $next_location = []) {
-	global $user, $res, $connection, $tb_locations;
-	$user['current_outlands'] = $location_ident;
-	add_enemies($enemies);	
-	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$location = $result->fetch_assoc();
-
-	$user['title'] = $location['location_name'];
-	$user['char_region_location_name'] = $location['location_name'];
-	update_user_table("char_region_location_name='".$user['char_region_location_name']."'");
-	
-	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $location['location_description'];
-	} else shades();
-	$user['frame'] = 'outlands';
-	$user['links'] = array();
-	$n = 0;
-	if ($user['char_life_cur'] > 0) {
-		if (count($prev_location) > 0) {
-			addlink($prev_location[0], $prev_location[1], $n);
-			$n++;
-		}
-		if (count($prev_location) == 0) {
-			go_to_the_gate();
-			$n++;
-		}
-		if (count($next_location) > 0) {
-			addlink($next_location[0], $next_location[1], $n);
-			$n++;
-		}
-	} else
-		go_to_the_graveyard();
-
-	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
-
 }
 
 function add_event($type, $name, $level = 1, $gender = 0, $str = '') {
@@ -536,7 +497,7 @@ function char_battle_round() {
 					}
 					return $r;
 				} else if (rand(1, 100) <= 1) {
-					$d += $user['char_damage_max'];
+					$d += rand($user['char_damage_max'], $user['char_damage_max'] * 2);
 					$stat['char_damages'] += $d;
 					$user['enemy_life_cur'] -= $d;
 					if ($user['enemy_life_cur'] > 0) {
@@ -585,6 +546,7 @@ function enemy_battle_round() {
 						$stat['enemy_hits']++;
 						if ($d <= 0) {
 							$r .= $user['enemy_name'].' атакует, но не может пробить вашу защиту.#';
+							$d = 0;
 						} else {
 							if (rand(1, 100) <= 15) {
 								$d = get_glancing_blow_damage($d);

@@ -152,7 +152,7 @@ end;
 
 initialization
 
-Server := TServer.Create('wallet.pp.ua', 'lizardry');
+Server := TServer.Create('lizardry.pp.ua', 'lizardry');
 
 finalization
 

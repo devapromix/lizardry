@@ -1,5 +1,44 @@
 <?php
 
+function outland($location_ident, $enemies, $prev_location = [], $next_location = []) {
+	global $user, $res, $connection, $tb_locations;
+	$user['current_outlands'] = $location_ident;
+	add_enemies($enemies);	
+	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$location = $result->fetch_assoc();
+
+	$user['title'] = $location['location_name'];
+	$user['char_region_location_name'] = $location['location_name'];
+	update_user_table("char_region_location_name='".$user['char_region_location_name']."'");
+	
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $location['location_description'];
+	} else shades();
+	$user['frame'] = 'outlands';
+	$user['links'] = array();
+	$n = 0;
+	if ($user['char_life_cur'] > 0) {
+		if (count($prev_location) > 0) {
+			addlink($prev_location[0], $prev_location[1], $n);
+			$n++;
+		}
+		if (count($prev_location) == 0) {
+			go_to_the_gate();
+			$n++;
+		}
+		if (count($next_location) > 0) {
+			addlink($next_location[0], $next_location[1], $n);
+			$n++;
+		}
+	} else
+		go_to_the_graveyard();
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+
+}
+
 function travel_to($action, $do, $regions) {
 	global $user;
 	
