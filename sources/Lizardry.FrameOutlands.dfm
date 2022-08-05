@@ -569,4 +569,21 @@ object FrameOutlands: TFrameOutlands
     Stretch = True
     OnClick = Image2Click
   end
+  object Label1: TLabel
+    Left = 152
+    Top = 3
+    Width = 49
+    Height = 34
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    OnClick = Image1Click
+  end
 end

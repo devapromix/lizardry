@@ -737,6 +737,12 @@ object FrameTown: TFrameTown
         inherited Image1: TImage
           OnClick = FrameOutlands1Image1Click
         end
+        inherited Label1: TLabel
+          Width = 66
+          Height = 21
+          ExplicitWidth = 66
+          ExplicitHeight = 21
+        end
       end
       inline FrameLoot1: TFrameLoot
         Left = 1
@@ -805,8 +811,10 @@ object FrameTown: TFrameTown
         Font.Style = []
         ParentFont = False
         TabOrder = 7
-        ExplicitLeft = -439
-        ExplicitTop = -32
+        ExplicitLeft = 1
+        ExplicitTop = 1
+        ExplicitWidth = 315
+        ExplicitHeight = 198
       end
     end
     object Panel19: TPanel

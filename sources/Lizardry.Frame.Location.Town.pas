@@ -592,6 +592,7 @@ begin
     if JSON.TryGetValue('char_food', S) then
     begin
       Panel15.Caption := 'Провизия: ' + S + '/7';
+      FormMain.FrameTown.FrameOutlands1.Label1.Caption := S + '/7';
     end;
     if JSON.TryGetValue('char_gold', S) then
       Panel12.Caption := 'Золото: ' + S;
