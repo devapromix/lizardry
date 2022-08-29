@@ -69,6 +69,6 @@ object Form1: TForm1
     Width = 34
     Height = 21
     TabOrder = 5
-    Text = '1'
+    Text = '50'
   end
 end

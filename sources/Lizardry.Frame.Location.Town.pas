@@ -108,6 +108,8 @@ type
     function GetRaceDescription(const N: Byte): string;
   end;
 
+function GetLevelExp(const Level: Word): Integer;
+
 var
   RegionLevel: Integer = 1;
   CurrentOutlands: string = '';
@@ -121,6 +123,11 @@ uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo,
 
 var
   LastCode: string = '';
+
+function GetLevelExp(const Level: Word): Integer;
+begin
+  Result := Level * Level * 5 + (Level * 50);
+end;
 
 procedure TFrameTown.DoAction(S: string);
 begin
@@ -586,8 +593,7 @@ begin
     end;
     if JSON.TryGetValue('char_exp', Cur) then
     begin
-      ChExpPanels(Cur, IntToStr(StrToIntDef(V, 1) *
-        ((StrToIntDef(V, 1) - 1) + 100)));
+      ChExpPanels(Cur, IntToStr(GetLevelExp(StrToIntDef(V, 1))));
     end;
     if JSON.TryGetValue('char_food', S) then
     begin

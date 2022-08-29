@@ -79,7 +79,6 @@ object FrameTown: TFrameTown
       Caption = #1054#1087#1099#1090': 0/100'
       ParentBackground = False
       TabOrder = 2
-      ExplicitTop = 81
     end
     object Panel14: TPanel
       Tag = 5
@@ -92,7 +91,6 @@ object FrameTown: TFrameTown
       Caption = #1047#1076#1086#1088#1086#1074#1100#1077': 30/30'
       ParentBackground = False
       TabOrder = 3
-      ExplicitTop = 111
     end
     object Panel15: TPanel
       Tag = 5
@@ -117,7 +115,6 @@ object FrameTown: TFrameTown
       Caption = #1052#1072#1085#1072': 20/20'
       ParentBackground = False
       TabOrder = 5
-      ExplicitTop = 141
     end
     object Panel11: TPanel
       Tag = 4
@@ -201,7 +198,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 11
-      ExplicitTop = 126
       object Panel1: TPanel
         Tag = 5
         Left = 1
@@ -226,7 +222,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 12
-      ExplicitTop = 156
       object Panel3: TPanel
         Tag = 5
         Left = 1
@@ -251,7 +246,6 @@ object FrameTown: TFrameTown
       BevelOuter = bvNone
       ParentBackground = False
       TabOrder = 13
-      ExplicitTop = 96
       object Panel4: TPanel
         Tag = 5
         Left = 1

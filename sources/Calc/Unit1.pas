@@ -70,20 +70,24 @@ procedure TForm1.Button3Click(Sender: TObject);
 var
   Level: Integer;
   Exp, MaxExp, CurExp: Integer;
-  Count: Integer;
+  Count, I: Integer;
 begin
-  Exp := 0;
   Level := StrToIntDef(Edit2.Text, 1);
-  MaxExp := (Level * ((Level - 1) + 100));
-  Count := 0;
-  CurExp := 0;
-  while (CurExp < MaxExp) do
+  Memo1.Clear;
+  for I := 1 to Level do
   begin
-    Exp := (Level * 3) + RandomRange(Round(Level * 0.1), Round(Level * 0.3));
-    Inc(CurExp, Exp);
-    Inc(Count);
+    Exp := 0;
+    MaxExp := I * I * 5 + (I * 50);
+    Count := 0;
+    CurExp := 0;
+    while (CurExp < MaxExp) do
+    begin
+      Exp := (I * 3) + RandomRange(Round(I * 0.1), Round(I * 0.3));
+      Inc(CurExp, Exp);
+      Inc(Count);
+    end;
+    Memo1.Lines.Append('Exp: ' + IntToStr(MaxExp) + ' / ' + IntToStr(Count));
   end;
-  ShowMessage(IntToStr(Count));
 end;
 
 end.
