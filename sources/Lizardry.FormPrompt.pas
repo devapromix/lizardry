@@ -49,8 +49,15 @@ end;
 
 procedure TFormPrompt.bbOKClick(Sender: TObject);
 begin
-  ModalResult := mrOk;
-  FormMain.FrameTown.ParseJSON(Server.Get(FormPrompt.OkLink));
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ModalResult := mrOk;
+    ParseJSON(Server.Get(FormPrompt.OkLink));
+  end;
 end;
 
 end.

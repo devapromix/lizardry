@@ -119,7 +119,7 @@ implementation
 {$R *.dfm}
 
 uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo,
-  Lizardry.FormMsg;
+  Lizardry.FormMsg, Lizardry.FormPrompt;
 
 var
   LastCode: string = '';
@@ -267,6 +267,7 @@ procedure TFrameTown.ParseJSON(AJSON, Section: string);
 var
   JSON: TJSONObject;
   S, Cur, Max: string;
+  R: TArray<string>;
 begin
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
@@ -288,6 +289,11 @@ begin
       if JSON.TryGetValue('info', S) then
         ShowMsg(S);
     end;
+    if UpperCase(Section) = 'PROMPT' then
+    begin
+      if JSON.TryGetValue('prompt', S) then
+        ShowMsg(S);
+    end;
     if UpperCase(Section) = 'INV' then
     begin
       if JSON.TryGetValue('inventory', S) then
@@ -299,6 +305,11 @@ begin
         if JSON.TryGetValue('char_mana_cur', Cur) and
           JSON.TryGetValue('char_mana_max', Max) then
           ChManaPanels(Cur, Max);
+        if JSON.TryGetValue('action', S) then
+        begin
+          R := S.Split(['|']);
+          Prompt(R[0], R[1], R[2]);
+        end;
       end;
     end;
   finally
@@ -387,6 +398,11 @@ begin
   if AJSON.Contains('{"info":') then
   begin
     ParseJSON(AJSON, 'INFO');
+    Exit;
+  end;
+  if AJSON.Contains('{"prompt":') then
+  begin
+    ParseJSON(AJSON, 'PROMPT');
     Exit;
   end;
   if AJSON.Contains('{"item":') then
