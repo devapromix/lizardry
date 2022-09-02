@@ -162,6 +162,10 @@ object FormMain: TFormMain
           Height = 487
           ExplicitWidth = 604
           ExplicitHeight = 487
+          inherited TabSheet1: TTabSheet
+            ExplicitWidth = 596
+            ExplicitHeight = 451
+          end
           inherited TabSheet2: TTabSheet
             ExplicitWidth = 596
             ExplicitHeight = 451

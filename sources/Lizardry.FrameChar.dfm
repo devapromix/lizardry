@@ -15,15 +15,11 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ttWeapon: TLabel
         Left = 110
         Top = 16
@@ -123,10 +119,6 @@ object FrameChar: TFrameChar
         Height = 21
         Caption = 'ttStatDeads'
       end
-    end
-    object TabSheet4: TTabSheet
-      Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
-      ImageIndex = 3
     end
   end
 end

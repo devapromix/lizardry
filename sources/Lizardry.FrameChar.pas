@@ -3,11 +3,19 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
   Vcl.ComCtrls,
-  Vcl.Grids, Vcl.ExtCtrls;
+  Vcl.Grids,
+  Vcl.ExtCtrls;
 
 type
   TFrameChar = class(TFrame)
@@ -21,7 +29,6 @@ type
     ttArmor: TLabel;
     Label2: TLabel;
     Label3: TLabel;
-    TabSheet4: TTabSheet;
     SG: TStringGrid;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -41,7 +48,12 @@ implementation
 
 {$R *.dfm}
 
-uses Math, JSON, Lizardry.FormMain, Lizardry.FormInfo, Lizardry.Server;
+uses
+  Math,
+  JSON,
+  Lizardry.FormMain,
+  Lizardry.FormInfo,
+  Lizardry.Server;
 
 { TFrameChar }
 

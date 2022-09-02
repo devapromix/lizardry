@@ -3,11 +3,26 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Lizardry.FrameLogin, Lizardry.FrameRegistration, Lizardry.Frame.Location.Town,
-  IdAntiFreezeBase, IdAntiFreeze, IdBaseComponent, IdComponent, IdTCPConnection,
-  IdTCPClient, IdHTTP, Lizardry.FrameUpdate;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Lizardry.FrameLogin,
+  Lizardry.FrameRegistration,
+  Lizardry.Frame.Location.Town,
+  IdAntiFreezeBase,
+  IdAntiFreeze,
+  IdBaseComponent,
+  IdComponent,
+  IdTCPConnection,
+  IdTCPClient,
+  IdHTTP,
+  Lizardry.FrameUpdate;
 
 type
   TFormMain = class(TForm)
@@ -35,7 +50,10 @@ implementation
 
 {$R *.dfm}
 
-uses Registry, Lizardry.FormInfo, Lizardry.FormMsg;
+uses
+  Registry,
+  Lizardry.FormInfo,
+  Lizardry.FormMsg;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var
@@ -81,7 +99,6 @@ end;
 procedure TFormMain.FrameUpdatebbOpenSiteClick(Sender: TObject);
 begin
   FrameUpdate.bbOpenSiteClick(Sender);
-
 end;
 
 end.
