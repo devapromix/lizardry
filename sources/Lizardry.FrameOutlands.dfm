@@ -586,4 +586,58 @@ object FrameOutlands: TFrameOutlands
     ParentFont = False
     OnClick = Image1Click
   end
+  object Label2: TLabel
+    Tag = 1
+    Left = 207
+    Top = 3
+    Width = 40
+    Height = 34
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    OnClick = Label2Click
+  end
+  object Label3: TLabel
+    Tag = 2
+    Left = 413
+    Top = 3
+    Width = 40
+    Height = 34
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    OnClick = Label2Click
+  end
+  object Label4: TLabel
+    Tag = 3
+    Left = 619
+    Top = 3
+    Width = 40
+    Height = 34
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    OnClick = Label2Click
+  end
 end

@@ -14,8 +14,12 @@ type
     Image3: TImage;
     Image4: TImage;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     procedure Image1Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
+    procedure Label2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,6 +45,14 @@ begin
     Exit;
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=battle&enemyslot=' + IntToStr((Sender as TImage).Tag)));
+end;
+
+procedure TFrameOutlands.Label2Click(Sender: TObject);
+begin
+  if IsChatMode or IsCharMode then
+    Exit;
+  FormMain.FrameTown.ParseJSON
+    (Server.Get('index.php?action=battle&enemyslot=' + IntToStr((Sender as TLabel).Tag)));
 end;
 
 end.

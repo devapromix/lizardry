@@ -249,6 +249,18 @@ object FormMain: TFormMain
           Width = 602
           ExplicitWidth = 602
         end
+        inherited FrameAfterBattle1: TFrameAfterBattle
+          Width = 602
+          ExplicitWidth = 602
+        end
+        inherited FrameBeforeBattle1: TFrameBeforeBattle
+          Width = 602
+          ExplicitWidth = 602
+        end
+        inherited FrameGetLoot1: TFrameGetLoot
+          Width = 602
+          ExplicitWidth = 602
+        end
       end
       inherited Panel19: TPanel
         Width = 604
@@ -277,6 +289,7 @@ object FormMain: TFormMain
             ExplicitWidth = 602
             inherited ttInfo: TLabel
               Width = 600
+              ExplicitWidth = 600
             end
           end
         end
@@ -305,22 +318,25 @@ object FormMain: TFormMain
           ExplicitHeight = 485
           inherited Panel1: TPanel
             Width = 602
-            Height = 348
+            Height = 325
             ExplicitWidth = 602
-            ExplicitHeight = 348
+            ExplicitHeight = 325
             inherited BattleLog: TRichEdit
               Width = 600
-              Height = 346
+              Height = 323
               ExplicitWidth = 600
-              ExplicitHeight = 346
+              ExplicitHeight = 323
             end
           end
           inherited Panel2: TPanel
             Width = 602
+            ExplicitTop = 0
             ExplicitWidth = 602
             inherited Panel3: TPanel
-              Left = 264
-              ExplicitLeft = 264
+              Left = 265
+              ExplicitLeft = 265
+              ExplicitTop = 0
+              ExplicitHeight = 160
             end
           end
         end

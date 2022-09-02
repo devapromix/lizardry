@@ -49,16 +49,19 @@ function add_enemy($enemy_slot, $enemy_ident) {
 		case 1:
 			$user['enemy_slot_1'] = $enemy_ident;
 			$user['enemy_slot_1_image'] = $enemy['enemy_image'];
+			$user['enemy_slot_1_level'] = $enemy['enemy_level'];
 			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_1_image='".$user['enemy_slot_1_image']."'");
 			break;
 		case 2:
 			$user['enemy_slot_2'] = $enemy_ident;
 			$user['enemy_slot_2_image'] = $enemy['enemy_image'];
+			$user['enemy_slot_2_level'] = $enemy['enemy_level'];
 			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_2_image='".$user['enemy_slot_2_image']."'");
 			break;
 		case 3:
 			$user['enemy_slot_3'] = $enemy_ident;
 			$user['enemy_slot_3_image'] = $enemy['enemy_image'];
+			$user['enemy_slot_3_level'] = $enemy['enemy_level'];
 			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_3=".$user['enemy_slot_3'].",enemy_slot_3_image='".$user['enemy_slot_3_image']."'");
 			break;
 	}
