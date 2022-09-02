@@ -21,20 +21,34 @@ function gen_enemy($enemy_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$enemy = $result->fetch_assoc();	
 
+	$user['enemy_champion'] = 0;
+	if (rand(1, 10) == 1)
+		$user['enemy_champion'] = 1;
+
 	$user['enemy_name'] = $enemy['enemy_name'];
+	if ($user['enemy_champion'] > 0)
+		$user['enemy_name'] .= ' (Чемпион)';
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
+	if ($user['enemy_champion'] > 0)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.2);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
+	if ($user['enemy_champion'] > 0)
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
+	if ($user['enemy_champion'] > 0)
+		$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
+	if ($user['enemy_champion'] > 0)
+		$user['enemy_gold'] += $enemy['enemy_level'] * 7;
 
-	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
+	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
 }
 
@@ -50,19 +64,19 @@ function add_enemy($enemy_slot, $enemy_ident) {
 			$user['enemy_slot_1'] = $enemy_ident;
 			$user['enemy_slot_1_image'] = $enemy['enemy_image'];
 			$user['enemy_slot_1_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_1_image='".$user['enemy_slot_1_image']."'");
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_1_image='".$user['enemy_slot_1_image']."',enemy_slot_1_level=".$user['enemy_slot_1_level']);
 			break;
 		case 2:
 			$user['enemy_slot_2'] = $enemy_ident;
 			$user['enemy_slot_2_image'] = $enemy['enemy_image'];
 			$user['enemy_slot_2_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_2_image='".$user['enemy_slot_2_image']."'");
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_2_image='".$user['enemy_slot_2_image']."',enemy_slot_2_level=".$user['enemy_slot_2_level']);
 			break;
 		case 3:
 			$user['enemy_slot_3'] = $enemy_ident;
 			$user['enemy_slot_3_image'] = $enemy['enemy_image'];
 			$user['enemy_slot_3_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_3=".$user['enemy_slot_3'].",enemy_slot_3_image='".$user['enemy_slot_3_image']."'");
+			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_3=".$user['enemy_slot_3'].",enemy_slot_3_image='".$user['enemy_slot_3_image']."',enemy_slot_3_level=".$user['enemy_slot_3_level']);
 			break;
 	}
 
@@ -392,7 +406,7 @@ $stat = array();
 function gen_loot() {
 	global $user, $tb_item, $tb_enemy, $connection;
 
-	if (rand(1,3) == 1) {
+	if ((rand(1,3) == 1)&&($user['enemy_champion'] == 0)) {
 		$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
 		$result = mysqli_query($connection, $query) 
 			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
@@ -412,7 +426,7 @@ function gen_loot() {
 			if ($user['loot_slot_1'] > 0)
 				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 		}
-	} else if (rand(1,4) == 1) {
+	} else if ((rand(1,4) == 1)||($user['enemy_champion'] > 0)) {
 
 		$next = true;
 		$loot_level = $user['char_region'];

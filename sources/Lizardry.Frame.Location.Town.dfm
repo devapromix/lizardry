@@ -567,8 +567,8 @@ object FrameTown: TFrameTown
         inherited TabSheet1: TTabSheet
           ExplicitLeft = 4
           ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
+          ExplicitWidth = 309
+          ExplicitHeight = 247
         end
         inherited TabSheet2: TTabSheet
           ExplicitLeft = 4
@@ -927,13 +927,10 @@ object FrameTown: TFrameTown
         end
         inherited Panel2: TPanel
           Width = 315
-          ExplicitTop = 26
           ExplicitWidth = 315
           inherited Panel3: TPanel
             Left = -22
             ExplicitLeft = -22
-            ExplicitTop = 1
-            ExplicitHeight = 135
           end
         end
       end
