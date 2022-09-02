@@ -42,6 +42,7 @@ if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	include 'locations/town.php';
 	include 'locations/tavern.php';
 	include 'locations/bank.php';
+	include 'locations/magictower.php';
 	include 'locations/gate.php';
 	include 'locations/travel.php';
 	include 'locations/outlands.php';
