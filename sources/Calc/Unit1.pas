@@ -77,7 +77,7 @@ begin
   for I := 1 to Level do
   begin
     Exp := 0;
-    MaxExp := I * I * 5 + (I * 50);
+    MaxExp := (Level * ((Level - 1) + 100));
     Count := 0;
     CurExp := 0;
     while (CurExp < MaxExp) do

@@ -126,7 +126,7 @@ var
 
 function GetLevelExp(const Level: Word): Integer;
 begin
-  Result := Level * Level * 5 + (Level * 50);
+  Result :=  Level * ((Level - 1) + 100);
 end;
 
 procedure TFrameTown.DoAction(S: string);

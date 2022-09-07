@@ -340,7 +340,7 @@ function update_user_table($s) {
 }
 
 function get_char_level_exp($level) {
-	return $level * $level * 5 + ($level * 50);
+	return $level * (($level - 1) + 100);
 }
 
 function get_version() {
