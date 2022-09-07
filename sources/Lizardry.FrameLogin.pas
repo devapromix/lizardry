@@ -130,7 +130,7 @@ begin
   end
   else
   begin
-    ShowMsg('Ошибка авторизации!');
+    ShowMsg('Ошибка авторизации!!!');
     Exit;
   end;
 end;

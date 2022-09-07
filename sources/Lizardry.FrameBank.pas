@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ComCtrls;
+  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
 
 type
   TFrameBank = class(TFrame)
@@ -23,6 +23,8 @@ type
     SpeedButton6: TSpeedButton;
     bbMyGold: TSpeedButton;
     SpeedButton7: TSpeedButton;
+    Image2: TImage;
+    Image1: TImage;
     procedure bbDepositClick(Sender: TObject);
     procedure bbWithdrawClick(Sender: TObject);
     procedure GoldEditKeyPress(Sender: TObject; var Key: Char);
@@ -34,6 +36,7 @@ type
     procedure SpeedButton6Click(Sender: TObject);
     procedure bbMyGoldClick(Sender: TObject);
     procedure SpeedButton7Click(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -96,6 +99,13 @@ begin
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
       Key := #0;
+end;
+
+procedure TFrameBank.Image2Click(Sender: TObject);
+begin
+  if IsChatMode or IsCharMode then
+    Exit;
+  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=town'));
 end;
 
 procedure TFrameBank.Modify(const Value: Integer);
