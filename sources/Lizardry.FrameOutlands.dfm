@@ -582,7 +582,7 @@ object FrameOutlands: TFrameOutlands
     Font.Color = clBtnFace
     Font.Height = -19
     Font.Name = 'Courier New'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
     OnClick = Image1Click
   end
@@ -600,7 +600,7 @@ object FrameOutlands: TFrameOutlands
     Font.Color = clBtnFace
     Font.Height = -19
     Font.Name = 'Courier New'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
     OnClick = Label2Click
   end
@@ -618,7 +618,7 @@ object FrameOutlands: TFrameOutlands
     Font.Color = clBtnFace
     Font.Height = -19
     Font.Name = 'Courier New'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
     OnClick = Label2Click
   end
@@ -636,7 +636,7 @@ object FrameOutlands: TFrameOutlands
     Font.Color = clBtnFace
     Font.Height = -19
     Font.Name = 'Courier New'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
     OnClick = Label2Click
   end
