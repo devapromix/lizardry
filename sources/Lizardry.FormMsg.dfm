@@ -23,9 +23,7 @@ object FormMsg: TFormMsg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 203
-    ExplicitWidth = 559
-    object Label1: TLabel
+    object lblText: TLabel
       Left = 0
       Top = 33
       Width = 569
@@ -45,7 +43,6 @@ object FormMsg: TFormMsg
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 559
     end
   end
   object Panel2: TPanel
@@ -56,8 +53,6 @@ object FormMsg: TFormMsg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 403
-    ExplicitWidth = 559
     object Button1: TButton
       Left = 231
       Top = 9
@@ -79,8 +74,6 @@ object FormMsg: TFormMsg
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitWidth = 559
-    ExplicitHeight = 203
     object Image1: TImage
       Left = 0
       Top = 0

@@ -25,7 +25,7 @@ object FormInfo: TFormInfo
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1051#1086#1082#1072#1094#1080#1103
-      object RichEdit1: TRichEdit
+      object LocMemo: TRichEdit
         Left = 0
         Top = 0
         Width = 741
@@ -45,7 +45,7 @@ object FormInfo: TFormInfo
     object TabSheet2: TTabSheet
       Caption = #1055#1088#1077#1076#1084#1077#1090#1099
       ImageIndex = 1
-      object RichEdit2: TRichEdit
+      object ItemMemo: TRichEdit
         Left = 0
         Top = 0
         Width = 741
@@ -65,7 +65,7 @@ object FormInfo: TFormInfo
     object TabSheet3: TTabSheet
       Caption = #1056#1077#1089#1091#1088#1089#1099
       ImageIndex = 2
-      object MemoMobImages: TMemo
+      object ResMemo: TMemo
         Left = 0
         Top = 25
         Width = 741

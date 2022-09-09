@@ -3,20 +3,28 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.ComCtrls,
   Vcl.ExtCtrls;
 
 type
   TFormInfo = class(TForm)
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
-    RichEdit1: TRichEdit;
+    LocMemo: TRichEdit;
     TabSheet2: TTabSheet;
-    RichEdit2: TRichEdit;
+    ItemMemo: TRichEdit;
     TabSheet3: TTabSheet;
-    MemoMobImages: TMemo;
+    ResMemo: TMemo;
     MobImagesPath: TPanel;
     TabSheet4: TTabSheet;
     ErrorMemo: TMemo;
@@ -41,8 +49,8 @@ implementation
 
 procedure MsgBox(const S: string);
 begin
-  FormInfo.RichEdit1.Clear;
-  FormInfo.RichEdit1.Lines.Append(S);
+  FormInfo.LocMemo.Clear;
+  FormInfo.LocMemo.Lines.Append(S);
 end;
 
 procedure ShowError(const S: string);

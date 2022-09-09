@@ -64,7 +64,7 @@ var
 begin
   Result := '';
   try
-    JSONArray := TJSONObject.ParseJSONValue(FormInfo.RichEdit2.Text)
+    JSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
       as TJSONArray;
     for I := JSONArray.Count - 1 downto 0 do
     begin

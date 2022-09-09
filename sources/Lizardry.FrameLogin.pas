@@ -3,10 +3,20 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.pngimage, Vcl.ComCtrls;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.Imaging.PNGImage,
+  Vcl.ComCtrls;
 
 type
   TFrameLogin = class(TFrame)
@@ -58,9 +68,16 @@ implementation
 
 {$R *.dfm}
 
-uses JSON, IOUtils, Registry, Lizardry.FormMain, Lizardry.Server,
+uses
+  JSON,
+  IOUtils,
+  Registry,
+  Lizardry.FormMain,
+  Lizardry.Server,
   Lizardry.Frame.Location.Town,
-  Lizardry.Game, Lizardry.FormMsg, Lizardry.FormInfo;
+  Lizardry.Game,
+  Lizardry.FormMsg,
+  Lizardry.FormInfo;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
@@ -282,12 +299,12 @@ var
 begin
   FormInfo.MobImagesPath.Caption := TPath.GetHomePath + '\Lizardry\Images\';
   ForceDirectories(FormInfo.MobImagesPath.Caption);
-  FormInfo.MemoMobImages.Text := Server.GetFromDB('enemies');
+  FormInfo.ResMemo.Text := Server.GetFromDB('enemies');
   Panel5.Caption := 'Проверка и загрузка изображений...';
   FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;
   try
-    JSONArray := TJSONObject.ParseJSONValue(FormInfo.MemoMobImages.Text)
+    JSONArray := TJSONObject.ParseJSONValue(FormInfo.ResMemo.Text)
       as TJSONArray;
     for I := JSONArray.Count - 1 downto 0 do
     begin
@@ -319,7 +336,7 @@ end;
 
 procedure TFrameLogin.LoadFromDBItems;
 begin
-  FormInfo.RichEdit2.Text := Server.GetFromDB('items');
+  FormInfo.ItemMemo.Text := Server.GetFromDB('items');
 end;
 
 procedure TFrameLogin.LoadFromDBMessages;
