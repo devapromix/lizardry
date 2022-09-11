@@ -985,11 +985,6 @@ function go_to_the_gate($t = 'Идти в сторону города', $n = 0) 
 	addlink($t, 'index.php?action=gate', $n);
 }
 
-function shades() {
-	global $user;
-	$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
-}
-
 function rest_in_tavern_cost() {
 	global $user;
 	return round($user['char_region_level'] * 10) + round(($user['char_region_level'] * 10) / 2);
@@ -1100,14 +1095,6 @@ function check_travel_req($level, $food, $gold) {
 	if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
 	if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
 	if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
-}
-
-function after_travel() {
-	global $user;
-	$user['title'] = 'Путешествие';
-	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
-	$user['links'] = array();
-	go_to_the_gate('Идти к воротам в город');
 }
 
 function travel_req($level, $food, $gold) {
