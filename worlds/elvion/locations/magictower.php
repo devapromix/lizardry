@@ -9,6 +9,7 @@ if ($action == 'magictower') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		go_to_the_town();
+		addlink('Магическая Лавка', 'index.php?action=shop_magic', 1);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

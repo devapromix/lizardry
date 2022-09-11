@@ -2,7 +2,8 @@
 
 interface
 
-uses IdHTTP;
+uses
+  IdHTTP;
 
 type
   TServer = class(TObject)
@@ -27,7 +28,13 @@ var
 
 implementation
 
-uses Windows, SysUtils, Wininet, Dialogs, Lizardry.FormMain, Lizardry.FormInfo,
+uses
+  Windows,
+  SysUtils,
+  Wininet,
+  Dialogs,
+  Lizardry.FormMain,
+  Lizardry.FormInfo,
   Lizardry.FormMsg;
 
 { TServer }

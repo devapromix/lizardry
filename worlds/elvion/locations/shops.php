@@ -234,4 +234,53 @@ if ($action == 'shop_alchemy') {
 
 }
 
+if ($action == 'shop_magic') {
+	
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+	$user['title'] = 'Магическая Лавка';
+	$user['description'] = '';
+	$user['mainframe'] = $action;
+	$user['links'] = array();
+	addlink('Покинуть лавку', 'index.php?action=magictower');
+
+		switch ($user['char_region_level']) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+				add_item_to_shop(1, 101);
+				add_item_to_shop(2, 0);
+				add_item_to_shop(3, 0);
+				add_item_to_shop(4, 0);
+				add_item_to_shop(5, 0);
+				add_item_to_shop(6, 0);
+				break;
+		}
+
+	if ($do == 'buy') {
+		if ($itemslot == '1')
+			equip_item($user['item_slot_1']);
+		if ($itemslot == '2')
+			equip_item($user['item_slot_2']);
+		if ($itemslot == '3')
+			equip_item($user['item_slot_3']);
+		if ($itemslot == '4')
+			equip_item($user['item_slot_4']);
+		if ($itemslot == '5')
+			equip_item($user['item_slot_5']);
+		if ($itemslot == '6')
+			equip_item($user['item_slot_6']);
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
+}
+
 ?>

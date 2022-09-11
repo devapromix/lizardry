@@ -2,7 +2,8 @@ unit Lizardry.InventoryString;
 
 interface
 
-uses Classes;
+uses
+  Classes;
 
 type
   TInventoryString = class(TObject)
@@ -14,7 +15,9 @@ type
 
 implementation
 
-uses Math, SysUtils;
+uses
+  Math,
+  SysUtils;
 
 { TInventoryString }
 

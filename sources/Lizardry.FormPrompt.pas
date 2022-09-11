@@ -3,9 +3,18 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ExtCtrls;
 
 type
   TFormPrompt = class(TForm)
@@ -30,7 +39,9 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.Server, Lizardry.FormMain;
+uses
+  Lizardry.Server,
+  Lizardry.FormMain;
 
 procedure Prompt(const TextMessage, ButOkText, ButOkLink: string);
 begin

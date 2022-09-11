@@ -3,13 +3,23 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Data.DB,
+  Vcl.Grids,
+  Vcl.DBGrids;
 
 type
-  TShopType = (stWeapon, stArmor, stAlchemy);
+  TShopType = (stWeapon, stArmor, stAlchemy, stMagic);
 
 type
   TFrameShop = class(TFrame)
@@ -34,7 +44,11 @@ implementation
 
 {$R *.dfm}
 
-uses Math, Lizardry.FormMain, Lizardry.Server, Lizardry.FormPrompt;
+uses
+  Math,
+  Lizardry.FormMain,
+  Lizardry.Server,
+  Lizardry.FormPrompt;
 
 const
   Msg = 'Купить %s за %s золотых?';
@@ -106,6 +120,10 @@ begin
       stAlchemy:
         Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
           'index.php?action=shop_alchemy&do=buy&itemslot=' + IntToStr(I));
+      // Magic
+      stMagic:
+        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+          'index.php?action=shop_magic&do=buy&itemslot=' + IntToStr(I));
       // Armor
     else
       Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',

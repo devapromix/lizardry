@@ -3,10 +3,20 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage, Vcl.CheckLst;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage,
+  Vcl.CheckLst;
 
 type
   TLabel = class(Vcl.StdCtrls.TLabel)
@@ -105,7 +115,11 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg, Lizardry.FormInfo,
+uses
+  Lizardry.FormMain,
+  Lizardry.Server,
+  Lizardry.FormMsg,
+  Lizardry.FormInfo,
   System.IOUtils;
 
 procedure TFrameRegistration.arLeatherArmorClick(Sender: TObject);

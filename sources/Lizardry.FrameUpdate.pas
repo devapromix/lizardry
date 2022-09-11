@@ -3,9 +3,19 @@ unit Lizardry.FrameUpdate;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Buttons, Vcl.Imaging.pngimage;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.Imaging.pngimage;
 
 type
   TFrameUpdate = class(TFrame)
@@ -35,7 +45,10 @@ implementation
 
 {$R *.dfm}
 
-uses ShellAPI, Lizardry.FormMain, Lizardry.FormMsg;
+uses
+  ShellAPI,
+  Lizardry.FormMain,
+  Lizardry.FormMsg;
 
 procedure TFrameUpdate.bbBackClick(Sender: TObject);
 begin
@@ -45,8 +58,8 @@ end;
 
 procedure TFrameUpdate.bbOpenSiteClick(Sender: TObject);
 begin
-  ShellExecute(handle, 'open', 'https://github.com/devapromix/lizardry/releases', nil,
-    nil, SW_SHOW);
+  ShellExecute(handle, 'open',
+    'https://github.com/devapromix/lizardry/releases', nil, nil, SW_SHOW);
 end;
 
 procedure TFrameUpdate.bbUpdImagesClick(Sender: TObject);

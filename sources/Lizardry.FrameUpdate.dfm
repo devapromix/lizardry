@@ -286,10 +286,6 @@ object FrameUpdate: TFrameUpdate
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 288
-    ExplicitTop = 272
-    ExplicitWidth = 185
-    ExplicitHeight = 121
     object ttInfo: TLabel
       Left = 0
       Top = 225
@@ -328,7 +324,6 @@ object FrameUpdate: TFrameUpdate
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitWidth = 658
       object Image1: TImage
         Left = 0
         Top = 0
