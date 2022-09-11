@@ -102,11 +102,11 @@ function travel_to($action, $do, $regions) {
 			for ($i = 0; $i < count($regions); $i++) {
 				if ($user['char_region'] == $regions[$i]) {
 					$r = strval($regions[$i] + 1);
-					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action=harbor&do='.$r.'', 1);
+					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 				}
 				if ($user['char_region'] == $regions[$i] + 1) {
 					$r = strval($regions[$i]);
-					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action=harbor&do='.$r.'', 1);
+					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 				}
 			}
 		
