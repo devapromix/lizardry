@@ -73,7 +73,7 @@ function travel_to($action, $do, $regions) {
 		if ($action == 'fly')
 			$user['title'] = 'Утес Ветрокрылов';
 		if ($action == 'portal')
-			$user['title'] = 'Портал';
+			$user['title'] = 'Магический Портал';
 		if ($user['char_life_cur'] > 0) {
 		
 			for ($i = 0; $i < count($regions); $i++) {

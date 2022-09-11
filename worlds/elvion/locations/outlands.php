@@ -26,15 +26,15 @@ if ($action == 'dark_valley') outland($action, [57,58,59]);
 if ($action == 'forgotten_forest') outland($action, [60,61,62], [], ['Пещера Боли', 'index.php?action=cave_of_pain']);
 if ($action == 'cave_of_pain') outland($action, [63,64,65], ['Забытый Лес', 'index.php?action=forgotten_forest']);
 // #6
-if ($action == 'red_desert') outland($action, [66,67,68,69]);
-if ($action == '+') outland($action, [70,71,72]);
-if ($action == '+') outland($action, [73,74,75]);
-if ($action == '+') outland($action, [76,77,78]);
+if ($action == 'black_mountain') outland($action, [66,67,68,69]);
+if ($action == 'ashiot_river') outland($action, [70,71,72]);
+if ($action == 'yellow_forest') outland($action, [73,74,75]);
+if ($action == 'old_bastion') outland($action, [76,77,78]);
 // #7
-if ($action == '+') outland($action, [79,80,81,82]);
-if ($action == '+') outland($action, [83,84,85]);
-if ($action == '+') outland($action, [86,87,88]);
-if ($action == '+') outland($action, [89,90,91]);
+if ($action == 'red_desert') outland($action, [79,80,81,82]);
+if ($action == 'fire_sea') outland($action, [83,84,85]);
+if ($action == 'tinias_ruins') outland($action, [86,87,88]);
+if ($action == 'far_island') outland($action, [89,90,91]);
 // #8
 if ($action == '+') outland($action, [92,93,94,95]);
 if ($action == '+') outland($action, [96,97,98]);
