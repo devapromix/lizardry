@@ -21,26 +21,38 @@ function gen_enemy($enemy_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$enemy = $result->fetch_assoc();	
 
+	$user['enemy_name'] = $enemy['enemy_name'];
+
 	$user['enemy_champion'] = 0;
 	if (rand(1, 10) == 1)
-		$user['enemy_champion'] = 1;
+		$user['enemy_champion'] = rand(1, 3);
+	switch($user['enemy_champion']) {
+		case 1: // Здоровье I
+			$user['enemy_name'] .= ' (Здоровяк)';
+			break;
+		case 2: // Урон I
+			$user['enemy_name'] .= ' (Громила)';
+			break;
+		case 3: // Броня I
+			$user['enemy_name'] .= ' (Твердолоб)';
+			break;
+	}
 
-	$user['enemy_name'] = $enemy['enemy_name'];
-	if ($user['enemy_champion'] > 0)
-		$user['enemy_name'] .= ' (Чемпион)';
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
-	if ($user['enemy_champion'] > 0)
+	if ($user['enemy_champion'] == 1)
 		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.2);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
-	if ($user['enemy_champion'] > 0)
+	if ($user['enemy_champion'] == 2)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
+	if ($user['enemy_champion'] == 3)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.1);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	if ($user['enemy_champion'] > 0)
 		$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
