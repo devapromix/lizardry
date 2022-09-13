@@ -25,15 +25,21 @@ function gen_enemy($enemy_ident) {
 
 	$user['enemy_champion'] = 0;
 	if (rand(1, 10) == 1)
-		$user['enemy_champion'] = rand(1, 3);
+		$user['enemy_champion'] = rand(1, 5);
 	switch($user['enemy_champion']) {
 		case 1: // Здоровье I
+			$user['enemy_name'] .= ' (Крупень)';
+			break;
+		case 2: // Здоровье II
 			$user['enemy_name'] .= ' (Здоровяк)';
 			break;
-		case 2: // Урон I
+		case 3: // Здоровье III
+			$user['enemy_name'] .= ' (Голиаф)';
+			break;
+		case 4: // Урон I
 			$user['enemy_name'] .= ' (Громила)';
 			break;
-		case 3: // Броня I
+		case 5: // Броня I
 			$user['enemy_name'] .= ' (Твердолоб)';
 			break;
 	}
@@ -42,16 +48,20 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	if ($user['enemy_champion'] == 1)
-		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.2);
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.3);
+	if ($user['enemy_champion'] == 2)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.4);
+	if ($user['enemy_champion'] == 3)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.5);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
-	if ($user['enemy_champion'] == 2)
+	if ($user['enemy_champion'] == 4)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
-	if ($user['enemy_champion'] == 3)
+	if ($user['enemy_champion'] == 5)
 		$user['enemy_armor'] = round($user['enemy_armor'] * 1.1);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	if ($user['enemy_champion'] > 0)
