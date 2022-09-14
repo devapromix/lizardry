@@ -24,8 +24,8 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_name'] = $enemy['enemy_name'];
 
 	$user['enemy_champion'] = 0;
-	if (rand(1, 10) == 1)
-		$user['enemy_champion'] = rand(1, 5);
+	if (rand(1, 20) == 1)
+		$user['enemy_champion'] = rand(1, 9);
 	switch($user['enemy_champion']) {
 		case 1: // Здоровье I
 			$user['enemy_name'] .= ' (Крупень)';
@@ -37,10 +37,22 @@ function gen_enemy($enemy_ident) {
 			$user['enemy_name'] .= ' (Голиаф)';
 			break;
 		case 4: // Урон I
+			$user['enemy_name'] .= ' (Убийца)';
+			break;
+		case 5: // Урон II
 			$user['enemy_name'] .= ' (Громила)';
 			break;
-		case 5: // Броня I
+		case 6: // Урон III
+			$user['enemy_name'] .= ' (Берсерк)';
+			break;
+		case 7: // Броня I
 			$user['enemy_name'] .= ' (Твердолоб)';
+			break;
+		case 8: // Броня II
+			$user['enemy_name'] .= ' (Титан)';
+			break;
+		case 9: // Броня III
+			$user['enemy_name'] .= ' (Колосс)';
 			break;
 	}
 
@@ -58,11 +70,21 @@ function gen_enemy($enemy_ident) {
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
 	if ($user['enemy_champion'] == 4)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
+	if ($user['enemy_champion'] == 5)
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.2);
+	if ($user['enemy_champion'] == 6)
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.3);
+	if ($user['enemy_damage_max'] < 2)
+		$user['enemy_damage_max'] = 2;
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
-	if ($user['enemy_champion'] == 5)
+	if ($user['enemy_champion'] == 7)
 		$user['enemy_armor'] = round($user['enemy_armor'] * 1.1);
+	if ($user['enemy_champion'] == 8)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.2);
+	if ($user['enemy_champion'] == 9)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.3);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	if ($user['enemy_champion'] > 0)
 		$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
