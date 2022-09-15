@@ -69,6 +69,46 @@ if ($action == 'shop_armor') {
 				add_item_to_shop(5, 29);
 				add_item_to_shop(6, 30);
 				break;
+			case 6:
+				add_item_to_shop(1, 31);
+				add_item_to_shop(2, 32);
+				add_item_to_shop(3, 33);
+				add_item_to_shop(4, 34);
+				add_item_to_shop(5, 35);
+				add_item_to_shop(6, 36);
+				break;
+			case 7:
+				add_item_to_shop(1, 37);
+				add_item_to_shop(2, 38);
+				add_item_to_shop(3, 39);
+				add_item_to_shop(4, 40);
+				add_item_to_shop(5, 41);
+				add_item_to_shop(6, 42);
+				break;
+			case 8:
+				add_item_to_shop(1, 43);
+				add_item_to_shop(2, 44);
+				add_item_to_shop(3, 45);
+				add_item_to_shop(4, 46);
+				add_item_to_shop(5, 47);
+				add_item_to_shop(6, 48);
+				break;
+			case 9:
+				add_item_to_shop(1, 49);
+				add_item_to_shop(2, 50);
+				add_item_to_shop(3, 51);
+				add_item_to_shop(4, 52);
+				add_item_to_shop(5, 53);
+				add_item_to_shop(6, 54);
+				break;
+			case 10:
+				add_item_to_shop(1, 55);
+				add_item_to_shop(2, 56);
+				add_item_to_shop(3, 57);
+				add_item_to_shop(4, 58);
+				add_item_to_shop(5, 59);
+				add_item_to_shop(6, 60);
+				break;
 		}
 
 	if ($do == 'buy') {
@@ -102,44 +142,84 @@ if ($action == 'shop_weapon') {
 
 		switch ($user['char_region_level']) {
 			case 1:
-				add_item_to_shop(1, 31);
-				add_item_to_shop(2, 32);
-				add_item_to_shop(3, 33);
-				add_item_to_shop(4, 34);
-				add_item_to_shop(5, 35);
-				add_item_to_shop(6, 36);
+				add_item_to_shop(1, 301);
+				add_item_to_shop(2, 302);
+				add_item_to_shop(3, 303);
+				add_item_to_shop(4, 304);
+				add_item_to_shop(5, 305);
+				add_item_to_shop(6, 306);
 				break;
 			case 2:
-				add_item_to_shop(1, 37);
-				add_item_to_shop(2, 38);
-				add_item_to_shop(3, 39);
-				add_item_to_shop(4, 40);
-				add_item_to_shop(5, 41);
-				add_item_to_shop(6, 42);
+				add_item_to_shop(1, 307);
+				add_item_to_shop(2, 308);
+				add_item_to_shop(3, 309);
+				add_item_to_shop(4, 310);
+				add_item_to_shop(5, 311);
+				add_item_to_shop(6, 312);
 				break;
 			case 3:
-				add_item_to_shop(1, 43);
-				add_item_to_shop(2, 44);
-				add_item_to_shop(3, 45);
-				add_item_to_shop(4, 46);
-				add_item_to_shop(5, 47);
-				add_item_to_shop(6, 48);
+				add_item_to_shop(1, 313);
+				add_item_to_shop(2, 314);
+				add_item_to_shop(3, 315);
+				add_item_to_shop(4, 316);
+				add_item_to_shop(5, 317);
+				add_item_to_shop(6, 318);
 				break;
 			case 4:
-				add_item_to_shop(1, 49);
-				add_item_to_shop(2, 50);
-				add_item_to_shop(3, 51);
-				add_item_to_shop(4, 52);
-				add_item_to_shop(5, 53);
-				add_item_to_shop(6, 54);
+				add_item_to_shop(1, 319);
+				add_item_to_shop(2, 320);
+				add_item_to_shop(3, 321);
+				add_item_to_shop(4, 322);
+				add_item_to_shop(5, 323);
+				add_item_to_shop(6, 324);
 				break;
 			case 5:
-				add_item_to_shop(1, 55);
-				add_item_to_shop(2, 56);
-				add_item_to_shop(3, 57);
-				add_item_to_shop(4, 58);
-				add_item_to_shop(5, 59);
-				add_item_to_shop(6, 60);
+				add_item_to_shop(1, 325);
+				add_item_to_shop(2, 326);
+				add_item_to_shop(3, 327);
+				add_item_to_shop(4, 328);
+				add_item_to_shop(5, 329);
+				add_item_to_shop(6, 330);
+				break;
+			case 6:
+				add_item_to_shop(1, 331);
+				add_item_to_shop(2, 332);
+				add_item_to_shop(3, 333);
+				add_item_to_shop(4, 334);
+				add_item_to_shop(5, 335);
+				add_item_to_shop(6, 336);
+				break;
+			case 7:
+				add_item_to_shop(1, 337);
+				add_item_to_shop(2, 338);
+				add_item_to_shop(3, 339);
+				add_item_to_shop(4, 340);
+				add_item_to_shop(5, 341);
+				add_item_to_shop(6, 342);
+				break;
+			case 8:
+				add_item_to_shop(1, 343);
+				add_item_to_shop(2, 344);
+				add_item_to_shop(3, 345);
+				add_item_to_shop(4, 346);
+				add_item_to_shop(5, 347);
+				add_item_to_shop(6, 348);
+				break;
+			case 9:
+				add_item_to_shop(1, 349);
+				add_item_to_shop(2, 350);
+				add_item_to_shop(3, 351);
+				add_item_to_shop(4, 352);
+				add_item_to_shop(5, 353);
+				add_item_to_shop(6, 354);
+				break;
+			case 10:
+				add_item_to_shop(1, 355);
+				add_item_to_shop(2, 356);
+				add_item_to_shop(3, 357);
+				add_item_to_shop(4, 358);
+				add_item_to_shop(5, 359);
+				add_item_to_shop(6, 360);
 				break;
 		}
 
@@ -174,42 +254,42 @@ if ($action == 'shop_alchemy') {
 
 		switch ($user['char_region_level']) {
 			case 1:
-				add_item_to_shop(1, 61);
-				add_item_to_shop(2, 66);
-				add_item_to_shop(3, 71);
-				add_item_to_shop(4, 76);
+				add_item_to_shop(1, 601);
+				add_item_to_shop(2, 606);
+				add_item_to_shop(3, 611);
+				add_item_to_shop(4, 616);
 				add_item_to_shop(5, 0);
 				add_item_to_shop(6, 0);
 				break;
 			case 2:
-				add_item_to_shop(1, 62);
-				add_item_to_shop(2, 67);
-				add_item_to_shop(3, 72);
-				add_item_to_shop(4, 77);
+				add_item_to_shop(1, 602);
+				add_item_to_shop(2, 607);
+				add_item_to_shop(3, 612);
+				add_item_to_shop(4, 617);
 				add_item_to_shop(5, 0);
 				add_item_to_shop(6, 0);
 				break;
 			case 3:
-				add_item_to_shop(1, 63);
-				add_item_to_shop(2, 68);
-				add_item_to_shop(3, 73);
-				add_item_to_shop(4, 78);
+				add_item_to_shop(1, 603);
+				add_item_to_shop(2, 608);
+				add_item_to_shop(3, 613);
+				add_item_to_shop(4, 618);
 				add_item_to_shop(5, 0);
 				add_item_to_shop(6, 0);
 				break;
 			case 4:
-				add_item_to_shop(1, 64);
-				add_item_to_shop(2, 69);
-				add_item_to_shop(3, 74);
-				add_item_to_shop(4, 79);
+				add_item_to_shop(1, 604);
+				add_item_to_shop(2, 609);
+				add_item_to_shop(3, 614);
+				add_item_to_shop(4, 619);
 				add_item_to_shop(5, 0);
 				add_item_to_shop(6, 0);
 				break;
 			case 5:
-				add_item_to_shop(1, 65);
-				add_item_to_shop(2, 70);
-				add_item_to_shop(3, 75);
-				add_item_to_shop(4, 80);
+				add_item_to_shop(1, 605);
+				add_item_to_shop(2, 610);
+				add_item_to_shop(3, 615);
+				add_item_to_shop(4, 620);
 				add_item_to_shop(5, 0);
 				add_item_to_shop(6, 0);
 				break;
@@ -255,7 +335,7 @@ if ($action == 'shop_magic') {
 			case 8:
 			case 9:
 			case 10:
-				add_item_to_shop(1, 101);
+				add_item_to_shop(1, 701);
 				add_item_to_shop(2, 0);
 				add_item_to_shop(3, 0);
 				add_item_to_shop(4, 0);
