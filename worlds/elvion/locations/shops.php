@@ -252,48 +252,12 @@ if ($action == 'shop_alchemy') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
-		switch ($user['char_region_level']) {
-			case 1:
-				add_item_to_shop(1, 601);
-				add_item_to_shop(2, 606);
-				add_item_to_shop(3, 611);
-				add_item_to_shop(4, 616);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-			case 2:
-				add_item_to_shop(1, 602);
-				add_item_to_shop(2, 607);
-				add_item_to_shop(3, 612);
-				add_item_to_shop(4, 617);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-			case 3:
-				add_item_to_shop(1, 603);
-				add_item_to_shop(2, 608);
-				add_item_to_shop(3, 613);
-				add_item_to_shop(4, 618);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-			case 4:
-				add_item_to_shop(1, 604);
-				add_item_to_shop(2, 609);
-				add_item_to_shop(3, 614);
-				add_item_to_shop(4, 619);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-			case 5:
-				add_item_to_shop(1, 605);
-				add_item_to_shop(2, 610);
-				add_item_to_shop(3, 615);
-				add_item_to_shop(4, 620);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-		}
+	add_item_to_shop(1, 601);
+	add_item_to_shop(2, 602);
+	add_item_to_shop(3, 603);
+	add_item_to_shop(4, 604);
+	add_item_to_shop(5, 0);
+	add_item_to_shop(6, 0);
 
 	if ($do == 'buy') {
 		if ($itemslot == '1')
@@ -324,25 +288,12 @@ if ($action == 'shop_magic') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=magictower');
 
-		switch ($user['char_region_level']) {
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-				add_item_to_shop(1, 701);
-				add_item_to_shop(2, 0);
-				add_item_to_shop(3, 0);
-				add_item_to_shop(4, 0);
-				add_item_to_shop(5, 0);
-				add_item_to_shop(6, 0);
-				break;
-		}
+	add_item_to_shop(1, 701);
+	add_item_to_shop(2, 0);
+	add_item_to_shop(3, 0);
+	add_item_to_shop(4, 0);
+	add_item_to_shop(5, 0);
+	add_item_to_shop(6, 0);
 
 	if ($do == 'buy') {
 		if ($itemslot == '1')
