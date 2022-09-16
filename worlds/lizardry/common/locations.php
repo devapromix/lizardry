@@ -73,7 +73,7 @@ function travel_to($action, $do, $regions) {
 		if ($action == 'fly')
 			$user['title'] = 'Утес Ветрокрылов';
 		if ($action == 'portal')
-			$user['title'] = 'Портал';
+			$user['title'] = 'Магический Портал';
 		if ($user['char_life_cur'] > 0) {
 		
 			for ($i = 0; $i < count($regions); $i++) {
@@ -102,11 +102,11 @@ function travel_to($action, $do, $regions) {
 			for ($i = 0; $i < count($regions); $i++) {
 				if ($user['char_region'] == $regions[$i]) {
 					$r = strval($regions[$i] + 1);
-					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action=harbor&do='.$r.'', 1);
+					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 				}
 				if ($user['char_region'] == $regions[$i] + 1) {
 					$r = strval($regions[$i]);
-					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action=harbor&do='.$r.'', 1);
+					addlink('Путешествие в '.get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 				}
 			}
 		
@@ -116,6 +116,19 @@ function travel_to($action, $do, $regions) {
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 	return $res;
+}
+
+function after_travel() {
+	global $user;
+	$user['title'] = 'Путешествие';
+	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
+	$user['links'] = array();
+	go_to_the_gate('Идти к воротам в город');
+}
+
+function shades() {
+	global $user;
+	$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
 }
 
 ?>

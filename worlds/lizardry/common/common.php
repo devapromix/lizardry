@@ -21,26 +21,70 @@ function gen_enemy($enemy_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$enemy = $result->fetch_assoc();	
 
-	$user['enemy_champion'] = 0;
-	if (rand(1, 10) == 1)
-		$user['enemy_champion'] = 1;
-
 	$user['enemy_name'] = $enemy['enemy_name'];
-	if ($user['enemy_champion'] > 0)
-		$user['enemy_name'] .= ' (Чемпион)';
+
+	$user['enemy_champion'] = 0;
+	if (rand(1, 20) == 1)
+		$user['enemy_champion'] = rand(1, 9);
+	switch($user['enemy_champion']) {
+		case 1: // Здоровье I
+			$user['enemy_name'] .= ' (Крупень)';
+			break;
+		case 2: // Здоровье II
+			$user['enemy_name'] .= ' (Здоровяк)';
+			break;
+		case 3: // Здоровье III
+			$user['enemy_name'] .= ' (Голиаф)';
+			break;
+		case 4: // Урон I
+			$user['enemy_name'] .= ' (Убийца)';
+			break;
+		case 5: // Урон II
+			$user['enemy_name'] .= ' (Громила)';
+			break;
+		case 6: // Урон III
+			$user['enemy_name'] .= ' (Берсерк)';
+			break;
+		case 7: // Броня I
+			$user['enemy_name'] .= ' (Твердолоб)';
+			break;
+		case 8: // Броня II
+			$user['enemy_name'] .= ' (Титан)';
+			break;
+		case 9: // Броня III
+			$user['enemy_name'] .= ' (Колосс)';
+			break;
+	}
+
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
-	if ($user['enemy_champion'] > 0)
-		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.2);
+	if ($user['enemy_champion'] == 1)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.3);
+	if ($user['enemy_champion'] == 2)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.4);
+	if ($user['enemy_champion'] == 3)
+		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.5);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
-	if ($user['enemy_champion'] > 0)
+	if ($user['enemy_champion'] == 4)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
+	if ($user['enemy_champion'] == 5)
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.2);
+	if ($user['enemy_champion'] == 6)
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.3);
+	if ($user['enemy_damage_max'] < 2)
+		$user['enemy_damage_max'] = 2;
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
+	if ($user['enemy_champion'] == 7)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.1);
+	if ($user['enemy_champion'] == 8)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.2);
+	if ($user['enemy_champion'] == 9)
+		$user['enemy_armor'] = round($user['enemy_armor'] * 1.3);
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	if ($user['enemy_champion'] > 0)
 		$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
@@ -818,25 +862,32 @@ function item_info($item_ident) {
 			$eq = 'Одноручный Меч.';
 			break;
 		case 8:
-			$ef = 'Восполнение '.strval($item['item_level']*25).' ед. здоровья.';
+			$ef = 'Полностью исцеляет от ран.';
+			$eq = 'Целительный Эликсир.';
 			break;
 		case 9:
-			$ef = 'Восполнение '.strval($item['item_level']*10).' ед. маны.';
+			$ef = 'Восполняет всю ману.';
+			$eq = 'Магический Эликсир.';
 			break;
 		case 10:
-			$ef = 'Увеличивает запас здоровья на '.strval($item['item_level']*20).' ед.';
+			$ef = 'Исцеляет и увеличивает запас здоровья на 20%.';
+			$eq = 'Магический Эликсир.';
 			break;
 		case 11:
-			$ef = 'Восполнение '.strval($item['item_level']*15).' ед. здоровья и маны.';
+			$ef = 'Восполнение здоровья и маны.';
+			$eq = 'Магический Эликсир.';
 			break;
 		case 12:
 			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
+			$eq = 'Противоядие.';
 			break;
 		case 13:
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
+			$eq = 'Яд.';
 			break;
 		case 25:
 			$ef = 'Открывает портал в город.';
+			$eq = 'Магический свиток.';
 			break;
 	}
 	if ($ef == '')
@@ -865,37 +916,29 @@ function use_item($item_ident) {
 		case 8:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] += $item_level * 25;
-			if ($user['char_life_cur'] > $user['char_life_max'])
-				$user['char_life_cur'] = $user['char_life_max'];
+			$user['char_life_cur'] = $user['char_life_max'];
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
 		case 9:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_mana_cur'] += $item_level * 10;
-			if ($user['char_mana_cur'] > $user['char_mana_max'])
-				$user['char_mana_cur'] = $user['char_mana_max'];
+			$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_mana_cur=".$user['char_mana_cur']);
 			$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 10:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] += $item_level * 20;
+			$user['char_life_cur'] = $user['char_life_max'] + round($user['char_life_max'] / 5);
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
 		case 11:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] += $item_level * 15;
-			if ($user['char_life_cur'] > $user['char_life_max'])
-				$user['char_life_cur'] = $user['char_life_max'];
-			$user['char_mana_cur'] += $item_level * 15;
-			if ($user['char_mana_cur'] > $user['char_mana_max'])
-				$user['char_mana_cur'] = $user['char_mana_max'];
+			$user['char_life_cur'] = $user['char_life_max'];
+			$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
@@ -985,11 +1028,6 @@ function go_to_the_gate($t = 'Идти в сторону города', $n = 0) 
 	addlink($t, 'index.php?action=gate', $n);
 }
 
-function shades() {
-	global $user;
-	$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
-}
-
 function rest_in_tavern_cost() {
 	global $user;
 	return round($user['char_region_level'] * 10) + round(($user['char_region_level'] * 10) / 2);
@@ -1073,6 +1111,12 @@ function inv_item_trade($type) {
 			$count = item_count($id);
 			if ($count > 0) {
 				$price = inv_item_price($type, $item['item_price'], $count);
+				switch($type) {
+					case 0:
+					case 1:
+						$price = round($price / 3);
+						break;
+				}
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);
@@ -1100,14 +1144,6 @@ function check_travel_req($level, $food, $gold) {
 	if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
 	if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
 	if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
-}
-
-function after_travel() {
-	global $user;
-	$user['title'] = 'Путешествие';
-	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
-	$user['links'] = array();
-	go_to_the_gate('Идти к воротам в город');
 }
 
 function travel_req($level, $food, $gold) {

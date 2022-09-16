@@ -13,8 +13,9 @@ if ($action == 'campfire') {
 	addlink('Затушить костер', 'index.php?action='.$user['current_outlands']);
 
 	$user['char_life_cur'] = $user['char_life_max'];
-	if ($user['char_mana_cur'] < $user['char_mana_max'])
-		$user['char_mana_cur']++;
+	$user['char_mana_cur'] += rand(2, 3);
+	if ($user['char_mana_cur'] > $user['char_mana_max'])
+		$user['char_mana_cur'] = $user['char_mana_max'];
 	$user['char_food']--;
 	update_user_table("char_food=".$user['char_food'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 	$user['log'] = 'Вы хорошо отдохнули и набрались сил.';

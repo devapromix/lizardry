@@ -45,14 +45,23 @@ if ($action == 'gate') {
 				addlink('Забытый Лес', 'index.php?action=forgotten_forest', 6);
 				break;
 			case 6:
-				addlink('Башня Дирижаблей', 'index.php?action=dir_tower', 2);
+				addlink('Магический Портал', 'index.php?action=portal', 2);
 				addlink('Посетить Гавань', 'index.php?action=harbor', 3);
-				addlink('Красная Пустыня', 'index.php?action=red_desert', 4);
-				addlink('Огненное Море', 'index.php?action=fire_sea', 5);
+				addlink('Черная Гора', 'index.php?action=black_mountain', 4);
+				addlink('Река Ашиот', 'index.php?action=ashiot_river', 5);
+				addlink('Желтый Лес', 'index.php?action=yellow_forest', 6);
+				addlink('Старый Бастион', 'index.php?action=old_bastion', 7);
 				break;
 			case 7:
+				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
+				addlink('Магический Портал', 'index.php?action=portal', 3);
+				addlink('Красная Пустыня', 'index.php?action=red_desert', 4);
+				addlink('Огненное Море', 'index.php?action=fire_sea', 5);
+				addlink('Руины Тинии', 'index.php?action=tinias_ruins', 6);
+				addlink('Далекий Остров', 'index.php?action=far_island', 7);
 				break;
 			case 8:
+				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
 				break;
 			case 9:
 				break;
