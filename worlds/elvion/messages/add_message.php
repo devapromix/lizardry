@@ -17,6 +17,7 @@ if (!$connection) {
 
 if ($action == 'add_message') {
 	if (check_user($username) == true) {
+		$message = str_replace('_', ' ', $message);
 		$query = "INSERT INTO ".$tb_chat." (message_author, message_text) VALUES ('".$charname."', '".$message."')";
 		if (mysqli_query($connection, $query)) {
 			$res = '2';

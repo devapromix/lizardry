@@ -3,10 +3,20 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Grids,
-  Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Grids,
+  Vcl.Imaging.jpeg,
+  Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage;
 
 type
   TFrameAfterBattle = class(TFrame)
@@ -33,10 +43,14 @@ uses
 
 procedure TFrameAfterBattle.Image1Click(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON
-    (Server.Get('index.php?action=' + CurrentOutlands));
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ParseJSON(Server.Get('index.php?action=' + CurrentOutlands));
+  end;
 end;
 
 end.

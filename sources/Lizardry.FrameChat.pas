@@ -39,6 +39,7 @@ begin
     S := Trim(edChatMsg.Text);
     if (S <> '') then
     begin
+      S := S.Replace(' ', '_');
       S := Server.Get('messages/add_message.php?charname=' +
         Trim(FormMain.FrameLogin.edUserName.Text) +
         '&action=add_message&message=' + S);

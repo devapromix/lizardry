@@ -46,25 +46,40 @@ uses
 
 procedure TFrameOutlands.Image1Click(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=campfire'));
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ParseJSON(Server.Get('index.php?action=campfire'));
+  end;
 end;
 
 procedure TFrameOutlands.Image2Click(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
-    IntToStr((Sender as TImage).Tag)));
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
+      IntToStr((Sender as TImage).Tag)));
+  end;
 end;
 
 procedure TFrameOutlands.Label2Click(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
-    Exit;
-  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
-    IntToStr((Sender as TLabel).Tag)));
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
+      IntToStr((Sender as TLabel).Tag)));
+  end;
 end;
 
 end.

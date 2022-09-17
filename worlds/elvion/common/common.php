@@ -1111,12 +1111,6 @@ function inv_item_trade($type) {
 			$count = item_count($id);
 			if ($count > 0) {
 				$price = inv_item_price($type, $item['item_price'], $count);
-				switch($type) {
-					case 0:
-					case 1:
-						$price = round($price / 3);
-						break;
-				}
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);

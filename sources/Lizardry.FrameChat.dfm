@@ -22,8 +22,6 @@ object FrameChat: TFrameChat
       MaxLength = 250
       TabOrder = 0
       OnKeyDown = edChatMsgKeyDown
-      ExplicitLeft = 0
-      ExplicitTop = 5
     end
   end
   object Panel2: TPanel
