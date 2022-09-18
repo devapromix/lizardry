@@ -375,6 +375,15 @@ function check_user($user_name) {
 	}
 }
 
+function check_char($char_name) {
+	global $user;
+	if (strtolower($user['char_name']) == strtolower($char_name)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function update_user_table($s) {
 	global $connection, $user, $tb_user;
 	$query = "UPDATE ".$tb_user." SET ".$s." WHERE user_name='".$user['user_name']."'";
