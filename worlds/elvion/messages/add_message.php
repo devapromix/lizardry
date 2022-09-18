@@ -1,5 +1,5 @@
 <?php
-$res = '0';
+$res = '{"login":"error"}';
 
 include '../common/common.php';
 include '../common/connect.php';

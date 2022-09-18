@@ -81,11 +81,11 @@ uses
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
-  ResponseCode, UserName, UserPass: string;
-  Reg: TRegistry;
+  LResponseJSON, LUserName, LUserPass: string;
+  LReg: TRegistry;
 begin
-  UserName := Trim(LowerCase(edUserName.Text));
-  UserPass := Trim(LowerCase(edUserPass.Text));
+  LUserName := Trim(LowerCase(edUserName.Text));
+  LUserPass := Trim(LowerCase(edUserPass.Text));
   if not TServer.IsInternetConnected then
   begin
     ShowMsg('Невозможно подключиться к серверу!');
@@ -93,17 +93,17 @@ begin
   end;
   Panel5.Caption := 'Подтверждение авторизации...';
   Application.ProcessMessages;
-  ResponseCode := Server.Get('index.php?action=login');
-  if TServer.CheckLoginErrors(ResponseCode) then
+  LResponseJSON := Server.Get('index.php?action=login');
+  if TServer.CheckLoginErrors(LResponseJSON) then
     Exit;
-  if ResponseCode = '0' then
+  if LResponseJSON = '{"login":"error"}' then
   begin
     Panel5.Caption := 'Ошибка!';
     Application.ProcessMessages;
     ShowMsg('Ошибка авторизации!');
     Exit;
   end
-  else if ResponseCode = '1' then
+  else if LResponseJSON = '{"login":"ok"}' then
   begin
     Panel5.Caption := 'Готово!';
     Application.ProcessMessages;
@@ -130,18 +130,18 @@ begin
     FormMain.FrameTown.BringToFront;
     //
     begin
-      Reg := TRegistry.Create;
+      LReg := TRegistry.Create;
       try
-        Reg.RootKey := HKEY_CURRENT_USER;
-        Reg.OpenKey('\SOFTWARE\Lizardry', True);
+        LReg.RootKey := HKEY_CURRENT_USER;
+        LReg.OpenKey('\SOFTWARE\Lizardry', True);
         if CheckBox1.Checked then
         begin
-          Reg.WriteString('UserName', UserName);
-          Reg.WriteString('UserPass', UserPass);
+          LReg.WriteString('UserName', LUserName);
+          LReg.WriteString('UserPass', LUserPass);
         end;
-        Reg.WriteInteger('Server', ComboBox1.ItemIndex);
+        LReg.WriteInteger('Server', ComboBox1.ItemIndex);
       finally
-        Reg.Free;
+        LReg.Free;
       end;
     end;
   end
@@ -161,18 +161,18 @@ end;
 
 procedure TFrameLogin.bbUpdateClick(Sender: TObject);
 var
-  S: string;
+  LMessage: string;
 begin
-  S := '';
+  LMessage := '';
   if not TServer.IsInternetConnected then
   begin
-    S := 'Невозможно подключиться к серверу!';
+    LMessage := 'Невозможно подключиться к серверу!';
   end
   else if not IsNewClientVersion then
-    S := 'Вы используете самую новую версию клиента!'
+    LMessage := 'Вы используете самую новую версию клиента!'
   else
-    S := 'Вам нужно обновить клиент!';
-  FormMain.FrameUpdate.ttInfo.Caption := S;
+    LMessage := 'Вам нужно обновить клиент!';
+  FormMain.FrameUpdate.ttInfo.Caption := LMessage;
   FormMain.FrameUpdate.ttUpdate.Caption := '';
   FormMain.FrameUpdate.BringToFront;
 end;
@@ -247,40 +247,40 @@ end;
 
 procedure TFrameLogin.InfoClick(Sender: TObject);
 var
-  S: string;
+  LMessage: string;
 begin
   case (Sender as TSpeedButton).Tag of
     1:
-      S := 'Название учетной записи. Используется только для входа в игру. ' +
+      LMessage := 'Название учетной записи. Используется только для входа в игру. ' +
         #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
         + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
     2:
-      S := 'Пароль к учетной записи. Используется только для входа в игру. ' +
+      LMessage := 'Пароль к учетной записи. Используется только для входа в игру. ' +
         #13#10 + 'Можно использовать символы от aA до zZ, цифры и символ подчеркивания. '
         + #13#10 + 'Длина названия учетной записи: от 4-х до 24-х символов.';
     3:
-      S := 'Нажмите для входа в игру.';
+      LMessage := 'Нажмите для входа в игру.';
     4:
-      S := 'Нажмите чтобы зарегистрировать новую учетную запись и создать персонажа.';
+      LMessage := 'Нажмите чтобы зарегистрировать новую учетную запись и создать персонажа.';
     5:
-      S := 'Дополнительные возможности клиента. Проверка актуальной версии клиента.';
+      LMessage := 'Дополнительные возможности клиента. Проверка актуальной версии клиента.';
   else
-    S := 'Текущая игра проходит в мире LIZARDRY. ' +
+    LMessage := 'Текущая игра проходит в мире LIZARDRY. ' +
       'Другие миры используются для тестирования.';
   end;
-  ShowMsg(S);
+  ShowMsg(LMessage);
 end;
 
 function TFrameLogin.IsNewClientVersion: Boolean;
 var
-  ServerVersion: string;
-  ClientVersion: string;
+  LServerVersion: string;
+  LClientVersion: string;
 begin
   Result := False;
   try
-    ClientVersion := Trim(CurrentClientVersion.Caption);
-    ServerVersion := Trim(Server.Get('index.php?action=version'));
-    if ClientVersion < ServerVersion then
+    LClientVersion := Trim(CurrentClientVersion.Caption);
+    LServerVersion := Trim(Server.Get('index.php?action=version'));
+    if LClientVersion < LServerVersion then
     begin
       Result := True;
       ShowMsg('Необходимо обновить клиент!');

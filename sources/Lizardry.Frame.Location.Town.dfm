@@ -641,7 +641,6 @@ object FrameTown: TFrameTown
         Align = alRight
         Caption = #1063#1072#1090
         Flat = True
-        Visible = False
         OnClick = bbChatClick
         ExplicitLeft = 248
       end
