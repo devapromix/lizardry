@@ -767,14 +767,17 @@ function ch_level_exp() {
 function get_value($value) {
 	global $user, $stat;
 
-	if ($user['enemy_level'] < $user['char_level'] - 1)
-		$r = round($value / round($stat['char_damages'] / $stat['enemy_damages']));
-	else
+	if ($user['enemy_level'] < $user['char_level'] - 1) {
+		$v = $user['char_level'] - $user['enemy_level'];
+		$r = round($value / $v);
+		if ($r < 1)
+			$r = 1;
+	} else
 		$r = $value;
 
 	if (($r > 0) && (ch_level_exp())) {
-		$r = rand(round($value / 10), round($value / 5));
-		if ($r <= 0)
+		$r = rand(round($r / 5), round($r / 2));
+		if ($r < 1)
 			$r = 1;
 	}
 
