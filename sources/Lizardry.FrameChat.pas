@@ -27,26 +27,32 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server;
+uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMain;
 
 procedure TFrameChat.edChatMsgKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
-  S: string;
+  LMessage, LResponseJSON: string;
+  SL: TStringList;
 begin
   if (Key = VK_RETURN) then
   begin
-    S := Trim(edChatMsg.Text);
-    if (S <> '') then
-    begin
-      S := S.Replace(' ', '_');
-      S := Server.Get('messages/add_message.php?charname=' +
-        Trim(FormMain.FrameLogin.edUserName.Text) +
-        '&action=add_message&message=' + S);
-      // ShowMessage(S);
+    SL := TStringList.Create;
+    LMessage := Trim(edChatMsg.Text);
+    try
+      if (LMessage <> '') then //
+      begin
+        LResponseJSON := Server.Post('messages/add_message.php?charname=' +
+          LowerCase(FormMain.FrameTown.bbCharName.Caption) +
+          '&action=add_message', SL);
+        if LResponseJSON = '{"login":"error"}' then;
+        // ShowMessage(S);
+      end;
+      edChatMsg.Text := '';
+      FormMain.FrameLogin.LoadFromDBMessages;
+    finally
+      FreeAndNil(SL);
     end;
-    edChatMsg.Text := '';
-    FormMain.FrameLogin.LoadFromDBMessages;
   end;
   Key := 0;
 end;

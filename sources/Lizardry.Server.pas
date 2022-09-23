@@ -3,7 +3,8 @@
 interface
 
 uses
-  IdHTTP;
+  IdHTTP,
+  Classes;
 
 type
   TServer = class(TObject)
@@ -13,6 +14,7 @@ type
     FURL: string;
   public
     function Get(AURL: string): string;
+    function Post(AURL: string; ASL: TStringList): string;
     function GetFromDB(const S: string): string;
     constructor Create(const AURL, AName: string);
     destructor Destroy; override;
@@ -50,6 +52,33 @@ begin
     Result := InternetGetConnectedState(@ConnectionType, 0);
   except
     ShowMsg('Невозможно подключиться к серверу!');
+  end;
+end;
+
+function TServer.Post(AURL: string; ASL: TStringList): string;
+begin
+  Result := '';
+  if not IsInternetConnected then
+  begin
+    ShowMsg('Невозможно подключиться к серверу!');
+    Exit;
+  end;
+  try
+    Result := Trim(FIdHTTP.Post('http://' + URL + '/' + Name + '/' + AURL +
+      '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
+      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text), ASL));
+    if Result = '0' then
+      ShowMsg('Получен не верный ответ от сервера: 0!');
+  except
+    on E: Exception do
+    begin
+      ShowMsg(FIdHTTP.ResponseText);
+      ShowError(Result);
+    end;
+    on E: EIdHTTPProtocolException do
+      ShowMsg(E.ErrorMessage);
+    on E: EIdHTTPProtocolException do
+      ShowMsg(IntToStr(E.ErrorCode));
   end;
 end;
 
