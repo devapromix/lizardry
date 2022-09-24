@@ -3,11 +3,19 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
   Vcl.StdCtrls,
-  Vcl.Buttons, Vcl.ComCtrls;
+  Vcl.Buttons,
+  Vcl.ComCtrls;
 
 type
   TFrameChat = class(TFrame)
@@ -27,7 +35,9 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMain;
+uses
+  Lizardry.FormMain,
+  Lizardry.Server;
 
 procedure TFrameChat.edChatMsgKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);

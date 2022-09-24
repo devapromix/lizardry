@@ -15,7 +15,7 @@ uses
   Vcl.StdCtrls,
   Vcl.Buttons,
   Vcl.ExtCtrls,
-  Vcl.Imaging.pngimage,
+  Vcl.Imaging.PNGImage,
   Vcl.CheckLst;
 
 type
@@ -142,7 +142,7 @@ end;
 
 procedure TFrameRegistration.bbRegistrationClick(Sender: TObject);
 var
-  ResponseCode, UserName, UserPass, CharName, CharGender, CharRace: string;
+  LResponseCode, UserName, UserPass, CharName, CharGender, CharRace: string;
 begin
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
@@ -164,37 +164,25 @@ begin
   end;
   FormMain.FrameLogin.edUserName.Text := UserName;
   FormMain.FrameLogin.edUserPass.Text := UserPass;
-  ResponseCode := Server.Get
+  LResponseCode := Server.Get
     ('registration/registration.php?action=registration&charname=' + CharName +
     '&chargender=' + CharGender + '&charrace=' + CharRace);
   FormMain.FrameLogin.edUserPass.Text := '';
-  if TServer.CheckLoginErrors(ResponseCode) then
+  if TServer.CheckLoginErrors(LResponseCode) then
     Exit;
-  if ResponseCode = '1' then
+  FormMain.FrameTown.ParseJSON(LResponseCode);
+  if LResponseCode = '{"registration":"error"}' then
   begin
-    ShowMsg('Пользователь с таким именем существует!');
+    ShowMsg('Ошибка регистрации!');
   end
-  else if (ResponseCode = '2') then
+  else if (LResponseCode = '{"registration":"ok"}') then
   begin
     ShowMsg('Регистрация прошла успешно!');
     bbBackClick(Sender);
   end
-  else if (ResponseCode = '23') then
-  begin
-    ShowMsg('Введите имя персонажа!');
-  end
-  else if (ResponseCode = '33') then
-  begin
-    ShowMsg('Имя персонажа не должно быть короче 4 символов!');
-  end
-  else if (ResponseCode = '43') then
-  begin
-    ShowMsg('Имя персонажа не должно быть длиннее 24 символов!');
-  end
   else
   begin
-    ShowMsg('Ошибка регистрации!');
-    ShowMsg('Код ошибки: ' + ResponseCode);
+    ShowMsg('Ошибка регистрации! Код ошибки: ' + LResponseCode);
   end;
 end;
 
