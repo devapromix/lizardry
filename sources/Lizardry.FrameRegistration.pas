@@ -174,15 +174,11 @@ begin
   if LResponseCode = '{"registration":"error"}' then
   begin
     ShowMsg('Ошибка регистрации!');
-  end
-  else if (LResponseCode = '{"registration":"ok"}') then
+  end;
+  if (LResponseCode = '{"registration":"ok"}') then
   begin
     ShowMsg('Регистрация прошла успешно!');
     bbBackClick(Sender);
-  end
-  else
-  begin
-    ShowMsg('Ошибка регистрации! Код ошибки: ' + LResponseCode);
   end;
 end;
 
