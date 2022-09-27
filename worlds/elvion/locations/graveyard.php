@@ -49,6 +49,9 @@ if ($action == 'graveyard') {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
 				break;
+			case 8:
+				addlink('Осмотреть Мавзолей', 'index.php?action=mavz', 1);
+				break;
 		}
 	} else addlink('Вернуться к жизни', 'index.php?action=graveyard&do=revive_in_graveyard');
 	
@@ -62,6 +65,9 @@ if ($action == 'graveyard') {
 		switch ($user['char_region']) {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
+				break;
+			case 8:
+				addlink('Осмотреть Мавзолей', 'index.php?action=mavz', 1);
 				break;
 		}
 	}

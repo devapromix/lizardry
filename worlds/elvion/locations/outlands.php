@@ -36,10 +36,10 @@ if ($action == 'fire_sea') outland($action, [83,84,85]);
 if ($action == 'tinias_ruins') outland($action, [86,87,88]);
 if ($action == 'far_island') outland($action, [89,90,91]);
 // #8
-if ($action == '+') outland($action, [92,93,94,95]);
-if ($action == '+') outland($action, [96,97,98]);
-if ($action == '+') outland($action, [99,100,101]);
-if ($action == '+') outland($action, [102,103,104]);
+if ($action == 'dr_sea') outland($action, [92,93,94,95]);
+if ($action == 'mavz') outland($action, [96,97,98], ['Вернуться на Кладбище', 'index.php?action=graveyard']);
+if ($action == 'black_cave') outland($action, [99,100,101], [], ['Дыра', 'index.php?action=the_hole']);
+if ($action == 'the_hole') outland($action, [102,103,104], ['Черная Пещера', 'index.php?action=black_cave']);
 // #9
 if ($action == '+') outland($action, [105,106,107,108]);
 if ($action == '+') outland($action, [109,110,111]);
