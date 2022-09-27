@@ -56,7 +56,7 @@ object FrameTown: TFrameTown
         ExplicitHeight = 22
       end
     end
-    object Panel12: TPanel
+    object pnGold: TPanel
       Tag = 5
       Left = 1
       Top = 291
@@ -66,6 +66,8 @@ object FrameTown: TFrameTown
       Alignment = taLeftJustify
       Caption = #1047#1086#1083#1086#1090#1086' 0'
       ParentBackground = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 1
     end
     object Panel13: TPanel

@@ -3,13 +3,30 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls, Lizardry.FrameBank, Lizardry.FrameDefault, Lizardry.FrameTavern,
-  Lizardry.FrameOutlands, Lizardry.FrameBattle, Lizardry.FrameInfo,
-  Lizardry.FrameLoot, Lizardry.FrameChat, Lizardry.FrameShop,
-  Lizardry.FrameChar, Lizardry.FrameAfterBattle, Lizardry.FrameBeforeBattle,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ExtCtrls,
+  Lizardry.FrameBank,
+  Lizardry.FrameDefault,
+  Lizardry.FrameTavern,
+  Lizardry.FrameOutlands,
+  Lizardry.FrameBattle,
+  Lizardry.FrameInfo,
+  Lizardry.FrameLoot,
+  Lizardry.FrameChat,
+  Lizardry.FrameShop,
+  Lizardry.FrameChar,
+  Lizardry.FrameAfterBattle,
+  Lizardry.FrameBeforeBattle,
   Lizardry.FrameGetLoot;
 
 type
@@ -28,7 +45,7 @@ type
     RightPanel: TPanel;
     CharNamePanel: TPanel;
     Panel11: TPanel;
-    Panel12: TPanel;
+    pnGold: TPanel;
     Panel13: TPanel;
     Panel14: TPanel;
     Panel15: TPanel;
@@ -118,8 +135,14 @@ implementation
 
 {$R *.dfm}
 
-uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo,
-  Lizardry.FormMsg, Lizardry.FormPrompt;
+uses
+  Math,
+  JSON,
+  Lizardry.FormMain,
+  Lizardry.Server,
+  Lizardry.FormInfo,
+  Lizardry.FormMsg,
+  Lizardry.FormPrompt;
 
 var
   LastCode: string = '';
@@ -657,7 +680,12 @@ begin
       FormMain.FrameTown.FrameOutlands1.Label1.Caption := S + '/7';
     end;
     if JSON.TryGetValue('char_gold', S) then
-      Panel12.Caption := 'Золото: ' + S;
+    begin
+      pnGold.Caption := 'Золото: ' + S;
+      if JSON.TryGetValue('char_bank', S) then
+        pnGold.Hint := 'Золото в банке: ' + S;
+
+    end;
     if JSON.TryGetValue('char_life_cur', Cur) and
       JSON.TryGetValue('char_life_max', Max) then
       ChLifePanels(Cur, Max);
