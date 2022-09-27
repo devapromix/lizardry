@@ -13,6 +13,7 @@ object FormMain: TFormMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  ShowHint = True
   WindowState = wsMaximized
   OnCreate = FormCreate
   OnResize = FormResize
@@ -334,13 +335,10 @@ object FormMain: TFormMain
           end
           inherited Panel2: TPanel
             Width = 602
-            ExplicitTop = 0
             ExplicitWidth = 602
             inherited Panel3: TPanel
               Left = 265
               ExplicitLeft = 265
-              ExplicitTop = 0
-              ExplicitHeight = 160
             end
           end
         end
@@ -366,8 +364,6 @@ object FormMain: TFormMain
     inherited Panel2: TPanel
       Width = 934
       Height = 712
-      ExplicitLeft = 250
-      ExplicitTop = 0
       ExplicitWidth = 934
       ExplicitHeight = 712
       inherited ttInfo: TLabel

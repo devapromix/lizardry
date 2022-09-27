@@ -124,6 +124,16 @@ uses Math, JSON, Lizardry.FormMain, Lizardry.Server, Lizardry.FormInfo,
 var
   LastCode: string = '';
 
+function StrLim(const S: string; const N: Integer = 25): string;
+begin
+  if Length(S) > N then
+  begin
+    Result := Trim(Copy(S, 1, N - 3)) + '...';
+  end
+  else
+    Result := S;
+end;
+
 function GetLevelExp(const Level: Word): Integer;
 begin
   Result := Level * ((Level - 1) + 100);
@@ -378,7 +388,7 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   JSON: TJSONObject;
   JSONArray: TJSONArray;
-  S, V, Cur, Max, Code: string;
+  S, V, Cur, Max, Code, LDam, LDef: string;
   I, F, J, K: Integer;
   A: TArray<string>;
 begin
@@ -657,19 +667,27 @@ begin
     if JSON.TryGetValue('char_damage_min', Cur) and
       JSON.TryGetValue('char_damage_max', Max) then
     begin
-      Panel17.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      LDam := Format('Урон: %s-%s', [Cur, Max]);
+      Panel17.Caption := LDam;
       FrameBattle1.ttCharDamage.Caption := Format('Урон: %s-%s', [Cur, Max]);
     end;
     if JSON.TryGetValue('char_armor', S) then
     begin
-      Panel18.Caption := 'Броня: ' + S;
+      LDef := Format('Броня: %s', [S]);
+      Panel18.Caption := LDef;
       FrameBattle1.ttCharArmor.Caption := 'Броня: ' + S;
     end;
     //
     if JSON.TryGetValue('char_equip_weapon_name', S) then
-      pnEqWeapon.Caption := S;
+    begin
+      pnEqWeapon.Caption := StrLim(S);
+      pnEqWeapon.Hint := Format('%s (%s)', [S, LDam]);
+    end;
     if JSON.TryGetValue('char_equip_armor_name', S) then
-      pnEqArmor.Caption := S;
+    begin
+      pnEqArmor.Caption := StrLim(S);
+      pnEqArmor.Hint := Format('%s (%s)', [S, LDef]);
+    end;
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;

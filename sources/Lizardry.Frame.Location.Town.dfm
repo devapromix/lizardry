@@ -173,6 +173,8 @@ object FrameTown: TFrameTown
       Alignment = taLeftJustify
       Caption = #1054#1088#1091#1078#1080#1077':'
       ParentBackground = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 9
     end
     object pnEqArmor: TPanel
@@ -185,6 +187,8 @@ object FrameTown: TFrameTown
       Alignment = taLeftJustify
       Caption = #1041#1088#1086#1085#1103':'
       ParentBackground = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 10
     end
     object HPPanel: TPanel
