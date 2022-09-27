@@ -3,10 +3,20 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ComCtrls,
+  Vcl.Imaging.PNGImage,
+  Vcl.ExtCtrls;
 
 type
   TFrameBank = class(TFrame)
@@ -49,7 +59,9 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.Server, Lizardry.FormMain;
+uses
+  Lizardry.Server,
+  Lizardry.FormMain;
 
 const
   T = 'Золотишко... Золотишко... Золотишко...|' +

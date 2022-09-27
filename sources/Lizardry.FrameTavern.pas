@@ -3,10 +3,20 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
   System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.ComCtrls;
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ComCtrls,
+  Vcl.Imaging.PNGImage,
+  Vcl.ExtCtrls;
 
 type
   TFrameTavern = class(TFrame)
@@ -14,9 +24,12 @@ type
     bbBuy: TBitBtn;
     bbPrice: TBitBtn;
     UpDown1: TUpDown;
+    Image1: TImage;
+    Image2: TImage;
     procedure bbBuyClick(Sender: TObject);
     procedure bbPriceClick(Sender: TObject);
     procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure Image2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,7 +40,10 @@ implementation
 
 {$R *.dfm}
 
-uses Lizardry.FormMain, Lizardry.Server, Lizardry.FormMsg,
+uses
+  Lizardry.FormMain,
+  Lizardry.Server,
+  Lizardry.FormMsg,
   Lizardry.Frame.Location.Town;
 
 procedure TFrameTavern.bbBuyClick(Sender: TObject);
@@ -65,6 +81,18 @@ begin
       Key := #0;
   if Key = #13 then
     bbBuy.Click;
+end;
+
+procedure TFrameTavern.Image2Click(Sender: TObject);
+begin
+  with FormMain.FrameTown do
+  begin
+    if IsChatMode then
+      bbChatClick(Sender);
+    if IsCharMode then
+      bbCharNameClick(Sender);
+    ParseJSON(Server.Get('index.php?action=town'));
+  end;
 end;
 
 end.

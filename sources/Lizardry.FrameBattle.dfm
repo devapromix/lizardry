@@ -17,8 +17,6 @@ object FrameBattle: TFrameBattle
     Height = 438
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 137
-    ExplicitHeight = 461
     object BattleLog: TRichEdit
       Left = 1
       Top = 1
@@ -28,9 +26,6 @@ object FrameBattle: TFrameBattle
       ScrollBars = ssVertical
       TabOrder = 0
       Zoom = 100
-      ExplicitLeft = 0
-      ExplicitTop = 6
-      ExplicitHeight = 426
     end
   end
   object Panel2: TPanel
@@ -42,7 +37,6 @@ object FrameBattle: TFrameBattle
     BevelOuter = bvNone
     Caption = 'VS'
     TabOrder = 1
-    ExplicitTop = 26
     object ttEnemyDamage: TLabel
       Left = 144
       Top = 103
@@ -99,9 +93,6 @@ object FrameBattle: TFrameBattle
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 564
-      ExplicitTop = 1
-      ExplicitHeight = 135
       DesignSize = (
         337
         160)
