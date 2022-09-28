@@ -1,5 +1,5 @@
 <?php
-$res = '0';
+$res = '{"login":"error"}';
 
 include 'common/common.php';
 include 'common/locations.php';
@@ -26,7 +26,7 @@ $user = $result->fetch_assoc();
 
 if (($userpass != '')&&($userpass == $user['user_pass'])) {
 	if ($action == 'login') {
-		$res = '1';
+		$res = '{"login":"ok"}';
 	}
 	if ($action == 'version') {
 		$res = get_version();

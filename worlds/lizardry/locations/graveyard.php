@@ -28,13 +28,13 @@ if ($action == 'graveyard') {
 				$user['description'] = 'Старое кладбище. Ему уже много сотен лет. Не самое приятное место. Но здесь по крайней мере нет ни одной живой души. Можно не тревожась за свою безопасность погрузиться в мысли и обдумать дальнейшие шаги.';
 				break;
 			case 8:
-				$user['description'] = '';
+				$user['description'] = 'Вы стоите у входа на кладбище. Над вами в глубокой ночной тишине стаи летучих мышей метаются по небу. Рядом ввысь вздымается полуразрушенное здание Мавзолея.';
 				break;
 			case 9:
-				$user['description'] = '';
+				$user['description'] = 'Вы пришли на Старое кладбище. Этому кладбищу не одна сотня лет. Ночной ветер спокойно гуляет между каменными надгробиями. Вам нужно обдумать свои дальнейшие шаги.';
 				break;
 			case 10:
-				$user['description'] = '';
+				$user['description'] = 'Кладбище возле городских стен. Глубокая ночь. Тишина. Вы, погрузившись в свои мысли, гуляете узкими улочками между могил и родовых склепов.';
 				break;
 		}
 		
@@ -49,6 +49,9 @@ if ($action == 'graveyard') {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
 				break;
+			case 8:
+				addlink('Осмотреть Мавзолей', 'index.php?action=mavz', 1);
+				break;
 		}
 	} else addlink('Вернуться к жизни', 'index.php?action=graveyard&do=revive_in_graveyard');
 	
@@ -62,6 +65,9 @@ if ($action == 'graveyard') {
 		switch ($user['char_region']) {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
+				break;
+			case 8:
+				addlink('Осмотреть Мавзолей', 'index.php?action=mavz', 1);
 				break;
 		}
 	}

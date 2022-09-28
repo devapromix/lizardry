@@ -62,6 +62,8 @@ if ($action == 'gate') {
 				break;
 			case 8:
 				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
+				addlink('Море Снов', 'index.php?action=dr_sea', 3);
+				addlink('Черная Пещера', 'index.php?action=black_cave', 4);
 				break;
 			case 9:
 				break;
