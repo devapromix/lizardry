@@ -591,6 +591,7 @@ object FrameTavern: TFrameTavern
       41103C45045C1004C15344C00541103C45045C1004C153FE1FC6DDB0A410F713
       060000000049454E44AE426082}
     Stretch = True
+    OnClick = Image2Click
   end
   object Image2: TImage
     Left = 3
