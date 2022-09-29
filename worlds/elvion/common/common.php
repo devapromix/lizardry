@@ -508,12 +508,9 @@ function gen_loot() {
 	} else if ((rand(1,4) == 1)||($user['enemy_champion'] > 0)) {
 
 		$next = true;
-		$loot_level = $user['char_region'];
+		$loot_level = 1;
 		$loot_type_array = [0,1,8,9,10,11,25];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
-
-		if (($loot_level > 1)&&(rand(0, 4) == 0))
-			$loot_level--;
 
 		switch($loot_type) {
 			case 0:

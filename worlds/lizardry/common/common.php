@@ -27,7 +27,7 @@ function gen_enemy($enemy_ident) {
 	$un_enemy = $result->fetch_assoc();
 
 	$user['enemy_name'] = $enemy['enemy_name'];
-
+	
 	$user['enemy_champion'] = 1;
 	if (rand(1, 20) == 1)
 		$user['enemy_champion'] = rand(1, 10);
@@ -67,6 +67,7 @@ function gen_enemy($enemy_ident) {
 
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
+	// Life
 	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	if ($user['enemy_champion'] == 2)
 		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.3);
@@ -75,30 +76,42 @@ function gen_enemy($enemy_ident) {
 	if ($user['enemy_champion'] == 4)
 		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.5);
 	$user['enemy_life_cur'] = $user['enemy_life_max'];
+	// Damage
 	$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
 	$user['enemy_damage_max'] = round($enemy['enemy_level'] * 0.5) + 1;
+	if ($user['enemy_champion'] == 1) {
+		// Уникальный
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * (1 + (rand(1, 3) * 0.1)));
+	}
 	if ($user['enemy_champion'] == 5)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.1);
-	if (($user['enemy_champion'] == 6) or ($user['enemy_champion'] == 1))
+	if ($user['enemy_champion'] == 6)
 		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.2);
 	if ($user['enemy_champion'] == 7)
-		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.3);
+		$user['enemy_damage_max'] = round($user['enemy_damage_max'] * 1.3);	
 	if ($user['enemy_damage_max'] < 2)
 		$user['enemy_damage_max'] = 2;
 	if ($user['enemy_damage_min'] < 1)
 		$user['enemy_damage_min'] = 1;
+	// Armour
 	$user['enemy_armor'] = round($enemy['enemy_level'] * 0.5);
+	if ($user['enemy_champion'] == 1) {
+		// Уникальный
+		$user['enemy_armor'] = round($user['enemy_armor'] * (1 + (rand(1, 3) * 0.1)));
+	}
 	if ($user['enemy_champion'] == 8)
 		$user['enemy_armor'] = round($user['enemy_armor'] * 1.1);
-	if (($user['enemy_champion'] == 9) or ($user['enemy_champion'] == 1))
+	if ($user['enemy_champion'] == 9)
 		$user['enemy_armor'] = round($user['enemy_armor'] * 1.2);
 	if ($user['enemy_champion'] == 10)
 		$user['enemy_armor'] = round($user['enemy_armor'] * 1.3);
+	// Experience
 	$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 	if ($user['enemy_champion'] == 1)
 		$user['enemy_exp'] = round($user['enemy_exp'] * 1.7);
 	if ($user['enemy_champion'] >= 2)
 		$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
+	//  Gold
 	$user['enemy_gold'] = round($enemy['enemy_level'] * 2.5) + rand(1, 20);
 	if ($user['enemy_champion'] == 1)
 		$user['enemy_gold'] += $enemy['enemy_level'] * 12;
@@ -495,21 +508,18 @@ function gen_loot() {
 	} else if ((rand(1,4) == 1)||($user['enemy_champion'] > 0)) {
 
 		$next = true;
-		$loot_level = $user['char_region'];
+		$loot_level = 1;
 		$loot_type_array = [0,1,8,9,10,11,25];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
-
-		if (($loot_level > 1)&&(rand(0, 4) == 0))
-			$loot_level--;
 
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 2) == 0);
+				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1));
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = (rand(0, 2) == 0);
+				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1));
 				break;
 		}
 
