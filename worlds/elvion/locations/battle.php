@@ -11,7 +11,10 @@ if ($action == 'battle') {
 
 	$user['title'] = 'Сражение!!!';
 	$user['mainframe'] = 'outlands';
-	$user['frame'] = 'before_battle';
+	if ($user['char_life_cur'] > 0)
+		$user['frame'] = 'before_battle';
+	else
+		$user['frame'] = 'battle';
 	$user['links'] = array();
 	$n = 0;
 	if ($user['char_life_cur'] > 0) {
