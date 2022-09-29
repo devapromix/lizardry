@@ -687,6 +687,8 @@ function enemy_battle_round() {
 
 function auto_battle() {
 	global $user, $stat;
+	if ($user['char_life_cur'] <= 0)
+		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
 	$r = '';
 	$rounds = 1;
