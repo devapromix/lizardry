@@ -1,7 +1,10 @@
 <?php
 
 if ($action == 'battle') {
-
+	
+	if ($user['char_life_cur'] <= 0) 
+		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+	
 	if ($enemyslot == '1')
 		gen_enemy($user['enemy_slot_1']);
 	if ($enemyslot == '2')

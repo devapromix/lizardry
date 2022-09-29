@@ -1,7 +1,10 @@
 <?php
 
 if ($action == 'battle') {
-
+	
+	if ($user['char_life_cur'] <= 0) 
+		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+	
 	if ($enemyslot == '1')
 		gen_enemy($user['enemy_slot_1']);
 	if ($enemyslot == '2')
@@ -11,7 +14,10 @@ if ($action == 'battle') {
 
 	$user['title'] = 'Сражение!!!';
 	$user['mainframe'] = 'outlands';
-	$user['frame'] = 'before_battle';
+	if ($user['char_life_cur'] > 0)
+		$user['frame'] = 'before_battle';
+	else
+		$user['frame'] = 'battle';
 	$user['links'] = array();
 	$n = 0;
 	if ($user['char_life_cur'] > 0) {
