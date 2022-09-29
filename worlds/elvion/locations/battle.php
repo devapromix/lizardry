@@ -50,6 +50,9 @@ if ($action == 'battle') {
 				case 25:
 					$m = 'Взять свиток!';
 					break;
+				case 30:
+					$m = 'Взять ингридиент!';
+					break;
 				default:
 					$m = 'Взять броню!';
 			}

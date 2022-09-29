@@ -28,7 +28,7 @@ function gen_enemy($enemy_ident) {
 
 	$user['enemy_name'] = $enemy['enemy_name'];
 	
-	$user['enemy_champion'] = 1;
+	$user['enemy_champion'] = 0;
 	if (rand(1, 20) == 1)
 		$user['enemy_champion'] = rand(1, 10);
 	switch($user['enemy_champion']) {

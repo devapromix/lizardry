@@ -193,6 +193,7 @@ function equip_item($item_ident) {
 		case 12:
 		case 13:
 		case 25:
+		case 30:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
 			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
 			add_item($item['item_ident']);
@@ -257,6 +258,7 @@ function pickup_equip_item() {
 		case 13:
 		case 21:
 		case 25:
+		case 30:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 			add_item($item['item_ident']);
@@ -297,6 +299,7 @@ function item_values($item_ident) {
 			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 25:
+		case 30:
 			return $item['item_name'].','.strval($item['item_level']).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 	}
@@ -509,7 +512,7 @@ function gen_loot() {
 
 		$next = true;
 		$loot_level = 1;
-		$loot_type_array = [0,1,8,9,10,11,25];
+		$loot_type_array = [0,1,8,9,10,11,25,30];
 		if (($user['enemy_champion'] == 1) && ($user['enemy_level'] >= $user['char_level']))
 			$loot_type_array = [0,1];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
@@ -543,6 +546,31 @@ function gen_loot() {
 
 function gen_trophy() {
 
+}
+
+function gen_plant() {
+	global $user, $tb_item, $connection;
+
+	$user['loot_slot_1'] = 0;
+	$user['loot_slot_1_name'] = '';
+	$user['loot_slot_1_type'] = 0;
+	
+	$loot_type = 30;
+	
+	if (rand(0, 4) == 0) {
+		$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$item = $result->fetch_assoc();
+		
+		$user['loot_slot_1'] = $item['item_ident'];
+		$user['loot_slot_1_name'] = $item['item_name'];
+		$user['loot_slot_1_type'] = $loot_type;		
+		
+	}
+
+	if ($user['loot_slot_1'] > 0)
+		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
 function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
@@ -929,6 +957,10 @@ function item_info($item_ident) {
 		case 25:
 			$ef = 'Открывает портал в город.';
 			$eq = 'Магический свиток.';
+			break;
+		case 30:
+			$ef = 'Алхимический ингридиент для зелий.';
+			$eq = 'Ингридиент.';
 			break;
 	}
 	if ($ef == '')
