@@ -954,6 +954,10 @@ function item_info($item_ident) {
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
 			$eq = 'Яд.';
 			break;
+		case 21:
+			$ef = 'Часть тела монстра.';
+			$eq = 'Трофей.';
+			break;
 		case 25:
 			$ef = 'Открывает портал в город.';
 			$eq = 'Магический свиток.';
