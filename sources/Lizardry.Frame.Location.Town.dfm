@@ -50,10 +50,8 @@ object FrameTown: TFrameTown
         Flat = True
         Layout = blGlyphRight
         OnClick = bbCharNameClick
-        ExplicitLeft = 96
-        ExplicitTop = 3
-        ExplicitWidth = 23
-        ExplicitHeight = 22
+        ExplicitLeft = 4
+        ExplicitTop = 6
       end
     end
     object pnGold: TPanel
@@ -571,15 +569,22 @@ object FrameTown: TFrameTown
         ExplicitWidth = 317
         ExplicitHeight = 283
         inherited TabSheet1: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
         end
         inherited TabSheet2: TTabSheet
+          inherited SG: TStringGrid
+            Width = 309
+            Height = 158
+          end
+          inherited Panel1: TPanel
+            Width = 309
+          end
           inherited Panel2: TPanel
+            Top = 183
+            Width = 309
             inherited ttInfo: TLabel
-              ExplicitWidth = 327
+              Width = 307
             end
           end
         end

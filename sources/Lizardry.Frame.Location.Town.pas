@@ -358,6 +358,7 @@ begin
   Panel10.Caption := bbCharName.Caption;
   FrameChar.ttInfo.Caption := '';
   FrameChar.PageControl1.ActivePageIndex := 1;
+  FrameChar.SG.OnClick(Self);
   FrameChar.BringToFront;
   IsCharMode := True;
 end;
