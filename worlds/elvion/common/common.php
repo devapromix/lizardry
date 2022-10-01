@@ -1130,6 +1130,9 @@ function inv_item_price($type, $price, $count) {
 		case 21:
 			$r = $count * round($price * $user['char_region'] * 0.35);
 			break;
+		case 30:
+			$r = $count * round($price * 0.85);
+			break;
 	}
 	return $r;
 }
@@ -1165,6 +1168,9 @@ function inv_item_list($type) {
 				break;
 			case 21:
 				$r .= 'Ваши трофеи:';
+				break;
+			case 30:
+				$r .= 'Ваши ингридиенты:';
 				break;
 		}
 		$r .= '#============#'.$t.'============#Всего: '.$gold.' зол.';

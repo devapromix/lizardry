@@ -15,6 +15,7 @@ if ($action == 'guilds') {
 		addlink('Гильдия Кузнецов', 'index.php?action=guild_forge', 4);
 		addlink('Гильдия Кожевников', 'index.php?action=guild_lw', 5);
 		addlink('Гильдия Выживания', 'index.php?action=guild_surv', 6);
+		addlink('Гильдия Алхимиков', 'index.php?action=guild_alch', 7);
 	} else go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -289,6 +290,28 @@ if ($action == 'guild_surv') {
 		$user['description'] = 'Навык позволяет вам получше обыскивать поверженых врагов и получать больше золота от монстров.';
 		$user['links'] = array();
 		addlink('Мне уже все понятно!', 'index.php?action=guild_surv&do=info');
+	}
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
+}
+
+if ($action == 'guild_alch') {
+
+	$user['title'] = 'Гильдия Алхимиков';
+	$t = 'Вы входите в тесное подвальное помещение, обставленое алхимическими столами, комодами и шкафами с различными разноцветными пузырьками. Вас встречает седой старичок в сером халате:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Алхимиков. У нас можно улучшить свои познания в науке варки алхимических зелий.#Также я щедро плачу золотом за ингридиенты: грибы, травы и корни.##';
+	$t .= inv_item_list(30);
+	$user['description'] = $t;
+	$user['links'] = array();
+	addlink('Покинуть гильдию', 'index.php?action=guilds');
+	addlink('Продать ингридиенты', 'index.php?action=guild_alch&do=ing_trade', 1);
+
+	if ($do == 'ing_trade') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$gold = inv_item_trade(30);
+		$user['description'] = 'Вы продали все ингридиенты и заработали '.$gold.' золотых монет.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
