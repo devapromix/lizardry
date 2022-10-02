@@ -299,12 +299,13 @@ if ($action == 'guild_surv') {
 if ($action == 'guild_alch') {
 
 	$user['title'] = 'Гильдия Алхимиков';
-	$t = 'Вы входите в тесное подвальное помещение, обставленое алхимическими столами, комодами и шкафами с различными разноцветными пузырьками. Вас встречает седой старичок в сером халате:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Алхимиков. У нас можно улучшить свои познания в науке варки алхимических зелий.#Также я щедро плачу золотом за ингридиенты: грибы, травы и корни.##';
+	$t = 'Вы входите в тесное подвальное помещение, обставленое алхимическими столами, комодами и шкафами с различными разноцветными пузырьками. Вас встречает седой старичок в сером халате:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Алхимиков. У нас ты можешь улучшить свои познания в алхимии. Еще можешь приготовить нужные тебе эликсиры.#Также я щедро плачу золотом за алхимические ингридиенты: грибы, травы, корни...##';
 	$t .= inv_item_list(30);
 	$user['description'] = $t;
 	$user['links'] = array();
 	addlink('Покинуть гильдию', 'index.php?action=guilds');
 	addlink('Продать ингридиенты', 'index.php?action=guild_alch&do=ing_trade', 1);
+	addlink('Подойти к столу', 'index.php?action=guild_alch&do=alchemy', 2);
 
 	if ($do == 'ing_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
@@ -312,6 +313,43 @@ if ($action == 'guild_alch') {
 		$user['description'] = 'Вы продали все ингридиенты и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch');
+	}
+
+	if ($do == 'alchemy') {
+		$user['description'] = 'Вы подходите к алхимическому столу и достаете из запленой сумки все необходимое для зельеварения. Старик молча уходит в сторону, оставляя вас в одиночестве.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch');
+		addlink('Рецепты', 'index.php?action=guild_alch&do=recipes', 1);
+		addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
+		addlink('Сварить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
+		addlink('Сварить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
+	}
+
+	if ($do == 'recipes') {
+		$user['description'] = 'Старик улыбается Вам и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'empty_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$user['description'] = buy_empty_elix(1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'hp_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$user['description'] = make_elix(HP_ELIX, HP_HERB, 3, MASH_HERB, 1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'mp_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$user['description'] = make_elix(HP_ELIX, MP_HERB, 3, MASH_HERB, 1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

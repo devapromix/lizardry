@@ -14,6 +14,14 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
+const EMPTY_ELIX 	= '600';
+const HP_ELIX 		= '601';
+const MP_ELIX 		= '602';
+
+const MASH_HERB		= '750';
+const HP_HERB		= '751';
+const MP_HERB		= '752';
+
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -1229,6 +1237,23 @@ function travel_req($level, $food, $gold) {
 
 function travel_price($level) {
 	return $level * 10;
+}
+
+function buy_empty_elix($count = 1) {
+	global $user;
+	$r = 'Старик улыбается:#-Цена Пустого Флакона - 100 золотых монет.';
+	if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
+	add_item(EMPTY_ELIX, $count);
+	$user['char_gold'] -= 100;
+	update_user_table("char_gold=".$user['char_gold']);
+	$r .= '##Куплен Пустой Флакон за 100 зол.';
+	return $r;
+}
+
+function make_elix($elix_id, $ing1_id, $ing1_amount, $ing2_id, $ing2_amount) {
+	if (has_item(EMPTY_ELIX)) {
+		
+	} else die('{"info":"Нужен Пустой Флакон!"}');
 }
 
 ?>
