@@ -340,16 +340,16 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'hp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$t = '';
-		$user['description'] = make_elix(HP_ELIX, $t, HP_HERB, 3, MASH_HERB, 1);
+		$t = 'Вы делаете отвар из Черного Гриба. Затем в него бросаете цветки Трубкоцвета и снова варите примерно два часа. Содержимое котелка Вы заливаете в Пустой Флакон и получаете Эликсир Исцеления!';
+		$user['description'] = make_elix(HP_ELIX, $t, 'Трубкоцвет', HP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'mp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$t = '';
-		$user['description'] = make_elix(HP_ELIX, $t, MP_HERB, 3, MASH_HERB, 1);
+		$t = 'Вы берете несколько цветков Снежноцвет, один Черный Гриб, бросаете все в котелок и варите на медленном огне примерно около часа. Затем путем нехитрых манипуляций с перегонным кубом Вы получаете Эликсир Маны!';
+		$user['description'] = make_elix(HP_ELIX, $t, 'Снежноцвет', MP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
