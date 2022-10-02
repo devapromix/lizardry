@@ -319,16 +319,30 @@ if ($action == 'guild_alch') {
 		$user['description'] = 'Вы подходите к алхимическому столу и достаете из запленой сумки все необходимое для зельеварения. Старик молча уходит в сторону, оставляя вас в одиночестве.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch');
-		addlink('Рецепты', 'index.php?action=guild_alch&do=recipes', 1);
+		addlink('Рецепты Эликсиров', 'index.php?action=guild_alch&do=elix_recipes', 1);
 		addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
 		addlink('Сварить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
 		addlink('Сварить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
 	}
 
-	if ($do == 'recipes') {
-		$user['description'] = 'Старик улыбается Вам и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
+	if ($do == 'elix_recipes') {
+		$user['description'] = 'Старик приближается к Вам и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
+		addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
+	}
+
+	if ($do == 'hp_recipe') {
+		$user['description'] = 'Эликсир Исцеления:#============#Цветок Трубкоцвета - 3 шт.#Черный Гриб - 1 шт.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+	}
+
+	if ($do == 'mp_recipe') {
+		$user['description'] = 'Эликсир Маны:#============#Цветок Снежноцвета - 3 шт.#Черный Гриб - 1 шт.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'empty_elix') {
