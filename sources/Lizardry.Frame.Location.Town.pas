@@ -594,6 +594,7 @@ begin
             end;
           BringToFront;
           SG.SetFocus;
+          SG.OnClick(Self);
         end
       else if (S = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
@@ -612,6 +613,7 @@ begin
             end;
           BringToFront;
           SG.SetFocus;
+          SG.OnClick(Self);
         end
       else if (S = 'shop_alchemy') then
         with FormMain.FrameTown.FrameShop1 do
@@ -630,6 +632,7 @@ begin
             end;
           BringToFront;
           SG.SetFocus;
+          SG.OnClick(Self);
         end
       else if (S = 'shop_magic') then
         with FormMain.FrameTown.FrameShop1 do
@@ -648,6 +651,7 @@ begin
             end;
           BringToFront;
           SG.SetFocus;
+          SG.OnClick(Self);
         end;
     end
     else
