@@ -340,14 +340,16 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'hp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$user['description'] = make_elix(HP_ELIX, HP_HERB, 3, MASH_HERB, 1);
+		$t = '';
+		$user['description'] = make_elix(HP_ELIX, $t, HP_HERB, 3, MASH_HERB, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'mp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$user['description'] = make_elix(HP_ELIX, MP_HERB, 3, MASH_HERB, 1);
+		$t = '';
+		$user['description'] = make_elix(HP_ELIX, $t, MP_HERB, 3, MASH_HERB, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

@@ -307,6 +307,7 @@ function item_values($item_ident) {
 			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 25:
+		case 28:
 		case 30:
 			return $item['item_name'].','.strval($item['item_level']).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
@@ -970,6 +971,10 @@ function item_info($item_ident) {
 			$ef = 'Открывает портал в город.';
 			$eq = 'Магический свиток.';
 			break;
+		case 28:
+			$ef = 'Необходим для создания эликсиров.';
+			$eq = '';
+			break;
 		case 30:
 			$ef = 'Алхимический ингридиент для зелий.';
 			$eq = 'Ингридиент.';
@@ -1250,9 +1255,9 @@ function buy_empty_elix($count = 1) {
 	return $r;
 }
 
-function make_elix($elix_id, $ing1_id, $ing1_amount, $ing2_id, $ing2_amount) {
+function make_elix($elix_id, $t, $ing1_id, $ing1_amount, $ing2_id, $ing2_amount) {
 	if (has_item(EMPTY_ELIX)) {
-		
+		return $t;
 	} else die('{"info":"Нужен Пустой Флакон!"}');
 }
 
