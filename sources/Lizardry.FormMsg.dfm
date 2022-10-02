@@ -28,6 +28,8 @@ object FormMsg: TFormMsg
       Top = 33
       Width = 569
       Height = 167
+      Margins.Left = 30
+      Margins.Right = 30
       Align = alClient
       Alignment = taCenter
       AutoSize = False

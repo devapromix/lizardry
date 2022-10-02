@@ -303,7 +303,7 @@ var
 begin
   FormInfo.MobImagesPath.Caption := TPath.GetHomePath + '\Lizardry\Images\';
   ForceDirectories(FormInfo.MobImagesPath.Caption);
-  FormInfo.ResMemo.Text := Server.GetFromDB('enemies');
+  FormInfo.ResMemo.Text := Trim(Server.Get('index.php?action=enemies'));
   Panel5.Caption := 'Проверка и загрузка изображений...';
   FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;
@@ -341,7 +341,7 @@ end;
 procedure TFrameLogin.LoadFromDBItems;
 begin
   try
-    FormInfo.ItemMemo.Text := Server.GetFromDB('items');
+    FormInfo.ItemMemo.Text := Trim(Server.Get('index.php?action=items'));
   except
   end;
 end;
@@ -354,7 +354,7 @@ var
 begin
   try
     JSONArray := TJSONObject.ParseJSONValue
-      (Server.GetFromDB('messages/messages')) as TJSONArray;
+      (Trim(Server.Get('index.php?action=messages'))) as TJSONArray;
     FormMain.FrameTown.FrameChat.RichEdit1.Clear;
     for I := JSONArray.Count - 1 downto 0 do
     begin

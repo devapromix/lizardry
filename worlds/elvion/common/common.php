@@ -492,6 +492,17 @@ function get_events() {
 	return json_encode($events, JSON_UNESCAPED_UNICODE);
 }
 
+function get_messages() {
+	global $tb_chat, $connection;
+
+	$query = "SELECT message_author, message_text FROM ".$tb_chat;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$messages = $result->fetch_all(MYSQLI_ASSOC);
+
+	return json_encode($messages, JSON_UNESCAPED_UNICODE);
+}
+
 $stat = array();
 
 function gen_loot() {
@@ -1098,6 +1109,28 @@ function add_enemies($enemy_idents) {
 		$r = $enemy_idents[array_rand($enemy_idents)];
 		add_enemy($i, $r);
 	}
+}
+
+function get_enemies() {
+	global $tb_enemy, $connection;
+
+	$query = "SELECT enemy_image FROM ".$tb_enemy;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$enemies = $result->fetch_all(MYSQLI_ASSOC);
+
+	return json_encode($enemies, JSON_UNESCAPED_UNICODE);
+}
+
+function get_items() {
+	global $tb_item, $connection;
+
+	$query = "SELECT * FROM ".$tb_item;
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$items = $result->fetch_all(MYSQLI_ASSOC);
+
+	return json_encode($items, JSON_UNESCAPED_UNICODE);
 }
 
 function addlink($t, $j, $n = 0) {

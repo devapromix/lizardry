@@ -25,18 +25,14 @@ $result = mysqli_query($connection, $query)
 $user = $result->fetch_assoc();
 
 if (($userpass != '')&&($userpass == $user['user_pass'])) {
-	if ($action == 'login') {
-		$res = '{"login":"ok"}';
-	}
-	if ($action == 'version') {
-		$res = get_version();
-	}
-	if ($action == 'inventory') {
-		$res = get_inventory();
-	}
-	if ($action == 'events') {
-		$res = get_events();
-	}
+	if ($action == 'login') $res = '{"login":"ok"}';
+	if ($action == 'version') $res = get_version();
+	if ($action == 'inventory') $res = get_inventory();
+	if ($action == 'events') $res = get_events();
+	if ($action == 'items') $res = get_items();
+	if ($action == 'enemies') $res = get_enemies();
+	if ($action == 'messages') $res = get_messages();
+	
 	include 'locations/battle.php';
 	include 'locations/campfire.php';
 	include 'locations/town.php';

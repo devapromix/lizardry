@@ -15,7 +15,6 @@ type
   public
     function Get(AURL: string): string;
     function Post(AURL: string; ASL: TStringList): string;
-    function GetFromDB(const S: string): string;
     constructor Create(const AURL, AName: string);
     destructor Destroy; override;
     class function CheckLoginErrors(const ResponseCode: string): Boolean;
@@ -144,12 +143,6 @@ begin
     on E: EIdHTTPProtocolException do
       ShowMsg(IntToStr(E.ErrorCode));
   end;
-end;
-
-function TServer.GetFromDB(const S: string): string;
-begin
-  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/' + LowerCase(S)
-    + '.php');
 end;
 
 {
