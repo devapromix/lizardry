@@ -323,6 +323,7 @@ if ($action == 'guild_alch') {
 		addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
 		addlink('Сварить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
 		addlink('Сварить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
+		addlink('Сварить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
 	}
 
 	if ($do == 'elix_recipes') {
@@ -331,6 +332,7 @@ if ($action == 'guild_alch') {
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 		addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
 		addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
+		addlink('Рецепт "Эликсир Огра"', 'index.php?action=guild_alch&do=st_recipe', 3);
 	}
 
 	if ($do == 'hp_recipe') {
@@ -341,6 +343,12 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'mp_recipe') {
 		$user['description'] = 'Эликсир Маны:#============#Цветок Снежноцвета - 3 шт.#Черный Гриб - 1 шт.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+	}
+
+	if ($do == 'st_recipe') {
+		$user['description'] = 'Эликсир Огра:#============#Цветок Болеголова - 3 шт.#Эликсир Исцеления - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
@@ -364,6 +372,14 @@ if ($action == 'guild_alch') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы берете несколько цветков Снежноцвета, один Черный Гриб, бросаете все в котелок и варите на медленном огне примерно около часа. Затем путем нехитрых манипуляций с перегонным кубом Вы получаете Эликсир Маны!';
 		$user['description'] = make_elix(MP_ELIX, $t, 'Снежноцвет', MP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'st_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$t = 'Вы на медленном огне доводите до кипения все содержимое Эликсира Исцеления и, добавив в чан с пенящейся густой жидкостью несколько цветков Болеголова, варите примерно еще час. Затем отстаиваете и переливаете в Пустой Флакон. Эликсир Огра готов!';
+		$user['description'] = make_elix(ST_ELIX, $t, 'Болеголов', ST_HERB, 3, 'Эликсир Исцеления', HP_ELIX, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

@@ -17,10 +17,12 @@ if (strlen($userpass) > 24) die('42');
 const EMPTY_ELIX 	= '600';
 const HP_ELIX 		= '601';
 const MP_ELIX 		= '602';
+const ST_ELIX 		= '603';
 
 const MASH_HERB		= '750';
 const HP_HERB		= '751';
 const MP_HERB		= '752';
+const ST_HERB		= '753';
 
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
@@ -1300,10 +1302,10 @@ function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name,
 						item_modify(EMPTY_ELIX, -1);
 						add_item($elix_id);
 						return $t;
-					} die('{"info":"Нужно больше количество ингредиента - '.$ing2_name.'!"}');
-				} die('{"info":"Нужен ингредиент - '.$ing2_name.'!"}');
-			} die('{"info":"Нужно больше количество ингредиента - '.$ing1_name.'!"}');
-		} die('{"info":"Нужен ингредиент - '.$ing1_name.'!"}');
+					} die('{"info":"Нужно больше количество компонента - '.$ing2_name.'!"}');
+				} die('{"info":"Нужен компонент - '.$ing2_name.'!"}');
+			} die('{"info":"Нужно больше количество компонента - '.$ing1_name.'!"}');
+		} die('{"info":"Нужен компонент - '.$ing1_name.'!"}');
 	} else die('{"info":"Нужен Пустой Флакон!"}');
 }
 
