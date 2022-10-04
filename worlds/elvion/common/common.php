@@ -566,8 +566,15 @@ function gen_loot() {
 	}
 }
 
-function gen_trophy() {
-
+function gen_random_place() {
+	global $user, $connection;
+	
+	$user['current_random_place'] = 0;
+	if (rand(0, 2) == 0) {
+		$user['current_random_place'] = rand(1, 1);
+	}
+	
+	update_user_table("current_random_place=".$user['current_random_place']);
 }
 
 function gen_plant() {
@@ -798,8 +805,8 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
-			gen_trophy();
 			gen_loot();
+			gen_random_place();
 			$gold = get_value($user['enemy_gold']); 
 			if ($gold > 0)
 				$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
@@ -815,6 +822,8 @@ function auto_battle() {
 				$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
 			if ($user['loot_slot_1'] > 0) {
 				$r .= 'Ваше внимание привлекает '.$user['loot_slot_1_name'].'.#';
+			} else if ($user['current_random_place'] > 0) {
+				$r .= 'Ваше внимание привлекает загадочная локация, которую вы только что обнаружили...#';
 			}
 			break;
 		}

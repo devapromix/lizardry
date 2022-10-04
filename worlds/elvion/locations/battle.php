@@ -58,6 +58,9 @@ if ($action == 'battle') {
 			}
 			$user['frame'] = 'get_loot';
 			addlink($m, 'index.php?action=pickup_loot&lootslot=1', 1);
+		} else if ($user['current_random_place'] > 0) {
+			$user['frame'] = 'get_random_place';
+			addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
 		}
 		update_user_table("enemy_name='',enemy_image='',char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills'].",stat_deads=".$user['stat_deads']);
 //		if ($user['loot_slot_1'] > 0)
@@ -66,7 +69,6 @@ if ($action == 'battle') {
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
-
 }
 
 if ($action == 'pickup_loot') {
@@ -109,5 +111,14 @@ if ($action == 'use_item') {
 	}
 	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).$h.'}';
 }
+
+if ($action == 'random_place') {
+
+	$user['title'] = 'Загадочная локация';
+	$user['description'] = $user['current_random_place'];
+	$user['frame'] = 'battle';
+	addlink('Назад', 'index.php?action='.$user['current_outlands']);
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+	}
 
 ?>
