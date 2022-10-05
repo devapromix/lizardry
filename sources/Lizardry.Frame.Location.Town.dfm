@@ -569,8 +569,10 @@ object FrameTown: TFrameTown
         ExplicitWidth = 317
         ExplicitHeight = 283
         inherited TabSheet1: TTabSheet
-          ExplicitWidth = 309
-          ExplicitHeight = 247
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
           ExplicitLeft = 4
@@ -597,6 +599,12 @@ object FrameTown: TFrameTown
               ExplicitWidth = 307
             end
           end
+        end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end
@@ -663,6 +671,19 @@ object FrameTown: TFrameTown
       Height = 200
       Align = alBottom
       TabOrder = 1
+      inline FrameRandomPlace1: TFrameRandomPlace
+        Left = 0
+        Top = 0
+        Width = 756
+        Height = 232
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 8
+      end
       inline FrameBank1: TFrameBank
         Left = 1
         Top = 1

@@ -27,7 +27,8 @@ uses
   Lizardry.FrameChar,
   Lizardry.FrameAfterBattle,
   Lizardry.FrameBeforeBattle,
-  Lizardry.FrameGetLoot;
+  Lizardry.FrameGetLoot,
+  Lizardry.FrameRandomPlace;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -95,6 +96,7 @@ type
     FrameAfterBattle1: TFrameAfterBattle;
     FrameBeforeBattle1: TFrameBeforeBattle;
     FrameGetLoot1: TFrameGetLoot;
+    FrameRandomPlace1: TFrameRandomPlace;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -509,6 +511,10 @@ begin
           CurrentOutlands := S;
           FormMain.FrameTown.FrameGetLoot1.BringToFront;
         end;
+      end
+      else if (S = 'get_random_place') then
+      begin
+        FormMain.FrameTown.FrameRandomPlace1.BringToFront;
       end
       else if (S = 'before_battle') then
       begin
