@@ -141,6 +141,19 @@ function random_place() {
 			$user['char_life_cur'] = $user['char_life_max'];
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			break;
+		case 2:
+			$user['title'] = 'Камнепад!!!';
+			$user['description'] = 'Вы проходите несколько десятков шагов и внезапно слышите странный гул. Обвал! - краем сознания вдруг осознаете вы и бросаетесь в сторону... ';
+			$dam = rand($user['char_region'] * 13, $user['char_region'] * 15);
+			$user['char_life_cur'] -= $dam;
+			if ($user['char_life_cur'] > 0) {
+				$user['description'] .= 'Грохочущая лавина камней проносится совсем рядом, лишь слегка зацепив вас. Вам чудом удалось избежать смерти!';
+			} else {
+				$user['char_life_cur'] = 0;
+				$user['description'] .= 'Но уже слишком поздно и вы оказываетесь на пути гремящей каменной массы. Вы погибли!';
+			}			
+			update_user_table("char_life_cur=".$user['char_life_cur']);
+			break;
 	}
 }
 
