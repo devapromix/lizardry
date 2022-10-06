@@ -114,9 +114,9 @@ if ($action == 'use_item') {
 
 if ($action == 'random_place') {
 
-	$user['title'] = 'Загадочная локация';
-	$user['description'] = $user['current_random_place'];
+	random_place();
 	$user['frame'] = 'battle';
+	$user['links'] = array();
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	}
