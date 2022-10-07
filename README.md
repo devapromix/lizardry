@@ -1,4 +1,4 @@
-![screenshot](https://github.com/devapromix/lizardry/blob/master/images/logo_lizardry.png)
+![screenshot](https://github.com/devapromix/lizardry/blob/master/worlds/images/logo_lizardry.png)
 
 Бесплатная приключенческая онлайновая ролевая игра в большом фэнтезийном мире, где каждый игрок – герой! 
 Исследуйте дикие опасные места, древние руины и тёмные подземелья, побеждайте полчища врагов и сражайтесь с опасными чудовищами, открывайте давно забытые тайны и находите всевозможные сокровища. Живите жизнью настоящего искателя приключений!
