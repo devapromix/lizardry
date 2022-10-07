@@ -194,51 +194,62 @@ end;
 
 function TFrameLogin.GetEventsText(const AJSON: string): string;
 var
-  JSONArray: TJSONArray;
-  I, EvType, EvLevel, EvGender: Integer;
-  EvName, EvStr: string;
+  LJSONArray: TJSONArray;
+  I, LEventType, LEventCharLevel, LEventCharGender: Integer;
+  LEventLocation, LEventCharName, LEventString: string;
 begin
   // ShowMessage(AJSON);
   Result := '';
   try
-    JSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
-    for I := 0 to JSONArray.Count - 1 do
+    LJSONArray := TJSONObject.ParseJSONValue(AJSON) as TJSONArray;
+    for I := 0 to LJSONArray.Count - 1 do
     begin
-      EvType := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+      LEventType := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('event_type')).JsonValue.Value, 0);
-      EvGender := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+      LEventCharGender :=
+        StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('event_char_gender')).JsonValue.Value, 0);
-      EvName := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_char_name'))
-        .JsonValue.Value;
-      EvLevel := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+      LEventCharName := TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('event_char_name')).JsonValue.Value;
+      LEventCharLevel :=
+        StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('event_char_level')).JsonValue.Value, 1);
-      EvStr := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('event_str'))
+      LEventString := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('event_str'))
         .JsonValue.Value;
-      case EvType of
+      LEventLocation := TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('event_loc')).JsonValue.Value;
+      case LEventType of
         0:
-          if (EvGender = 0) then
-            Result := Result + Format('%s прибыл в Елвинаар!', [EvName]
-              ) + #13#10
+          if (LEventCharGender = 0) then
+            Result := Result + Format('%s прибыл в Елвинаар!',
+              [LEventCharName]) + #13#10
           else
-            Result := Result + Format('%s прибылa в Елвинаар!', [EvName]
+            Result := Result + Format('%s прибылa в Елвинаар!', [LEventCharName]
               ) + #13#10;
         1:
-          if (EvGender = 0) then
+          if (LEventCharGender = 0) then
             Result := Result + Format('%s поднялся на %d уровень!',
-              [EvName, EvLevel]) + #13#10
+              [LEventCharName, LEventCharLevel]) + #13#10
           else
             Result := Result + Format('%s поднялась на %d уровень!',
-              [EvName, EvLevel]) + #13#10;
+              [LEventCharName, LEventCharLevel]) + #13#10;
         2:
-          Result := Result + Format('%s теперь носит %s!', [EvName, EvStr]
-            ) + #13#10;
+          Result := Result + Format('%s теперь носит %s!',
+            [LEventCharName, LEventString]) + #13#10;
         3:
-          if (EvGender = 0) then
+          if (LEventCharGender = 0) then
             Result := Result + Format('%s погиб в локации %s!',
-              [EvName, EvStr]) + #13#10
+              [LEventCharName, LEventLocation]) + #13#10
           else
             Result := Result + Format('%s погибла в локации %s!',
-              [EvName, EvStr]) + #13#10;
+              [LEventCharName, LEventLocation]) + #13#10;
+        4:
+          if (LEventCharGender = 0) then
+            Result := Result + Format('%s победил %s в локации %s!',
+              [LEventCharName, LEventString, LEventLocation]) + #13#10
+          else
+            Result := Result + Format('%s плбедила %s в локации %s!',
+              [LEventCharName, LEventString, LEventLocation]) + #13#10;
       end;
     end;
   except
