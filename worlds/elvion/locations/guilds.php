@@ -324,6 +324,7 @@ if ($action == 'guild_alch') {
 		addlink('Сварить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
 		addlink('Сварить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
 		addlink('Сварить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
+		addlink('Сварить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
 	}
 
 	if ($do == 'elix_recipes') {
@@ -333,6 +334,7 @@ if ($action == 'guild_alch') {
 		addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
 		addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
 		addlink('Рецепт "Эликсир Огра"', 'index.php?action=guild_alch&do=st_recipe', 3);
+		addlink('Рецепт "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_recipe', 4);
 	}
 
 	if ($do == 'hp_recipe') {
@@ -349,6 +351,12 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'st_recipe') {
 		$user['description'] = 'Эликсир Огра:#============#Цветок Болеголова - 3 шт.#Эликсир Исцеления - 1 шт.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+	}
+
+	if ($do == 'rf_recipe') {
+		$user['description'] = 'Эликсир Омоложения:#============#Эликсир Исцеления - 1 шт.#Эликсир Маны - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
@@ -380,6 +388,14 @@ if ($action == 'guild_alch') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы на медленном огне доводите до кипения все содержимое Эликсира Исцеления и, добавив в чан с пенящейся густой жидкостью несколько цветков Болеголова, варите примерно еще час. Затем отстаиваете и переливаете в Пустой Флакон. Эликсир Огра готов!';
 		$user['description'] = make_elix(ST_ELIX, $t, 'Болеголов', ST_HERB, 3, 'Эликсир Исцеления', HP_ELIX, 1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'rf_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$t = 'Когда закипает все содержиое Эликсира Исцеления, вы небольшими порциями добавляете Эликсир Маны, тщательно перемешивая и варите еще примерно три часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Омоложения готов!';
+		$user['description'] = make_elix(RF_ELIX, $t, 'Эликсир Исцеления', HP_ELIX, 1, 'Эликсир Маны', MP_ELIX, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

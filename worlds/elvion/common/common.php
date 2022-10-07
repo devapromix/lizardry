@@ -18,6 +18,7 @@ const EMPTY_ELIX 	= '600';
 const HP_ELIX 		= '601';
 const MP_ELIX 		= '602';
 const ST_ELIX 		= '603';
+const RF_ELIX 		= '604';
 
 const MASH_HERB		= '750';
 const HP_HERB		= '751';
