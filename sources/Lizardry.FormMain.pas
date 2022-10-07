@@ -38,6 +38,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure UpdateCaption;
   end;
 
 var
@@ -45,6 +46,7 @@ var
   IsChatMode: Boolean = False;
   IsCharMode: Boolean = False;
   IsDebugMode: Boolean = False;
+  ServerName: string = '';
 
 implementation
 
@@ -53,7 +55,8 @@ implementation
 uses
   Registry,
   Lizardry.FormInfo,
-  Lizardry.FormMsg;
+  Lizardry.FormMsg,
+  Lizardry.Server;
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var
@@ -99,6 +102,15 @@ end;
 procedure TFormMain.FrameUpdatebbOpenSiteClick(Sender: TObject);
 begin
   FrameUpdate.bbOpenSiteClick(Sender);
+end;
+
+procedure TFormMain.UpdateCaption;
+begin
+  if ServerName = '' then
+    Self.Caption := 'Lizardry'
+  else
+    Self.Caption := Format(Trim('%s [%s]'),
+      ['Lizardry', UpperCase(ServerName)]);
 end;
 
 end.

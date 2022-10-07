@@ -247,6 +247,8 @@ begin
   HideChat;
   FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
+  ServerName := '';
+  FormMain.UpdateCaption;
 end;
 
 { TPanel }

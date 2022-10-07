@@ -126,6 +126,8 @@ begin
       FormMain.FrameTown.HideChat;
     if IsCharMode then
       FormMain.FrameTown.HideChar;
+    ServerName := Server.Name;
+    FormMain.UpdateCaption;
     FormMain.FrameTown.DoAction('index.php?action=town');
     FormMain.FrameTown.BringToFront;
     //
@@ -180,6 +182,7 @@ end;
 procedure TFrameLogin.ComboBox1Change(Sender: TObject);
 begin
   Server.Name := LowerCase(Trim(ComboBox1.Text));
+  FormMain.UpdateCaption;
   LoadLastEvents;
 end;
 
