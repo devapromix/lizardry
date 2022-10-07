@@ -144,7 +144,7 @@ function random_place() {
 		case 2:
 			$user['title'] = 'Камнепад!!!';
 			$user['description'] = 'Вы проходите несколько десятков шагов и внезапно слышите странный гул. Обвал! - краем сознания вдруг осознаете вы и бросаетесь в сторону... ';
-			$dam = rand($user['char_region'] * 13, $user['char_region'] * 15);
+			$dam = rand($user['char_region'] * 3, $user['char_region'] * 5);
 			$user['char_life_cur'] -= $dam;
 			if ($user['char_life_cur'] > 0) {
 				$user['description'] .= 'Грохочущая лавина камней проносится совсем рядом, лишь слегка зацепив вас. Вам чудом удалось избежать смерти!';
@@ -154,6 +154,19 @@ function random_place() {
 			}			
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			break;
+		case 3:
+			$user['title'] = 'Невидимый вор!';
+			$user['description'] = 'Вы прошли всего несколько десятков шагов, когда заметили какое-то движение. Вор! Вы хватились кошелька на поясе и с сожалением обнаружили, что вас ограбили. ';
+			$gold = rand($user['char_region'] * 30, $user['char_region'] * 70);
+			if ($user['char_gold'] > $gold) {
+				$user['char_gold'] -= $gold;
+				$user['description'] .= 'Вору удалось украсть у вас '.$gold.' золотых монет.';
+			} else {
+				$user['char_gold'] = 0;
+				$user['description'] .= 'Вор украл у вас все золото.';
+			}
+			update_user_table("char_gold=".$user['char_gold']);
+ 			break;
 	}
 }
 

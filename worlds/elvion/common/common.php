@@ -571,7 +571,7 @@ function gen_random_place() {
 	
 	$user['current_random_place'] = 0;
 	if (rand(0, 2) == 0) {
-		$user['current_random_place'] = rand(1, 2);
+		$user['current_random_place'] = rand(1, 3);
 	}
 	
 	update_user_table("current_random_place=".$user['current_random_place']);
