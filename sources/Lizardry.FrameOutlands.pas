@@ -29,7 +29,6 @@ type
     Label4: TLabel;
     procedure Image1Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
-    procedure Label2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,19 +65,6 @@ begin
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
       IntToStr((Sender as TImage).Tag)));
-  end;
-end;
-
-procedure TFrameOutlands.Label2Click(Sender: TObject);
-begin
-  with FormMain.FrameTown do
-  begin
-    if IsChatMode then
-      bbChatClick(Sender);
-    if IsCharMode then
-      bbCharNameClick(Sender);
-    ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
-      IntToStr((Sender as TLabel).Tag)));
   end;
 end;
 

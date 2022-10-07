@@ -12,6 +12,9 @@ if ($action == 'battle') {
 	if ($enemyslot == '3')
 		gen_enemy($user['enemy_slot_3']);
 
+	if ($user['enemy_level'] < 1)
+		die('{"error":"Вам нужен живой враг!"}');
+
 	$user['title'] = 'Сражение!!!';
 	$user['mainframe'] = 'outlands';
 	if ($user['char_life_cur'] > 0)

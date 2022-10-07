@@ -12,7 +12,7 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 	$user['title'] = $location['location_name'];
 	$user['char_region_location_name'] = $location['location_name'];
 	update_user_table("char_region_location_name='".$user['char_region_location_name']."'");
-	
+
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = $location['location_description'];
 	} else shades();

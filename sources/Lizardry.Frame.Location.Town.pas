@@ -385,6 +385,27 @@ begin
   ShowMsg(Label1.Caption);
 end;
 
+procedure TFrameTown.bbCharNameClick(Sender: TObject);
+begin
+  if IsCharMode then
+    HideChar
+  else
+    ShowChar;
+end;
+
+procedure TFrameTown.bbChatClick(Sender: TObject);
+begin
+  if IsChatMode then
+    HideChat
+  else
+    ShowChat;
+end;
+
+procedure TFrameTown.bbDebugClick(Sender: TObject);
+begin
+  FormInfo.ShowModal;
+end;
+
 procedure TFrameTown.ChEnemyLifePanels(const Cur, Max: string);
 begin
   FormMain.FrameTown.FrameBattle1.ttEnemyLifeBar.Width :=
@@ -773,27 +794,6 @@ begin
   finally
     JSON.Free;
   end;
-end;
-
-procedure TFrameTown.bbCharNameClick(Sender: TObject);
-begin
-  if IsCharMode then
-    HideChar
-  else
-    ShowChar;
-end;
-
-procedure TFrameTown.bbChatClick(Sender: TObject);
-begin
-  if IsChatMode then
-    HideChat
-  else
-    ShowChat;
-end;
-
-procedure TFrameTown.bbDebugClick(Sender: TObject);
-begin
-  FormInfo.ShowModal;
 end;
 
 end.

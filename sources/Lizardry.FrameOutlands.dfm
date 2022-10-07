@@ -602,7 +602,7 @@ object FrameOutlands: TFrameOutlands
     Font.Name = 'Courier New'
     Font.Style = [fsBold]
     ParentFont = False
-    OnClick = Label2Click
+    OnClick = Image2Click
   end
   object Label3: TLabel
     Tag = 2
@@ -620,7 +620,7 @@ object FrameOutlands: TFrameOutlands
     Font.Name = 'Courier New'
     Font.Style = [fsBold]
     ParentFont = False
-    OnClick = Label2Click
+    OnClick = Image2Click
   end
   object Label4: TLabel
     Tag = 3
@@ -638,6 +638,6 @@ object FrameOutlands: TFrameOutlands
     Font.Name = 'Courier New'
     Font.Style = [fsBold]
     ParentFont = False
-    OnClick = Label2Click
+    OnClick = Image2Click
   end
 end
