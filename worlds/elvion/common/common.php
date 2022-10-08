@@ -1118,9 +1118,15 @@ function get_inventory() {
 	return json_encode($items, JSON_UNESCAPED_UNICODE);
 }
 
-function add_enemies($enemy_idents) {
+function add_enemies($enemy_idents, $is_boss = false) {
 	for($i = 1; $i <= 3; $i++) {
 		$r = $enemy_idents[array_rand($enemy_idents)];
+		if ($is_boss == true) {
+			if ($i == 1)
+				$r = $enemy_idents[array_rand($enemy_idents)];
+			else
+				$r = 999;
+		}
 		add_enemy($i, $r);
 	}
 }

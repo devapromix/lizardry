@@ -1,9 +1,9 @@
 <?php
 
-function outland($location_ident, $enemies, $prev_location = [], $next_location = []) {
+function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
 	global $user, $res, $connection, $tb_locations;
 	$user['current_outlands'] = $location_ident;
-	add_enemies($enemies);	
+	add_enemies($enemies, $is_boss);	
 	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');

@@ -5,7 +5,7 @@ if ($action == 'dark_forest') outland($action, [1,2,3], [], ['Серая Пещ�
 if ($action == 'gray_cave') outland($action, [4,5,6], ['Темный Лес', 'index.php?action=dark_forest'], ['Глубокие Пещеры', 'index.php?action=deep_caves']);
 if ($action == 'deep_caves') outland($action, [7,8,9], ['Серая Пещера', 'index.php?action=gray_cave'], ['Логово Каменных Червей', 'index.php?action=stoneworm_lair']);
 if ($action == 'stoneworm_lair') outland($action, [10,11,12], ['Глубокие Пещеры', 'index.php?action=deep_caves'], ['Черная Пучина', 'index.php?action=black_abysm']);
-if ($action == 'black_abysm') outland($action, [999], ['Логово Каменных Червей', 'index.php?action=stoneworm_lair']);
+if ($action == 'black_abysm') outland($action, [16], ['Логово Каменных Червей', 'index.php?action=stoneworm_lair'], [], true);
 // #2
 if ($action == 'crypt') outland($action, [13,14,15,16], ['Вернуться на Кладбище', 'index.php?action=graveyard']);
 if ($action == 'treant_forest') outland($action, [17,18,19]);
