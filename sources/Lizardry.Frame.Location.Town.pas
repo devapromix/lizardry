@@ -574,7 +574,11 @@ begin
             FormMain.FrameTown.FrameOutlands1.Image2.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
             if JSON.TryGetValue('enemy_slot_1_level', S) and (S <> '') then
+            begin
               FormMain.FrameTown.FrameOutlands1.Label2.Caption := S;
+              FormMain.FrameTown.FrameOutlands1.Image2.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label2.Visible := (S <> '0');
+            end;
           end;
         if JSON.TryGetValue('enemy_slot_2_image', S) then
           if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S +
@@ -583,7 +587,11 @@ begin
             FormMain.FrameTown.FrameOutlands1.Image3.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
             if JSON.TryGetValue('enemy_slot_2_level', S) and (S <> '') then
+            begin
               FormMain.FrameTown.FrameOutlands1.Label3.Caption := S;
+              FormMain.FrameTown.FrameOutlands1.Image3.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label3.Visible := (S <> '0');
+            end;
           end;
         if JSON.TryGetValue('enemy_slot_3_image', S) then
           if ((S <> '') and FileExists(FormInfo.MobImagesPath.Caption + S +
@@ -592,7 +600,11 @@ begin
             FormMain.FrameTown.FrameOutlands1.Image4.Picture.LoadFromFile
               (FormInfo.MobImagesPath.Caption + S + '.jpg');
             if JSON.TryGetValue('enemy_slot_3_level', S) and (S <> '') then
+            begin
               FormMain.FrameTown.FrameOutlands1.Label4.Caption := S;
+              FormMain.FrameTown.FrameOutlands1.Image4.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label4.Visible := (S <> '0');
+            end;
           end;
         FormMain.FrameTown.FrameOutlands1.BringToFront;
       end;
