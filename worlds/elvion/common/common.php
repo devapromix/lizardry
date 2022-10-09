@@ -39,8 +39,9 @@ function gen_enemy($enemy_ident) {
 
 	$user['enemy_name'] = $enemy['enemy_name'];
 	
+	$user['enemy_boss'] = 0;
 	$user['enemy_champion'] = 0;
-	if (rand(1, 20) == 1)
+	if (rand(1, 12) == 1)
 		$user['enemy_champion'] = rand(1, 10);
 	switch($user['enemy_champion']) {
 		case 1: // Уникальный
@@ -74,6 +75,13 @@ function gen_enemy($enemy_ident) {
 		case 10: // Броня III
 			$user['enemy_name'] .= ' (Колосс)';
 			break;
+	}
+
+	if ($enemy_ident >= 800) {
+		$user['enemy_boss'] = 1;
+		$user['enemy_champion'] = 1;
+		$user['enemy_name'] = $enemy['enemy_name'];
+		$user['enemy_name'] .= ' (Босс)';
 	}
 
 	$user['enemy_image'] = $enemy['enemy_image'];
@@ -129,7 +137,7 @@ function gen_enemy($enemy_ident) {
 	if ($user['enemy_champion'] >= 2)
 		$user['enemy_gold'] += $enemy['enemy_level'] * 7;
 
-	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
+	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
 
 }
 
@@ -511,7 +519,7 @@ $stat = array();
 function gen_loot() {
 	global $user, $tb_item, $tb_enemy, $connection;
 
-	if ((rand(1,3) == 1)&&($user['enemy_champion'] == 0)) {
+	if ((rand(1,3) == 1) && ($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
 		$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
 		$result = mysqli_query($connection, $query) 
 			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
@@ -531,23 +539,25 @@ function gen_loot() {
 			if ($user['loot_slot_1'] > 0)
 				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 		}
-	} else if ((rand(1,4) == 1)||($user['enemy_champion'] > 0)) {
+	} else if ((rand(1,4) == 1) || ($user['enemy_boss'] > 0) || ($user['enemy_champion'] > 0)) {
 
 		$next = true;
 		$loot_level = 1;
 		$loot_type_array = [0,1,8,9,10,11,25,30];
 		if (($user['enemy_champion'] == 1) && ($user['enemy_level'] >= $user['char_level']))
 			$loot_type_array = [0,1];
+		if ($user['enemy_boss'] > 0)
+			$loot_type_array = [0,1];
 		$loot_type = $loot_type_array[array_rand($loot_type_array)];
 
 		switch($loot_type) {
 			case 0:
 				$loot_level = get_loot_level();
-				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1));
+				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1) || ($user['enemy_boss'] > 0));
 				break;
 			case 1:
 				$loot_level = get_loot_level();
-				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1));
+				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1) || ($user['enemy_boss'] > 0));
 				break;
 		}
 
@@ -765,7 +775,7 @@ function auto_battle() {
 
 	$c = rand(0, 2);
 	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
-	if ($c == 0)
+	if (($c == 0) && ($user['enemy_boss'] == 0))
 		$r .= 'Вы первыми бросаетесь в атаку!#';
 	else
 		$r .= $user['enemy_name'].' первым бросается в атаку!#';
@@ -806,15 +816,18 @@ function auto_battle() {
 		if ($user['enemy_life_cur'] <= 0) {
 			$user['enemy_life_cur'] = 0;
 			$user['stat_kills']++;
+			$r .= '--------------------------------------------------------#';
 			gen_loot();
-			gen_random_place();
+			if ($user['enemy_boss'] > 0) {
+				$r .= 'Вы победили босса!!!';
+			} else
+				gen_random_place();
 			$gold = get_value($user['enemy_gold']); 
 			if ($gold > 0)
 				$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
 			$user['char_gold'] += $gold;
 			$exp = get_value($user['enemy_exp']);
 			$user['char_exp'] += $exp;
-			$r .= '--------------------------------------------------------#';
 			if ($exp > 0)
 				$r .= 'Вы получаете '.$exp.' опыта.#';
 			if ($gold <= 0)
