@@ -136,8 +136,8 @@ function gen_enemy($enemy_ident) {
 		$user['enemy_gold'] += $enemy['enemy_level'] * 12;
 	if ($user['enemy_champion'] >= 2)
 		$user['enemy_gold'] += $enemy['enemy_level'] * 7;
-
-	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name=''");
+	$user['current_random_place'] = 0;
+	update_user_table("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name='',current_random_place=".$user['current_random_place']);
 
 }
 
@@ -585,7 +585,7 @@ function gen_loot() {
 			gen_equip_loot();
 		}
 	// Чемпионы 
-	} elseif ($user['enemy_champion'] > 1) {
+	} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
 		if (rand(1,3) == 1) {
 			gen_equip_loot();
 		} else {
@@ -599,67 +599,6 @@ function gen_loot() {
 	} elseif ($user['enemy_boss'] > 0) {
 		// Экипировка
 		gen_else_loot();
-	}
-}
-
-function gen_loot_old() {
-	global $user, $tb_item, $tb_enemy, $connection;
-
-	if ((rand(1,3) == 1) && ($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
-		$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
-		$result = mysqli_query($connection, $query) 
-			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-		$enemy = $result->fetch_assoc();
-
-		$trophy_ident = $enemy['enemy_trophy'];
-		if ($trophy_ident > 0) {
-			$query = "SELECT item_name FROM ".$tb_item." WHERE item_ident=".$trophy_ident;
-			$result = mysqli_query($connection, $query) 
-				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-			$item = $result->fetch_assoc();
-
-			$user['loot_slot_1'] = $trophy_ident;
-			$user['loot_slot_1_name'] = $item['item_name'];
-			$user['loot_slot_1_type'] = 21;
-
-			if ($user['loot_slot_1'] > 0)
-				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
-		}
-	} else if ((rand(1,4) == 1) || ($user['enemy_boss'] > 0) || ($user['enemy_champion'] > 0)) {
-
-		$next = true;
-		$loot_level = 1;
-		$loot_type_array = [0,1,8,9,10,11,25,30];
-		if (($user['enemy_champion'] == 1) && ($user['enemy_level'] >= $user['char_level']))
-			$loot_type_array = [0,1];
-		if ($user['enemy_boss'] > 0)
-			$loot_type_array = [0,1];
-		$loot_type = $loot_type_array[array_rand($loot_type_array)];
-
-		switch($loot_type) {
-			case 0:
-				$loot_level = get_loot_level();
-				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1) || ($user['enemy_boss'] > 0));
-				break;
-			case 1:
-				$loot_level = get_loot_level();
-				$next = ((rand(0, 2) == 0) || ($user['enemy_champion'] == 1) || ($user['enemy_boss'] > 0));
-				break;
-		}
-
-		if ($next) {
-			$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
-			$result = mysqli_query($connection, $query) 
-				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-			$item = $result->fetch_assoc();
-
-			$user['loot_slot_1'] = $item['item_ident'];
-			$user['loot_slot_1_name'] = $item['item_name'];
-			$user['loot_slot_1_type'] = $loot_type;
-
-			if ($user['loot_slot_1'] > 0)
-				update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
-		}
 	}
 }
 
