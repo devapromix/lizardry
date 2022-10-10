@@ -516,7 +516,93 @@ function get_messages() {
 
 $stat = array();
 
+function save_loot_slot($item_ident, $item_name, $item_type) {
+	global $user;
+	
+	$user['loot_slot_1'] = $item_ident;
+	$user['loot_slot_1_name'] = $item_name;
+	$user['loot_slot_1_type'] = $item_type;
+
+	if ($user['loot_slot_1'] > 0)
+		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+}
+
+function gen_random_loot($loot_type_array) {
+	global $user, $tb_item, $connection;
+
+	$loot_level = get_loot_level();
+	$loot_type = $loot_type_array[array_rand($loot_type_array)];	
+	
+	$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$item = $result->fetch_assoc();
+
+	save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
+}
+
+function gen_equip_loot() {
+	gen_random_loot([0,1]);
+}
+function gen_else_loot() {
+	gen_random_loot([8,9,10,11,25,30]);
+}
+
+function gen_trophy_loot() {
+	global $user, $tb_item, $tb_enemy, $connection;
+
+	$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+	$enemy = $result->fetch_assoc();
+
+	$trophy_ident = $enemy['enemy_trophy'];	
+	if ($trophy_ident > 0) {
+		$query = "SELECT item_name FROM ".$tb_item." WHERE item_ident=".$trophy_ident;
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$item = $result->fetch_assoc();
+
+		save_loot_slot($trophy_ident, $item['item_name'], 21);
+	}
+}
+
 function gen_loot() {
+	global $user, $tb_item, $tb_enemy, $connection;
+	
+	// Обычные враги
+	if (($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
+		// Трофеи
+		if (rand(1,3) == 1) {
+			gen_trophy_loot();
+		} else 
+		// Обычный лут: зелья, свитки, травы
+		if (rand(1,4) == 1) {
+			gen_else_loot();
+		} else
+		// Экипировка
+		if (rand(1,5) == 1) {
+			gen_equip_loot();
+		}
+	// Чемпионы 
+	} elseif ($user['enemy_champion'] > 1) {
+		if (rand(1,3) == 1) {
+			gen_equip_loot();
+		} else {
+			gen_else_loot();
+		}
+	// Уникальные
+	} elseif ($user['enemy_champion'] == 1) {
+		// Экипировка
+		gen_equip_loot();		
+	// Босс
+	} elseif ($user['enemy_boss'] > 0) {
+		// Экипировка
+		gen_else_loot();
+	}
+}
+
+function gen_loot_old() {
 	global $user, $tb_item, $tb_enemy, $connection;
 
 	if ((rand(1,3) == 1) && ($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
@@ -819,7 +905,7 @@ function auto_battle() {
 			$r .= '--------------------------------------------------------#';
 			gen_loot();
 			if ($user['enemy_boss'] > 0) {
-				$r .= 'Вы победили босса!!!';
+				$r .= 'Вы победили босса!!!#';
 			} else
 				gen_random_place();
 			$gold = get_value($user['enemy_gold']); 
