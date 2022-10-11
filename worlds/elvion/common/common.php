@@ -1324,6 +1324,34 @@ function travel_req($level, $food, $gold) {
 	return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собой иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
 }
 
+function pickup_loot_title() {
+	global $user;
+	
+	$m = '';
+	switch($user['loot_slot_1_type']) {
+		case 1:
+			$m = 'Взять оружие!';
+			break;
+		case 8: case 9: case 10: case 11: case 12: case 13:
+			$m = 'Взять эликсир!';
+			break;
+		case 21:
+			$m = 'Взять трофей!';
+			break;
+		case 25:
+			$m = 'Взять свиток!';
+			break;
+		case 30:
+			$m = 'Взять ингридиент!';
+			break;
+		default:
+			$m = 'Взять броню!';
+	}
+
+	return $m;
+
+}
+
 function travel_price($level) {
 	return $level * 10;
 }

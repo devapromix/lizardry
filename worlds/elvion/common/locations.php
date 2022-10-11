@@ -176,7 +176,7 @@ function random_place() {
 			$user['title'] = 'Сундук алхимика!';
 			$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 			$frame = 'get_loot';
-			addlink('Взять эликсир!', 'index.php?action=pickup_loot&lootslot=1', 1);
+			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 			break;
 	}
 

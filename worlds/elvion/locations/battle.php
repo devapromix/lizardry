@@ -40,27 +40,8 @@ if ($action == 'battle') {
 		$user['links'] = array();
 		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
 		if ($user['loot_slot_1'] > 0) {
-			switch($user['loot_slot_1_type']) {
-				case 1:
-					$m = 'Взять оружие!';
-					break;
-				case 8: case 9: case 10: case 11: case 12: case 13:
-					$m = 'Взять эликсир!';
-					break;
-				case 21:
-					$m = 'Взять трофей!';
-					break;
-				case 25:
-					$m = 'Взять свиток!';
-					break;
-				case 30:
-					$m = 'Взять ингридиент!';
-					break;
-				default:
-					$m = 'Взять броню!';
-			}
 			$user['frame'] = 'get_loot';
-			addlink($m, 'index.php?action=pickup_loot&lootslot=1', 1);
+			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 		} else if ($user['current_random_place'] > 0) {
 			$user['frame'] = 'get_random_place';
 			addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
