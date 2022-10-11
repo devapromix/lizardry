@@ -527,10 +527,9 @@ function save_loot_slot($item_ident, $item_name, $item_type) {
 		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
-function gen_random_loot($loot_type_array) {
+function gen_random_loot($loot_type_array, $loot_level) {
 	global $user, $tb_item, $connection;
 
-	$loot_level = get_loot_level();
 	$loot_type = $loot_type_array[array_rand($loot_type_array)];	
 	
 	$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
@@ -542,10 +541,14 @@ function gen_random_loot($loot_type_array) {
 }
 
 function gen_equip_loot() {
-	gen_random_loot([0,1]);
+	$loot_level = get_loot_level();
+	if ($loot_level % 2 != 0)
+		gen_random_loot([0], $loot_level);
+	else
+		gen_random_loot([1], $loot_level);
 }
 function gen_else_loot() {
-	gen_random_loot([8,9,10,11,25,30]);
+	gen_random_loot([8,9,10,11,25,30], 1);
 }
 
 function gen_trophy_loot() {
@@ -592,13 +595,13 @@ function gen_loot() {
 			gen_else_loot();
 		}
 	// Уникальные
-	} elseif ($user['enemy_champion'] == 1) {
+	} elseif (($user['enemy_champion'] == 1) && ($user['enemy_boss'] == 0)) {
 		// Экипировка
 		gen_equip_loot();		
 	// Босс
 	} elseif ($user['enemy_boss'] > 0) {
 		// Экипировка
-		gen_else_loot();
+		gen_equip_loot();
 	}
 }
 
