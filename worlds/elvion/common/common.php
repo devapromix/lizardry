@@ -836,7 +836,8 @@ function auto_battle() {
 			$r .= '--------------------------------------------------------#';
 			gen_loot();
 			if ($user['enemy_boss'] > 0) {
-				$r .= 'Вы победили босса!!!#';
+				kill_boss($user['char_region']);
+				$r .= 'Вы победили босса! Вы добыли ценный трофей!#';
 			} else
 				gen_random_place();
 			$gold = get_value($user['enemy_gold']); 
@@ -1149,12 +1150,16 @@ function get_inventory() {
 }
 
 function add_enemies($enemy_idents, $is_boss = false) {
+	global $user;
+	
 	for($i = 1; $i <= 3; $i++) {
 		$r = $enemy_idents[array_rand($enemy_idents)];
 		if ($is_boss == true) {
 			if ($i == 1)
 				$r = $enemy_idents[array_rand($enemy_idents)];
 			else
+				$r = 999;
+			if (is_killed_boss($user['char_region']))
 				$r = 999;
 		}
 		add_enemy($i, $r);
@@ -1355,6 +1360,27 @@ function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name,
 			} die('{"info":"Нужно больше количество компонента - '.$ing1_name.'!"}');
 		} die('{"info":"Нужен компонент - '.$ing1_name.'!"}');
 	} else die('{"info":"Нужен Пустой Флакон!"}');
+}
+
+function kill_boss($region_ident) {
+	global $user;
+	$bosses = json_decode($user['char_bosses'], true);
+	$n = count($bosses);
+	$bosses[$n]['id'] = $region_ident;
+	$bosses[$n]['killed'] = 1;
+	$user['char_bosses'] = json_encode($bosses, JSON_UNESCAPED_UNICODE);
+	update_user_table("char_bosses='".$user['char_bosses']."'");
+}
+
+function is_killed_boss($region_ident) {
+	global $user;
+	$bosses = $user['char_bosses'];
+	$pos = strripos($bosses, '"id":"'.$region_ident.'"');
+	if ($pos === false) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 ?>
