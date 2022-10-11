@@ -14,16 +14,18 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
-const EMPTY_ELIX 	= '600';
-const HP_ELIX 		= '601';
-const MP_ELIX 		= '602';
-const ST_ELIX 		= '603';
-const RF_ELIX 		= '604';
+const RAND_PLACE_COUNT 	= 4;
 
-const MASH_HERB		= '750';
-const HP_HERB		= '751';
-const MP_HERB		= '752';
-const ST_HERB		= '753';
+const EMPTY_ELIX 		= '600';
+const HP_ELIX 			= '601';
+const MP_ELIX 			= '602';
+const ST_ELIX 			= '603';
+const RF_ELIX 			= '604';
+
+const MASH_HERB			= '750';
+const HP_HERB			= '751';
+const MP_HERB			= '752';
+const ST_HERB			= '753';
 
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
@@ -547,8 +549,13 @@ function gen_equip_loot() {
 	else
 		gen_random_loot([1], $loot_level);
 }
+
 function gen_else_loot() {
 	gen_random_loot([8,9,10,11,25,30], 1);
+}
+
+function gen_alch_loot() {
+	gen_random_loot([8,9,10,11], 1);
 }
 
 function gen_trophy_loot() {
@@ -580,16 +587,16 @@ function gen_loot() {
 			gen_trophy_loot();
 		} else 
 		// Обычный лут: зелья, свитки, травы
-		if (rand(1,4) == 1) {
+		if (rand(1,6) == 1) {
 			gen_else_loot();
 		} else
 		// Экипировка
-		if (rand(1,5) == 1) {
+		if (rand(1,9) == 1) {
 			gen_equip_loot();
 		}
 	// Чемпионы 
 	} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
-		if (rand(1,3) == 1) {
+		if (rand(1,5) == 1) {
 			gen_equip_loot();
 		} else {
 			gen_else_loot();
@@ -603,17 +610,6 @@ function gen_loot() {
 		// Экипировка
 		gen_equip_loot();
 	}
-}
-
-function gen_random_place() {
-	global $user, $connection;
-	
-	$user['current_random_place'] = 0;
-	if (rand(0, 2) == 0) {
-		$user['current_random_place'] = rand(1, 3);
-	}
-	
-	update_user_table("current_random_place=".$user['current_random_place']);
 }
 
 function gen_plant() {
@@ -1330,6 +1326,16 @@ function travel_req($level, $food, $gold) {
 
 function travel_price($level) {
 	return $level * 10;
+}
+
+function gen_random_place() {
+	global $user, $connection;
+	
+	$user['current_random_place'] = 0;
+	if (rand(0, 2) == 0)
+		$user['current_random_place'] = rand(1, RAND_PLACE_COUNT);
+	
+	update_user_table("current_random_place=".$user['current_random_place']);
 }
 
 function buy_empty_elix($count = 1) {

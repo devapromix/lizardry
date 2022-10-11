@@ -133,7 +133,11 @@ function shades() {
 
 function random_place() {
 	global $user;
-	
+
+	$user['links'] = array();
+	addlink('Назад', 'index.php?action='.$user['current_outlands']);
+	$frame = 'battle';
+
 	switch ($user['current_random_place']) {
 		case 1:
 			$user['title'] = 'Лагерь старого алхимика';
@@ -167,7 +171,16 @@ function random_place() {
 			}
 			update_user_table("char_gold=".$user['char_gold']);
  			break;
+		case 4:
+			gen_alch_loot();
+			$user['title'] = 'Сундук алхимика!';
+			$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+			$frame = 'get_loot';
+			addlink('Взять эликсир!', 'index.php?action=pickup_loot&lootslot=1', 1);
+			break;
 	}
+
+	return $frame;
 }
 
 ?>
