@@ -43,7 +43,7 @@ function gen_enemy($enemy_ident) {
 	
 	$user['enemy_boss'] = 0;
 	$user['enemy_champion'] = 0;
-	if (rand(1, 12) == 1)
+	if (rand(1, 20) == 1)
 		$user['enemy_champion'] = rand(1, 10);
 	switch($user['enemy_champion']) {
 		case 1: // Уникальный
@@ -214,6 +214,7 @@ function equip_item($item_ident) {
 		case 12:
 		case 13:
 		case 25:
+		case 28:
 		case 30:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
 			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
@@ -279,6 +280,7 @@ function pickup_equip_item() {
 		case 13:
 		case 21:
 		case 25:
+		case 28:
 		case 30:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
@@ -551,11 +553,11 @@ function gen_equip_loot() {
 }
 
 function gen_else_loot() {
-	gen_random_loot([8,9,10,11,25,30], 1);
+	gen_random_loot([8,9,10,11,25,28,30], 1);
 }
 
 function gen_alch_loot() {
-	gen_random_loot([8,9,10,11], 1);
+	gen_random_loot([8,9,10,11,28], 1);
 }
 
 function gen_trophy_loot() {
@@ -587,16 +589,16 @@ function gen_loot() {
 			gen_trophy_loot();
 		} else 
 		// Обычный лут: зелья, свитки, травы
-		if (rand(1,6) == 1) {
+		if (rand(1,9) == 1) {
 			gen_else_loot();
 		} else
 		// Экипировка
-		if (rand(1,9) == 1) {
+		if (rand(1,20) == 1) {
 			gen_equip_loot();
 		}
 	// Чемпионы 
 	} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
-		if (rand(1,5) == 1) {
+		if (rand(1,9) == 1) {
 			gen_equip_loot();
 		} else {
 			gen_else_loot();
@@ -1341,6 +1343,9 @@ function pickup_loot_title() {
 		case 25:
 			$m = 'Взять свиток!';
 			break;
+		case 28:
+			$m = 'Взять флакон!';
+			break;
 		case 30:
 			$m = 'Взять ингридиент!';
 			break;
@@ -1349,7 +1354,6 @@ function pickup_loot_title() {
 	}
 
 	return $m;
-
 }
 
 function travel_price($level) {
