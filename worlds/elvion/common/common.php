@@ -619,26 +619,15 @@ function gen_random_place() {
 function gen_plant() {
 	global $user, $tb_item, $connection;
 
-	$user['loot_slot_1'] = 0;
-	$user['loot_slot_1_name'] = '';
-	$user['loot_slot_1_type'] = 0;
-	
-	$loot_type = 30;
-	
+	$loot_type = 30;	
 	if (rand(0, 4) == 0) {
 		$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
 		$result = mysqli_query($connection, $query) 
 			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 		$item = $result->fetch_assoc();
-		
-		$user['loot_slot_1'] = $item['item_ident'];
-		$user['loot_slot_1_name'] = $item['item_name'];
-		$user['loot_slot_1_type'] = $loot_type;		
-		
+	
+		save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
 	}
-
-	if ($user['loot_slot_1'] > 0)
-		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
 }
 
 function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
