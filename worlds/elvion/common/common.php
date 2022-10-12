@@ -4,6 +4,7 @@ define('PATH', dirname(__FILE__).DS.'..'.DS);
 
 $username = $_GET['username'];
 $userpass = $_GET['userpass'];
+$usersession = $_GET['usersession'];
 
 if ($username == '') die('21');
 if ($userpass == '') die('22');
@@ -26,6 +27,13 @@ const MASH_HERB			= '750';
 const HP_HERB			= '751';
 const MP_HERB			= '752';
 const ST_HERB			= '753';
+
+function gen_user_session() {
+	global $user;
+	$user['user_session'] = time();
+	update_user_table("user_session='".$user['user_session']."'");
+	return $user['user_session'];
+}
 
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;

@@ -24,27 +24,29 @@ $result = mysqli_query($connection, $query)
 	or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 $user = $result->fetch_assoc();
 
-if (($userpass != '')&&($userpass == $user['user_pass'])) {
-	if ($action == 'login') $res = '{"login":"ok"}';
+if (($userpass != '') && ($userpass == $user['user_pass'])) {
+	if ($action == 'login') $res = '{"login":"ok","session":"'.gen_user_session().'"}';
 	if ($action == 'version') $res = get_version();
-	if ($action == 'inventory') $res = get_inventory();
 	if ($action == 'events') $res = get_events();
-	if ($action == 'items') $res = get_items();
-	if ($action == 'enemies') $res = get_enemies();
-	if ($action == 'messages') $res = get_messages();
+	if ($usersession == $user['user_session']) {
+		if ($action == 'inventory') $res = get_inventory();
+		if ($action == 'items') $res = get_items();
+		if ($action == 'enemies') $res = get_enemies();
+		if ($action == 'messages') $res = get_messages();
 	
-	include 'locations/battle.php';
-	include 'locations/campfire.php';
-	include 'locations/town.php';
-	include 'locations/tavern.php';
-	include 'locations/bank.php';
-	include 'locations/magictower.php';
-	include 'locations/gate.php';
-	include 'locations/travel.php';
-	include 'locations/outlands.php';
-	include 'locations/guilds.php';
-	include 'locations/shops.php';
-	include 'locations/graveyard.php';
+		include 'locations/battle.php';
+		include 'locations/campfire.php';
+		include 'locations/town.php';
+		include 'locations/tavern.php';
+		include 'locations/bank.php';
+		include 'locations/magictower.php';
+		include 'locations/gate.php';
+		include 'locations/travel.php';
+		include 'locations/outlands.php';
+		include 'locations/guilds.php';
+		include 'locations/shops.php';
+		include 'locations/graveyard.php';
+	}
 }
 
 mysqli_close($connection);

@@ -36,7 +36,8 @@ uses
   Dialogs,
   Lizardry.FormMain,
   Lizardry.FormInfo,
-  Lizardry.FormMsg;
+  Lizardry.FormMsg,
+  Lizardry.FrameLogin;
 
 { TServer }
 
@@ -129,7 +130,8 @@ begin
   try
     Result := Trim(FIdHTTP.Get('http://' + URL + '/' + Name + '/' + AURL +
       '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
-      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text)));
+      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text) +
+      '&usersession=' + LowerCase(UserSession)));
     if Result = '0' then
       ShowMsg('Получен не верный ответ от сервера: 0!');
   except

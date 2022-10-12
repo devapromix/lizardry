@@ -64,6 +64,9 @@ type
     procedure LoadFromDBEnemies(F: Boolean = False);
   end;
 
+var
+  UserSession: string = '';
+
 implementation
 
 {$R *.dfm}
@@ -78,6 +81,12 @@ uses
   Lizardry.Game,
   Lizardry.FormMsg,
   Lizardry.FormInfo;
+
+function GetSession(const S: string): string;
+begin
+  Result := S.TrimEnd(['"', '}']);
+  Result := Result.Substring(Result.LastIndexOf('"') + 1);
+end;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);
 var
@@ -103,8 +112,9 @@ begin
     ShowMsg('Ошибка авторизации!');
     Exit;
   end
-  else if LResponseJSON = '{"login":"ok"}' then
+  else if LResponseJSON.StartsWith('{"login":"ok","session":"') then
   begin
+    UserSession := GetSession(LResponseJSON);
     Panel5.Caption := 'Готово!';
     Application.ProcessMessages;
     Sleep(500);
