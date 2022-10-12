@@ -42,15 +42,20 @@ function gen_enemy($enemy_ident) {
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$enemy = $result->fetch_assoc();	
 
-	$query = "SELECT enemy_rand_name FROM ".$tb_enemy." ORDER BY RAND() LIMIT 1";
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$un_enemy = $result->fetch_assoc();
+	$un_champion_name = '';
+	while ($un_champion_name == '') {
+		$query = "SELECT enemy_rand_name FROM ".$tb_enemy." ORDER BY RAND() LIMIT 1";
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$un_enemy = $result->fetch_assoc();
+		$un_champion_name = trim($un_enemy['enemy_rand_name']);
+	}
+
+	$user['enemy_boss'] = 0;
+	$user['enemy_champion'] = 0;
 
 	$user['enemy_name'] = $enemy['enemy_name'];
 	
-	$user['enemy_boss'] = 0;
-	$user['enemy_champion'] = 0;
 	if (rand(1, 20) == 1)
 		$user['enemy_champion'] = rand(1, 10);
 	switch($user['enemy_champion']) {
@@ -592,21 +597,22 @@ function gen_loot() {
 	
 	// Обычные враги
 	if (($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
-		// Трофеи
-		if (rand(1,3) == 1) {
+		// Трофеи 25%
+		if (rand(1, 4) == 1) {
 			gen_trophy_loot();
 		} else 
-		// Обычный лут: зелья, свитки, травы
-		if (rand(1,9) == 1) {
+		// Обычный лут: зелья, свитки, травы 10%
+		if (rand(1, 10) == 1) {
 			gen_else_loot();
 		} else
-		// Экипировка
-		if (rand(1,20) == 1) {
+		// Экипировка 1%
+		if (rand(1, 100) == 1) {
 			gen_equip_loot();
 		}
 	// Чемпионы 
 	} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
-		if (rand(1,9) == 1) {
+		// Экипировка 5%
+		if (rand(1, 20) == 1) {
 			gen_equip_loot();
 		} else {
 			gen_else_loot();
