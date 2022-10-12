@@ -227,6 +227,7 @@ function equip_item($item_ident) {
 		case 12:
 		case 13:
 		case 25:
+		case 26:
 		case 28:
 		case 30:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -293,6 +294,7 @@ function pickup_equip_item() {
 		case 13:
 		case 21:
 		case 25:
+		case 26:
 		case 28:
 		case 30:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
@@ -335,6 +337,7 @@ function item_values($item_ident) {
 			return $item['item_name'].','.strval($item['item_level']*25).','.get_region_item_level($item['item_level']).','.$item['item_price'];
 			break;
 		case 25:
+		case 26:
 		case 28:
 		case 30:
 			return $item['item_name'].','.strval($item['item_level']).','.get_region_item_level($item['item_level']).','.$item['item_price'];
@@ -566,7 +569,7 @@ function gen_equip_loot() {
 }
 
 function gen_else_loot() {
-	gen_random_loot([8,9,10,11,25,28,30], 1);
+	gen_random_loot([8,9,10,11,25,26,28,30], 1);
 }
 
 function gen_alch_loot() {
@@ -1039,6 +1042,10 @@ function item_info($item_ident) {
 			$ef = 'Открывает портал в город.';
 			$eq = 'Магический свиток.';
 			break;
+		case 26:
+			$ef = 'Полностью исцеляет от ран.';
+			$eq = 'Свиток Исцеления.';
+			break;
 		case 28:
 			$ef = 'Необходим для создания эликсиров.';
 			$eq = '';
@@ -1106,6 +1113,15 @@ function use_item($item_ident) {
 				$user['char_mana_cur'] -= 8;
 				update_user_table("char_mana_cur=".$user['char_mana_cur']);
 				$result = ',"action":"Перед вами открывается магический портал!|Войти!|index.php?action=magictower","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+			} else die('{"error":"Нужно больше маны!"}');
+			break;
+		case 26:
+			if ($user['char_mana_cur'] >= 10) {
+				item_modify($item_ident, -1);
+				$user['char_mana_cur'] -= 10;
+				$user['char_life_cur'] = $user['char_life_max'];
+				update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+				$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			} else die('{"error":"Нужно больше маны!"}');
 			break;
 	}
@@ -1354,7 +1370,7 @@ function pickup_loot_title() {
 		case 21:
 			$m = 'Взять трофей!';
 			break;
-		case 25:
+		case 25: case 26:
 			$m = 'Взять свиток!';
 			break;
 		case 28:
