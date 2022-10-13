@@ -289,7 +289,7 @@ if ($action == 'shop_magic') {
 	addlink('Покинуть лавку', 'index.php?action=magictower');
 
 	add_item_to_shop(1, 701);
-	add_item_to_shop(2, 0);
+	add_item_to_shop(2, 702);
 	add_item_to_shop(3, 0);
 	add_item_to_shop(4, 0);
 	add_item_to_shop(5, 0);
