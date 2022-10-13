@@ -11,16 +11,16 @@ if ($action == 'campfire') {
 	$user['frame'] = $action;
 	$user['links'] = array();
 	addlink('Затушить костер', 'index.php?action='.$user['current_outlands']);
-	gen_plant();
+	if (rand(1, 5) == 1)
+		gen_herb_loot();
 	if ($user['loot_slot_1'] > 0) {
 		switch($user['loot_slot_1_type']) {
 			case 30:
-				$m = 'Взять ингридиент!';
 				$user['description'] .= '##Ваше внимание привлекает '.$user['loot_slot_1_name'].'.#';
 				break;
 		}
 		$user['frame'] = 'get_loot';
-		addlink($m, 'index.php?action=pickup_loot&lootslot=1', 1);
+		addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 	}
 	$user['char_life_cur'] = $user['char_life_max'];
 	$user['char_mana_cur'] += rand(2, 3);

@@ -563,20 +563,6 @@ function gen_random_loot($loot_type_array, $loot_level) {
 	save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
 }
 
-function gen_plant() {
-	global $user, $tb_item, $connection;
-
-	$loot_type = 30;	
-	if (rand(0, 4) == 0) {
-		$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
-		$result = mysqli_query($connection, $query) 
-			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-		$item = $result->fetch_assoc();
-	
-		save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
-	}
-}
-
 function gen_equip_loot() {
 	$loot_level = get_loot_level();
 	if ($loot_level % 2 != 0)
