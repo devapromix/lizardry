@@ -15,7 +15,7 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
-const RAND_PLACE_COUNT 	= 4;
+const RAND_PLACE_COUNT 	= 5;
 
 const EMPTY_ELIX 		= '600';
 const HP_ELIX 			= '601';
@@ -563,6 +563,20 @@ function gen_random_loot($loot_type_array, $loot_level) {
 	save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
 }
 
+function gen_plant() {
+	global $user, $tb_item, $connection;
+
+	$loot_type = 30;	
+	if (rand(0, 4) == 0) {
+		$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+		$result = mysqli_query($connection, $query) 
+			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+		$item = $result->fetch_assoc();
+	
+		save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
+	}
+}
+
 function gen_equip_loot() {
 	$loot_level = get_loot_level();
 	if ($loot_level % 2 != 0)
@@ -577,6 +591,10 @@ function gen_else_loot() {
 
 function gen_alch_loot() {
 	gen_random_loot([8,9,10,11,28], 1);
+}
+
+function gen_mage_loot() {
+	gen_random_loot([9,25,26], 1);
 }
 
 function gen_trophy_loot() {
@@ -631,20 +649,6 @@ function gen_loot() {
 	} elseif ($user['enemy_boss'] > 0) {
 		// Экипировка
 		gen_equip_loot();
-	}
-}
-
-function gen_plant() {
-	global $user, $tb_item, $connection;
-
-	$loot_type = 30;	
-	if (rand(0, 4) == 0) {
-		$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
-		$result = mysqli_query($connection, $query) 
-			or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-		$item = $result->fetch_assoc();
-	
-		save_loot_slot($item['item_ident'],	$item['item_name'],	$loot_type);
 	}
 }
 

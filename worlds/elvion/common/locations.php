@@ -178,6 +178,13 @@ function random_place() {
 			$frame = 'get_loot';
 			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 			break;
+		case 5:
+			gen_mage_loot();
+			$user['title'] = 'Сундук мага!';
+			$user['description'] = 'Недалеко от места сражения вы внезапно увидели запертый старый сундук. Замок на нем уже стар и легко поддается. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+			$frame = 'get_loot';
+			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+			break;
 	}
 
 	return $frame;
