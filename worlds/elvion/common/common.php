@@ -15,7 +15,7 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
-const RAND_PLACE_COUNT 	= 6;
+const RAND_PLACE_COUNT 	= 7;
 
 const EMPTY_ELIX 		= '600';
 const HP_ELIX 			= '601';
