@@ -28,6 +28,9 @@ const HP_HERB			= '751';
 const MP_HERB			= '752';
 const ST_HERB			= '753';
 
+const MANA_SCROLL_TP	= 8;
+const MANA_SCROLL_HEAL	= 10;
+
 function gen_user_session() {
 	global $user;
 	$user['user_session'] = time();
@@ -1108,21 +1111,21 @@ function use_item($item_ident) {
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 25:
-			if ($user['char_mana_cur'] >= 8) {
+			if ($user['char_mana_cur'] >= MANA_SCROLL_TP) {
 				item_modify($item_ident, -1);
-				$user['char_mana_cur'] -= 8;
+				$user['char_mana_cur'] -= MANA_SCROLL_TP;
 				update_user_table("char_mana_cur=".$user['char_mana_cur']);
 				$result = ',"action":"Перед вами открывается магический портал!|Войти!|index.php?action=magictower","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-			} else die('{"error":"Нужно больше маны!"}');
+			} else need_mana(MANA_SCROLL_TP);
 			break;
 		case 26:
-			if ($user['char_mana_cur'] >= 10) {
+			if ($user['char_mana_cur'] >= MANA_SCROLL_HEAL) {
 				item_modify($item_ident, -1);
-				$user['char_mana_cur'] -= 10;
+				$user['char_mana_cur'] -= MANA_SCROLL_HEAL;
 				$user['char_life_cur'] = $user['char_life_max'];
 				update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 				$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-			} else die('{"error":"Нужно больше маны!"}');
+			} else need_mana(MANA_SCROLL_HEAL);
 			break;
 	}
 	return $result;
@@ -1450,6 +1453,10 @@ function is_killed_boss($region_ident) {
 	} else {
 		return true;
 	}
+}
+
+function need_mana($mana) {
+	die('{"info":"Вы пытаетесь прочитать свиток, но чувствуете, что магических сил недостаточно. Нужно '.strval($mana).' маны!"}');
 }
 
 ?>
