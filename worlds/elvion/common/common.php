@@ -15,7 +15,7 @@ if (strlen($userpass) < 4) die('32');
 if (strlen($username) > 24) die('41');
 if (strlen($userpass) > 24) die('42');
 
-const RAND_PLACE_COUNT 	= 5;
+const RAND_PLACE_COUNT 	= 6;
 
 const EMPTY_ELIX 		= '600';
 const HP_ELIX 			= '601';
@@ -595,6 +595,10 @@ function gen_alch_loot() {
 
 function gen_mage_loot() {
 	gen_random_loot([9,25,26], 1);
+}
+
+function gen_herb_loot() {
+	gen_random_loot([30], 1);
 }
 
 function gen_trophy_loot() {

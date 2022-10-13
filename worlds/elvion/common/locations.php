@@ -185,6 +185,13 @@ function random_place() {
 			$frame = 'get_loot';
 			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 			break;
+		case 6:
+			gen_herb_loot();
+			$user['title'] = 'Сумка травника!';
+			$user['description'] = 'Решив присесть отдохнуть после тяжелого боя, вы внезапно увидели на земле небольшую серую сумку, какую обычно используют алхимики для сбора трав и алхимических ингридиентов. Вы открываете сумку и видите, что в ней находится '.$user['loot_slot_1_name'].'.';
+			$frame = 'get_loot';
+			addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+			break;
 	}
 
 	return $frame;
