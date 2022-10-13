@@ -775,6 +775,10 @@ begin
     if JSON.TryGetValue('stat_deads', S) then
       FormMain.FrameTown.FrameChar.ttStatDeads.Caption :=
         Format('Поражений: %s', [S]);
+    if JSON.TryGetValue('stat_boss_kills', S) then
+      FormMain.FrameTown.FrameChar.ttStatBossKills.Caption :=
+        Format('Повержено боссов: %s', [S]);
+
     FormMain.FrameTown.FrameChar.ttWeapon.Caption := pnEqWeapon.Hint;
     FormMain.FrameTown.FrameChar.ttArmor.Caption := pnEqArmor.Hint;
     //

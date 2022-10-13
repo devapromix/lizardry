@@ -15,15 +15,11 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet2
+    ActivePage = TabSheet3
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ttWeapon: TLabel
         Left = 110
         Top = 16
@@ -56,10 +52,6 @@ object FrameChar: TFrameChar
     object TabSheet2: TTabSheet
       Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1100
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object SG: TStringGrid
         Left = 0
         Top = 25
@@ -113,10 +105,6 @@ object FrameChar: TFrameChar
     object TabSheet3: TTabSheet
       Caption = #1057#1090#1072#1090#1080#1089#1090#1080#1082#1072
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ttStatKills: TLabel
         Left = 16
         Top = 16
@@ -130,6 +118,13 @@ object FrameChar: TFrameChar
         Width = 121
         Height = 21
         Caption = 'ttStatDeads'
+      end
+      object ttStatBossKills: TLabel
+        Left = 16
+        Top = 70
+        Width = 165
+        Height = 21
+        Caption = 'ttStatBossKills'
       end
     end
   end

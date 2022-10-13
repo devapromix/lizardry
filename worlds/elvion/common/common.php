@@ -1432,6 +1432,7 @@ function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name,
 
 function kill_boss($region_ident) {
 	global $user;
+	$user['stat_boss_kills']++;
 	$bosses = json_decode($user['char_bosses'], true);
 	$n = count($bosses);
 	$bosses[$n]['id'] = $region_ident;

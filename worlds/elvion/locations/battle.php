@@ -46,7 +46,7 @@ if ($action == 'battle') {
 			$user['frame'] = 'get_random_place';
 			addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
 		}
-		update_user_table("enemy_name='',enemy_image='',char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills'].",stat_deads=".$user['stat_deads']);
+		update_user_table("enemy_name='',enemy_image='',char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills'].",stat_boss_kills=".$user['stat_boss_kills'].",stat_deads=".$user['stat_deads']);
 //		if ($user['loot_slot_1'] > 0)
 //			$user['frame'] = 'loot';
 

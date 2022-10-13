@@ -33,6 +33,7 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     ttInfo: TLabel;
+    ttStatBossKills: TLabel;
     procedure SGDblClick(Sender: TObject);
     procedure SGClick(Sender: TObject);
   private
