@@ -137,7 +137,7 @@ begin
   except
     on E: Exception do
     begin
-      ShowMsg(FIdHTTP.ResponseText);
+      ShowMsg(FIdHTTP.ResponseText + #13#10 + Result);
       ShowError(Result);
     end;
     on E: EIdHTTPProtocolException do
