@@ -482,8 +482,6 @@ function get_messages() {
 	return json_encode($messages, JSON_UNESCAPED_UNICODE);
 }
 
-$stat = array();
-
 function save_loot_slot($item_ident, $item_name, $item_type, $item_slot = 1) {
 	global $user;
 	
@@ -585,25 +583,6 @@ function gen_loot() {
 		// Экипировка
 		gen_equip_loot();
 	}
-}
-
-function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
-	return $atk_damage - round($atk_damage * $def_armor / 100);
-}
-
-function get_glancing_blow_damage($damage){
-	$r = round($damage / rand(2, 3));
-	if ($r < 1)
-		$r = 1;
-	return $r;
-}
-
-function get_crushing_blow_damage($damage) {
-	return $damage * rand(3, 5);
-}
-
-function get_bewildering_strike_damage($damage) {
-	return rand(round($damage * 0.75), round($damage * 1.2));
 }
 
 function ch_level_exp() {

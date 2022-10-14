@@ -132,13 +132,13 @@
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
 					$d = rand($user['char_damage_min'], $user['char_damage_max']);
-					$d = get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
+					$d = $this->get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
 					$this->statistics['char_hits']++;
 					if ($d <= 0) {
 						$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 					} else {
 						if (rand(1, 100) <= $user['skill_bewil']) {
-							$d = get_bewildering_strike_damage($d);
+							$d = $this->get_bewildering_strike_damage($d);
 							$this->statistics['char_damages'] += $d;
 							$user['enemy_life_cur'] -= $d;
 							if ($user['enemy_life_cur'] > 0) {
@@ -149,7 +149,7 @@
 							}
 							return $r;
 						} else if (rand(1, 100) <= 5) {
-							$d = get_glancing_blow_damage($d);
+							$d = $this->get_glancing_blow_damage($d);
 							$this->statistics['char_damages'] += $d;
 							$user['enemy_life_cur'] -= $d;
 							if ($user['enemy_life_cur'] > 0) {
@@ -168,7 +168,7 @@
 								$r .= 'Вы наносите критический удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
 							}
 						} else {
-							$crushing_blow_damage = get_crushing_blow_damage($d);
+							$crushing_blow_damage = $this->get_crushing_blow_damage($d);
 							if ((rand(1, 100) <= 0)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
 								$this->statistics['char_damages'] += $crushing_blow_damage;
 								$user['enemy_life_cur'] = 0;
@@ -208,14 +208,14 @@
 									$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
 								else
 									$d = $user['enemy_damage_min'];
-								$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], $user['char_level']);
+								$d = $this->get_real_damage($d, $user['char_armor'], $user['enemy_level'], $user['char_level']);
 								$this->statistics['enemy_hits']++;
 								if ($d <= 0) {
 									$r .= $user['enemy_name'].' атакует, но не может пробить вашу защиту.#';
 									$d = 0;
 								} else {
 									if (rand(1, 100) <= 15) {
-										$d = get_glancing_blow_damage($d);
+										$d = $this->get_glancing_blow_damage($d);
 										$this->statistics['enemy_damages'] += $d;
 										$user['char_life_cur'] -= $d;
 										if ($user['char_life_cur'] > 0) {
@@ -254,6 +254,25 @@
 			return $r;
 			
 		}
+
+		private function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
+			return $atk_damage - round($atk_damage * $def_armor / 100);
+		}
+
+		private function get_glancing_blow_damage($damage){
+			$r = round($damage / rand(2, 3));
+			if ($r < 1)
+				$r = 1;
+			return $r;
+		}
+
+		private function get_crushing_blow_damage($damage) {
+			return $damage * rand(3, 5);
+		}
+
+		private function get_bewildering_strike_damage($damage) {
+			return rand(round($damage * 0.75), round($damage * 1.2));
+		}		
 		
 	}
 
