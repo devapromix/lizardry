@@ -592,6 +592,12 @@ object FrameTown: TFrameTown
             end
           end
         end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 309
+          ExplicitHeight = 247
+        end
       end
     end
     inline FrameChat: TFrameChat

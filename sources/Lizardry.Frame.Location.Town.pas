@@ -306,6 +306,8 @@ var
   S, Cur, Max: string;
   R: TArray<string>;
 begin
+  if (Trim(AJSON) = '') then
+    Exit;
   JSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
     if UpperCase(Section) = 'ITEM' then
@@ -442,6 +444,8 @@ var
   A: TArray<string>;
 begin
   MsgBox(AJSON);
+  if (Trim(AJSON) = '') then
+    Exit;
   // Exit;
   if AJSON.Contains('{"inventory":') then
   begin
