@@ -38,8 +38,8 @@ if ($action == 'battle') {
 		$user['title'] = 'Сражение!!!';
 		$user['mainframe'] = 'outlands';
 		$user['frame'] = $action;
-		$battle = new Battle($user);
-		$user = $battle->get_battle();
+		$battle = new Battle();
+		$battle->start_battle();
 		$user['links'] = array();
 		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
 		if ($user['loot_slot_1'] > 0) {

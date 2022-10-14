@@ -615,7 +615,7 @@ function ch_level_exp() {
 }
 
 function get_value($value) {
-	global $user, $stat;
+	global $user;
 
 	if ($user['enemy_level'] < $user['char_level'] - 1) {
 		$v = $user['char_level'] - $user['enemy_level'];
