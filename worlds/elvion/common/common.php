@@ -154,32 +154,16 @@ function gen_enemy($enemy_ident) {
 
 function add_enemy($enemy_slot, $enemy_ident) {
 	global $user, $tb_enemy, $connection;
+
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$enemy = $result->fetch_assoc();	
+	$enemy = $result->fetch_assoc();
 
-	switch($enemy_slot) {
-		case 1:
-			$user['enemy_slot_1'] = $enemy_ident;
-			$user['enemy_slot_1_image'] = $enemy['enemy_image'];
-			$user['enemy_slot_1_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_1=".$user['enemy_slot_1'].",enemy_slot_1_image='".$user['enemy_slot_1_image']."',enemy_slot_1_level=".$user['enemy_slot_1_level']);
-			break;
-		case 2:
-			$user['enemy_slot_2'] = $enemy_ident;
-			$user['enemy_slot_2_image'] = $enemy['enemy_image'];
-			$user['enemy_slot_2_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_2=".$user['enemy_slot_2'].",enemy_slot_2_image='".$user['enemy_slot_2_image']."',enemy_slot_2_level=".$user['enemy_slot_2_level']);
-			break;
-		case 3:
-			$user['enemy_slot_3'] = $enemy_ident;
-			$user['enemy_slot_3_image'] = $enemy['enemy_image'];
-			$user['enemy_slot_3_level'] = $enemy['enemy_level'];
-			update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_3=".$user['enemy_slot_3'].",enemy_slot_3_image='".$user['enemy_slot_3_image']."',enemy_slot_3_level=".$user['enemy_slot_3_level']);
-			break;
-	}
-
+	$user['enemy_slot_'.strval($enemy_slot)] = $enemy_ident;
+	$user['enemy_slot_'.strval($enemy_slot).'_image'] = $enemy['enemy_image'];
+	$user['enemy_slot_'.strval($enemy_slot).'_level'] = $enemy['enemy_level'];
+	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_".strval($enemy_slot)."=".$user['enemy_slot_'.strval($enemy_slot)].",enemy_slot_".strval($enemy_slot)."_image='".$user['enemy_slot_'.strval($enemy_slot).'_image']."',enemy_slot_".strval($enemy_slot)."_level=".$user['enemy_slot_'.strval($enemy_slot).'_level']);
 }
 
 function get_user($username, $userpass) {
@@ -361,7 +345,7 @@ function item_values($item_ident) {
 function add_item_to_shop($item_slot, $item_ident) {
 	global $user, $tb_item, $connection;
 	$user['item_slot_'.strval($item_slot)] = $item_ident;
-	$user['item_slot_'..strval($item_slot).'_values'] = item_values($item_ident);
+	$user['item_slot_'.strval($item_slot).'_values'] = item_values($item_ident);
 	update_user_table('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
 }
 
