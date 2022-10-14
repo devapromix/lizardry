@@ -1,6 +1,7 @@
 <?php
 define('DS', DIRECTORY_SEPARATOR);
 define('PATH', dirname(__FILE__).DS.'..'.DS);
+define('IPATH', 'includes'.DS);
 
 $username = $_GET['username'];
 $userpass = $_GET['userpass'];
@@ -483,15 +484,15 @@ function get_messages() {
 
 $stat = array();
 
-function save_loot_slot($item_ident, $item_name, $item_type) {
+function save_loot_slot($item_ident, $item_name, $item_type, $item_slot = 1) {
 	global $user;
 	
-	$user['loot_slot_1'] = $item_ident;
-	$user['loot_slot_1_name'] = $item_name;
-	$user['loot_slot_1_type'] = $item_type;
+	$user['loot_slot_'.strval($item_slot)] = $item_ident;
+	$user['loot_slot_'.strval($item_slot).'_name'] = $item_name;
+	$user['loot_slot_'.strval($item_slot).'_type'] = $item_type;
 
-	if ($user['loot_slot_1'] > 0)
-		update_user_table("loot_slot_1=".$user['loot_slot_1'].",loot_slot_1_type=".$user['loot_slot_1_type'].",loot_slot_1_name='".$user['loot_slot_1_name']."'");
+	if ($user['loot_slot_'.strval($item_slot)] > 0)
+		update_user_table("loot_slot_".strval($item_slot)."=".$user['loot_slot_'.strval($item_slot)].",loot_slot_".strval($item_slot)."_type=".$user['loot_slot_'.strval($item_slot).'_type'].",loot_slot_".strval($item_slot)."_name='".$user['loot_slot_'.strval($item_slot).'_name']."'");
 }
 
 function gen_random_loot($loot_type_array, $loot_level) {
@@ -603,235 +604,6 @@ function get_crushing_blow_damage($damage) {
 
 function get_bewildering_strike_damage($damage) {
 	return rand(round($damage * 0.75), round($damage * 1.2));
-}
-
-function char_battle_round() {
-	global $user, $stat;
-	$r = '';
-	if (($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
-		if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
-			$d = rand($user['char_damage_min'], $user['char_damage_max']);
-			$d = get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
-			$stat['char_hits']++;
-			if ($d <= 0) {
-				$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
-			} else {
-				if (rand(1, 100) <= $user['skill_bewil']) {
-					$d = get_bewildering_strike_damage($d);
-					$stat['char_damages'] += $d;
-					$user['enemy_life_cur'] -= $d;
-					if ($user['enemy_life_cur'] > 0) {
-						$r .= 'Вы наносите ошеломляющий удар и раните '.$user['enemy_name'].' на '.$d.' HP! '.$user['enemy_name'].' в смятении.#';
-						$r .= char_battle_round();
-					} else {
-						$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
-					}
-					return $r;
-				} else if (rand(1, 100) <= 5) {
-					$d = get_glancing_blow_damage($d);
-					$stat['char_damages'] += $d;
-					$user['enemy_life_cur'] -= $d;
-					if ($user['enemy_life_cur'] > 0) {
-						$r .= 'Вы наносите скользящий удар и раните '.$user['enemy_name'].' на '.$d.' HP.#';
-					} else {
-						$r .= 'Вы наносите скользящий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
-					}
-					return $r;
-				} else if (rand(1, 100) <= 1) {
-					$d += rand($user['char_damage_max'], $user['char_damage_max'] * 2);
-					$stat['char_damages'] += $d;
-					$user['enemy_life_cur'] -= $d;
-					if ($user['enemy_life_cur'] > 0) {
-						$r .= 'Вы наносите критический удар и раните '.$user['enemy_name'].' на '.$d.' HP!#';
-					} else {
-						$r .= 'Вы наносите критический удар на '.$d.' HP и убиваете '.$user['enemy_name'].'!#';
-					}
-				} else {
-					$crushing_blow_damage = get_crushing_blow_damage($d);
-					if ((rand(1, 100) <= 0)&&($crushing_blow_damage >= $user['enemy_life_cur'])) {
-						$stat['char_damages'] += $crushing_blow_damage;
-						$user['enemy_life_cur'] = 0;
-						$r .= 'Вы наносите сокрушающий удар на '.$crushing_blow_damage.' HP и убиваете '.$user['enemy_name'].'!#';
-						return $r;
-					}
-					$stat['char_damages'] += $d;
-					$user['enemy_life_cur'] -= $d;
-					if ($user['enemy_life_cur'] > 0) {
-						$r .= 'Вы раните '.$user['enemy_name'].' на '.$d.' HP.#';
-					} else {
-						$r .= 'Вы наносите удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
-					}
-				}
-			}
-		} else {
-			$r .= 'Вы пытаетесь атаковать, но промахиваетесь по '.$user['enemy_name'].'.#';
-			$stat['char_misses']++;
-		}
-	}
-	return $r;
-}
-
-function enemy_battle_round() {
-	global $user, $stat;
-	$r = '';
-	if (($user['enemy_life_cur'] > 0)&&($user['char_life_cur'] > 0)) {
-		if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
-			if (rand(1, 100) > $user['skill_dodge']) {
-				if (rand(1, 100) > $user['skill_parry']) {
-					if (rand(1, 100) > 10) { // Расовый навык уклонения у людей, ящеров и эльфов
-						if (rand(1, 3) > 1)
-							$d = rand($user['enemy_damage_min'], $user['enemy_damage_max']);
-						else
-							$d = $user['enemy_damage_min'];
-						$d = get_real_damage($d, $user['char_armor'], $user['enemy_level'], 	$user['char_level']);
-						$stat['enemy_hits']++;
-						if ($d <= 0) {
-							$r .= $user['enemy_name'].' атакует, но не может пробить вашу защиту.#';
-							$d = 0;
-						} else {
-							if (rand(1, 100) <= 15) {
-								$d = get_glancing_blow_damage($d);
-								$stat['enemy_damages'] += $d;
-								$user['char_life_cur'] -= $d;
-								if ($user['char_life_cur'] > 0) {
-									$r .= $user['enemy_name'].' наносит скользящий удар и ранит вас на '.$d.' HP.#';
-								} else {
-									$r .= $user['enemy_name'].' наносит скользящий удар на '.$d.' HP и убивает вас.#';
-								}
-								return $r;
-							}
-							$stat['enemy_damages'] += $d;
-							$user['char_life_cur'] -= $d;
-							if ($user['char_life_cur'] > 0) {
-								$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
-							} else {
-								$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
-							}
-						}
-					} else {
-						$r .= $user['enemy_name'].' пытается атаковать, но ваш расовый навык позволяет уклониться от атаки!#';
-						$stat['char_dodges']++;
-					}
-				} else {
-					$r .= 'Вы парируете атаку '.$user['enemy_name'].'.#';
-					$stat['char_parries']++;
-				}
-			} else {
-				$r .= 'Вы ловко уклоняетесь от атаки '.$user['enemy_name'].'.#';
-				$stat['char_dodges']++;
-			}
-		} else {
-			$r .= $user['enemy_name'].' промахивается по вам.#';
-			$stat['enemy_misses']++;
-		}
-	}
-	return $r;
-}
-
-function auto_battle() {
-	global $user, $stat;
-	if ($user['char_life_cur'] <= 0)
-		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-	if ($user['enemy_life_cur'] <= 0)
-		die('{"error":"Враг и так мертв!"}');
-
-	$r = '';
-	$rounds = 1;
-	$stat['char_damages'] = 0;
-	$stat['enemy_damages'] = 0;
-	$stat['char_dodges'] = 0;
-	$stat['char_parries'] = 0;
-	$stat['char_hits'] = 0;
-	$stat['enemy_hits'] = 0;
-	$stat['char_misses'] = 0;
-	$stat['enemy_misses'] = 0;
-
-	$c = rand(0, 2);
-	$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
-	if (($c == 0) && ($user['enemy_boss'] == 0))
-		$r .= 'Вы первыми бросаетесь в атаку!#';
-	else
-		$r .= $user['enemy_name'].' первым бросается в атаку!#';
-	while(true) {
-
-		$r .= '--- '.strval($rounds).'-й раунд: ---#';
-		if ($c == 0) {
-			$r .= char_battle_round();
-			$r .= enemy_battle_round();
-		} else {
-			$r .= enemy_battle_round();
-			$r .= char_battle_round();
-		}
-
-		if (($user['char_life_cur'] < round($user['char_life_max'] / 10))
-			&&($user['char_life_cur'] > 0)&&($user['enemy_life_cur'] > 0)) {
-			$r .= 'Понимая, что результат боя складывается не в вашу пользу, вы пытаетесь уклониться от боя...#';
-			if (rand(1, 100) <= (($user['skill_run'] * 5) + 25)) {
-				$r .= 'Вы отступаете!#';
-				break;
-			} else
-				$r .= 'Неудачно! '.$user['enemy_name'].' снова бросается в атаку! Поединок продолжается...#';
-		}
-
-		if ($user['char_life_cur'] <= 0) {
-			//$user['char_life_cur'] = $user['char_life_max'];//debug
-			$user['char_life_cur'] = 0;
-			$user['char_mana_cur'] = 0;
-			$user['stat_deads']++;
-			$user['char_exp'] -= round($user['char_exp'] / 5);
-			$user['char_gold'] -= round($user['char_gold'] / 7);
-			$r .= '--------------------------------------------------------#';
-			$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
-			add_event(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
-			break;
-		}
-
-		if ($user['enemy_life_cur'] <= 0) {
-			$user['enemy_life_cur'] = 0;
-			$user['stat_kills']++;
-			$r .= '--------------------------------------------------------#';
-			gen_loot();
-			if ($user['enemy_boss'] > 0) {
-				kill_boss($user['char_region']);
-				$r .= 'Вы победили босса! Вы добыли ценный трофей!#';
-			} else
-				gen_random_place();
-			$gold = get_value($user['enemy_gold']); 
-			if ($gold > 0)
-				$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
-			$user['char_gold'] += $gold;
-			$exp = get_value($user['enemy_exp']);
-			$user['char_exp'] += $exp;
-			if ($exp > 0)
-				$r .= 'Вы получаете '.$exp.' опыта.#';
-			if ($gold <= 0)
-				$r .= 'Вы роетесь в останках '.$user['enemy_name'].', но не находите золота.#';
-			else
-				$r .= 'Вы обшариваете останки '.$user['enemy_name'].' и подбираете '.$gold.' золота.#';
-			if ($user['loot_slot_1'] > 0) {
-				$r .= 'Ваше внимание привлекает '.$user['loot_slot_1_name'].'.#';
-			} else if ($user['current_random_place'] > 0) {
-				$r .= 'Ваше внимание привлекает загадочная локация, которую вы только что обнаружили...#';
-			}
-			if ($user['enemy_champion'] == 1)
-				add_event(4, $user['char_name'], 1, $user['char_gender'], $user['enemy_name'], $user['char_region_location_name']);
-			break;
-		}
-		$rounds++;
-		$c = rand(0, 2);
-	}
-
-	$r .= '--------------------------------------------------------#';
-	$r .= "Всего раундов: ".$rounds."#";
-	$r .= "Сумма урона: ".$stat['char_damages']." (".$user['char_name'].") / ".$stat['enemy_damages']." (".$user['enemy_name'].")#";
-	$r .= "Попадания: ".$stat['char_hits']." (".$user['char_name'].") / ".$stat['enemy_hits']." (".$user['enemy_name'].")#";
-	$r .= "Промахи: ".$stat['char_misses']." (".$user['char_name'].") / ".$stat['enemy_misses']." (".$user['enemy_name'].")#";
-	$r .= "Уклонения: ".$stat['char_dodges']." Парирования: ".$stat['char_parries']."#";
-	if (ch_level_exp()) {
-		$r .= '--------------------------------------------------------#';
-		$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
-	}
-	return $r;
 }
 
 function ch_level_exp() {
