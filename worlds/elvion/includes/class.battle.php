@@ -82,11 +82,11 @@
 						$r .= 'Вы победили босса! Вы добыли ценный трофей!#';
 					} else
 						gen_random_place();
-					$gold = get_value($user['enemy_gold']); 
+					$gold = $this->get_value($user['enemy_gold']); 
 					if ($gold > 0)
 						$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
 					$user['char_gold'] += $gold;
-					$exp = get_value($user['enemy_exp']);
+					$exp = $this->get_value($user['enemy_exp']);
 					$user['char_exp'] += $exp;
 					if ($exp > 0)
 						$r .= 'Вы получаете '.$exp.' опыта.#';
@@ -115,7 +115,7 @@
 			$r .= "Промахи: ".$this->statistics['char_misses']." (".$user['char_name'].") / ".$this->statistics['enemy_misses']." (".$user['enemy_name'].")#";
 			$r .= "Уклонения: ".$this->statistics['char_dodges']." Парирования: ".$this->statistics['char_parries']."#";
 	
-			if (ch_level_exp()) {
+			if ($this->ch_level_exp()) {
 				$r .= '--------------------------------------------------------#';
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
@@ -274,6 +274,35 @@
 			return rand(round($damage * 0.75), round($damage * 1.2));
 		}		
 		
+		private function get_value($value) {
+			global $user;
+
+			if ($user['enemy_level'] < $user['char_level'] - 1) {
+				$v = $user['char_level'] - $user['enemy_level'];
+				$r = round($value / $v);
+				if ($r < 1)
+					$r = 1;
+			} else
+				$r = $value;
+
+			if (($r > 0) && ($this->ch_level_exp())) {
+				$r = rand(round($r / 5), round($r / 2));
+				if ($r < 1)
+					$r = 1;
+			}
+
+			return $r;
+		}
+
+		private function ch_level_exp() {
+			global $user;
+			
+			$r = false;
+			if ($user['char_exp'] > get_char_level_exp($user['char_level'] + 1))
+				$r = true;
+			return $r;
+		}
+
 	}
 
 ?>

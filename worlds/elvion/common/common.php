@@ -585,34 +585,6 @@ function gen_loot() {
 	}
 }
 
-function ch_level_exp() {
-	global $user;
-	$r = false;
-	if ($user['char_exp'] > get_char_level_exp($user['char_level'] + 1))
-		$r = true;
-	return $r;
-}
-
-function get_value($value) {
-	global $user;
-
-	if ($user['enemy_level'] < $user['char_level'] - 1) {
-		$v = $user['char_level'] - $user['enemy_level'];
-		$r = round($value / $v);
-		if ($r < 1)
-			$r = 1;
-	} else
-		$r = $value;
-
-	if (($r > 0) && (ch_level_exp())) {
-		$r = rand(round($r / 5), round($r / 2));
-		if ($r < 1)
-			$r = 1;
-	}
-
-	return $r;
-}
-
 function has_item($id) {
 	global $user;
 	$inventory = $user['char_inventory'];
