@@ -360,64 +360,14 @@ function item_values($item_ident) {
 
 function add_item_to_shop($item_slot, $item_ident) {
 	global $user, $tb_item, $connection;
-
-	switch($item_slot) {
-		case 1:
-			$user['item_slot_1'] = $item_ident;
-			$user['item_slot_1_values'] = item_values($item_ident);
-			update_user_table("item_slot_1=".$user['item_slot_1']);
-			break;
-		case 2:
-			$user['item_slot_2'] = $item_ident;
-			$user['item_slot_2_values'] = item_values($item_ident);
-			update_user_table("item_slot_2=".$user['item_slot_2']);
-			break;
-		case 3:
-			$user['item_slot_3'] = $item_ident;
-			$user['item_slot_3_values'] = item_values($item_ident);
-			update_user_table("item_slot_3=".$user['item_slot_3']);
-			break;
-		case 4:
-			$user['item_slot_4'] = $item_ident;
-			$user['item_slot_4_values'] = item_values($item_ident);
-			update_user_table("item_slot_4=".$user['item_slot_4']);
-			break;
-		case 5:
-			$user['item_slot_5'] = $item_ident;
-			$user['item_slot_5_values'] = item_values($item_ident);
-			update_user_table("item_slot_5=".$user['item_slot_5']);
-			break;
-		case 6:
-			$user['item_slot_6'] = $item_ident;
-			$user['item_slot_6_values'] = item_values($item_ident);
-			update_user_table("item_slot_6=".$user['item_slot_6']);
-			break;
-	}
+	$user['item_slot_'.strval($item_slot)] = $item_ident;
+	$user['item_slot_'..strval($item_slot).'_values'] = item_values($item_ident);
+	update_user_table('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
 }
 
 function get_slot_item_ident($item_slot) {
 	global $user;
-
-	switch($item_slot) {
-		case 1:
-			return $user['item_slot_1'];
-			break;
-		case 2:
-			return $user['item_slot_2'];
-			break;
-		case 3:
-			return $user['item_slot_3'];
-			break;
-		case 4:
-			return $user['item_slot_4'];
-			break;
-		case 5:
-			return $user['item_slot_5'];
-			break;
-		case 6:
-			return $user['item_slot_6'];
-			break;
-	}
+	return $user['item_slot_'.strval($item_slot)]; 
 }
 
 function get_region_town_name($region_ident) {
