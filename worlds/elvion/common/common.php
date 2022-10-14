@@ -31,13 +31,6 @@ const ST_HERB			= '753';
 const MANA_SCROLL_TP	= 8;
 const MANA_SCROLL_HEAL	= 10;
 
-function gen_user_session() {
-	global $user;
-	$user['user_session'] = time();
-	update_user_table("user_session='".$user['user_session']."'");
-	return $user['user_session'];
-}
-
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -187,6 +180,23 @@ function add_enemy($enemy_slot, $enemy_ident) {
 			break;
 	}
 
+}
+
+function get_user($username, $userpass) {
+	global $tb_user, $connection;
+
+	$query = 'SELECT * FROM '.$tb_user." WHERE user_name='".$username."' AND user_pass='".$userpass."'";
+	$result = mysqli_query($connection, $query) 
+		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+
+	return $result->fetch_assoc();
+}
+
+function gen_user_session() {
+	global $user;
+	$user['user_session'] = time();
+	update_user_table("user_session='".$user['user_session']."'");
+	return $user['user_session'];
 }
 
 function equip_item($item_ident) {

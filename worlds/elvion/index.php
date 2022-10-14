@@ -15,14 +15,9 @@ $enemyslot = $_GET['enemyslot'];
 $itemindex = $_GET['itemindex'];
 
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-if (!$connection) {
+if (!$connection)
 	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
-}
-
-$query = 'SELECT * FROM '.$tb_user." WHERE user_name='".$username."' AND user_pass='".$userpass."'";
-$result = mysqli_query($connection, $query) 
-	or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-$user = $result->fetch_assoc();
+$user = get_user($username, $userpass);
 
 if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'login') $res = '{"login":"ok","session":"'.gen_user_session().'"}';
