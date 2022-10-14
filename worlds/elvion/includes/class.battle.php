@@ -143,7 +143,7 @@
 							$user['enemy_life_cur'] -= $d;
 							if ($user['enemy_life_cur'] > 0) {
 								$r .= 'Вы наносите ошеломляющий удар и раните '.$user['enemy_name'].' на '.$d.' HP! '.$user['enemy_name'].' в смятении.#';
-								$r .= char_battle_round();
+								$r .= $this->player_battle_round();
 							} else {
 								$r .= 'Вы наносите ошеломляющий удар на '.$d.' HP и убиваете '.$user['enemy_name'].'.#';
 							}
