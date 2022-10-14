@@ -807,40 +807,6 @@ function item_ident_by_index($item_index) {
 	return $result;
 }
 
-function get_inventory() {
-	global $user;
-	//$inventory = $user['char_inventory'];
-
-	//item_modify(61, 1);
-	//add_item(61, 1);
-	//return item_count(99);
-
-//	$items = array();
-	$items = json_decode($user['char_inventory'], true);
-
-	//$rr = $items[0];
-	//$v = $rr['id'];
-	//return $v;
-
-	//$s = '0-61-0=6,0-33-1=1';
-	//return strripos($s, '-67-');
-
-	//$rr = $items['61'];
-	//return $rr[1];
-	//$items = ['61' => 3];
-	//$items['61'] = 3;
-	//return $items['65'];
-	//if ($items['62'] == 5)
-	//	$items['62'] = 7;
-	//return var_dump($items['61']);
-	//$r = 0;
-	//if (isset($items['67']))
-	//	$r = $items['67'];
-	//return $r;
-
-	return json_encode($items, JSON_UNESCAPED_UNICODE);
-}
-
 function add_enemies($enemy_idents, $is_boss = false) {
 	global $user;
 	
@@ -884,18 +850,6 @@ function addlink($t, $j, $n = 0) {
 	global $user;
 	$user['links'][$n]['title'] = $t;
 	$user['links'][$n]['link'] = $j;	
-}
-
-function go_to_the_town($t = 'Вернуться в город', $n = 0) {
-	addlink($t, 'index.php?action=town', $n);
-}
-
-function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
-	addlink($t, 'index.php?action=graveyard', $n);
-}
-
-function go_to_the_gate($t = 'Идти в сторону города', $n = 0) {
-	addlink($t, 'index.php?action=gate', $n);
 }
 
 function rest_in_tavern_cost() {
@@ -1006,18 +960,6 @@ function save_to_log($msg) {
 	if (!mysqli_query($connection, $query)) {
 		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 	}
-}
-
-function check_travel_req($level, $food, $gold) {
-	global $user;
-	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-	if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
-	if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
-	if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
-}
-
-function travel_req($level, $food, $gold) {
-	return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собой иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
 }
 
 function pickup_loot_title() {

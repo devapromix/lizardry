@@ -1,10 +1,10 @@
 <?php
 $res = '{"login":"error"}';
 
-include 'common/common.php';
-include 'common/locations.php';
-include 'common/connect.php';
-include 'common/dbtables.php';
+require_once('common/common.php');
+require_once('common/locations.php');
+require_once('common/connect.php');
+require_once('common/dbtables.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -29,18 +29,18 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		if ($action == 'enemies') $res = get_enemies();
 		if ($action == 'messages') $res = get_messages();
 	
-		include 'locations/battle.php';
-		include 'locations/campfire.php';
-		include 'locations/town.php';
-		include 'locations/tavern.php';
-		include 'locations/bank.php';
-		include 'locations/magictower.php';
-		include 'locations/gate.php';
-		include 'locations/travel.php';
-		include 'locations/outlands.php';
-		include 'locations/guilds.php';
-		include 'locations/shops.php';
-		include 'locations/graveyard.php';
+		require_once('locations/battle.php');
+		require_once('locations/campfire.php');
+		require_once('locations/town.php');
+		require_once('locations/tavern.php');
+		require_once('locations/bank.php');
+		require_once('locations/magictower.php');
+		require_once('locations/gate.php');
+		require_once('locations/travel.php');
+		require_once('locations/outlands.php');
+		require_once('locations/guilds.php');
+		require_once('locations/shops.php');
+		require_once('locations/graveyard.php');
 	}
 }
 

@@ -1,9 +1,9 @@
 <?php
 $res = '{"login":"error"}';
 
-include '../common/common.php';
-include '../common/connect.php';
-include '../common/dbtables.php';
+require_once('../common/common.php');
+require_once('../common/connect.php');
+require_once('../common/dbtables.php');
 
 
 $charname = $_REQUEST['charname'];
