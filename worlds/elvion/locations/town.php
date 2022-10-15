@@ -38,7 +38,7 @@ if ($action == 'town') {
 				break;
 		}
 		
-	} else shades();
+	} else $location->shades();
 
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {

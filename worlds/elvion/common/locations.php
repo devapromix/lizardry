@@ -1,7 +1,7 @@
 <?php
 
 function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
-	global $user, $res, $connection, $tb_locations;
+	global $user, $location, $res, $connection, $tb_locations;
 	$user['current_outlands'] = $location_ident;
 	add_enemies($enemies, $is_boss);	
 	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
@@ -15,7 +15,7 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = $location['location_description'];
-	} else shades();
+	} else $location->shades();
 	$user['frame'] = 'outlands';
 	$user['links'] = array();
 	$n = 0;
@@ -40,7 +40,7 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 }
 
 function travel_to($action, $do, $regions) {
-	global $user;
+	global $user, $location;
 	
 	$travel = false;
 	$travel_level = 1;
@@ -93,7 +93,7 @@ function travel_to($action, $do, $regions) {
 				}
 			}
 		
-		} else shades();
+		} else $location->shades();
 		
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
@@ -112,18 +112,10 @@ function travel_to($action, $do, $regions) {
 		
 		} else go_to_the_graveyard();
 	
-	} else after_travel();
+	} else $location->after_travel();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 	return $res;
-}
-
-function after_travel() {
-	global $user;
-	$user['title'] = 'Путешествие';
-	$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
-	$user['links'] = array();
-	go_to_the_gate('Идти к воротам в город');
 }
 
 function go_to_the_town($t = 'Вернуться в город', $n = 0) {
@@ -148,11 +140,6 @@ function check_travel_req($level, $food, $gold) {
 
 function travel_req($level, $food, $gold) {
 	return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собой иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
-}
-
-function shades() {
-	global $user;
-	$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
 }
 
 function random_place() {

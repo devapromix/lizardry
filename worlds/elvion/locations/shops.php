@@ -5,7 +5,7 @@ if ($action == 'shops') {
 	$user['title'] = 'Квартал Торговцев';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = '';
-	} else shades();
+	} else $location->shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
 		go_to_the_town('Идти на площадь города');

@@ -5,7 +5,7 @@ if ($action == 'guilds') {
 	$user['title'] = 'Квартал Гильдий';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы спускаетесь в нижнюю часть города. Здесь тихо и не так многолюдно как в центральной части города.';
-	} else shades();
+	} else $location->shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		go_to_the_town('Идти на площадь города');
