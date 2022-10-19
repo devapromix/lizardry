@@ -2,6 +2,8 @@
 
 	class Location {
 
+		const RAND_PLACE_COUNT 	= 7;
+
 		public function __construct() {
 			
 		}
@@ -121,7 +123,7 @@
 		
 			}
 	
-			$travel_gold = travel_price($travel_level);
+			$travel_gold = $this->travel_price($travel_level);
 	
 			for ($i = 0; $i < count($regions); $i++) {
 				if (($do == $regions[$i])||($do == $regions[$i] + 1)) {
@@ -185,6 +187,10 @@
 			$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	
 			return $res;
+		}
+
+		public function travel_price($level) {
+			return $level * 10;
 		}
 
 		public function random_place() {
@@ -264,7 +270,7 @@
 	
 			$user['current_random_place'] = 0;
 			if (rand(1, 5) == 1)
-				$user['current_random_place'] = rand(1, RAND_PLACE_COUNT);
+				$user['current_random_place'] = rand(1, self::RAND_PLACE_COUNT);
 	
 			update_user_table("current_random_place=".$user['current_random_place']);
 		}

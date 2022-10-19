@@ -2,7 +2,6 @@
 $res = '{"login":"error"}';
 
 require_once('common/common.php');
-require_once('common/locations.php');
 require_once('common/connect.php');
 require_once('common/dbtables.php');
 
