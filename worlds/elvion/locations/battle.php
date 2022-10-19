@@ -98,7 +98,7 @@ if ($action == 'use_item') {
 
 if ($action == 'random_place') {
 
-	$user['frame'] = random_place();
+	$user['frame'] = $user['class']['location']->random_place();
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 	}
 

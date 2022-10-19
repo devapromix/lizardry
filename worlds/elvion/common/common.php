@@ -355,31 +355,6 @@ function get_slot_item_ident($item_slot) {
 	return $user['item_slot_'.strval($item_slot)]; 
 }
 
-function get_region_town_name($region_ident) {
-	global $user, $tb_regions, $connection;
-	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$region = $result->fetch_assoc();
-	return $region['region_town_name'];
-}
-
-function change_region($region_ident, $food, $gold) {
-	global $user, $tb_regions, $connection;
-	$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$region = $result->fetch_assoc();
-	$user['char_life_cur'] = $user['char_life_max'];
-	$user['char_mana_cur'] = $user['char_mana_max'];
-	$user['char_region'] = $region['region_ident'];
-	$user['char_region_level'] = $region['region_level'];
-	$user['char_region_town_name'] = $region['region_town_name'];
-	$user['char_gold'] -= $gold;
-	$user['char_food'] -= $food;
-	update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
-}
-
 function check_user($user_name) {
 	global $connection, $tb_user;
 	$query = "SELECT user_name FROM ".$tb_user." WHERE user_name='".$user_name."'";
@@ -994,16 +969,6 @@ function pickup_loot_title() {
 
 function travel_price($level) {
 	return $level * 10;
-}
-
-function gen_random_place() {
-	global $user, $connection;
-	
-	$user['current_random_place'] = 0;
-	if (rand(0, 2) == 0)
-		$user['current_random_place'] = rand(1, RAND_PLACE_COUNT);
-	
-	update_user_table("current_random_place=".$user['current_random_place']);
 }
 
 function buy_empty_elix($count = 1) {

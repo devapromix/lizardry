@@ -81,7 +81,7 @@
 						kill_boss($user['char_region']);
 						$r .= 'Вы победили босса! Вы добыли ценный трофей!#';
 					} else
-						gen_random_place();
+						$user['class']['location']->gen_random_place();
 					$gold = $this->get_value($user['enemy_gold']); 
 					if ($gold > 0)
 						$gold += ($user['char_region_level'] * ($user['skill_gold'] * rand(3, 5)));
