@@ -745,21 +745,10 @@ function use_item($item_ident) {
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 25:
-			if ($user['char_mana_cur'] >= MANA_SCROLL_TP) {
-				item_modify($item_ident, -1);
-				$user['char_mana_cur'] -= MANA_SCROLL_TP;
-				update_user_table("char_mana_cur=".$user['char_mana_cur']);
-				$result = ',"action":"Перед вами открывается магический портал!|Войти!|index.php?action=magictower","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-			} else need_mana(MANA_SCROLL_TP);
+			$result = $user['class']['magic']->use_scroll_tp();
 			break;
 		case 26:
-			if ($user['char_mana_cur'] >= MANA_SCROLL_HEAL) {
-				item_modify($item_ident, -1);
-				$user['char_mana_cur'] -= MANA_SCROLL_HEAL;
-				$user['char_life_cur'] = $user['char_life_max'];
-				update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-				$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-			} else need_mana(MANA_SCROLL_HEAL);
+			$result = $user['class']['magic']->use_scroll_heal();
 			break;
 	}
 	return $result;
@@ -823,16 +812,6 @@ function addlink($t, $j, $n = 0) {
 	global $user;
 	$user['links'][$n]['title'] = $t;
 	$user['links'][$n]['link'] = $j;	
-}
-
-function rest_in_tavern_cost() {
-	global $user;
-	return round($user['char_region_level'] * 10) + round(($user['char_region_level'] * 10) / 2);
-}
-
-function food_in_tavern_cost() {
-	global $user;
-	return $user['char_region_level'] * 10;
 }
 
 function get_char_life($level) {
@@ -1015,10 +994,6 @@ function is_killed_boss($region_ident) {
 	} else {
 		return true;
 	}
-}
-
-function need_mana($mana) {
-	die('{"info":"Вы пытаетесь прочитать свиток, но чувствуете, что магических сил недостаточно. Нужно '.strval($mana).' маны!"}');
 }
 
 ?>

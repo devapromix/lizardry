@@ -29,13 +29,15 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		if ($action == 'messages') $res = get_messages();
 	
 		require_once(IPATH.'class.location.php');
-		require_once(IPATH.'class.player.php');
 		require_once(IPATH.'class.battle.php');
+		require_once(IPATH.'class.player.php');
+		require_once(IPATH.'class.magic.php');
 
 		$user['class'] = array();
-		$user['class']['player'] = new Player();
-		$user['class']['battle'] = new Battle();
 		$user['class']['location'] = new Location();
+		$user['class']['battle'] = new Battle();
+		$user['class']['player'] = new Player();
+		$user['class']['magic'] = new Magic();
 	
 		require_once('locations/battle.php');
 		require_once('locations/campfire.php');

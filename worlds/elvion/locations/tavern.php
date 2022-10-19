@@ -51,12 +51,12 @@ if ($action == 'tavern') {
 	
 	if ($do == 'rest_in_tavern') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		if ($user['char_gold'] < rest_in_tavern_cost()) die('{"error":"Не достаточно золота!"}');
+		if ($user['char_gold'] < $user['class']['location']->rest_in_tavern_cost()) die('{"error":"Не достаточно золота!"}');
 		if (($user['char_life_cur'] == $user['char_life_max'])
 			&&($user['char_mana_cur'] == $user['char_mana_max'])) die('{"info":"Вы здоровы и полны сил!"}');
 		$user['char_life_cur'] = $user['char_life_max'];
 		$user['char_mana_cur'] = $user['char_mana_max'];
-		$user['char_gold'] -= rest_in_tavern_cost();
+		$user['char_gold'] -= $user['class']['location']->rest_in_tavern_cost();
 		update_user_table("char_gold=".$user['char_gold'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['log'] = 'Вы хорошо выспались, совершенно здоровы и полны сил! И у вас высокий боевой дух!';
 	}
@@ -65,9 +65,9 @@ if ($action == 'tavern') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		if ($user['char_food'] >= 7) die('{"info":"У Вас максимальный запас провианта!"}');
 		if ($amount <= 0) die('{"error":"Количество сумок с провинтом должно быть больше 0!"}');
-		if ($user['char_gold'] < $amount * food_in_tavern_cost()) die('{"error":"Не достаточно золота!"}');
+		if ($user['char_gold'] < $amount * $user['class']['location']->food_in_tavern_cost()) die('{"error":"Не достаточно золота!"}');
 		if ($amount + $user['char_food'] > 7) die('{"error":"Введите правильное число!"}'); 
-		$user['char_gold'] -= $amount * food_in_tavern_cost();
+		$user['char_gold'] -= $amount * $user['class']['location']->food_in_tavern_cost();
 		$user['char_food'] += $amount;
 		update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food']);
 		$user['log'] = 'Вы купили провизию (+'.$amount.')';

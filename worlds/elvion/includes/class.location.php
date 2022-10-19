@@ -275,6 +275,16 @@
 			update_user_table("current_random_place=".$user['current_random_place']);
 		}
 
+		public function rest_in_tavern_cost() {
+			global $user;
+			return round($user['char_region_level'] * 10) + round(($user['char_region_level'] * 10) / 2);
+		}
+
+		public function food_in_tavern_cost() {
+			global $user;
+			return $user['char_region_level'] * 10;
+		}
+
 	}
 
 ?>
