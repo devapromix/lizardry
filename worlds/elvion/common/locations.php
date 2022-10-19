@@ -1,7 +1,7 @@
 <?php
 
 function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
-	global $user, $location, $res, $connection, $tb_locations;
+	global $user, $res, $connection, $tb_locations;
 	$user['current_outlands'] = $location_ident;
 	add_enemies($enemies, $is_boss);	
 	$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
@@ -15,7 +15,7 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = $location['location_description'];
-	} else $location->shades();
+	} else $user['class']['location']->shades();
 	$user['frame'] = 'outlands';
 	$user['links'] = array();
 	$n = 0;
@@ -25,7 +25,7 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 			$n++;
 		}
 		if (count($prev_location) == 0) {
-			go_to_the_gate();
+			$user['class']['location']->go_to_the_gate();
 			$n++;
 		}
 		if (count($next_location) > 0) {
@@ -33,14 +33,14 @@ function outland($location_ident, $enemies, $prev_location = [], $next_location 
 			$n++;
 		}
 	} else
-		go_to_the_graveyard();
+		$user['class']['location']->go_to_the_graveyard();
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
 
 function travel_to($action, $do, $regions) {
-	global $user, $location;
+	global $user;
 	
 	$travel = false;
 	$travel_level = 1;
@@ -57,7 +57,7 @@ function travel_to($action, $do, $regions) {
 	
 	for ($i = 0; $i < count($regions); $i++) {
 		if (($do == $regions[$i])||($do == $regions[$i] + 1)) {
-			check_travel_req($travel_level, $travel_food, $travel_gold);
+			$user['class']['location']->check_travel_req($travel_level, $travel_food, $travel_gold);
 			$travel = true;
 			change_region($do, $travel_food, $travel_gold);
 		}
@@ -88,17 +88,17 @@ function travel_to($action, $do, $regions) {
 						$user['description'] = 'На Утесе всегда много свободных ветрокрылов и не так сложно отыскать погонщика, который согласится отвезти вас в другой город.';
 					if ($action == 'portal')
 						$user['description'] = 'У Портала всегда можно отыскать мага, который за некоторое денежное вознаграждение согласится отправить вас в другой город.';
-					$user['description'] .= travel_req($travel_level, $travel_food, $travel_gold);
+					$user['description'] .= $user['class']['location']->travel_req($travel_level, $travel_food, $travel_gold);
 					break;
 				}
 			}
 		
-		} else $location->shades();
+		} else $user['class']['location']->shades();
 		
 		$user['links'] = array();
 		if ($user['char_life_cur'] > 0) {
 
-			go_to_the_gate();
+			$user['class']['location']->go_to_the_gate();
 			for ($i = 0; $i < count($regions); $i++) {
 				if ($user['char_region'] == $regions[$i]) {
 					$r = strval($regions[$i] + 1);
@@ -110,36 +110,12 @@ function travel_to($action, $do, $regions) {
 				}
 			}
 		
-		} else go_to_the_graveyard();
+		} else $user['class']['location']->go_to_the_graveyard();
 	
-	} else $location->after_travel();
+	} else $user['class']['location']->after_travel();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 	return $res;
-}
-
-function go_to_the_town($t = 'Вернуться в город', $n = 0) {
-	addlink($t, 'index.php?action=town', $n);
-}
-
-function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
-	addlink($t, 'index.php?action=graveyard', $n);
-}
-
-function go_to_the_gate($t = 'Идти в сторону города', $n = 0) {
-	addlink($t, 'index.php?action=gate', $n);
-}
-
-function check_travel_req($level, $food, $gold) {
-	global $user;
-	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-	if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
-	if ($user['char_food'] < $food) die('{"info":"Возьмите в дорогу не менее '.$food.'-х мешков провизии!"}');
-	if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
-}
-
-function travel_req($level, $food, $gold) {
-	return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собой иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
 }
 
 function random_place() {
@@ -153,8 +129,8 @@ function random_place() {
 		case 1:
 			$user['title'] = 'Лагерь старого алхимика';
 			$user['description'] = 'Вы проходите несколько десятков шагов и останавливаетесь у старого вагончика. Недалеко пасется пони, горит костер. У костра сидит старый гном и приветливо машет вам рукой:#-Приветствую, путник!Будь гостем в моем лагере. Я вижу ты ранен - вот возьми эликсир...#Старик протягивает вам эликсир и вы, залпом выпив содержимое флакончика, чувствуете, как уходит усталость и заживляются раны.#-Садись рядом, угощайся и расскажи, что с тобой произошло.#Вы присаживаетесь у костра, достаете и свои припасы и начинаете рассказ...';
-			$user['char_life_cur'] = $user['char_life_max'];
-			update_user_table("char_life_cur=".$user['char_life_cur']);
+			$user['class']['player']->rest();
+			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 			break;
 		case 2:
 			$user['title'] = 'Камнепад!!!';

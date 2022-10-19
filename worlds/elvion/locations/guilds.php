@@ -5,10 +5,10 @@ if ($action == 'guilds') {
 	$user['title'] = 'Квартал Гильдий';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы спускаетесь в нижнюю часть города. Здесь тихо и не так многолюдно как в центральной части города.';
-	} else $location->shades();
+	} else $user['class']['location']->shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		go_to_the_town('Идти на площадь города');
+		$user['class']['location']->go_to_the_town('Идти на площадь города');
 		addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
 		addlink('Гильдия Воинов', 'index.php?action=guild_warrior', 2);
 		addlink('Гильдия Охотников', 'index.php?action=guild_hunter', 3);
@@ -16,7 +16,7 @@ if ($action == 'guilds') {
 		addlink('Гильдия Кожевников', 'index.php?action=guild_lw', 5);
 		addlink('Гильдия Выживания', 'index.php?action=guild_surv', 6);
 		addlink('Гильдия Алхимиков', 'index.php?action=guild_alch', 7);
-	} else go_to_the_graveyard();
+	} else $user['class']['location']->go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 

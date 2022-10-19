@@ -5,14 +5,14 @@ if ($action == 'shops') {
 	$user['title'] = 'Квартал Торговцев';
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = '';
-	} else $location->shades();
+	} else $user['class']['location']->shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
-		go_to_the_town('Идти на площадь города');
+		$user['class']['location']->go_to_the_town('Идти на площадь города');
 		addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
 		addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
 		addlink('Лавка Алхимика', 'index.php?action=shop_alchemy', 3);
-	} else go_to_the_graveyard();
+	} else $user['class']['location']->go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 

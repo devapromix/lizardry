@@ -5,7 +5,7 @@ if ($action == 'bank') {
 	$user['title'] = 'Банк';
 	$user['frame'] = 'bank';
 	$user['links'] = array();
-	go_to_the_town();
+	$user['class']['location']->go_to_the_town();
 	
 	if ($do == 'deposit') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');

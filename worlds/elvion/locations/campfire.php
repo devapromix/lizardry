@@ -24,10 +24,7 @@ if ($action == 'campfire') {
 		$user['frame'] = 'get_loot';
 		addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 	}
-	$user['char_life_cur'] = $user['char_life_max'];
-	$user['char_mana_cur'] += rand(2, 3);
-	if ($user['char_mana_cur'] > $user['char_mana_max'])
-		$user['char_mana_cur'] = $user['char_mana_max'];
+	$user['class']['player']->rest();
 	$user['char_food']--;
 	update_user_table("char_food=".$user['char_food'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 	$user['log'] = 'Вы хорошо отдохнули и набрались сил.';

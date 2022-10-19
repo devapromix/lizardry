@@ -3,8 +3,6 @@ define('DS', DIRECTORY_SEPARATOR);
 define('PATH', dirname(__FILE__).DS.'..'.DS);
 define('IPATH', 'includes'.DS);
 
-require_once(IPATH.'class.location.php');
-
 $username = $_GET['username'];
 $userpass = $_GET['userpass'];
 $usersession = $_GET['usersession'];
@@ -33,8 +31,6 @@ const ST_HERB			= '753';
 
 const MANA_SCROLL_TP	= 8;
 const MANA_SCROLL_HEAL	= 10;
-
-$location = new Location();
 
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;

@@ -44,7 +44,7 @@ if ($action == 'graveyard') {
 	
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
-		go_to_the_gate('Покинуть Кладбище');
+		$user['class']['location']->go_to_the_gate('Покинуть Кладбище');
 		switch ($user['char_region']) {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
@@ -61,7 +61,7 @@ if ($action == 'graveyard') {
 		update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['description'] = 'Вы открываете глаза и понимаете, что вернулись в мир живых. На тело наваливаетеся сильная усталость, кружится голова. Все происходящее кажется сном. Нужно отдохнуть и набраться сил.';
 		$user['links'] = array();
-		go_to_the_gate('Покинуть Кладбище');
+		$user['class']['location']->go_to_the_gate('Покинуть Кладбище');
 		switch ($user['char_region']) {
 			case 2:
 				addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);

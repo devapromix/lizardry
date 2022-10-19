@@ -4,13 +4,13 @@ if ($action == 'gate') {
 	$user['title'] = 'Врата в '.$user['char_region_town_name'];
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = 'Вы стоите у главных ворот в город. Здесь всегда полно народу - кто-то спешит в город, кто-то его покидает. Угрюмые стражники подозрительно всматриваются в каждого проходящего. Глубоко вдохнув полной грудью вы решаете, что пора двигаться дальше.';
-	} else $location->shades();
+	} else $user['class']['location']->shades();
 	
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		
-		go_to_the_town('Войти в '.$user['char_region_town_name']);
-		go_to_the_graveyard('Идти на Кладбище', 1);
+		$user['class']['location']->go_to_the_town('Войти в '.$user['char_region_town_name']);
+		$user['class']['location']->go_to_the_graveyard('Идти на Кладбище', 1);
 		switch ($user['char_region']) {
 			case 1:
 				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
@@ -71,7 +71,7 @@ if ($action == 'gate') {
 				break;
 		}
 		
-	} else go_to_the_graveyard();
+	} else $user['class']['location']->go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }

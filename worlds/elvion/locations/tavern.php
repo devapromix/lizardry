@@ -46,7 +46,7 @@ if ($action == 'tavern') {
 		}
 	$user['frame'] = 'tavern';	
 	$user['links'] = array();
-	go_to_the_town();
+	$user['class']['location']->go_to_the_town();
 	addlink('Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern', 1);
 	
 	if ($do == 'rest_in_tavern') {
