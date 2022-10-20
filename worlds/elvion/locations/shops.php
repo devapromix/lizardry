@@ -96,7 +96,7 @@ if ($action == 'shop_magic') {
 
 	add_item_to_shop(1, 701);
 	add_item_to_shop(2, 702);
-	add_item_to_shop(3, 0);
+	add_item_to_shop(3, 703);
 	add_item_to_shop(4, 0);
 	add_item_to_shop(5, 0);
 	add_item_to_shop(6, 0);

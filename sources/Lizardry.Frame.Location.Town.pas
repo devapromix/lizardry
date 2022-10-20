@@ -114,6 +114,7 @@ type
     procedure ChEnemyLifePanels(const Cur, Max: string);
     procedure ChManaPanels(const Cur, Max: string);
     procedure ChExpPanels(const Cur, Max: string);
+    procedure ChEffectPanel(S: string);
   public
     { Public declarations }
     procedure ShowChat;
@@ -205,6 +206,11 @@ const
     'От других рас отличаются высокой ловкостью и изворотливостью.');
 begin
   Result := RaceName[N];
+end;
+
+procedure TFrameTown.ChEffectPanel(S: string);
+begin
+  pnEffect.Caption := 'Эффект: ' + EffectStr[StrToIntDef(S, 0)];
 end;
 
 function TFrameTown.GetRaceName(const N: Byte): string;
@@ -353,6 +359,8 @@ begin
           R := S.Split(['|']);
           Prompt(R[0], R[1], R[2]);
         end;
+        if JSON.TryGetValue('char_effect', S) then
+          ChEffectPanel(S);
       end;
     end;
   finally
@@ -775,7 +783,7 @@ begin
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
     //
     if JSON.TryGetValue('char_effect', S) then
-      pnEffect.Caption := 'Эффект: ' + EffectStr[StrToIntDef(S, 0)];
+      ChEffectPanel(S);
     //
     if JSON.TryGetValue('char_inventory', S) then
       FormMain.FrameTown.FrameChar.RefreshInventory(S);

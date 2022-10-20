@@ -133,7 +133,10 @@
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
-					$d = rand($user['char_damage_min'], $user['char_damage_max']);
+					if ($user['char_effect'] == Magic::PLAYER_EFFECT_BLESS)
+						$d = $user['char_damage_max'];
+					else
+						$d = rand($user['char_damage_min'], $user['char_damage_max']);
 					$d = $this->get_real_damage($d, $user['enemy_armor'], $user['char_level'], $user['enemy_level']);
 					$this->statistics['char_hits']++;
 					if ($d <= 0) {

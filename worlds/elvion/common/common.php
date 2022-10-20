@@ -27,9 +27,6 @@ const HP_HERB			= '751';
 const MP_HERB			= '752';
 const ST_HERB			= '753';
 
-const MANA_SCROLL_TP	= 8;
-const MANA_SCROLL_HEAL	= 10;
-
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -224,6 +221,7 @@ function equip_item($item_ident) {
 		case 13:
 		case 25:
 		case 26:
+		case 27:
 		case 28:
 		case 30:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
@@ -291,6 +289,7 @@ function pickup_equip_item() {
 		case 21:
 		case 25:
 		case 26:
+		case 27:
 		case 28:
 		case 30:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
@@ -334,6 +333,7 @@ function item_values($item_ident) {
 			break;
 		case 25:
 		case 26:
+		case 27:
 		case 28:
 		case 30:
 			return $item['item_name'].','.strval($item['item_level']).','.get_region_item_level($item['item_level']).','.$item['item_price'];
@@ -488,7 +488,7 @@ function gen_equip_loot() {
 }
 
 function gen_else_loot() {
-	gen_random_loot([8,9,10,11,25,26,28,30], 1);
+	gen_random_loot([8,9,10,11,25,26,27,28,30], 1);
 }
 
 function gen_alch_loot() {
@@ -496,7 +496,7 @@ function gen_alch_loot() {
 }
 
 function gen_mage_loot() {
-	gen_random_loot([9,25,26], 1);
+	gen_random_loot([9,25,26,27], 1);
 }
 
 function gen_herb_loot() {
@@ -681,7 +681,11 @@ function item_info($item_ident) {
 			break;
 		case 26:
 			$ef = 'Полностью исцеляет от ран.';
-			$eq = 'Свиток Исцеления.';
+			$eq = 'Магический свиток.';
+			break;
+		case 27:
+			$ef = 'Весь урон становится максимальным.';
+			$eq = 'Магический свиток.';
 			break;
 		case 28:
 			$ef = 'Необходим для создания эликсиров.';
@@ -745,10 +749,13 @@ function use_item($item_ident) {
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 			break;
 		case 25:
-			$result = $user['class']['magic']->use_scroll_tp();
+			$result = $user['class']['magic']->use_scroll_tp($item_ident);
 			break;
 		case 26:
-			$result = $user['class']['magic']->use_scroll_heal();
+			$result = $user['class']['magic']->use_scroll_heal($item_ident);
+			break;
+		case 27:
+			$result = $user['class']['magic']->use_scroll_bless($item_ident);
 			break;
 	}
 	return $result;
@@ -928,7 +935,7 @@ function pickup_loot_title() {
 		case 21:
 			$m = 'Взять трофей!';
 			break;
-		case 25: case 26:
+		case 25: case 26: case 27:
 			$m = 'Взять свиток!';
 			break;
 		case 28:

@@ -401,8 +401,6 @@ object FrameTown: TFrameTown
       ParentShowHint = False
       ShowHint = True
       TabOrder = 15
-      ExplicitLeft = 4
-      ExplicitTop = 342
     end
   end
   object LeftPanel: TPanel
@@ -602,6 +600,8 @@ object FrameTown: TFrameTown
           end
         end
         inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
         end
