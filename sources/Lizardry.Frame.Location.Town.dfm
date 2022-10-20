@@ -62,7 +62,7 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = #1047#1086#1083#1086#1090#1086' 0'
+      Caption = #1047#1086#1083#1086#1090#1086': 0'
       ParentBackground = False
       ParentShowHint = False
       ShowHint = True
@@ -100,7 +100,7 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = #1055#1088#1086#1074#1080#1079#1080#1103' 7/7'
+      Caption = #1055#1088#1086#1074#1080#1079#1080#1103': 7/7'
       ParentBackground = False
       TabOrder = 4
     end
@@ -388,6 +388,22 @@ object FrameTown: TFrameTown
         ExplicitHeight = 29
       end
     end
+    object pnEffect: TPanel
+      Tag = 5
+      Left = 1
+      Top = 316
+      Width = 278
+      Height = 25
+      Align = alTop
+      Alignment = taLeftJustify
+      Caption = #1069#1092#1092#1077#1082#1090': '#1053#1077#1090
+      ParentBackground = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 15
+      ExplicitLeft = 4
+      ExplicitTop = 342
+    end
   end
   object LeftPanel: TPanel
     Left = 0
@@ -568,33 +584,24 @@ object FrameTown: TFrameTown
         Height = 283
         ExplicitWidth = 317
         ExplicitHeight = 283
+        inherited TabSheet1: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
+        end
         inherited TabSheet2: TTabSheet
-          ExplicitWidth = 309
-          ExplicitHeight = 247
-          inherited SG: TStringGrid
-            Width = 309
-            Height = 158
-            ExplicitWidth = 309
-            ExplicitHeight = 158
-          end
-          inherited Panel1: TPanel
-            Width = 309
-            ExplicitWidth = 309
-          end
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
           inherited Panel2: TPanel
-            Top = 183
-            Width = 309
-            ExplicitTop = 183
-            ExplicitWidth = 309
             inherited ttInfo: TLabel
-              Width = 307
               ExplicitWidth = 307
             end
           end
         end
         inherited TabSheet3: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
         end

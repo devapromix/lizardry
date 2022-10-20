@@ -97,6 +97,7 @@ type
     FrameBeforeBattle1: TFrameBeforeBattle;
     FrameGetLoot1: TFrameGetLoot;
     FrameRandomPlace1: TFrameRandomPlace;
+    pnEffect: TPanel;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -148,6 +149,9 @@ uses
 
 var
   LastCode: string = '';
+
+const
+  EffectStr: array [0 .. 1] of string = ('Нет', 'Благословение');
 
 function StrLim(const S: string; const N: Integer = 25): string;
 begin
@@ -769,6 +773,9 @@ begin
     //
     if JSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+    //
+    if JSON.TryGetValue('char_effect', S) then
+      pnEffect.Caption := 'Эффект: ' + EffectStr[StrToIntDef(S, 0)];
     //
     if JSON.TryGetValue('char_inventory', S) then
       FormMain.FrameTown.FrameChar.RefreshInventory(S);
