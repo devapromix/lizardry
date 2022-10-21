@@ -60,10 +60,10 @@ uses
 
 procedure TFormMain.FormCreate(Sender: TObject);
 var
-  I: Integer;
+  LParam: Integer;
 begin
-  for I := 1 to ParamCount do
-    if ParamStr(I) = '-debug' then
+  for LParam := 1 to ParamCount do
+    if ParamStr(LParam) = '-debug' then
       IsDebugMode := True;
   FrameLogin.BringToFront;
 end;
@@ -75,27 +75,27 @@ end;
 
 procedure TFormMain.FormShow(Sender: TObject);
 var
-  Reg: TRegistry;
+  LRegistry: TRegistry;
 begin
-  Reg := TRegistry.Create;
+  LRegistry := TRegistry.Create;
   try
-    Reg.RootKey := HKEY_CURRENT_USER;
-    Reg.OpenKey('\SOFTWARE\Lizardry', True);
+    LRegistry.RootKey := HKEY_CURRENT_USER;
+    LRegistry.OpenKey('\SOFTWARE\Lizardry', True);
     FrameLogin.edUserName.SetFocus;
-    if Reg.ValueExists('UserName') then
+    if LRegistry.ValueExists('UserName') then
     begin
-      FrameLogin.edUserName.Text := Reg.ReadString('UserName');
-      if Reg.ValueExists('UserPass') then
-        FrameLogin.edUserPass.Text := Reg.ReadString('UserPass');
+      FrameLogin.edUserName.Text := LRegistry.ReadString('UserName');
+      if LRegistry.ValueExists('UserPass') then
+        FrameLogin.edUserPass.Text := LRegistry.ReadString('UserPass');
       FrameLogin.edUserPass.SetFocus;
     end;
-    if Reg.ValueExists('Server') then
-      FrameLogin.ComboBox1.ItemIndex := Reg.ReadInteger('Server')
+    if LRegistry.ValueExists('Server') then
+      FrameLogin.ComboBox1.ItemIndex := LRegistry.ReadInteger('Server')
     else
       FrameLogin.ComboBox1.ItemIndex := 0;
     FrameLogin.ComboBox1Change(Sender);
   finally
-    Reg.Free;
+    LRegistry.Free;
   end;
 end;
 

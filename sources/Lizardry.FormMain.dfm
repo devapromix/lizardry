@@ -191,6 +191,10 @@ object FormMain: TFormMain
               end
             end
           end
+          inherited TabSheet3: TTabSheet
+            ExplicitWidth = 596
+            ExplicitHeight = 451
+          end
         end
       end
       inherited FrameChat: TFrameChat
