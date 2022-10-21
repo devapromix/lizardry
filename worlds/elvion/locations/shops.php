@@ -78,7 +78,7 @@ if ($action == 'shop_alchemy') {
 	add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)]);
+			equip_item($user['item_slot_'.strval($itemslot)], $amount);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
@@ -102,7 +102,7 @@ if ($action == 'shop_magic') {
 	add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)]);
+			equip_item($user['item_slot_'.strval($itemslot)], $amount);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 

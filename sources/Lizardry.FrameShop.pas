@@ -33,6 +33,8 @@ type
     procedure SGClick(Sender: TObject);
   private
     { Private declarations }
+  public const
+    Msg = 'Купить %s за %s золотых?';
   public
     ShopType: TShopType;
     { Public declarations }
@@ -48,10 +50,10 @@ uses
   Math,
   Lizardry.FormMain,
   Lizardry.Server,
-  Lizardry.FormPrompt;
+  Lizardry.FormPrompt,
+  Lizardry.FormAmountPrompt;
 
 const
-  Msg = 'Купить %s за %s золотых?';
   T = 'В моей лавке вы можете купить лучшие товары в округе!|' +
     'Не спрашивайте меня, где я это достал, просто радуйтесь, что получаете так дешево.|'
     + 'Покупайте то, что вам нужно, сегодня. Завтра, возможно, нас уже не будет здесь.|'
@@ -118,12 +120,14 @@ begin
           'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
       // Alchemy
       stAlchemy:
-        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-          'index.php?action=shop_alchemy&do=buy&itemslot=' + IntToStr(I));
+        AmountPrompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+          'index.php?action=shop_alchemy&amount=' +
+          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
       // Magic
       stMagic:
-        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-          'index.php?action=shop_magic&do=buy&itemslot=' + IntToStr(I));
+        AmountPrompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+          'index.php?action=shop_magic&amount=' +
+          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
       // Armor
     else
       Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',

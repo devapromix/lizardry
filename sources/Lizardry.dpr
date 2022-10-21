@@ -27,7 +27,8 @@ uses
   Lizardry.FrameAfterBattle in 'Lizardry.FrameAfterBattle.pas' {FrameAfterBattle: TFrame},
   Lizardry.FrameBeforeBattle in 'Lizardry.FrameBeforeBattle.pas' {FrameBeforeBattle: TFrame},
   Lizardry.FrameGetLoot in 'Lizardry.FrameGetLoot.pas' {FrameGetLoot: TFrame},
-  Lizardry.FrameRandomPlace in 'Lizardry.FrameRandomPlace.pas' {FrameRandomPlace: TFrame};
+  Lizardry.FrameRandomPlace in 'Lizardry.FrameRandomPlace.pas' {FrameRandomPlace: TFrame},
+  Lizardry.FormAmountPrompt in 'Lizardry.FormAmountPrompt.pas' {FormAmountPrompt};
 
 {$R *.res}
 
@@ -38,5 +39,6 @@ begin
   Application.CreateForm(TFormInfo, FormInfo);
   Application.CreateForm(TFormPrompt, FormPrompt);
   Application.CreateForm(TFormMsg, FormMsg);
+  Application.CreateForm(TFormAmountPrompt, FormAmountPrompt);
   Application.Run;
 end.

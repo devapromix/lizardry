@@ -475,7 +475,7 @@ begin
     ParseJSON(AJSON, 'INFO');
     Exit;
   end;
-  if AJSON.Contains('{"prompt":') or AJSON.Contains('{"amount_prompt":') then
+  if AJSON.Contains('{"prompt":') then
   begin
     ParseJSON(AJSON, 'PROMPT');
     Exit;

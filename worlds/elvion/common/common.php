@@ -179,14 +179,14 @@ function gen_user_session() {
 	return $user['user_session'];
 }
 
-function equip_item($item_ident) {
+function equip_item($item_ident, $item_amount = 1) {
 	global $user, $tb_item, $connection;
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
 	$result = mysqli_query($connection, $query) 
 		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 	$item = $result->fetch_assoc();
 
-	if ($user['char_gold'] < $item['item_price']) die('{"info":"Нужно больше золота!"}');
+	if ($user['char_gold'] < ($item['item_price'] * $item_amount)) die('{"info":"Нужно больше золота!"}');
 	if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
 
 	switch($item['item_type']) {
@@ -214,9 +214,9 @@ function equip_item($item_ident) {
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
 		default:
-			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
-			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
-			add_item($item['item_ident']);
+			$user['char_gold'] -= $item['item_price'] * $item_amount;
+			save_to_log($item['item_name'].' - предмет(ы) '.$item_amount.'-x куплен(ы) и перемещен(ы) в инвентарь.');
+			add_item($item['item_ident'], $item_amount);
 			update_user_table("char_gold=".$user['char_gold']);
 			break;
 	}
