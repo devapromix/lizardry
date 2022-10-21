@@ -321,10 +321,10 @@ if ($action == 'guild_alch') {
 		addlink('Назад', 'index.php?action=guild_alch');
 		addlink('Рецепты Эликсиров', 'index.php?action=guild_alch&do=elix_recipes', 1);
 		addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
-		addlink('Сварить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
-		addlink('Сварить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
-		addlink('Сварить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
-		addlink('Сварить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
+		addlink('Варить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
+		addlink('Варить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
+		addlink('Варить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
+		addlink('Варить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
 	}
 
 	if ($do == 'elix_recipes') {

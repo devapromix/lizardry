@@ -152,7 +152,7 @@ var
   LastCode: string = '';
 
 const
-  EffectStr: array [0 .. 1] of string = ('Нет', 'Благословение');
+  EffectStr: array [0 .. 2] of string = ('Нет', 'Благословение', 'Регенерация');
 
 function StrLim(const S: string; const N: Integer = 25): string;
 begin
@@ -475,7 +475,7 @@ begin
     ParseJSON(AJSON, 'INFO');
     Exit;
   end;
-  if AJSON.Contains('{"prompt":') then
+  if AJSON.Contains('{"prompt":') or AJSON.Contains('{"amount_prompt":') then
   begin
     ParseJSON(AJSON, 'PROMPT');
     Exit;

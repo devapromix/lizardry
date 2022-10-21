@@ -213,17 +213,7 @@ function equip_item($item_ident) {
 			update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 			add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 			break;
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		case 13:
-		case 25:
-		case 26:
-		case 27:
-		case 28:
-		case 30:
+		default:
 			$user['char_gold'] = $user['char_gold'] - $item['item_price'];
 			save_to_log($item['item_name'].' - предмет куплен и перемещен в инвентарь.');
 			add_item($item['item_ident']);
@@ -280,18 +270,7 @@ function pickup_equip_item() {
 				add_item($item['item_ident']);
 			}
 			break;
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		case 13:
-		case 21:
-		case 25:
-		case 26:
-		case 27:
-		case 28:
-		case 30:
+		default:
 			$r = 'Вы забираете '.$item['item_name'].' себе.';
 			save_to_log($item['item_name'].' - предмет перемещен в инвентарь.');
 			add_item($item['item_ident']);
@@ -488,11 +467,11 @@ function gen_equip_loot() {
 }
 
 function gen_else_loot() {
-	gen_random_loot([8,9,10,11,25,26,27,28,30], 1);
+	gen_random_loot([8,9,10,11,12,25,26,27,28,30], 1);
 }
 
 function gen_alch_loot() {
-	gen_random_loot([8,9,10,11,28], 1);
+	gen_random_loot([8,9,10,11,12,28], 1);
 }
 
 function gen_mage_loot() {
@@ -641,7 +620,7 @@ function item_info($item_ident) {
 	switch($item['item_type']) {
 		case 0:
 			$ef = 'Броня: '.$item['item_armor'];
-			$eq = 'Кожаный Доспех.';
+			$eq = 'Доспех.';
 			break;
 		case 1:
 			$ef = 'Урон: '.$item['item_damage_min'].'-'.$item['item_damage_max'];
@@ -664,8 +643,8 @@ function item_info($item_ident) {
 			$eq = 'Магический Эликсир.';
 			break;
 		case 12:
-			$ef = 'Излечение от отравления и защита от ядов в течении '.strval($item['item_level']*3).' битв.';
-			$eq = 'Противоядие.';
+			$ef = 'Регенерация.';
+			$eq = 'Целительный Эликсир.';
 			break;
 		case 13:
 			$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
@@ -722,7 +701,7 @@ function use_item($item_ident) {
 		case 8:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] = $user['char_life_max'];
+			$user['class']['player']->heal();
 			update_user_table("char_life_cur=".$user['char_life_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 			break;
@@ -743,10 +722,16 @@ function use_item($item_ident) {
 		case 11:
 			item_modify($item_ident, -1);
 			$item_level = $item['item_level'];
-			$user['char_life_cur'] = $user['char_life_max'];
+			$user['class']['player']->heal();
 			$user['char_mana_cur'] = $user['char_mana_max'];
 			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 			$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+			break;
+		case 12:
+			item_modify($item_ident, -1);
+			$user['char_effect'] = Magic::PLAYER_EFFECT_REGEN;
+			update_user_table("char_effect=".$user['char_effect']);			
+			$result = ',"char_effect":"'.$user['char_effect'].'"';
 			break;
 		case 25:
 			$result = $user['class']['magic']->use_scroll_tp($item_ident);

@@ -66,7 +66,7 @@
 					$user['stat_deads']++;
 					$user['char_exp'] -= round($user['char_exp'] / 5);
 					$user['char_gold'] -= round($user['char_gold'] / 7);
-					$r .= '--------------------------------------------------------#';
+					$r .= $this->str_line();
 					$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
 					add_event(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
 					break;
@@ -75,7 +75,7 @@
 				if ($user['enemy_life_cur'] <= 0) {
 					$user['enemy_life_cur'] = 0;
 					$user['stat_kills']++;
-					$r .= '--------------------------------------------------------#';
+					$r .= $this->str_line();
 					gen_loot();
 					if ($user['enemy_boss'] > 0) {
 						kill_boss($user['char_region']);
@@ -108,7 +108,7 @@
 				
 			}
 
-			$r .= '--------------------------------------------------------#';
+			$r .= $this->str_line();
 			$r .= "Всего раундов: ".$this->rounds."#";
 			$r .= "Сумма урона: ".$this->statistics['char_damages']." (".$user['char_name'].") / ".$this->statistics['enemy_damages']." (".$user['enemy_name'].")#";
 			$r .= "Попадания: ".$this->statistics['char_hits']." (".$user['char_name'].") / ".$this->statistics['enemy_hits']." (".$user['enemy_name'].")#";
@@ -116,7 +116,7 @@
 			$r .= "Уклонения: ".$this->statistics['char_dodges']." Парирования: ".$this->statistics['char_parries']."#";
 	
 			if ($this->ch_level_exp()) {
-				$r .= '--------------------------------------------------------#';
+				$r .= $this->str_line();
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
 			
@@ -132,6 +132,8 @@
 			$r = '';
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
+				if ($user['char_effect'] == Magic::PLAYER_EFFECT_REGEN)
+					$r .= $this->regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
 					if ($user['char_effect'] == Magic::PLAYER_EFFECT_BLESS)
 						$d = $user['char_damage_max'];
@@ -260,6 +262,10 @@
 			
 		}
 
+		private function str_line() {
+			return '--------------------------------------------------------#';
+		}
+
 		private function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
 			return $atk_damage - round($atk_damage * $def_armor / 100);
 		}
@@ -268,6 +274,16 @@
 			$r = round($damage / rand(2, 3));
 			if ($r < 1)
 				$r = 1;
+			return $r;
+		}
+
+		private function regen() {
+			global $user;
+			$r = '';
+			if ($user['char_life_cur'] < $user['char_life_max']) {
+				$user['char_life_cur']++;
+				$r .= 'Вы восстановили 1 HP.#';
+			}
 			return $r;
 		}
 
