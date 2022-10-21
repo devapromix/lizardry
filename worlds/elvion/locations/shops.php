@@ -74,7 +74,7 @@ if ($action == 'shop_alchemy') {
 	add_item_to_shop(2, 602);
 	add_item_to_shop(3, 603);
 	add_item_to_shop(4, 604);
-	add_item_to_shop(5, 0);
+	add_item_to_shop(5, 605);
 	add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
