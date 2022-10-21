@@ -325,38 +325,46 @@ if ($action == 'guild_alch') {
 		addlink('Варить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
 		addlink('Варить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
 		addlink('Варить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
+		addlink('Варить "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_elix', 7);
 	}
 
 	if ($do == 'elix_recipes') {
-		$user['description'] = 'Старик приближается к Вам и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
+		$user['description'] = 'Алхимик мелкими шажками приближается к Вам, достает из заплечной сумки старую потрепаную книгу и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 		addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
 		addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
 		addlink('Рецепт "Эликсир Огра"', 'index.php?action=guild_alch&do=st_recipe', 3);
 		addlink('Рецепт "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_recipe', 4);
+		addlink('Рецепт "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_recipe', 5);
 	}
 
 	if ($do == 'hp_recipe') {
-		$user['description'] = 'Эликсир Исцеления:#============#Цветок Трубкоцвета - 3 шт.#Черный Гриб - 1 шт.';
+		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Исцеления:#============#Ингредиенты:#------------#Цветок Трубкоцвета - 3 шт.#Черный Гриб - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'mp_recipe') {
-		$user['description'] = 'Эликсир Маны:#============#Цветок Снежноцвета - 3 шт.#Черный Гриб - 1 шт.';
+		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Маны:#============#Ингредиенты:#------------#Цветок Снежноцвета - 3 шт.#Черный Гриб - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'st_recipe') {
-		$user['description'] = 'Эликсир Огра:#============#Цветок Болеголова - 3 шт.#Эликсир Исцеления - 1 шт.';
+		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Огра:#============#Ингредиенты:#------------#Цветок Болеголова - 3 шт.#Эликсир Исцеления - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'rf_recipe') {
-		$user['description'] = 'Эликсир Омоложения:#============#Эликсир Исцеления - 1 шт.#Эликсир Маны - 1 шт.';
+		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Омоложения:#============#Ингредиенты:#------------#Эликсир Исцеления - 1 шт.#Эликсир Маны - 1 шт.';
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+	}
+
+	if ($do == 'troll_recipe') {
+		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Тролля:#============#Трофеи:#------------#Кровь Тролля - 1 шт.##Ингредиенты:#------------#Эликсир Огра - 1 шт.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
@@ -396,6 +404,14 @@ if ($action == 'guild_alch') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Когда закипает все содержиое Эликсира Исцеления, вы небольшими порциями добавляете Эликсир Маны, тщательно перемешивая и варите еще примерно три часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Омоложения готов!';
 		$user['description'] = make_elix(RF_ELIX, $t, 'Эликсир Исцеления', HP_ELIX, 1, 'Эликсир Маны', MP_ELIX, 1);
+		$user['links'] = array();
+		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+	}
+
+	if ($do == 'troll_elix') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$t = 'Вы выливаете содержимое Эликсира Огра в медный чан и доводите до кипения на медленном огне. Затем небольшими порциями вливаете Кровь Тролля и варите еще примерно два часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Тролля готов!';
+		$user['description'] = make_elix(TROLL_ELIX, $t, 'Эликсир Огра', ST_ELIX, 1, 'Кровь Тролля', TROLL_BLOOD, 1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

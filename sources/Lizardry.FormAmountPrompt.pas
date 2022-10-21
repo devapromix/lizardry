@@ -103,7 +103,7 @@ begin
     FormAmountPrompt.lbMessage.Caption :=
       Format(TFrameShop.Msg, [SG.Cells[1, SG.Row],
       IntToStr(StrToIntDef(SG.Cells[4, SG.Row],
-      1) * StrToIntDef(AmountEdit, 1))]);
+      1) * StrToIntDef(AmountEdit.Text, 1))]);
 end;
 
 end.

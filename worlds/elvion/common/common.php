@@ -21,11 +21,13 @@ const HP_ELIX 			= '601';
 const MP_ELIX 			= '602';
 const ST_ELIX 			= '603';
 const RF_ELIX 			= '604';
+const TROLL_ELIX		= '605';
 
 const MASH_HERB			= '750';
 const HP_HERB			= '751';
 const MP_HERB			= '752';
 const ST_HERB			= '753';
+const TROLL_BLOOD		= '811';
 
 function gen_enemy($enemy_ident) {
 	global $user, $tb_enemy, $connection;
