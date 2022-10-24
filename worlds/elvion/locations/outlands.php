@@ -16,7 +16,8 @@ if ($action == 'merc_proval') $user['class']['location']->outland($action, [802]
 if ($action == 'stone_giant_forest') $user['class']['location']->outland($action, [26,27,28,29], [], ['Лунная Поляна', 'index.php?action=moon_meadow']);
 if ($action == 'moon_meadow') $user['class']['location']->outland($action, [30,31,32], ['Лес Каменных Гигантов', 'index.php?action=stone_giant_forest']);
 if ($action == 'monast') $user['class']['location']->outland($action, [33,34,35], [], ['Подвал Монастыря', 'index.php?action=cellar']);
-if ($action == 'cellar') $user['class']['location']->outland($action, [36,37,38,39], ['Монастырь', 'index.php?action=monast']);
+if ($action == 'cellar') $user['class']['location']->outland($action, [36,37,38,39], ['Монастырь', 'index.php?action=monast'], ['Брешь в стене', 'index.php?action=bresh_v_stene']);
+if ($action == 'bresh_v_stene') $user['class']['location']->outland($action, [803], ['Подвал Монастыря', 'index.php?action=cellar'], [], true);
 // #4
 if ($action == 'abandoned_mines') $user['class']['location']->outland($action, [40,41,42,43]);
 if ($action == 'icy_lake') $user['class']['location']->outland($action, [44,45,46]);
