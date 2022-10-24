@@ -29,7 +29,7 @@ const MP_HERB			= '752';
 const ST_HERB			= '753';
 const TROLL_BLOOD		= '811';
 
-function gen_enemy($enemy_ident) {
+function gen_enemy($enemy_ident, $enemy_elite) {
 	global $user, $tb_enemy, $connection;
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
 	$result = mysqli_query($connection, $query) 
@@ -50,12 +50,12 @@ function gen_enemy($enemy_ident) {
 
 	$user['enemy_name'] = $enemy['enemy_name'];
 	
-	if (rand(1, 20) == 1)
-		$user['enemy_champion'] = rand(1, 10);
+	if ($enemy_elite > 0)
+		$user['enemy_champion'] = $enemy_elite;
 	switch($user['enemy_champion']) {
 		case 1: // Уникальный
 			$user['enemy_name'] = $enemy['enemy_uniq_name'];
-			$user['enemy_name'] .= ' '.$un_enemy['enemy_rand_name'].' (Уникальный)';
+			$user['enemy_name'] .= ' '.$un_enemy['enemy_rand_name'].' (Элита)';
 			break;
 		case 2: // Здоровье I
 			$user['enemy_name'] .= ' (Крупень)';
@@ -150,7 +150,7 @@ function gen_enemy($enemy_ident) {
 
 }
 
-function add_enemy($enemy_slot, $enemy_ident) {
+function add_enemy($enemy_slot, $enemy_ident, $enemy_elite = 0) {
 	global $user, $tb_enemy, $connection;
 
 	$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
@@ -161,7 +161,10 @@ function add_enemy($enemy_slot, $enemy_ident) {
 	$user['enemy_slot_'.strval($enemy_slot)] = $enemy_ident;
 	$user['enemy_slot_'.strval($enemy_slot).'_image'] = $enemy['enemy_image'];
 	$user['enemy_slot_'.strval($enemy_slot).'_level'] = $enemy['enemy_level'];
-	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_".strval($enemy_slot)."=".$user['enemy_slot_'.strval($enemy_slot)].",enemy_slot_".strval($enemy_slot)."_image='".$user['enemy_slot_'.strval($enemy_slot).'_image']."',enemy_slot_".strval($enemy_slot)."_level=".$user['enemy_slot_'.strval($enemy_slot).'_level']);
+	if (($enemy_ident > 800) && ($enemy_ident < 999))
+		$enemy_elite = 1;
+	$user['enemy_slot_'.strval($enemy_slot).'_elite'] = $enemy_elite;
+	update_user_table("current_outlands='".$user['current_outlands']."',enemy_slot_".strval($enemy_slot)."=".$user['enemy_slot_'.strval($enemy_slot)].",enemy_slot_".strval($enemy_slot)."_image='".$user['enemy_slot_'.strval($enemy_slot).'_image']."',enemy_slot_".strval($enemy_slot)."_level=".$user['enemy_slot_'.strval($enemy_slot).'_level'].",enemy_slot_".strval($enemy_slot)."_elite=".$user['enemy_slot_'.strval($enemy_slot).'_elite']);
 }
 
 function get_user($username, $userpass) {
@@ -278,6 +281,14 @@ function pickup_equip_item() {
 			add_item($item['item_ident']);
 			break;
 	}
+	return $r;
+}
+
+function pickup_all_items() {
+	global $user, $tb_item, $connection;
+	
+	$r = '';
+	
 	return $r;
 }
 
@@ -776,7 +787,13 @@ function add_enemies($enemy_idents, $is_boss = false) {
 			if (is_killed_boss($user['char_region']))
 				$r = 999;
 		}
-		add_enemy($i, $r);
+		$e = 0;
+		if (rand(1, 20) == 1)
+			$e = rand(1, 10);
+		if ($r == 999)
+			$e = 0;
+
+		add_enemy($i, $r, $e);
 	}
 }
 

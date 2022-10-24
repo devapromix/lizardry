@@ -455,6 +455,7 @@ var
   S, V, Cur, Max, Code, LDam, LDef: string;
   I, F, J, K: Integer;
   A: TArray<string>;
+  LFlag: Boolean;
 begin
   MsgBox(AJSON);
   if (Trim(AJSON) = '') then
@@ -595,6 +596,13 @@ begin
               FormMain.FrameTown.FrameOutlands1.Label2.Caption := S;
               FormMain.FrameTown.FrameOutlands1.Image2.Visible := (S <> '0');
               FormMain.FrameTown.FrameOutlands1.Label2.Visible := (S <> '0');
+              LFlag := False;
+              if JSON.TryGetValue('enemy_slot_1_elite', S) and (S <> '') then
+              begin
+                LFlag := (S <> '0');
+              end;
+              FormMain.FrameTown.FrameOutlands1.Image6.Visible := (S <> '0')
+                and LFlag;
             end;
           end;
         if JSON.TryGetValue('enemy_slot_2_image', S) then
@@ -608,6 +616,13 @@ begin
               FormMain.FrameTown.FrameOutlands1.Label3.Caption := S;
               FormMain.FrameTown.FrameOutlands1.Image3.Visible := (S <> '0');
               FormMain.FrameTown.FrameOutlands1.Label3.Visible := (S <> '0');
+              LFlag := False;
+              if JSON.TryGetValue('enemy_slot_2_elite', S) and (S <> '') then
+              begin
+                LFlag := (S <> '0');
+              end;
+              FormMain.FrameTown.FrameOutlands1.Image7.Visible := (S <> '0')
+                and LFlag;
             end;
           end;
         if JSON.TryGetValue('enemy_slot_3_image', S) then
@@ -621,6 +636,13 @@ begin
               FormMain.FrameTown.FrameOutlands1.Label4.Caption := S;
               FormMain.FrameTown.FrameOutlands1.Image4.Visible := (S <> '0');
               FormMain.FrameTown.FrameOutlands1.Label4.Visible := (S <> '0');
+              LFlag := False;
+              if JSON.TryGetValue('enemy_slot_3_elite', S) and (S <> '') then
+              begin
+                LFlag := (S <> '0');
+              end;
+              FormMain.FrameTown.FrameOutlands1.Image8.Visible := (S <> '0')
+                and LFlag;
             end;
           end;
         FormMain.FrameTown.FrameOutlands1.BringToFront;

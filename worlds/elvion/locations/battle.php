@@ -6,11 +6,11 @@ if ($action == 'battle') {
 		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 	
 	if ($enemyslot == '1')
-		gen_enemy($user['enemy_slot_1']);
+		gen_enemy($user['enemy_slot_1'], $user['enemy_slot_1_elite']);
 	if ($enemyslot == '2')
-		gen_enemy($user['enemy_slot_2']);
+		gen_enemy($user['enemy_slot_2'], $user['enemy_slot_2_elite']);
 	if ($enemyslot == '3')
-		gen_enemy($user['enemy_slot_3']);
+		gen_enemy($user['enemy_slot_3'], $user['enemy_slot_3_elite']);
 
 	if ($user['enemy_level'] < 1)
 		die('{"error":"Вам нужен живой враг!"}');
@@ -51,6 +51,7 @@ if ($action == 'battle') {
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+
 }
 
 if ($action == 'pickup_loot') {
@@ -60,9 +61,16 @@ if ($action == 'pickup_loot') {
 	$user['frame'] = 'battle';
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
+
 }
 
 if ($action == 'pickup_all_loot') {
+
+	$user['title'] = 'Находка!!!';
+	$user['description'] = pickup_all_items();
+	$user['frame'] = 'battle';
+	addlink('Назад', 'index.php?action='.$user['current_outlands']);
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
 
@@ -84,6 +92,7 @@ if ($action == 'item_info') {
 		}
 	}
 	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).'}';
+
 }
 
 if ($action == 'use_item') {
@@ -96,12 +105,14 @@ if ($action == 'use_item') {
 		}
 	}
 	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).$h.'}';
+
 }
 
 if ($action == 'random_place') {
 
 	$user['frame'] = $user['class']['location']->random_place();
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
-	}
+	
+}
 
 ?>
