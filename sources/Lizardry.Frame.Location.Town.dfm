@@ -824,6 +824,19 @@ object FrameTown: TFrameTown
         ExplicitWidth = 315
         ExplicitHeight = 198
       end
+      inline FrameGetAllLoot1: TFrameGetAllLoot
+        Left = 0
+        Top = 0
+        Width = 756
+        Height = 232
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 9
+      end
     end
     object Panel19: TPanel
       Left = 0

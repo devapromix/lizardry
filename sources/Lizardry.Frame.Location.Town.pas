@@ -28,7 +28,7 @@ uses
   Lizardry.FrameAfterBattle,
   Lizardry.FrameBeforeBattle,
   Lizardry.FrameGetLoot,
-  Lizardry.FrameRandomPlace;
+  Lizardry.FrameRandomPlace, Lizardry.FrameGetAllLoot;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -98,6 +98,7 @@ type
     FrameGetLoot1: TFrameGetLoot;
     FrameRandomPlace1: TFrameRandomPlace;
     pnEffect: TPanel;
+    FrameGetAllLoot1: TFrameGetAllLoot;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
