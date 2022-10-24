@@ -361,7 +361,9 @@ begin
           Prompt(R[0], R[1], R[2]);
         end;
         if JSON.TryGetValue('char_effect', S) then
-          ChEffectPanel(S);
+          ChEffectPanel(S)
+        else
+          ChEffectPanel('0');
       end;
     end;
   finally

@@ -34,7 +34,7 @@ type
   private
     { Private declarations }
   public const
-    Msg = 'Купить %s за %s золотых?';
+    BuyQuestionMsg = 'Купить %s за %s золотых?';
   public
     ShopType: TShopType;
     { Public declarations }
@@ -116,21 +116,21 @@ begin
     case ShopType of
       // Weapon
       stWeapon:
-        Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+        Prompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
           'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
       // Alchemy
       stAlchemy:
-        AmountPrompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
           'index.php?action=shop_alchemy&amount=' +
           FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
       // Magic
       stMagic:
-        AmountPrompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
           'index.php?action=shop_magic&amount=' +
           FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
       // Armor
     else
-      Prompt(Format(Msg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
+      Prompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
         'index.php?action=shop_armor&do=buy&itemslot=' + IntToStr(I));
     end;
 end;

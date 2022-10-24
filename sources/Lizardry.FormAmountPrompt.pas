@@ -101,7 +101,7 @@ procedure TFormAmountPrompt.UpdatePrice;
 begin
   with FormMain.FrameTown.FrameShop1 do
     FormAmountPrompt.lbMessage.Caption :=
-      Format(TFrameShop.Msg, [SG.Cells[1, SG.Row],
+      Format(TFrameShop.BuyQuestionMsg, [SG.Cells[1, SG.Row],
       IntToStr(StrToIntDef(SG.Cells[4, SG.Row],
       1) * StrToIntDef(AmountEdit.Text, 1))]);
 end;
