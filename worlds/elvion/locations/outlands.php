@@ -7,10 +7,11 @@ if ($action == 'deep_caves') $user['class']['location']->outland($action, [7,8,9
 if ($action == 'stoneworm_lair') $user['class']['location']->outland($action, [10,11,12], ['Глубокие Пещеры', 'index.php?action=deep_caves'], ['Черная Пучина', 'index.php?action=black_abysm']);
 if ($action == 'black_abysm') $user['class']['location']->outland($action, [801], ['Логово Каменных Червей', 'index.php?action=stoneworm_lair'], [], true);
 // #2
-if ($action == 'crypt') $user['class']['location']->outland($action, [13,14,15,16], ['Вернуться на Кладбище', 'index.php?action=graveyard']);
+if ($action == 'crypt') $user['class']['location']->outland($action, [13,14,15,16], ['Вернуться на Кладбище', 'index.php?action=graveyard'], ['Мерцающий Провал', 'index.php?action=merc_proval']);
 if ($action == 'treant_forest') $user['class']['location']->outland($action, [17,18,19]);
 if ($action == 'old_harbor') $user['class']['location']->outland($action, [20,21,22]);
 if ($action == 'stonefield') $user['class']['location']->outland($action, [23,24,25]);
+if ($action == 'merc_proval') $user['class']['location']->outland($action, [802], ['Родовой Склеп', 'index.php?action=crypt'], [], true);
 // #3
 if ($action == 'stone_giant_forest') $user['class']['location']->outland($action, [26,27,28,29], [], ['Лунная Поляна', 'index.php?action=moon_meadow']);
 if ($action == 'moon_meadow') $user['class']['location']->outland($action, [30,31,32], ['Лес Каменных Гигантов', 'index.php?action=stone_giant_forest']);
