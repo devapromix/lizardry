@@ -61,7 +61,7 @@ type
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
     procedure LoadFromDBMessages;
-    procedure LoadFromDBEnemies(F: Boolean = False);
+    procedure LoadFromDBEnemies(IsRewriteImage: Boolean = False);
   end;
 
 var
@@ -84,7 +84,7 @@ uses
 
 function GetSession(const S: string): string;
 begin
-  Result := S.TrimEnd(['"', '}']);
+  Result := S.TrimRight(['"', '}']);
   Result := Result.Substring(Result.LastIndexOf('"') + 1);
 end;
 
@@ -318,44 +318,48 @@ begin
   end;
 end;
 
-procedure TFrameLogin.LoadFromDBEnemies(F: Boolean = False);
+procedure TFrameLogin.LoadFromDBEnemies(IsRewriteImage: Boolean = False);
 var
-  JSONArray: TJSONArray;
+  LJSONArray: TJSONArray;
+  LFilePath, LFileName: string;
+  LFileStream: TFileStream;
   I: Integer;
-  ImageName: string;
-  FS: TFileStream;
 begin
-  FormInfo.MobImagesPath.Caption := TPath.GetHomePath + '\Lizardry\Images\';
-  ForceDirectories(FormInfo.MobImagesPath.Caption);
+  LFilePath := TPath.GetHomePath + '\Lizardry\Images\';
+  FormInfo.MobImagesPath.Caption := LFilePath;
+  ForceDirectories(LFilePath);
   FormInfo.ResMemo.Text := Trim(Server.Get('index.php?action=enemies'));
   Panel5.Caption := 'Проверка и загрузка изображений...';
   FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;
   try
-    JSONArray := TJSONObject.ParseJSONValue(FormInfo.ResMemo.Text)
+    LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ResMemo.Text)
       as TJSONArray;
-    for I := JSONArray.Count - 1 downto 0 do
+    for I := LJSONArray.Count - 1 downto 0 do
     begin
-      ImageName := LowerCase(TJSONPair(TJSONObject(JSONArray.Get(I))
-        .Get('enemy_image')).JsonValue.Value);
-      if F or not FileExists(FormInfo.MobImagesPath.Caption + ImageName + '.jpg')
-      then
+      LFileName :=
+        Trim(LowerCase(TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('enemy_image')).JsonValue.Value));
+      if (LFileName = '') or (LFileName = 'enemy_') then
+        Continue;
+      if IsRewriteImage or not FileExists(LFilePath + LFileName + '.jpg') then
       begin
-        FS := TFileStream.Create(FormInfo.MobImagesPath.Caption + '\' +
-          ImageName + '.jpg', fmCreate);
+        LFileStream := TFileStream.Create(LFilePath + LFileName + '.jpg',
+          fmCreate);
         try
-          Panel5.Caption := 'Загрузка изображения: ' + ImageName +
+          Panel5.Caption := 'Загрузка изображения: ' + LFileName +
             '.jpg' + '...';
           FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
           Application.ProcessMessages;
-          Server.IdHTTP.Get('http://' + Server.URL + '/images/' + ImageName +
-            '.jpg', FS);
+          Server.IdHTTP.Get('http://' + Server.URL + '/images/' + LFileName +
+            '.jpg', LFileStream);
         finally
-          FS.Free;
+          LFileStream.Free;
           Panel5.Caption := '';
           FormMain.FrameUpdate.ttUpdate.Caption := '';
         end;
       end;
+      Sleep(10);
     end;
   except
   end;
@@ -372,24 +376,24 @@ end;
 
 procedure TFrameLogin.LoadFromDBMessages;
 var
-  CharName, CharMessage: string;
-  JSONArray: TJSONArray;
+  LCharName, LCharMessage: string;
+  LJSONArray: TJSONArray;
   I: Integer;
 begin
   try
-    JSONArray := TJSONObject.ParseJSONValue
+    LJSONArray := TJSONObject.ParseJSONValue
       (Trim(Server.Get('index.php?action=messages'))) as TJSONArray;
     FormMain.FrameTown.FrameChat.RichEdit1.Clear;
-    for I := JSONArray.Count - 1 downto 0 do
+    for I := LJSONArray.Count - 1 downto 0 do
     begin
-      CharName := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('message_author'))
-        .JsonValue.Value;
-      CharMessage :=
-        Trim(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('message_text'))
+      LCharName := TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('message_author')).JsonValue.Value;
+      LCharMessage :=
+        Trim(TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('message_text'))
         .JsonValue.Value);
-      if (CharMessage <> EmptyStr) then
+      if (LCharMessage <> EmptyStr) then
         FormMain.FrameTown.FrameChat.RichEdit1.Lines.Append
-          (Format('%s: %s', [CharName, CharMessage]));
+          (Format('%s: %s', [LCharName, LCharMessage]));
     end;
   except
   end;
@@ -397,7 +401,7 @@ end;
 
 procedure TFrameLogin.LoadLastEvents;
 var
-  S: string;
+  LEventStr: string;
 begin
   if not TServer.IsInternetConnected then
   begin
@@ -405,9 +409,9 @@ begin
     Exit;
   end;
   Server.Name := LowerCase(Trim(ComboBox1.Text));
-  S := Server.Get('index.php?action=events');
-  if (S[1] = '[') then
-    StaticText1.Caption := GetEventsText(S);
+  LEventStr := Server.Get('index.php?action=events');
+  if (LEventStr[1] = '[') then
+    StaticText1.Caption := GetEventsText(LEventStr);
 end;
 
 end.
