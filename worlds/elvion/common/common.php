@@ -829,24 +829,6 @@ function get_char_life($level) {
 	return ($level * 5) + 25;
 }
 
-function inv_item_price($type, $price, $count) {
-	global $user;
-	$r = 0;
-	switch($type) {
-		case 0:
-		case 1:
-			$r = $count * round($price * 0.35);
-			break;
-		case 21:
-			$r = $count * round($price * $user['char_region'] * 0.35);
-			break;
-		case 30:
-			$r = $count * round($price * 0.85);
-			break;
-	}
-	return $r;
-}
-
 function inv_item_list($type) {
 	global $tb_item, $connection;
 
@@ -862,7 +844,7 @@ function inv_item_list($type) {
 		$id = $item['item_ident'];
 		if (has_item($id)) {
 			$count = item_count($id);
-			$price = inv_item_price($type, $item['item_price'], $count);
+			$price = $user['class']['item']->get_price($type, $item['item_price'], $count);
 			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
 			$gold += $price;
 		}
@@ -903,7 +885,7 @@ function inv_item_trade($type) {
 		if (has_item($id)) {
 			$count = item_count($id);
 			if ($count > 0) {
-				$price = inv_item_price($type, $item['item_price'], $count);
+				$price = $price = $user['class']['item']->get_price($type, $item['item_price'], $count);
 				$user['char_gold'] += $price;
 				$gold += $price;
 				item_modify($id, -$count);

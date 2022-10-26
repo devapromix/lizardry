@@ -32,12 +32,14 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		require_once(IPATH.'class.battle.php');
 		require_once(IPATH.'class.player.php');
 		require_once(IPATH.'class.magic.php');
+		require_once(IPATH.'class.item.php');
 
 		$user['class'] = array();
 		$user['class']['location'] = new Location();
 		$user['class']['battle'] = new Battle();
 		$user['class']['player'] = new Player();
 		$user['class']['magic'] = new Magic();
+		$user['class']['item'] = new Item();
 	
 		require_once('locations/battle.php');
 		require_once('locations/campfire.php');
