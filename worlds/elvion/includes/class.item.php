@@ -23,6 +23,18 @@
 			return $r;
 		}
 		
+		public function pickup_all() {
+			global $user, $tb_item, $connection;
+	
+			$r = '';
+	
+			return $r;
+		}
+		
+		public function get_slot_ident($item_slot) {
+			global $user;
+			return $user['item_slot_'.strval($item_slot)]; 
+		}
 		
 	}
 

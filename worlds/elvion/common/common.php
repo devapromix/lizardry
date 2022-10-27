@@ -284,14 +284,6 @@ function pickup_equip_item() {
 	return $r;
 }
 
-function pickup_all_items() {
-	global $user, $tb_item, $connection;
-	
-	$r = '';
-	
-	return $r;
-}
-
 function item_values($item_ident) {
 	global $user, $tb_item, $connection;
 	$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
@@ -338,11 +330,6 @@ function add_item_to_shop($item_slot, $item_ident) {
 	$user['item_slot_'.strval($item_slot)] = $item_ident;
 	$user['item_slot_'.strval($item_slot).'_values'] = item_values($item_ident);
 	update_user_table('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
-}
-
-function get_slot_item_ident($item_slot) {
-	global $user;
-	return $user['item_slot_'.strval($item_slot)]; 
 }
 
 function check_user($user_name) {

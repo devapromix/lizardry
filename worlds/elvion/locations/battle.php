@@ -67,7 +67,7 @@ if ($action == 'pickup_loot') {
 if ($action == 'pickup_all_loot') {
 
 	$user['title'] = 'Находка!!!';
-	$user['description'] = pickup_all_items();
+	$user['description'] = $user['class']['item']->pickup_all();
 	$user['frame'] = 'battle';
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
@@ -77,7 +77,7 @@ if ($action == 'pickup_all_loot') {
 if ($action == 'shop_item_info') {
 
 	if ($itemslot > 0) {
-		$item_ident = get_slot_item_ident($itemslot);
+		$item_ident = $user['class']['item']->get_slot_ident($itemslot);
 		item_info($item_ident);
 	}
 
