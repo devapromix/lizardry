@@ -406,14 +406,6 @@ function add_event($type, $name, $level = 1, $gender = 0, $str = '', $loc_name =
 	}
 }
 
-function get_loot_level() {
-	global $user;
-	$r = $user['enemy_level'];
-	if ($r > $user['char_level'])
-		$r = $user['char_level'];
-	return $r;
-}
-
 function get_events() {
 	global $connection, $tb_events;
 	$query = "SELECT event_type, event_char_gender, event_char_name, event_char_level ,event_str, event_loc FROM ".$tb_events." ORDER BY id  DESC LIMIT 0, 15";
@@ -459,7 +451,7 @@ function gen_random_loot($loot_type_array, $loot_level) {
 }
 
 function gen_equip_loot() {
-	$loot_level = get_loot_level();
+	$loot_level = $user['class']['item']->get_loot_level();
 	if ($loot_level % 2 != 0)
 		gen_random_loot([0], $loot_level);
 	else
@@ -537,17 +529,6 @@ function gen_loot() {
 	}
 }
 
-function has_item($id) {
-	global $user;
-	$inventory = $user['char_inventory'];
-	$pos = strripos($inventory, '"id":"'.$id.'"');
-	if ($pos === false) {
-		return false;
-	} else {
-		return true;
-	}
-}
-
 function item_count($id) {
 	global $user;
 	$result = 0;
@@ -587,7 +568,7 @@ function item_modify($id, $value) {
 
 function add_item($id, $count = 1) {
 	global $user;
-	if (has_item($id)) {
+	if ($user['class']['item']->has_item($id)) {
 		item_modify($id, $count);
 	} else {
 		$items = json_decode($user['char_inventory'], true);
@@ -829,7 +810,7 @@ function inv_item_list($type) {
 	$gold = 0;
 	foreach ($items as $item) {
 		$id = $item['item_ident'];
-		if (has_item($id)) {
+		if ($user['class']['item']->has_item($id)) {
 			$count = item_count($id);
 			$price = $user['class']['item']->get_price($type, $item['item_price'], $count);
 			$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
@@ -869,7 +850,7 @@ function inv_item_trade($type) {
 	$gold = 0;
 	foreach ($items as $item) {
 		$id = $item['item_ident'];
-		if (has_item($id)) {
+		if ($user['class']['item']->has_item($id)) {
 			$count = item_count($id);
 			if ($count > 0) {
 				$price = $price = $user['class']['item']->get_price($type, $item['item_price'], $count);
@@ -935,11 +916,11 @@ function buy_empty_elix($count = 1) {
 }
 
 function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
-	if (has_item(EMPTY_ELIX)) {
-		if (has_item($ing1_id)) {
+	if ($user['class']['item']->has_item(EMPTY_ELIX)) {
+		if ($user['class']['item']->has_item($ing1_id)) {
 			$amount = item_count($ing1_id);
 			if ($amount >= $ing1_amount) {
-				if (has_item($ing2_id)) {
+				if ($user['class']['item']->has_item($ing2_id)) {
 					$amount = item_count($ing2_id);
 					if ($amount >= $ing2_amount) {
 						item_modify($ing1_id, -$ing1_amount);

@@ -87,7 +87,7 @@ if ($action == 'item_info') {
 	
 	if ($itemindex > 0) {
 		$item_ident = item_ident_by_index($itemindex);
-		if (($item_ident > 0)&&(has_item($item_ident))){
+		if (($item_ident > 0)&&($user['class']['item']->has_item($item_ident))){
 			item_info($item_ident);
 		}
 	}
@@ -100,7 +100,7 @@ if ($action == 'use_item') {
 	$h = '';
 	if ($itemindex > 0) {
 		$item_ident = item_ident_by_index($itemindex);
-		if (($item_ident > 0)&&(has_item($item_ident))){
+		if (($item_ident > 0)&&($user['class']['item']->has_item($item_ident))){
 			$h = use_item($item_ident);
 		}
 	}
