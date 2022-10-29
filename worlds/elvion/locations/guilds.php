@@ -33,12 +33,12 @@ if ($action == 'guild_main') {
 
 	if ($do == 'train_in_guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
-		if ($user['char_exp'] < get_char_level_exp($user['char_level'])) die('{"error":"Сначала нужно набраться опыта!"}');
-		$user['char_exp'] = $user['char_exp'] - get_char_level_exp($user['char_level']);
+		if ($user['char_exp'] < $user['class']['player']->get_level_exp($user['char_level'])) die('{"error":"Сначала нужно набраться опыта!"}');
+		$user['char_exp'] = $user['char_exp'] - $user['class']['player']->get_level_exp($user['char_level']);
 		$user['char_level']++;
 		$user['char_lp']++;
-		$user['char_life_cur'] = get_char_life($user['char_level']);
-		$user['char_life_max'] = get_char_life($user['char_level']);
+		$user['char_life_max'] = $user['class']['player']->get_life($user['char_level']);
+		$user['char_life_cur'] = $user['char_life_max'];
 		add_event(1, $user['char_name'], $user['char_level']);
 		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
 		$user['log'] = 'Вы потренировались и стали лучше!';

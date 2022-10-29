@@ -73,7 +73,7 @@
 		public function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
 			global $user, $res, $connection, $tb_locations;
 			$user['current_outlands'] = $location_ident;
-			add_enemies($enemies, $is_boss);	
+			$this->add_enemies($enemies, $is_boss);	
 			$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
 			$result = mysqli_query($connection, $query) 
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
@@ -284,6 +284,27 @@
 			global $user;
 			return $user['char_region_level'] * 10;
 		}
+		
+		private function add_enemies($enemy_idents, $is_boss = false) {
+			global $user;
+			for($i = 1; $i <= 3; $i++) {
+				$r = $enemy_idents[array_rand($enemy_idents)];
+				if ($is_boss == true) {
+					if ($i == 1)
+						$r = $enemy_idents[array_rand($enemy_idents)];
+					else
+						$r = 999;
+					if (is_killed_boss($user['char_region']))
+						$r = 999;
+				}
+				$e = 0;
+				if (rand(1, 20) == 1)
+					$e = rand(1, 10);
+				if ($r == 999)
+					$e = 0;
+				add_enemy($i, $r, $e);
+			}
+		}		
 
 	}
 

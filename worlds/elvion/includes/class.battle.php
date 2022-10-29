@@ -319,7 +319,7 @@
 			global $user;
 			
 			$r = false;
-			if ($user['char_exp'] > get_char_level_exp($user['char_level'] + 1))
+			if ($user['char_exp'] > $user['class']['player']->get_level_exp($user['char_level'] + 1))
 				$r = true;
 			return $r;
 		}

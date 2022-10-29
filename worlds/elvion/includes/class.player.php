@@ -11,6 +11,14 @@
 			
 		}
 		
+		function get_life($level) {
+			return ($level * 5) + 25;
+		}
+
+		public function get_level_exp($level) {
+			return $level * (($level - 1) + 100);
+		}
+		
 		public function heal() {
 			global $user;
 			$user['char_life_cur'] = $user['char_life_max'];

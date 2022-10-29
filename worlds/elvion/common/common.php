@@ -96,7 +96,7 @@ function gen_enemy($enemy_ident, $enemy_elite) {
 	$user['enemy_image'] = $enemy['enemy_image'];
 	$user['enemy_level'] = $enemy['enemy_level'];
 	// Life
-	$user['enemy_life_max'] = (get_char_life($enemy['enemy_level']) - 5) + rand(1, 10);
+	$user['enemy_life_max'] = ($user['class']['player']->get_life($enemy['enemy_level']) - 5) + rand(1, 10);
 	if ($user['enemy_champion'] == 2)
 		$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.3);
 	if (($user['enemy_champion'] == 3) or ($user['enemy_champion'] == 1))
@@ -359,10 +359,6 @@ function update_user_table($s) {
 	if (!mysqli_query($connection, $query)) {
 		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 	}
-}
-
-function get_char_level_exp($level) {
-	return $level * (($level - 1) + 100);
 }
 
 function get_version() {
@@ -742,29 +738,6 @@ function item_ident_by_index($item_index) {
 	return $result;
 }
 
-function add_enemies($enemy_idents, $is_boss = false) {
-	global $user;
-	
-	for($i = 1; $i <= 3; $i++) {
-		$r = $enemy_idents[array_rand($enemy_idents)];
-		if ($is_boss == true) {
-			if ($i == 1)
-				$r = $enemy_idents[array_rand($enemy_idents)];
-			else
-				$r = 999;
-			if (is_killed_boss($user['char_region']))
-				$r = 999;
-		}
-		$e = 0;
-		if (rand(1, 20) == 1)
-			$e = rand(1, 10);
-		if ($r == 999)
-			$e = 0;
-
-		add_enemy($i, $r, $e);
-	}
-}
-
 function get_enemies() {
 	global $tb_enemy, $connection;
 
@@ -791,10 +764,6 @@ function addlink($t, $j, $n = 0) {
 	global $user;
 	$user['links'][$n]['title'] = $t;
 	$user['links'][$n]['link'] = $j;	
-}
-
-function get_char_life($level) {
-	return ($level * 5) + 25;
 }
 
 function inv_item_list($type) {
