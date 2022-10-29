@@ -172,7 +172,7 @@ if ($action == 'guild_hunter') {
 
 	if ($do == 'trophy_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_item_trade(21);
+		$gold = $user['class']['item']->gold_trade(21);
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_hunter');
@@ -194,7 +194,7 @@ if ($action == 'guild_forge') {
 
 	if ($do == 'weapon_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_item_trade(1);
+		$gold = $user['class']['item']->gold_trade(1);
 		$user['description'] = 'Вы продали старое оружие и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_forge');
@@ -216,7 +216,7 @@ if ($action == 'guild_lw') {
 
 	if ($do == 'armor_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_item_trade(0);
+		$gold = $user['class']['item']->gold_trade(0);
 		$user['description'] = 'Вы продали старую кожаную броню и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_lw');
@@ -309,7 +309,7 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'ing_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = inv_item_trade(30);
+		$gold = $user['class']['item']->gold_trade(30);
 		$user['description'] = 'Вы продали все ингредиенты и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch');

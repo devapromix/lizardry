@@ -839,34 +839,6 @@ function inv_item_list($type) {
 	return $r;
 }
 
-function inv_item_trade($type) {
-	global $user, $tb_item, $connection;
-
-	$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-	$gold = 0;
-	foreach ($items as $item) {
-		$id = $item['item_ident'];
-		if ($user['class']['item']->has_item($id)) {
-			$count = item_count($id);
-			if ($count > 0) {
-				$price = $price = $user['class']['item']->get_price($type, $item['item_price'], $count);
-				$user['char_gold'] += $price;
-				$gold += $price;
-				item_modify($id, -$count);
-				save_to_log($item['item_name'].' (x'.$count.') - предмет(ы) продан(ы).');
-			}
-		}
-	}
-
-	update_user_table("char_gold=".$user['char_gold']);
-
-	return $gold;
-}
-
 function save_to_log($msg) {
 	global $connection, $user, $tb_log;
 	$query = "INSERT INTO ".$tb_log." (log_char_name,log_message) VALUES('".$user['char_name']."', '".$msg."')";

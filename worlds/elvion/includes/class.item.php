@@ -55,6 +55,34 @@
 			}
 		}
 
+		public function gold_trade($type) {
+			global $user, $tb_item, $connection;
+
+			$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+			$gold = 0;
+			foreach ($items as $item) {
+				$id = $item['item_ident'];
+				if ($this->has_item($id)) {
+					$count = item_count($id);
+					if ($count > 0) {
+						$price = $price = $this->get_price($type, $item['item_price'], $count);
+						$user['char_gold'] += $price;
+						$gold += $price;
+						item_modify($id, -$count);
+						save_to_log($item['item_name'].' (x'.$count.') - предмет(ы) продан(ы).');
+					}
+				}
+			}
+
+			update_user_table("char_gold=".$user['char_gold']);
+
+			return $gold;
+		}
+
 	}
 
 ?>
