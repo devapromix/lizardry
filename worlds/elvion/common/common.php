@@ -798,7 +798,7 @@ function get_char_life($level) {
 }
 
 function inv_item_list($type) {
-	global $tb_item, $connection;
+	global $user, $tb_item, $connection;
 
 	$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
 	$result = mysqli_query($connection, $query) 
@@ -875,16 +875,6 @@ function pickup_loot_title() {
 	}
 
 	return $m;
-}
-
-function buy_empty_elix($count = 1) {
-	global $user;
-	$r = 'Старик улыбается и приближается к вам, на ходу открывая сумку на поясе:#-Да, конечно. У меня всегда есть Пустые Флаконы для твоих экспериментов. Цена одного - 100 золотых монет.';
-	if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
-	add_item(EMPTY_ELIX, $count);
-	$user['char_gold'] -= 100;
-	update_user_table("char_gold=".$user['char_gold']);
-	return $r;
 }
 
 function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {

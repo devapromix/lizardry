@@ -371,7 +371,8 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'empty_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$user['description'] = buy_empty_elix(1);
+		$user['description'] = 'Старик улыбается и приближается к вам, на ходу открывая сумку на поясе:#-Да, конечно. У меня всегда есть Пустые Флаконы для твоих экспериментов. Цена одного - 100 золотых монет.';
+		$user['class']['item']->buy_empty_elixir(1);
 		$user['links'] = array();
 		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

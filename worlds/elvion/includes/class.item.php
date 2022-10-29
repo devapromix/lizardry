@@ -82,6 +82,15 @@
 
 			return $gold;
 		}
+		
+		public function buy_empty_elixir($count = 1) {
+			global $user;
+			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
+			add_item(EMPTY_ELIX, $count);
+			$user['char_gold'] -= 100;
+			update_user_table("char_gold=".$user['char_gold']);
+			$user['log'] = 'Вы купили Пустой Флакон.';
+		}
 
 	}
 
