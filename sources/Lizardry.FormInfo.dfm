@@ -24,7 +24,7 @@ object FormInfo: TFormInfo
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
-      Caption = #1051#1086#1082#1072#1094#1080#1103
+      Caption = #1055#1086#1089#1083'. JSON'
       object LocMemo: TRichEdit
         Left = 0
         Top = 0
@@ -37,7 +37,7 @@ object FormInfo: TFormInfo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ScrollBars = ssVertical
+        ScrollBars = ssBoth
         TabOrder = 0
         Zoom = 100
       end
@@ -57,13 +57,13 @@ object FormInfo: TFormInfo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ScrollBars = ssVertical
+        ScrollBars = ssBoth
         TabOrder = 0
         Zoom = 100
       end
     end
     object TabSheet3: TTabSheet
-      Caption = #1056#1077#1089#1091#1088#1089#1099
+      Caption = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1103
       ImageIndex = 2
       object ResMemo: TMemo
         Left = 0
@@ -72,9 +72,10 @@ object FormInfo: TFormInfo
         Height = 405
         Align = alClient
         ReadOnly = True
+        ScrollBars = ssBoth
         TabOrder = 0
       end
-      object MobImagesPath: TPanel
+      object ImagesPath: TPanel
         Left = 0
         Top = 0
         Width = 741
@@ -82,7 +83,7 @@ object FormInfo: TFormInfo
         Align = alTop
         Alignment = taLeftJustify
         BevelOuter = bvNone
-        Caption = 'MobImagesPath'
+        Caption = 'ImagesPath'
         TabOrder = 1
       end
     end
@@ -109,6 +110,7 @@ object FormInfo: TFormInfo
         Width = 741
         Height = 430
         Align = alClient
+        ScrollBars = ssBoth
         TabOrder = 0
       end
     end

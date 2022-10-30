@@ -25,7 +25,7 @@ type
     ItemMemo: TRichEdit;
     TabSheet3: TTabSheet;
     ResMemo: TMemo;
-    MobImagesPath: TPanel;
+    ImagesPath: TPanel;
     TabSheet4: TTabSheet;
     ErrorMemo: TMemo;
     TabSheet5: TTabSheet;

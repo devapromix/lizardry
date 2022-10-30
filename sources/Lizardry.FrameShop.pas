@@ -66,17 +66,17 @@ const
 
 procedure TFrameShop.DrawGrid;
 var
-  W, I: Integer;
+  LWidth, LRow: Integer;
 begin
-  W := FormMain.FrameTown.FrameShop1.Width - 340;
+  LWidth := FormMain.FrameTown.FrameShop1.Width - 340;
   SG.ColWidths[0] := 30;
-  SG.ColWidths[1] := W;
+  SG.ColWidths[1] := LWidth;
   SG.ColWidths[2] := 100;
   SG.ColWidths[3] := 100;
   SG.ColWidths[4] := 100;
-  for I := 1 to 6 do
+  for LRow := 1 to 6 do
   begin
-    SG.Cells[0, I] := IntToStr(I);
+    SG.Cells[0, LRow] := IntToStr(LRow);
     SG.Cells[1, 0] := '';
     SG.Cells[2, 0] := '';
     SG.Cells[3, 0] := '';
@@ -91,47 +91,52 @@ end;
 
 procedure TFrameShop.SGClick(Sender: TObject);
 var
-  I: Integer;
+  LRow: Integer;
 begin
   if IsChatMode or IsCharMode then
     Exit;
-  I := SG.Row;
-  if (SG.Cells[1, I] = '') then
+  LRow := SG.Row;
+  if (SG.Cells[1, LRow] = '') then
     ttInfo.Caption := ''
   else
     FormMain.FrameTown.ParseJSON
-      (Server.Get('index.php?action=shop_item_info&itemslot=' + IntToStr(I)));
+      (Server.Get('index.php?action=shop_item_info&itemslot=' +
+      IntToStr(LRow)));
 end;
 
 procedure TFrameShop.SGDblClick(Sender: TObject);
 var
-  I: Integer;
+  LRow: Integer;
 begin
   if IsChatMode or IsCharMode then
     Exit;
-  I := SG.Row;
-  if (SG.Cells[1, I] = '') then
+  LRow := SG.Row;
+  if (SG.Cells[1, LRow] = '') then
     ttInfo.Caption := ''
   else
     case ShopType of
       // Weapon
       stWeapon:
-        Prompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-          'index.php?action=shop_weapon&do=buy&itemslot=' + IntToStr(I));
+        Prompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow], SG.Cells[4, LRow]]),
+          'Купить', 'index.php?action=shop_weapon&do=buy&itemslot=' +
+          IntToStr(LRow));
       // Alchemy
       stAlchemy:
-        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-          'index.php?action=shop_alchemy&amount=' +
-          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
+          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=shop_alchemy&amount='
+          + FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
+          IntToStr(LRow));
       // Magic
       stMagic:
-        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-          'index.php?action=shop_magic&amount=' +
-          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' + IntToStr(I));
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
+          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=shop_magic&amount=' +
+          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
+          IntToStr(LRow));
       // Armor
     else
-      Prompt(Format(BuyQuestionMsg, [SG.Cells[1, I], SG.Cells[4, I]]), 'Купить',
-        'index.php?action=shop_armor&do=buy&itemslot=' + IntToStr(I));
+      Prompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow], SG.Cells[4, LRow]]),
+        'Купить', 'index.php?action=shop_armor&do=buy&itemslot=' +
+        IntToStr(LRow));
     end;
 end;
 
@@ -144,13 +149,13 @@ end;
 
 procedure TFrameShop.Welcome;
 var
-  S: string;
-  R: TArray<string>;
+  LDialog: string;
+  LRandStr: TArray<string>;
 begin
-  R := T.Split(['|']);
-  S := 'Хозяин лавки:' + #13#10;
-  S := S + ' - ' + R[Random(Length(R))] + #13#10;
-  Label1.Caption := S;
+  LRandStr := T.Split(['|']);
+  LDialog := 'Хозяин лавки:' + #13#10;
+  LDialog := LDialog + ' - ' + LRandStr[Random(Length(LRandStr))] + #13#10;
+  Label1.Caption := LDialog;
 end;
 
 end.

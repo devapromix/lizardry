@@ -326,7 +326,7 @@ var
   I: Integer;
 begin
   LFilePath := TPath.GetHomePath + '\Lizardry\Images\';
-  FormInfo.MobImagesPath.Caption := LFilePath;
+  FormInfo.ImagesPath.Caption := LFilePath;
   ForceDirectories(LFilePath);
   FormInfo.ResMemo.Text := Trim(Server.Get('index.php?action=enemies'));
   Panel5.Caption := 'Проверка и загрузка изображений...';
