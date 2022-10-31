@@ -4,7 +4,7 @@ if ($action == 'shops') {
 	
 	$user['title'] = 'Квартал Торговцев';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = '';
+		$user['description'] = 'Вы спускаетесь в ту часть города, где много различных лавок и магазинов. Здесь тихо и уютно.';
 	} else $user['class']['location']->shades();
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
@@ -23,7 +23,9 @@ if ($action == 'shop_armor') {
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
 	$user['title'] = 'Лавка Бронника';
-	$user['description'] = '';
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $user['class']['location']->get_shop_welcome_phrase(1);
+	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
@@ -44,7 +46,9 @@ if ($action == 'shop_weapon') {
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
 	$user['title'] = 'Оружейная Лавка';
-	$user['description'] = '';
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $user['class']['location']->get_shop_welcome_phrase(2);
+	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
@@ -65,7 +69,9 @@ if ($action == 'shop_alchemy') {
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
 	$user['title'] = 'Лавка Алхимика';
-	$user['description'] = '';
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $user['class']['location']->get_shop_welcome_phrase(3);
+	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
@@ -89,7 +95,9 @@ if ($action == 'shop_magic') {
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
 	$user['title'] = 'Магическая Лавка';
-	$user['description'] = '';
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $user['class']['location']->get_shop_welcome_phrase(4);
+	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=magictower');

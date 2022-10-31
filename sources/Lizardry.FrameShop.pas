@@ -39,7 +39,6 @@ type
     ShopType: TShopType;
     { Public declarations }
     procedure DrawGrid;
-    procedure Welcome;
   end;
 
 implementation
@@ -52,17 +51,6 @@ uses
   Lizardry.Server,
   Lizardry.FormPrompt,
   Lizardry.FormAmountPrompt;
-
-const
-  T = 'В моей лавке вы можете купить лучшие товары в округе!|' +
-    'Не спрашивайте меня, где я это достал, просто радуйтесь, что получаете так дешево.|'
-    + 'Покупайте то, что вам нужно, сегодня. Завтра, возможно, нас уже не будет здесь.|'
-    + 'Все, что вы видите, выставлено на продажу. Выбирайте!|' +
-    'Я могу протянуть вам руку помощи, если вы протянете мне руку с золотом.|' +
-    'Здесь есть предметы, которые могут вам пригодиться в путешествиях. Выбирайте!|'
-    + 'Добро пожаловать, путешественник! Не может быть, чтобы ни один из моих товаров не привлек вашего внимания.|'
-    + 'Я вижу, вы умеете отличить редкий товар. Пожалуйста, заходите. Выбирайте!|'
-    + 'Взгляните на мой товар. Возможно, вам что-то будет полезно.';
 
 procedure TFrameShop.DrawGrid;
 var
@@ -145,17 +133,6 @@ procedure TFrameShop.SGKeyDown(Sender: TObject; var Key: Word;
 begin
   if Key = 13 then
     SGDblClick(Sender);
-end;
-
-procedure TFrameShop.Welcome;
-var
-  LDialog: string;
-  LRandStr: TArray<string>;
-begin
-  LRandStr := T.Split(['|']);
-  LDialog := 'Хозяин лавки:' + #13#10;
-  LDialog := LDialog + ' - ' + LRandStr[Random(Length(LRandStr))] + #13#10;
-  Label1.Caption := LDialog;
 end;
 
 end.

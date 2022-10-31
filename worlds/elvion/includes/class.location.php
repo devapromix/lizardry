@@ -304,7 +304,17 @@
 					$e = 0;
 				add_enemy($i, $r, $e);
 			}
-		}		
+		}
+		
+		public function get_shop_welcome_phrase($category_ident) {
+			global $connection, $tb_phrases;
+			$query = "SELECT text FROM ".$tb_phrases." WHERE category=".$category_ident." OR category=0 ORDER BY RAND() LIMIT 1";
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$phrase = $result->fetch_assoc();
+			return $phrase['text'];
+		}
+		
 
 	}
 

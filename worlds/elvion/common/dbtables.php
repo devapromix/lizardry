@@ -8,5 +8,6 @@ $tb_regions   = 'lizardry_regions';
 $tb_locations = 'lizardry_locations';
 $tb_events    = 'lizardry_events';
 $tb_log       = 'lizardry_logs';
+$tb_phrases   = 'lizardry_phrases';
 
 ?>

@@ -515,6 +515,7 @@ begin
     begin
       FrameInfo1.BringToFront;
       FrameInfo1.StaticText1.Caption := S.Replace('#', #13#10);
+      FrameShop1.Label1.Caption := S.Replace('#', #13#10);
     end;
     //
     ClearButtons;
@@ -588,8 +589,8 @@ begin
       else if (S = 'outlands') then
       begin
         if LJSON.TryGetValue('enemy_slot_1_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S +
-            '.jpg')) then
+          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
+          then
           begin
             FormMain.FrameTown.FrameOutlands1.Image2.Picture.LoadFromFile
               (FormInfo.ImagesPath.Caption + S + '.jpg');
@@ -608,8 +609,8 @@ begin
             end;
           end;
         if LJSON.TryGetValue('enemy_slot_2_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S +
-            '.jpg')) then
+          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
+          then
           begin
             FormMain.FrameTown.FrameOutlands1.Image3.Picture.LoadFromFile
               (FormInfo.ImagesPath.Caption + S + '.jpg');
@@ -628,8 +629,8 @@ begin
             end;
           end;
         if LJSON.TryGetValue('enemy_slot_3_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S +
-            '.jpg')) then
+          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
+          then
           begin
             FormMain.FrameTown.FrameOutlands1.Image4.Picture.LoadFromFile
               (FormInfo.ImagesPath.Caption + S + '.jpg');
@@ -663,7 +664,6 @@ begin
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
-          Welcome;
           ShopType := stWeapon;
           SG.Cells[1, 0] := 'Оружие';
           SG.Cells[2, 0] := 'Урон';
@@ -682,7 +682,6 @@ begin
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
-          Welcome;
           ShopType := stArmor;
           SG.Cells[1, 0] := 'Доспех';
           SG.Cells[2, 0] := 'Броня';
@@ -701,7 +700,6 @@ begin
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
-          Welcome;
           ShopType := stAlchemy;
           SG.Cells[1, 0] := 'Эликсир';
           SG.Cells[2, 0] := 'Мощь';
@@ -720,7 +718,6 @@ begin
         with FormMain.FrameTown.FrameShop1 do
         begin
           DrawGrid;
-          Welcome;
           ShopType := stMagic;
           SG.Cells[1, 0] := 'Свиток';
           SG.Cells[2, 0] := 'Мощь';
