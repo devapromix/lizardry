@@ -78,7 +78,7 @@ if ($action == 'shop_item_info') {
 
 	if ($itemslot > 0) {
 		$item_ident = $user['class']['item']->get_slot_ident($itemslot);
-		item_info($item_ident);
+		$user['class']['item']->item_info($item_ident);
 	}
 
 }
@@ -88,7 +88,7 @@ if ($action == 'item_info') {
 	if ($itemindex > 0) {
 		$item_ident = $user['class']['item']->item_ident_by_index($itemindex);
 		if (($item_ident > 0)&&($user['class']['item']->has_item($item_ident))){
-			item_info($item_ident);
+			$user['class']['item']->item_info($item_ident);
 		}
 	}
 	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).'}';
