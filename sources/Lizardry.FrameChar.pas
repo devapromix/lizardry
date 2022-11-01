@@ -87,6 +87,7 @@ var
   C: string;
   JSONArray: TJSONArray;
 begin
+  FormInfo.InvMemo.Text := S;
   W := FormMain.FrameTown.FrameShop1.Width - 140;
   SG.ColWidths[0] := 30;
   SG.ColWidths[1] := W;

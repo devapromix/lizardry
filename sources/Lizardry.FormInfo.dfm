@@ -37,7 +37,8 @@ object FormInfo: TFormInfo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ScrollBars = ssBoth
+        ReadOnly = True
+        ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
       end
@@ -57,7 +58,8 @@ object FormInfo: TFormInfo
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        ScrollBars = ssBoth
+        ReadOnly = True
+        ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
       end
@@ -72,7 +74,7 @@ object FormInfo: TFormInfo
         Height = 405
         Align = alClient
         ReadOnly = True
-        ScrollBars = ssBoth
+        ScrollBars = ssVertical
         TabOrder = 0
       end
       object ImagesPath: TPanel
@@ -97,7 +99,7 @@ object FormInfo: TFormInfo
         Height = 430
         Align = alClient
         ReadOnly = True
-        ScrollBars = ssBoth
+        ScrollBars = ssVertical
         TabOrder = 0
       end
     end
@@ -110,7 +112,8 @@ object FormInfo: TFormInfo
         Width = 741
         Height = 430
         Align = alClient
-        ScrollBars = ssBoth
+        ReadOnly = True
+        ScrollBars = ssVertical
         TabOrder = 0
       end
     end

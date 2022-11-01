@@ -15,7 +15,7 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet3
+    ActivePage = TabSheet2
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet

@@ -40,7 +40,7 @@ var
   FormInfo: TFormInfo;
 
 procedure MsgBox(const S: string);
-procedure InvError(const S: string);
+procedure InvJSON(const S: string);
 procedure ShowError(const S: string);
 
 implementation
@@ -59,7 +59,7 @@ begin
   FormInfo.ErrorMemo.Lines.Append(S);
 end;
 
-procedure InvError(const S: string);
+procedure InvJSON(const S: string);
 begin
   FormInfo.InvMemo.Clear;
   FormInfo.InvMemo.Lines.Append(S);

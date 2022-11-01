@@ -465,7 +465,7 @@ begin
   // Exit;
   if AJSON.Contains('{"inventory":') then
   begin
-    InvError(AJSON);
+    InvJSON(AJSON);
     ParseJSON(AJSON, 'INV');
     Exit;
   end;
