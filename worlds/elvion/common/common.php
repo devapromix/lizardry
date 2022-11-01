@@ -817,36 +817,6 @@ function save_to_log($msg) {
 	}
 }
 
-function pickup_loot_title() {
-	global $user;
-	
-	$m = '';
-	switch($user['loot_slot_1_type']) {
-		case 1:
-			$m = 'Взять оружие!';
-			break;
-		case 8: case 9: case 10: case 11: case 12: case 13:
-			$m = 'Взять эликсир!';
-			break;
-		case 21:
-			$m = 'Взять трофей!';
-			break;
-		case 25: case 26: case 27:
-			$m = 'Взять свиток!';
-			break;
-		case 28:
-			$m = 'Взять флакон!';
-			break;
-		case 30:
-			$m = 'Взять ингридиент!';
-			break;
-		default:
-			$m = 'Взять броню!';
-	}
-
-	return $m;
-}
-
 function make_elix($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
 	if ($user['class']['item']->has_item(EMPTY_ELIX)) {
 		if ($user['class']['item']->has_item($ing1_id)) {

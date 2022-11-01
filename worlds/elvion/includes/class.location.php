@@ -238,21 +238,21 @@
 					$user['title'] = 'Сундук алхимика!';
 					$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 					break;
 				case 5:
 					gen_mage_loot();
 					$user['title'] = 'Сундук мага!';
 					$user['description'] = 'Недалеко от места сражения вы внезапно увидели старый сундук. Замок на нем настолько стар, что легко рассыпается в пыль от одного прикосновения. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 					break;
 				case 6:
 					gen_herb_loot();
 					$user['title'] = 'Сумка травника!';
 					$user['description'] = 'Решив присесть отдохнуть после тяжелого боя, вы внезапно замечаете на земле небольшую серую сумку, какую обычно используют алхимики для сбора трав и алхимических ингридиентов. Вы открываете сумку и видите, что в ней находится '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 					break;
 				case 7:
 					$gold = rand($user['char_region'] * 50, $user['char_region'] * 90);
@@ -263,6 +263,34 @@
 			}
 
 			return $frame;
+		}
+
+		public static function pickup_loot_title() {
+			global $user;
+			$m = '';
+			switch($user['loot_slot_1_type']) {
+				case 1:
+					$m = 'Взять оружие!';
+					break;
+				case 8: case 9: case 10: case 11: case 12: case 13:
+					$m = 'Взять эликсир!';
+					break;
+				case 21:
+					$m = 'Взять трофей!';
+					break;
+				case 25: case 26: case 27:
+					$m = 'Взять свиток!';
+					break;
+				case 28:
+					$m = 'Взять флакон!';
+					break;
+				case 30:
+					$m = 'Взять ингридиент!';
+					break;
+				default:
+					$m = 'Взять броню!';
+			}
+			return $m;
 		}
 
 		public function gen_random_place() {
