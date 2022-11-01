@@ -47,6 +47,7 @@ if ($action == 'dr_sea') $user['class']['location']->outland($action, [92,93,94,
 if ($action == 'mavz') $user['class']['location']->outland($action, [96,97,98], ['Вернуться на Кладбище', 'index.php?action=graveyard']);
 if ($action == 'black_cave') $user['class']['location']->outland($action, [99,100,101], [], ['Дыра', 'index.php?action=the_hole']);
 if ($action == 'the_hole') $user['class']['location']->outland($action, [102,103,104], ['Черная Пещера', 'index.php?action=black_cave']);
+if ($action == 'forgotten_temple') $user['class']['location']->outland($action, [808], ['Порталл в город', 'index.php?action=magictower'], [], true);
 // #9
 if ($action == '+') $user['class']['location']->outland($action, [105,106,107,108]);
 if ($action == '+') $user['class']['location']->outland($action, [109,110,111]);
