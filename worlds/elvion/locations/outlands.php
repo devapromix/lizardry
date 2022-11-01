@@ -28,7 +28,8 @@ if ($action == 'den_of_evil') $user['class']['location']->outland($action, [804]
 if ($action == 'alone_mountain') $user['class']['location']->outland($action, [53,54,55,56]);
 if ($action == 'dark_valley') $user['class']['location']->outland($action, [57,58,59]);
 if ($action == 'forgotten_forest') $user['class']['location']->outland($action, [60,61,62], [], ['Пещера Боли', 'index.php?action=cave_of_pain']);
-if ($action == 'cave_of_pain') $user['class']['location']->outland($action, [63,64,65], ['Забытый Лес', 'index.php?action=forgotten_forest']);
+if ($action == 'cave_of_pain') $user['class']['location']->outland($action, [63,64,65], ['Забытый Лес', 'index.php?action=forgotten_forest'], ['Каменное Логово', 'index.php?action=stony_lair']);
+if ($action == 'stony_lair') $user['class']['location']->outland($action, [805], ['Пещера Боли', 'index.php?action=cave_of_pain'], [], true);
 // #6
 if ($action == 'black_mountain') $user['class']['location']->outland($action, [66,67,68,69]);
 if ($action == 'ashiot_river') $user['class']['location']->outland($action, [70,71,72]);
