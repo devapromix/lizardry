@@ -59,6 +59,7 @@ if ($action == 'gate') {
 				addlink('Огненное Море', 'index.php?action=fire_sea', 5);
 				addlink('Руины Тинии', 'index.php?action=tinias_ruins', 6);
 				addlink('Далекий Остров', 'index.php?action=far_island', 7);
+				addlink('Водоворот', 'index.php?action=vodovorot', 8);
 				break;
 			case 8:
 				addlink('Посетить Конюшни', 'index.php?action=stables', 2);
