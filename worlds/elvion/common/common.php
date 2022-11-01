@@ -447,6 +447,7 @@ function gen_random_loot($loot_type_array, $loot_level) {
 }
 
 function gen_equip_loot() {
+	global $user;
 	$loot_level = $user['class']['item']->get_loot_level();
 	if ($loot_level % 2 != 0)
 		gen_random_loot([0], $loot_level);
