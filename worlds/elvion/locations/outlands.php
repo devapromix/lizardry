@@ -22,7 +22,8 @@ if ($action == 'bresh_v_stene') $user['class']['location']->outland($action, [80
 if ($action == 'abandoned_mines') $user['class']['location']->outland($action, [40,41,42,43]);
 if ($action == 'icy_lake') $user['class']['location']->outland($action, [44,45,46]);
 if ($action == 'vulture_valley') $user['class']['location']->outland($action, [47,48,49]);
-if ($action == 'cathedral_of_the_deep') $user['class']['location']->outland($action, [50,51,52]);
+if ($action == 'cathedral_of_the_deep') $user['class']['location']->outland($action, [50,51,52], [], ['Логово Зла', 'index.php?action=den_of_evil']);
+if ($action == 'den_of_evil') $user['class']['location']->outland($action, [804], ['Храм Глубин', 'index.php?action=cathedral_of_the_deep'], [], true);
 // #5
 if ($action == 'alone_mountain') $user['class']['location']->outland($action, [53,54,55,56]);
 if ($action == 'dark_valley') $user['class']['location']->outland($action, [57,58,59]);
