@@ -89,7 +89,7 @@ function gen_enemy($enemy_ident, $enemy_elite) {
 	if ($enemy_ident >= 800) {
 		$user['enemy_boss'] = 1;
 		$user['enemy_champion'] = 1;
-		$user['enemy_name'] = $enemy['enemy_name'];
+		$user['enemy_name'] = $enemy['enemy_name'].' '.$enemy['enemy_rand_name'];
 		$user['enemy_name'] .= ' (Босс)';
 	}
 
