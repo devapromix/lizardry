@@ -724,21 +724,6 @@ function use_item($item_ident) {
 	return $result;
 }
 
-function item_ident_by_index($item_index) {
-	global $user;
-	$result = 0;
-	$items = json_decode($user['char_inventory'], true);
-	for($i = 0; $i < count($items); $i++) {
-		$item = $items[$i];
-		$item_id = $item['id'];
-		if ($i == ($item_index - 1)) {
-			$result = $item_id;
-			break;
-		}
-	}
-	return $result;
-}
-
 function get_enemies() {
 	global $tb_enemy, $connection;
 

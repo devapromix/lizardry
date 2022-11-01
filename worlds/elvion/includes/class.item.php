@@ -23,6 +23,21 @@
 			return $r;
 		}
 		
+		public function item_ident_by_index($item_index) {
+			global $user;
+			$result = 0;
+			$items = json_decode($user['char_inventory'], true);
+			for($i = 0; $i < count($items); $i++) {
+				$item = $items[$i];
+				$item_id = $item['id'];
+				if ($i == ($item_index - 1)) {
+					$result = $item_id;
+					break;
+				}
+			}
+			return $result;
+		}
+
 		public function get_loot_level() {
 			global $user;
 			$r = $user['enemy_level'];
