@@ -34,12 +34,14 @@ if ($action == 'stony_lair') $user['class']['location']->outland($action, [805],
 if ($action == 'black_mountain') $user['class']['location']->outland($action, [66,67,68,69]);
 if ($action == 'ashiot_river') $user['class']['location']->outland($action, [70,71,72]);
 if ($action == 'yellow_forest') $user['class']['location']->outland($action, [73,74,75]);
-if ($action == 'old_bastion') $user['class']['location']->outland($action, [76,77,78]);
+if ($action == 'old_bastion') $user['class']['location']->outland($action, [76,77,78], [], ['Заточение Ненависти', 'index.php?action=durance_of_hate']);
+if ($action == 'durance_of_hate') $user['class']['location']->outland($action, [806], ['Старый Бастион', 'index.php?action=old_bastion'], [], true);
 // #7
 if ($action == 'red_desert') $user['class']['location']->outland($action, [79,80,81,82]);
 if ($action == 'fire_sea') $user['class']['location']->outland($action, [83,84,85]);
 if ($action == 'tinias_ruins') $user['class']['location']->outland($action, [86,87,88]);
 if ($action == 'far_island') $user['class']['location']->outland($action, [89,90,91]);
+if ($action == 'vodovorot') $user['class']['location']->outland($action, [807], [], [], true);
 // #8
 if ($action == 'dr_sea') $user['class']['location']->outland($action, [92,93,94,95]);
 if ($action == 'mavz') $user['class']['location']->outland($action, [96,97,98], ['Вернуться на Кладбище', 'index.php?action=graveyard']);
