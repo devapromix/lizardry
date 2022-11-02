@@ -321,16 +321,16 @@
 					if ($i == 1)
 						$r = $enemy_idents[array_rand($enemy_idents)];
 					else
-						$r = 999;
-					if (is_killed_boss($user['char_region']))
-						$r = 999;
+						$r = Enemy::EMPTY_ID;
+					if (Boss::is_killed($user['char_region']))
+						$r = Enemy::EMPTY_ID;
 				}
 				$e = 0;
 				if (rand(1, 20) == 1)
 					$e = rand(1, 10);
-				if ($r == 999)
+				if ($r == Enemy::EMPTY_ID)
 					$e = 0;
-				add_enemy($i, $r, $e);
+				Enemy::add($i, $r, $e);
 			}
 		}
 		

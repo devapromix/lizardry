@@ -44,9 +44,9 @@
 				$r .= '--- '.strval($this->rounds).'-й раунд: ---#';
 				if ($c == 0) {
 					$r .= $this->player_battle_round();
-					$r .= $this->monster_battle_round();
+					$r .= $this->enemy_battle_round();
 				} else {
-					$r .= $this->monster_battle_round();
+					$r .= $this->enemy_battle_round();
 					$r .= $this->player_battle_round();
 				}
 
@@ -76,9 +76,9 @@
 					$user['enemy_life_cur'] = 0;
 					$user['stat_kills']++;
 					$r .= $this->str_line();
-					gen_loot();
+					$user['class']['item']->gen_loot();
 					if ($user['enemy_boss'] > 0) {
-						kill_boss($user['char_region']);
+						Boss::kill($user['char_region']);
 						$r .= 'Вы победили босса! Вы добыли ценный трофей!#';
 					} else
 						$user['class']['location']->gen_random_place();
@@ -126,7 +126,7 @@
 			
 		}
 		
-		public function player_battle_round() {
+		private function player_battle_round() {
 			global $user;
 			
 			$r = '';
@@ -201,7 +201,7 @@
 			
 		}
 		
-		public function monster_battle_round() {
+		private function enemy_battle_round() {
 			global $user;
 			
 			$r = '';

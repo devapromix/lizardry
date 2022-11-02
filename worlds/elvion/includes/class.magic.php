@@ -22,7 +22,7 @@
 			$mana = self::MANA_SCROLL_BLESS;
 			$effect = self::PLAYER_EFFECT_BLESS;
 			if ($user['char_mana_cur'] >= $mana) {
-				item_modify($item_ident, -1);
+				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
 				$user['char_effect'] = $effect;
 				update_user_table("char_effect=".$user['char_effect']);
@@ -35,7 +35,7 @@
 			global $user;
 			$mana = self::MANA_SCROLL_TP;
 			if ($user['char_mana_cur'] >= $mana) {
-				item_modify($item_ident, -1);
+				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
 				update_user_table("char_mana_cur=".$user['char_mana_cur']);
 				$result = ',"action":"Перед вами открывается магический портал!|Войти!|index.php?action=magictower","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
@@ -47,7 +47,7 @@
 			global $user;
 			$mana = self::MANA_SCROLL_HEAL;
 			if ($user['char_mana_cur'] >= $mana) {
-				item_modify($item_ident, -1);
+				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
 				$user['class']['player']->heal();
 				update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
