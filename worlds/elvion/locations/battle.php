@@ -6,11 +6,11 @@ if ($action == 'battle') {
 		die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 	
 	if ($enemyslot == '1')
-		gen_enemy($user['enemy_slot_1'], $user['enemy_slot_1_elite']);
+		Enemy::gen($user['enemy_slot_1'], $user['enemy_slot_1_elite']);
 	if ($enemyslot == '2')
-		gen_enemy($user['enemy_slot_2'], $user['enemy_slot_2_elite']);
+		Enemy::gen($user['enemy_slot_2'], $user['enemy_slot_2_elite']);
 	if ($enemyslot == '3')
-		gen_enemy($user['enemy_slot_3'], $user['enemy_slot_3_elite']);
+		Enemy::gen($user['enemy_slot_3'], $user['enemy_slot_3_elite']);
 
 	if ($user['enemy_level'] < 1)
 		die('{"error":"Вам нужен живой враг!"}');
@@ -57,7 +57,7 @@ if ($action == 'battle') {
 if ($action == 'pickup_loot') {
 
 	$user['title'] = 'Находка!';
-	$user['description'] = pickup_equip_item();
+	$user['description'] = $user['class']['item']->pickup_equip_item();
 	$user['frame'] = 'battle';
 	addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
@@ -101,7 +101,7 @@ if ($action == 'use_item') {
 	if ($itemindex > 0) {
 		$item_ident = $user['class']['item']->item_ident_by_index($itemindex);
 		if (($item_ident > 0)&&($user['class']['item']->has_item($item_ident))){
-			$h = use_item($item_ident);
+			$h = $user['class']['item']->use_item($item_ident);
 		}
 	}
 	$res = '{"inventory":'.json_encode($user['char_inventory'], JSON_UNESCAPED_UNICODE).$h.'}';
