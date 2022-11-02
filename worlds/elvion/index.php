@@ -4,6 +4,13 @@ $res = '{"login":"error"}';
 require_once('common/common.php');
 require_once('common/connect.php');
 require_once('common/dbtables.php');
+require_once(IPATH.'class.location.php');
+require_once(IPATH.'class.battle.php');
+require_once(IPATH.'class.player.php');
+require_once(IPATH.'class.magic.php');
+require_once(IPATH.'class.item.php');
+require_once(IPATH.'class.enemy.php');
+require_once(IPATH.'class.boss.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -16,6 +23,7 @@ $itemindex = $_GET['itemindex'];
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$connection)
 	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
+
 $user = get_user($username, $userpass);
 
 if (($userpass != '') && ($userpass == $user['user_pass'])) {
@@ -24,16 +32,10 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'events') $res = get_events();
 	if ($usersession == $user['user_session']) {
 		if ($action == 'inventory') $res = get_inventory();
-		if ($action == 'items') $res = get_items();
-		if ($action == 'enemies') $res = get_enemies();
+		if ($action == 'items') $res = Item::get_items();
+		if ($action == 'enemies') $res = Enemy::get_enemies();
 		if ($action == 'messages') $res = get_messages();
 	
-		require_once(IPATH.'class.location.php');
-		require_once(IPATH.'class.battle.php');
-		require_once(IPATH.'class.player.php');
-		require_once(IPATH.'class.magic.php');
-		require_once(IPATH.'class.item.php');
-
 		$user['class'] = array();
 		$user['class']['location'] = new Location();
 		$user['class']['battle'] = new Battle();
