@@ -14,7 +14,7 @@ if ($action == 'campfire') {
 	if (rand(1, 5) == 1)
 		gen_herb_loot();
 	else
-		save_loot_slot(0, '', 0);
+		$user['class']['item']->save_loot_slot(0, '', 0);
 	if ($user['loot_slot_1'] > 0) {
 		switch($user['loot_slot_1_type']) {
 			case 30:

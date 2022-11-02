@@ -32,10 +32,10 @@ if ($action == 'shop_armor') {
 
 	$current = ($user['char_region_level'] - 1) * 6;
 	for ($i = 1; $i <= 6; $i++)
-		add_item_to_shop($i, $current + $i);
+		$user['class']['item']->add_item_to_shop($i, $current + $i);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)]);
+			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)]);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
@@ -55,10 +55,10 @@ if ($action == 'shop_weapon') {
 
 	$current = ($user['char_region_level'] - 1) * 6;
 	for ($i = 1; $i <= 6; $i++)
-		add_item_to_shop($i, $current + $i + 300);
+		$user['class']['item']->add_item_to_shop($i, $current + $i + 300);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)]);
+			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)]);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
@@ -76,15 +76,15 @@ if ($action == 'shop_alchemy') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=shops');
 
-	add_item_to_shop(1, 601);
-	add_item_to_shop(2, 602);
-	add_item_to_shop(3, 603);
-	add_item_to_shop(4, 604);
-	add_item_to_shop(5, 605);
-	add_item_to_shop(6, 0);
+	$user['class']['item']->add_item_to_shop(1, 601);
+	$user['class']['item']->add_item_to_shop(2, 602);
+	$user['class']['item']->add_item_to_shop(3, 603);
+	$user['class']['item']->add_item_to_shop(4, 604);
+	$user['class']['item']->add_item_to_shop(5, 605);
+	$user['class']['item']->add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)], $amount);
+			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)], $amount);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
@@ -102,15 +102,15 @@ if ($action == 'shop_magic') {
 	$user['links'] = array();
 	addlink('Покинуть лавку', 'index.php?action=magictower');
 
-	add_item_to_shop(1, 701);
-	add_item_to_shop(2, 702);
-	add_item_to_shop(3, 703);
-	add_item_to_shop(4, 0);
-	add_item_to_shop(5, 0);
-	add_item_to_shop(6, 0);
+	$user['class']['item']->add_item_to_shop(1, 701);
+	$user['class']['item']->add_item_to_shop(2, 702);
+	$user['class']['item']->add_item_to_shop(3, 703);
+	$user['class']['item']->add_item_to_shop(4, 0);
+	$user['class']['item']->add_item_to_shop(5, 0);
+	$user['class']['item']->add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
-			equip_item($user['item_slot_'.strval($itemslot)], $amount);
+			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)], $amount);
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
 
