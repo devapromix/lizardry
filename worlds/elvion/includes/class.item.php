@@ -82,13 +82,12 @@
 			foreach ($items as $item) {
 				$id = $item['item_ident'];
 				if ($this->has_item($id)) {
-					$count = item_count($id);
+					$count = $this->amount($id);
 					if ($count > 0) {
 						$price = $price = $this->get_price($type, $item['item_price'], $count);
 						$user['char_gold'] += $price;
 						$gold += $price;
-						item_modify($id, -$count);
-						save_to_log($item['item_name'].' (x'.$count.') - предмет(ы) продан(ы).');
+						$this->modify($id, -$count);
 					}
 				}
 			}
@@ -101,10 +100,44 @@
 		public function buy_empty_elixir($count = 1) {
 			global $user;
 			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
-			add_item(EMPTY_ELIX, $count);
+			$this->add(EMPTY_ELIX, $count);
 			$user['char_gold'] -= 100;
 			update_user_table("char_gold=".$user['char_gold']);
 			$user['log'] = 'Вы купили Пустой Флакон.';
+		}
+
+		private function add($id, $count = 1) {
+			global $user;
+			if ($this->has_item($id)) {
+				$this->modify($id, $count);
+			} else {
+				$items = json_decode($user['char_inventory'], true);
+				$n = count($items);
+				$items[$n]['id'] = $id;
+				$items[$n]['count'] = $count;
+				$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
+				update_user_table("char_inventory='".$user['char_inventory']."'");
+			}
+		}
+
+		public function make_elixir($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
+			if ($this->has_item(EMPTY_ELIX)) {
+				if ($this->has_item($ing1_id)) {
+					$amount = $this->amount($ing1_id);
+					if ($amount >= $ing1_amount) {
+						if ($this->has_item($ing2_id)) {
+							$amount = $this->amount($ing2_id);
+							if ($amount >= $ing2_amount) {
+								$this->modify($ing1_id, -$ing1_amount);
+								$this->modify($ing2_id, -$ing2_amount);
+								$this->modify(EMPTY_ELIX, -1);
+								$this->add($elix_id);
+								return $t;
+							} die('{"info":"Нужно больше количество компонента - '.$ing2_name.'!"}');
+						} die('{"info":"Нужен компонент - '.$ing2_name.'!"}');
+					} die('{"info":"Нужно больше количество компонента - '.$ing1_name.'!"}');
+				} die('{"info":"Нужен компонент - '.$ing1_name.'!"}');
+			} else die('{"info":"Нужен Пустой Флакон!"}');
 		}
 
 		public function item_info($item_ident) {
@@ -182,7 +215,402 @@
 				if ($eq != '')
 					die('{"item":"'.$item['item_name'].'\n'.$eq.' Уровень предмета: '.$item['item_level'].'\n'.$ef.'"}');
 				else
-					die('{"item":"'.$item['item_name'].'\nУровень предмета: '.get_region_item_level($item['item_level']).'\n'.$ef.'"}');
+					die('{"item":"'.$item['item_name'].'\nУровень предмета: '.$this->get_region_item_level($item['item_level']).'\n'.$ef.'"}');
+		}
+
+		private function item_values($item_ident) {
+			global $user, $tb_item, $connection;
+			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+			switch($item['item_type']) {
+				case 0:
+					return $item['item_name'].','.$item['item_armor'].','.$item['item_level'].','.$item['item_price'];
+					break;
+				case 1:
+					return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
+					break;
+				case 8:	
+					return $item['item_name'].','.strval($item['item_level']*25).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 9:	
+					return $item['item_name'].','.strval($item['item_level']*10).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 10:
+					return $item['item_name'].','.strval($item['item_level']*20).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 11:
+					return $item['item_name'].','.strval($item['item_level']*15).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 12:
+					return $item['item_name'].','.strval($item['item_level']*25).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 13:
+					return $item['item_name'].','.strval($item['item_level']*25).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+				case 25: case 26: case 27: case 28: case 30:
+					return $item['item_name'].','.strval($item['item_level']).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
+					break;
+			}
+		}
+
+		public function add_item_to_shop($item_slot, $item_ident) {
+			global $user;
+			$user['item_slot_'.strval($item_slot)] = $item_ident;
+			$user['item_slot_'.strval($item_slot).'_values'] = $this->item_values($item_ident);
+			update_user_table('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
+		}
+
+		public function use_item($item_ident) {
+			global $user, $tb_item, $connection;
+			if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+
+			$result = '';
+
+			if ($user['char_level'] < $this->get_region_item_level($item['item_level'])) die('{"info":"Нужен уровень выше!"}');
+
+			switch($item['item_type']) {
+				case 8:
+					$this->modify($item_ident, -1);
+					$item_level = $item['item_level'];
+					$user['class']['player']->heal();
+					update_user_table("char_life_cur=".$user['char_life_cur']);
+					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
+					break;
+				case 9:
+					$this->modify($item_ident, -1);
+					$item_level = $item['item_level'];
+					$user['char_mana_cur'] = $user['char_mana_max'];
+					update_user_table("char_mana_cur=".$user['char_mana_cur']);
+					$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+					break;
+				case 10:
+					$this->modify($item_ident, -1);
+					$item_level = $item['item_level'];
+					$user['char_life_cur'] = $user['char_life_max'] + round($user['char_life_max'] / 5);
+					update_user_table("char_life_cur=".$user['char_life_cur']);
+					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
+					break;
+				case 11:
+					$this->modify($item_ident, -1);
+					$item_level = $item['item_level'];
+					$user['class']['player']->heal();
+					$user['char_mana_cur'] = $user['char_mana_max'];
+					update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+					break;
+				case 12:
+					$this->modify($item_ident, -1);
+					$user['char_effect'] = Magic::PLAYER_EFFECT_REGEN;
+					update_user_table("char_effect=".$user['char_effect']);			
+					$result = ',"char_effect":"'.$user['char_effect'].'"';
+					break;
+				case 25:
+					$result = $user['class']['magic']->use_scroll_tp($item_ident);
+					break;
+				case 26:
+					$result = $user['class']['magic']->use_scroll_heal($item_ident);
+					break;
+				case 27:
+					$result = $user['class']['magic']->use_scroll_bless($item_ident);
+					break;
+			}
+			return $result;
+		}
+
+		public function inv_item_list($type) {
+			global $user, $tb_item, $connection;
+
+			$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$items = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+			$r = '';
+			$t = '';
+			$gold = 0;
+			foreach ($items as $item) {
+				$id = $item['item_ident'];
+				if ($user['class']['item']->has_item($id)) {
+					$count = $this->amount($id);
+					$price = $user['class']['item']->get_price($type, $item['item_price'], $count);
+					$t .= $item['item_name'].' '.$count.'x - '.$price.' зол.#';
+					$gold += $price;
+				}
+			}
+
+			if ($t != '') {
+				switch($type) {
+					case 0:
+						$r .= 'Ваши брони:';
+						break;
+					case 1:
+						$r .= 'Ваше оружие:';
+						break;
+					case 21:
+						$r .= 'Ваши трофеи:';
+						break;
+					case 30:
+						$r .= 'Ваши ингредиенты:';
+						break;
+				}
+				$r .= '#============#'.$t.'============#Всего: '.$gold.' зол.';
+			}
+
+			return $r;
+		}
+
+		private function get_region_item_level($item_level) {
+			$result = 1;
+			if ($item_level > 1)
+				$result = ($item_level - 1) * 12;
+			return $result;
+		}
+
+		public function save_loot_slot($item_ident, $item_name, $item_type, $item_slot = 1) {
+			global $user;
+	
+			$user['loot_slot_'.strval($item_slot)] = $item_ident;
+			$user['loot_slot_'.strval($item_slot).'_name'] = $item_name;
+			$user['loot_slot_'.strval($item_slot).'_type'] = $item_type;
+
+			if ($user['loot_slot_'.strval($item_slot)] > 0)
+				update_user_table("loot_slot_".strval($item_slot)."=".$user['loot_slot_'.strval($item_slot)].",loot_slot_".strval($item_slot)."_type=".$user['loot_slot_'.strval($item_slot).'_type'].",loot_slot_".strval($item_slot)."_name='".$user['loot_slot_'.strval($item_slot).'_name']."'");
+		}
+
+		private function gen_random_loot($loot_type_array, $loot_level) {
+			global $user, $tb_item, $connection;
+
+			$loot_type = $loot_type_array[array_rand($loot_type_array)];	
+	
+			$query = "SELECT item_ident,item_name,item_level FROM ".$tb_item." WHERE item_level=".$loot_level." AND item_type=".$loot_type." ORDER BY RAND() LIMIT 1";
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+
+			$this->save_loot_slot($item['item_ident'], $item['item_name'], $loot_type);
+		}
+
+		private function gen_trophy_loot() {
+			global $user, $tb_item, $tb_enemy, $connection;
+
+			$query = "SELECT enemy_trophy FROM ".$tb_enemy." WHERE enemy_ident=".$user['enemy_ident'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$enemy = $result->fetch_assoc();
+
+			$trophy_ident = $enemy['enemy_trophy'];	
+			if ($trophy_ident > 0) {
+				$query = "SELECT item_name FROM ".$tb_item." WHERE item_ident=".$trophy_ident;
+				$result = mysqli_query($connection, $query) 
+					or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+				$item = $result->fetch_assoc();
+
+				$this->save_loot_slot($trophy_ident, $item['item_name'], 21);
+			}
+		}
+	
+		private function gen_equip_loot() {
+			global $user;
+			$loot_level = $this->get_loot_level();
+			if ($loot_level % 2 != 0)
+				$this->gen_random_loot([0], $loot_level);
+			else
+				$this->gen_random_loot([1], $loot_level);
+		}
+
+		private function gen_else_loot() {
+			$this->gen_random_loot([8,9,10,11,12,25,26,27,28,30], 1);
+		}
+
+		private function gen_alch_loot() {
+			gen_random_loot([8,9,10,11,12,28], 1);
+		}
+
+		private function gen_mage_loot() {
+			gen_random_loot([9,25,26,27], 1);
+		}
+
+		private function gen_herb_loot() {
+			gen_random_loot([30], 1);
+		}
+
+		public function gen_loot() {
+			global $user;
+	
+			// Обычные враги
+			if (($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
+				// Трофеи 25%
+				if (rand(1, 4) == 1) {
+					$this->gen_trophy_loot();
+				} else 
+				// Обычный лут: зелья, свитки, травы 10%
+				if (rand(1, 10) == 1) {
+					$this->gen_else_loot();
+				} else
+				// Экипировка 1%
+				if (rand(1, 100) == 1) {
+					$this->gen_equip_loot();
+				}
+			// Чемпионы 
+			} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
+				// Экипировка 5%
+				if (rand(1, 20) == 1) {
+					$this->gen_equip_loot();
+				} else {
+					$this->gen_else_loot();
+				}
+			// Уникальные
+			} elseif (($user['enemy_champion'] == 1) && ($user['enemy_boss'] == 0)) {
+				// Экипировка
+				$this->gen_equip_loot();		
+			// Босс
+			} elseif ($user['enemy_boss'] > 0) {
+				// Экипировка
+				$this->gen_equip_loot();
+			}
+		}
+
+		public function equip_item($item_ident, $item_amount = 1) {
+			global $user, $tb_item, $connection;
+			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+
+			if ($user['char_gold'] < ($item['item_price'] * $item_amount)) die('{"info":"Нужно больше золота!"}');
+			if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
+
+			switch($item['item_type']) {
+				case 0:
+					$this->add($user['char_equip_armor_ident']);
+					$user['char_equip_armor_name'] = $item['item_name'];
+					$user['char_equip_armor_ident'] = $item['item_ident'];
+					$user['char_gold'] -= $item['item_price'];
+					$user['char_armor'] = $item['item_armor'];
+					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+					add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					break;
+				case 1:
+					$this->add($user['char_equip_weapon_ident']);
+					$user['char_equip_weapon_name'] = $item['item_name'];
+					$user['char_equip_weapon_ident'] = $item['item_ident'];
+					$user['char_gold'] -= $item['item_price'];
+					$user['char_damage_min'] = $item['item_damage_min'];
+					$user['char_damage_max'] = $item['item_damage_max'];
+					update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
+					add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					break;
+				default:
+					$user['char_gold'] -= $item['item_price'] * $item_amount;
+					$this->add($item['item_ident'], $item_amount);
+					update_user_table("char_gold=".$user['char_gold']);
+					break;
+			}
+		}
+
+		public function pickup_equip_item() {
+			global $user, $tb_item, $connection;
+			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$user['loot_slot_1'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$item = $result->fetch_assoc();
+
+			if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
+
+			$r = '';
+			switch($item['item_type']) {
+				case 0:
+					if ($item['item_ident'] > $user['char_equip_armor_ident']) {
+						$this->add($user['char_equip_armor_ident']);
+						$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
+						$user['char_equip_armor_name'] = $item['item_name'];
+						$user['char_equip_armor_ident'] = $item['item_ident'];
+						$user['char_armor'] = $item['item_armor'];
+						update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
+						$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
+						add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					} else {
+						$r = 'Вы забираете '.$item['item_name'].' себе.';
+						$this->add($item['item_ident']);
+					}
+					break;
+				case 1:
+					if ($item['item_ident'] > $user['char_equip_weapon_ident']) {
+						$this->add($user['char_equip_weapon_ident']);
+						$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
+						$user['char_equip_weapon_name'] = $item['item_name'];
+						$user['char_equip_weapon_ident'] = $item['item_ident'];
+						$user['char_damage_min'] = $item['item_damage_min'];
+						$user['char_damage_max'] = $item['item_damage_max'];
+						update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
+						$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
+						add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					} else {
+						$r = 'Вы забираете '.$item['item_name'].' себе.';
+						$this->add($item['item_ident']);
+					}
+					break;
+				default:
+					$r = 'Вы забираете '.$item['item_name'].' себе.';
+					$this->add($item['item_ident']);
+					break;
+			}
+			return $r;
+		}
+
+		private function amount($id) {
+			global $user;
+			$result = 0;
+			$items = json_decode($user['char_inventory'], true);
+			for($i = 0; $i < count($items); $i++) {
+				$item = $items[$i];
+				$item_id = $item['id'];
+				if ($item_id == $id) {
+					$result = $item['count'];
+					break;
+				}
+			}
+			return $result;
+		}
+
+		public function modify($id, $value) {
+			global $user;
+			$items = json_decode($user['char_inventory'], true);
+			for($i = 0; $i < count($items); $i++) {
+				$item = $items[$i];
+				$item_id = $item['id'];
+				if ($item_id == $id) {
+					$count = $item['count'];
+					$count += $value;
+					if ($count <= 0) {
+						unset($items[$i]);
+					} else {
+						$items[$i]['count'] = $count;
+					}
+					$items = array_values($items);
+					$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
+					update_user_table("char_inventory='".$user['char_inventory']."'");
+					break;
+				}
+			}
+		}
+
+		public static function get_items() {
+			global $tb_item, $connection;
+
+			$query = "SELECT * FROM ".$tb_item;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$items = $result->fetch_all(MYSQLI_ASSOC);
+
+			return json_encode($items, JSON_UNESCAPED_UNICODE);
 		}
 
 	}
