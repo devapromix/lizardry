@@ -39,7 +39,7 @@ if ($action == 'guild_main') {
 		$user['char_lp']++;
 		$user['char_life_max'] = $user['class']['player']->get_life($user['char_level']);
 		$user['char_life_cur'] = $user['char_life_max'];
-		add_event(1, $user['char_name'], $user['char_level']);
+		Event::add(1, $user['char_name'], $user['char_level']);
 		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();

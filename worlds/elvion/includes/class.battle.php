@@ -68,7 +68,7 @@
 					$user['char_gold'] -= round($user['char_gold'] / 7);
 					$r .= $this->str_line();
 					$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
-					add_event(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
+					Event::add(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
 					break;
 				}
 
@@ -100,7 +100,7 @@
 						$r .= 'Ваше внимание привлекает загадочная локация, которую вы только что обнаружили...#';
 					}
 					if ($user['enemy_champion'] == 1)
-						add_event(4, $user['char_name'], 1, $user['char_gender'], $user['enemy_name'], $user['char_region_location_name']);
+						Event::add(4, $user['char_name'], 1, $user['char_gender'], $user['enemy_name'], $user['char_region_location_name']);
 					break;
 				}
 				$this->rounds++;

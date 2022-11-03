@@ -9,6 +9,7 @@ require_once(IPATH.'class.battle.php');
 require_once(IPATH.'class.player.php');
 require_once(IPATH.'class.magic.php');
 require_once(IPATH.'class.item.php');
+require_once(IPATH.'class.event.php');
 require_once(IPATH.'class.enemy.php');
 require_once(IPATH.'class.boss.php');
 
@@ -29,7 +30,7 @@ $user = get_user($username, $userpass);
 if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'login') $res = '{"login":"ok","session":"'.gen_user_session().'"}';
 	if ($action == 'version') $res = get_version();
-	if ($action == 'events') $res = get_events();
+	if ($action == 'events') $res = Event::get_events();
 	if ($usersession == $user['user_session']) {
 		if ($action == 'inventory') $res = get_inventory();
 		if ($action == 'items') $res = Item::get_items();
