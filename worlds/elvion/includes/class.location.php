@@ -210,7 +210,7 @@
 				case 2:
 					$user['title'] = 'Камнепад!!!';
 					$user['description'] = 'Вы проходите несколько десятков шагов и внезапно слышите странный гул. Обвал! - краем сознания вдруг осознаете вы и бросаетесь в сторону... ';
-					$dam = rand($user['char_region'] * 3, $user['char_region'] * 5);
+					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
 					$user['char_life_cur'] -= $dam;
 					if ($user['char_life_cur'] > 0) {
 						$user['description'] .= 'Грохочущая лавина камней проносится совсем рядом, лишь слегка зацепив вас. Вам чудом удалось избежать смерти!';
@@ -223,7 +223,7 @@
 				case 3:
 					$user['title'] = 'Невидимый вор!';
 					$user['description'] = 'Вы прошли всего несколько десятков шагов, когда заметили какое-то движение. Вор! Вы хватились кошелька на поясе и с сожалением обнаружили, что вас ограбили. ';
-					$gold = rand($user['char_region'] * 30, $user['char_region'] * 70);
+					$gold = rand($user['char_region_level'] * 30, $user['char_region_level'] * 70);
 					if ($user['char_gold'] > $gold) {
 						$user['char_gold'] -= $gold;
 						$user['description'] .= 'Вору удалось украсть у вас '.$gold.' золотых монет.';
@@ -255,7 +255,7 @@
 					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
 					break;
 				case 7:
-					$gold = rand($user['char_region'] * 50, $user['char_region'] * 90);
+					$gold = rand($user['char_region_level'] * 50, $user['char_region_level'] * 90);
 					$user['title'] = 'Сундук с золотом!';
 					$user['description'] = 'Вы оглядываете местность после битвы и вдалеке замечаете небольшой сундучок. Подойдя поближе вы видите, что на судучке изображен имперский герб. Кто-то очень важный обронил его здесь. Замок на сундучке выглядит не слишком сложным и после пяти минут сопротивления поддается. Вы открываете сундук и видите, что в нем находится '.strval($gold).' золотых монет. Вы забираете все золото себе.';		
 					update_user_table("char_gold=".$user['char_gold']);
@@ -334,9 +334,19 @@
 			}
 		}
 		
-		public function get_shop_welcome_phrase($category_ident) {
+		public function get_tavern_name() {
+			global $user, $tb_regions, $connection;
+			$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$region = $result->fetch_assoc();
+			return $region['region_tavern_name'];			
+		}
+		
+		public function get_welcome_phrase($category_ident, $flag = true) {
 			global $connection, $tb_phrases;
-			$query = "SELECT text FROM ".$tb_phrases." WHERE category=".$category_ident." OR category=0 ORDER BY RAND() LIMIT 1";
+			$v = ($flag)?" OR category=0":"";
+			$query = "SELECT text FROM ".$tb_phrases." WHERE category=".$category_ident.$v." ORDER BY RAND() LIMIT 1";
 			$result = mysqli_query($connection, $query) 
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			$phrase = $result->fetch_assoc();
