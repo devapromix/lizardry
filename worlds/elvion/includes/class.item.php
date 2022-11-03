@@ -2,6 +2,9 @@
 
 	class Item {
 		
+		const CAT_ARMOR 		= 0;
+		const CAT_WEAPON 		= 1;
+		
 		public function __construct() {
 
 		}
@@ -10,11 +13,11 @@
 			global $user;
 			$r = 0;
 			switch($type) {
-				case 0: case 1:
+				case self::CAT_ARMOR: case self::CAT_WEAPON:
 					$r = $count * round($price * 0.35);
 					break;
 				case 21:
-					$r = $count * round($price * $user['char_region'] * 0.35);
+					$r = $count * round($price * $user['char_region_level'] * 0.35);
 					break;
 				case 30:
 					$r = $count * round($price * 0.85);
@@ -152,11 +155,11 @@
 			$ef = '';
 			$eq = '';
 			switch($item['item_type']) {
-				case 0:
+				case self::CAT_ARMOR:
 					$ef = 'Броня: '.$item['item_armor'];
 					$eq = 'Доспех.';
 					break;
-				case 1:
+				case self::CAT_WEAPON:
 					$ef = 'Урон: '.$item['item_damage_min'].'-'.$item['item_damage_max'];
 					$eq = 'Одноручный Меч.';
 					break;
@@ -208,6 +211,18 @@
 					$ef = 'Алхимический ингредиент для зелий.';
 					$eq = 'Ингредиент.';
 					break;
+				case 75:
+					$ef = 'Провизия.';
+					$eq = '';
+					break;
+				case 76:
+					$ef = 'Открывает замки.';
+					$eq = '';
+					break;
+				case 77:
+					$ef = 'Источник света.';
+					$eq = '';
+					break;
 			}
 			if ($ef == '')
 				die('{"item":""}');
@@ -225,10 +240,10 @@
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			$item = $result->fetch_assoc();
 			switch($item['item_type']) {
-				case 0:
+				case self::CAT_ARMOR:
 					return $item['item_name'].','.$item['item_armor'].','.$item['item_level'].','.$item['item_price'];
 					break;
-				case 1:
+				case self::CAT_WEAPON:
 					return $item['item_name'].','.$item['item_damage_min'].'-'.$item['item_damage_max'].','.$item['item_level'].','.$item['item_price'];
 					break;
 				case 8:	
@@ -249,7 +264,7 @@
 				case 13:
 					return $item['item_name'].','.strval($item['item_level']*25).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
 					break;
-				case 25: case 26: case 27: case 28: case 30:
+				default:
 					return $item['item_name'].','.strval($item['item_level']).','.$this->get_region_item_level($item['item_level']).','.$item['item_price'];
 					break;
 			}
@@ -347,10 +362,10 @@
 
 			if ($t != '') {
 				switch($type) {
-					case 0:
+					case self::CAT_ARMOR:
 						$r .= 'Ваши брони:';
 						break;
-					case 1:
+					case self::CAT_WEAPON:
 						$r .= 'Ваше оружие:';
 						break;
 					case 21:
@@ -420,9 +435,9 @@
 			global $user;
 			$loot_level = $this->get_loot_level();
 			if ($loot_level % 2 != 0)
-				$this->gen_random_loot([0], $loot_level);
+				$this->gen_random_loot([self::CAT_ARMOR], $loot_level);
 			else
-				$this->gen_random_loot([1], $loot_level);
+				$this->gen_random_loot([self::CAT_WEAPON], $loot_level);
 		}
 
 		private function gen_else_loot() {
@@ -430,15 +445,15 @@
 		}
 
 		private function gen_alch_loot() {
-			gen_random_loot([8,9,10,11,12,28], 1);
+			$this->gen_random_loot([8,9,10,11,12,28], 1);
 		}
 
 		private function gen_mage_loot() {
-			gen_random_loot([9,25,26,27], 1);
+			$this->gen_random_loot([9,25,26,27], 1);
 		}
 
-		private function gen_herb_loot() {
-			gen_random_loot([30], 1);
+		public function gen_herb_loot() {
+			$this->gen_random_loot([30], 1);
 		}
 
 		public function gen_loot() {
@@ -488,7 +503,7 @@
 			if ($user['char_level'] < $item['item_level']) die('{"info":"Нужен уровень выше!"}');
 
 			switch($item['item_type']) {
-				case 0:
+				case self::CAT_ARMOR:
 					$this->add($user['char_equip_armor_ident']);
 					$user['char_equip_armor_name'] = $item['item_name'];
 					$user['char_equip_armor_ident'] = $item['item_ident'];
@@ -497,7 +512,7 @@
 					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
 					add_event(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					break;
-				case 1:
+				case self::CAT_WEAPON:
 					$this->add($user['char_equip_weapon_ident']);
 					$user['char_equip_weapon_name'] = $item['item_name'];
 					$user['char_equip_weapon_ident'] = $item['item_ident'];
@@ -526,7 +541,7 @@
 
 			$r = '';
 			switch($item['item_type']) {
-				case 0:
+				case self::CAT_ARMOR:
 					if ($item['item_ident'] > $user['char_equip_armor_ident']) {
 						$this->add($user['char_equip_armor_ident']);
 						$r .= 'Вы снимаете свой старый '.$user['char_equip_armor_name'];
@@ -541,7 +556,7 @@
 						$this->add($item['item_ident']);
 					}
 					break;
-				case 1:
+				case self::CAT_WEAPON:
 					if ($item['item_ident'] > $user['char_equip_weapon_ident']) {
 						$this->add($user['char_equip_weapon_ident']);
 						$r .= 'Вы бросаете свой старый '.$user['char_equip_weapon_name'];
