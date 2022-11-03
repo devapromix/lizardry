@@ -4,6 +4,7 @@
 		
 		const CAT_ARMOR 		= 0;
 		const CAT_WEAPON 		= 1;
+		const CAT_FOOD			= 75;
 		
 		public function __construct() {
 
@@ -211,7 +212,7 @@
 					$ef = 'Алхимический ингредиент для зелий.';
 					$eq = 'Ингредиент.';
 					break;
-				case 75:
+				case self::CAT_FOOD:
 					$ef = 'Провизия.';
 					$eq = '';
 					break;
@@ -334,6 +335,13 @@
 					break;
 				case 27:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
+					break;
+				case self::CAT_FOOD:
+					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
+					$this->modify($item_ident, -1);
+					$user['char_food']++;
+					update_user_table("char_food=".$user['char_food']);
+					$result = ',"char_food":"'.$user['char_food'].'"';
 					break;
 			}
 			return $result;

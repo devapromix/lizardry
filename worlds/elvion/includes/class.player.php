@@ -11,7 +11,7 @@
 			
 		}
 		
-		function get_life($level) {
+		public function get_life($level) {
 			return ($level * 5) + 25;
 		}
 
@@ -31,7 +31,6 @@
 			if ($user['char_mana_cur'] > $user['char_mana_max'])
 				$user['char_mana_cur'] = $user['char_mana_max'];
 		}
-		
 		
 	}
 
