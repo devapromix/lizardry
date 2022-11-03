@@ -22,7 +22,7 @@ if ($action == 'campfire') {
 				break;
 		}
 		$user['frame'] = 'get_loot';
-		addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+		Location::pickup_link();
 	}
 	$user['class']['player']->rest();
 	$user['char_food']--;

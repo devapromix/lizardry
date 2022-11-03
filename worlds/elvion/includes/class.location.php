@@ -8,6 +8,12 @@
 			
 		}
 		
+		public static function addlink($t, $j, $n = 0) {
+			global $user;
+			$user['links'][$n]['title'] = $t;
+			$user['links'][$n]['link'] = $j;
+		}
+		
 		public function shades() {
 			global $user;
 			$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
@@ -22,16 +28,20 @@
 		}
 
 		public function go_to_the_town($t = 'Вернуться в город', $n = 0) {
-			addlink($t, 'index.php?action=town', $n);
+			Location::addlink($t, 'index.php?action=town', $n);
 		}
 
 		public function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
-			addlink($t, 'index.php?action=graveyard', $n);
+			Location::addlink($t, 'index.php?action=graveyard', $n);
 		}
 
 		public function go_to_the_gate($t = 'Идти в сторону города', $n = 0) {
-			addlink($t, 'index.php?action=gate', $n);
+			Location::addlink($t, 'index.php?action=gate', $n);
 		}		
+		
+		public static function pickup_link() {
+			Location::addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+		}
 		
 		public function check_travel_req($level, $food, $gold) {
 			global $user;
@@ -91,7 +101,7 @@
 			$n = 0;
 			if ($user['char_life_cur'] > 0) {
 				if (count($prev_location) > 0) {
-					addlink($prev_location[0], $prev_location[1], $n);
+					Location::addlink($prev_location[0], $prev_location[1], $n);
 					$n++;
 				}
 				if (count($prev_location) == 0) {
@@ -99,7 +109,7 @@
 					$n++;
 				}
 				if (count($next_location) > 0) {
-					addlink($next_location[0], $next_location[1], $n);
+					Location::addlink($next_location[0], $next_location[1], $n);
 					$n++;
 				}
 			} else
@@ -172,11 +182,11 @@
 					for ($i = 0; $i < count($regions); $i++) {
 						if ($user['char_region'] == $regions[$i]) {
 							$r = strval($regions[$i] + 1);
-							addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
+							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
 						if ($user['char_region'] == $regions[$i] + 1) {
 							$r = strval($regions[$i]);
-							addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
+							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
 					}
 		
@@ -197,7 +207,7 @@
 			global $user;
 
 			$user['links'] = array();
-			addlink('Назад', 'index.php?action='.$user['current_outlands']);
+			Location::addlink('Назад', 'index.php?action='.$user['current_outlands']);
 			$frame = 'battle';
 
 			switch ($user['current_random_place']) {
@@ -238,21 +248,21 @@
 					$user['title'] = 'Сундук алхимика!';
 					$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					Location::pickup_link();
 					break;
 				case 5:
 					gen_mage_loot();
 					$user['title'] = 'Сундук мага!';
 					$user['description'] = 'Недалеко от места сражения вы внезапно увидели старый сундук. Замок на нем настолько стар, что легко рассыпается в пыль от одного прикосновения. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					Location::pickup_link();
 					break;
 				case 6:
 					gen_herb_loot();
 					$user['title'] = 'Сумка травника!';
 					$user['description'] = 'Решив присесть отдохнуть после тяжелого боя, вы внезапно замечаете на земле небольшую серую сумку, какую обычно используют алхимики для сбора трав и алхимических ингридиентов. Вы открываете сумку и видите, что в ней находится '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
-					addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+					Location::pickup_link();
 					break;
 				case 7:
 					$gold = rand($user['char_region_level'] * 50, $user['char_region_level'] * 90);
@@ -265,7 +275,7 @@
 			return $frame;
 		}
 
-		public static function pickup_loot_title() {
+		private static function pickup_loot_title() {
 			global $user;
 			$m = '';
 			switch($user['loot_slot_1_type']) {

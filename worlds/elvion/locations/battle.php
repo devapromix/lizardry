@@ -41,7 +41,7 @@ if ($action == 'battle') {
 		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
 		if ($user['loot_slot_1'] > 0) {
 			$user['frame'] = 'get_loot';
-			addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+			Location::pickup_link();
 		} else if ($user['current_random_place'] > 0) {
 			$user['frame'] = 'get_random_place';
 			addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
