@@ -115,6 +115,7 @@ type
     procedure ChEnemyLifePanels(const Cur, Max: string);
     procedure ChManaPanels(const Cur, Max: string);
     procedure ChExpPanels(const Cur, Max: string);
+    procedure ChFoodPanel(S: string);
     procedure ChEffectPanel(S: string);
   public
     { Public declarations }
@@ -360,6 +361,8 @@ begin
           R := S.Split(['|']);
           Prompt(R[0], R[1], R[2]);
         end;
+        if LJSON.TryGetValue('char_food', S) then
+          ChFoodPanel(S);
         if LJSON.TryGetValue('char_effect', S) then
           ChEffectPanel(S)
         else
@@ -433,6 +436,12 @@ procedure TFrameTown.ChExpPanels(const Cur, Max: string);
 begin
   Panel4.Width := Round(Cur.ToInteger / Max.ToInteger * XPPanel.Width);
   Panel13.Caption := Format('Опыт: %s/%s', [Cur, Max]);
+end;
+
+procedure TFrameTown.ChFoodPanel(S: string);
+begin
+  Panel15.Caption := 'Провизия: ' + S + '/7';
+  FormMain.FrameTown.FrameOutlands1.Label1.Caption := S + '/7';
 end;
 
 procedure TFrameTown.ChLifePanels(const Cur, Max: string);
@@ -779,10 +788,7 @@ begin
       ChExpPanels(Cur, IntToStr(GetLevelExp(StrToIntDef(V, 1))));
     end;
     if LJSON.TryGetValue('char_food', S) then
-    begin
-      Panel15.Caption := 'Провизия: ' + S + '/7';
-      FormMain.FrameTown.FrameOutlands1.Label1.Caption := S + '/7';
-    end;
+      ChFoodPanel(S);
     if LJSON.TryGetValue('char_gold', S) then
     begin
       pnGold.Caption := 'Золото: ' + S;

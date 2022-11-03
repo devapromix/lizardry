@@ -532,7 +532,7 @@
 					break;
 				default:
 					$user['char_gold'] -= $item['item_price'] * $item_amount;
-					$this->add($item['item_ident'], $item_amount);
+					$this->add($item_ident, $item_amount);
 					update_user_table("char_gold=".$user['char_gold']);
 					break;
 			}

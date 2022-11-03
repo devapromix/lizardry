@@ -35,6 +35,7 @@ type
     { Private declarations }
   public const
     BuyQuestionMsg = 'Купить %s за %s золотых?';
+    BuyURL = 'index.php?action=%s&amount=%s&do=buy&itemslot=%d';
   public
     ShopType: TShopType;
     { Public declarations }
@@ -96,6 +97,7 @@ procedure TFrameShop.SGDblClick(Sender: TObject);
 var
   LRow: Integer;
 begin
+  FormAmountPrompt.AmountEdit.Text := '1';
   if IsChatMode or IsCharMode then
     Exit;
   LRow := SG.Row;
@@ -111,21 +113,18 @@ begin
       // Alchemy
       stAlchemy:
         AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
-          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=shop_alchemy&amount='
-          + FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
-          IntToStr(LRow));
+          SG.Cells[4, LRow]]), 'Купить', 'shop_alchemy',
+          FormAmountPrompt.AmountEdit.Text, LRow);
       // Magic
       stMagic:
         AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
-          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=shop_magic&amount=' +
-          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
-          IntToStr(LRow));
+          SG.Cells[4, LRow]]), 'Купить', 'shop_magic',
+          FormAmountPrompt.AmountEdit.Text, LRow);
       // Tavern
       stTavern:
         AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
-          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=tavern&amount=' +
-          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
-          IntToStr(LRow));
+          SG.Cells[4, LRow]]), 'Купить', 'tavern',
+          FormAmountPrompt.AmountEdit.Text, LRow);
       // Armor
     else
       Prompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow], SG.Cells[4, LRow]]),
