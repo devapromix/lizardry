@@ -12,7 +12,7 @@ if ($action == 'campfire') {
 	$user['links'] = array();
 	addlink('Затушить костер', 'index.php?action='.$user['current_outlands']);
 	if (rand(1, 5) == 1)
-		gen_herb_loot();
+		$user['class']['item']->gen_herb_loot();
 	else
 		$user['class']['item']->save_loot_slot(0, '', 0);
 	if ($user['loot_slot_1'] > 0) {
