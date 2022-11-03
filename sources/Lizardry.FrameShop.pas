@@ -19,7 +19,7 @@ uses
   Vcl.DBGrids;
 
 type
-  TShopType = (stWeapon, stArmor, stAlchemy, stMagic);
+  TShopType = (stWeapon, stArmor, stAlchemy, stMagic, stTavern);
 
 type
   TFrameShop = class(TFrame)
@@ -118,6 +118,12 @@ begin
       stMagic:
         AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
           SG.Cells[4, LRow]]), 'Купить', 'index.php?action=shop_magic&amount=' +
+          FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
+          IntToStr(LRow));
+      // Tavern
+      stTavern:
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
+          SG.Cells[4, LRow]]), 'Купить', 'index.php?action=tavern&amount=' +
           FormAmountPrompt.AmountEdit.Text + '&do=buy&itemslot=' +
           IntToStr(LRow));
       // Armor

@@ -531,7 +531,9 @@ begin
     begin
       if (S = 'bank') then
       begin
-        FormMain.FrameTown.FrameBank1.Welcome;
+        if LJSON.TryGetValue('description', S) then
+          FormMain.FrameTown.FrameInfo1.StaticText1.Caption :=
+            S.Replace('#', #13#10);
         if LJSON.TryGetValue('char_gold', S) then
         begin
           F := StrToIntDef(S, 0);
@@ -721,6 +723,24 @@ begin
           ShopType := stMagic;
           SG.Cells[1, 0] := 'Свиток';
           SG.Cells[2, 0] := 'Мощь';
+          for K := 1 to 6 do
+            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            begin
+              A := S.Split([',']);
+              for J := 0 to 3 do
+                SG.Cells[J + 1, K] := A[J];
+            end;
+          BringToFront;
+          SG.SetFocus;
+          SG.OnClick(Self);
+        end
+      else if (S = 'tavern') then
+        with FormMain.FrameTown.FrameShop1 do
+        begin
+          DrawGrid;
+          ShopType := stTavern;
+          SG.Cells[1, 0] := 'Предмет';
+          SG.Cells[2, 0] := 'Значение';
           for K := 1 to 6 do
             if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
             begin

@@ -7,6 +7,9 @@ VERSION = "0.2.0"
 SERVER = 'lizardry'
 
 class Login:
+
+    session = 0
+
     def __init__(self, username, userpass):
         self.username = username
         self.userpass = userpass
