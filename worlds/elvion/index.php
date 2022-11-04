@@ -12,6 +12,7 @@ require_once(IPATH.'class.item.php');
 require_once(IPATH.'class.event.php');
 require_once(IPATH.'class.enemy.php');
 require_once(IPATH.'class.boss.php');
+require_once(IPATH.'class.user.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -25,10 +26,10 @@ $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$connection)
 	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
 
-$user = get_user($username, $userpass);
+$user = User::init($username, $userpass);
 
 if (($userpass != '') && ($userpass == $user['user_pass'])) {
-	if ($action == 'login') $res = '{"login":"ok","session":"'.gen_user_session().'"}';
+	if ($action == 'login') $res = '{"login":"ok","session":"'.User::session().'"}';
 	if ($action == 'version') $res = get_version();
 	if ($action == 'events') $res = Event::get_events();
 	if ($usersession == $user['user_session']) {

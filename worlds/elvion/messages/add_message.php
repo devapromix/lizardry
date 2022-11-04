@@ -4,7 +4,7 @@ $res = '{"login":"error"}';
 require_once('../common/common.php');
 require_once('../common/connect.php');
 require_once('../common/dbtables.php');
-
+require_once(IPATH.'class.user.php');
 
 $charname = $_REQUEST['charname'];
 $action = $_REQUEST['action'];
@@ -21,7 +21,7 @@ $result = mysqli_query($connection, $query)
 $user = $result->fetch_assoc();
 
 if ($action == 'add_message') {
-	if ((check_user($username) == true) && (check_char($charname) == true)) {
+	if ((User::check_user($username) == true) && (User::check_char($charname) == true)) {
 		$message = str_replace('_', ' ', $message);
 		$query = "INSERT INTO ".$tb_chat." (message_author, message_text) VALUES ('".$charname."', '".$message."')";
 		if (mysqli_query($connection, $query)) {
