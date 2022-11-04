@@ -10,10 +10,10 @@ if ($action == 'magictower') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		$user['class']['location']->go_to_the_town();
-		addlink('Магическая Лавка', 'index.php?action=shop_magic', 1);
+		Location::addlink('Магическая Лавка', 'index.php?action=shop_magic', 1);
 		switch ($user['char_region']) {
 			case 8:
-				addlink('Порталл в Забытый Храм', 'index.php?action=forgotten_temple', 2);
+				Location::addlink('Порталл в Забытый Храм', 'index.php?action=forgotten_temple', 2);
 				break;
 		}
 	} else $user['class']['location']->go_to_the_graveyard();

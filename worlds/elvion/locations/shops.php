@@ -9,9 +9,9 @@ if ($action == 'shops') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {	
 		$user['class']['location']->go_to_the_town('Идти на площадь города');
-		addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
-		addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
-		addlink('Лавка Алхимика', 'index.php?action=shop_alchemy', 3);
+		Location::addlink('Лавка Оружейника', 'index.php?action=shop_weapon', 1);
+		Location::addlink('Лавка Бронника', 'index.php?action=shop_armor', 2);
+		Location::addlink('Лавка Алхимика', 'index.php?action=shop_alchemy', 3);
 	} else $user['class']['location']->go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -28,7 +28,7 @@ if ($action == 'shop_armor') {
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
-	addlink('Покинуть лавку', 'index.php?action=shops');
+	Location::addlink('Покинуть лавку', 'index.php?action=shops');
 
 	$current = ($user['char_region_level'] - 1) * 6;
 	for ($i = 1; $i <= 6; $i++)
@@ -51,7 +51,7 @@ if ($action == 'shop_weapon') {
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
-	addlink('Покинуть лавку', 'index.php?action=shops');
+	Location::addlink('Покинуть лавку', 'index.php?action=shops');
 
 	$current = ($user['char_region_level'] - 1) * 6;
 	for ($i = 1; $i <= 6; $i++)
@@ -74,7 +74,7 @@ if ($action == 'shop_alchemy') {
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
-	addlink('Покинуть лавку', 'index.php?action=shops');
+	Location::addlink('Покинуть лавку', 'index.php?action=shops');
 
 	$user['class']['item']->add_item_to_shop(1, 601);
 	$user['class']['item']->add_item_to_shop(2, 602);
@@ -100,7 +100,7 @@ if ($action == 'shop_magic') {
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
-	addlink('Покинуть лавку', 'index.php?action=magictower');
+	Location::addlink('Покинуть лавку', 'index.php?action=magictower');
 
 	$user['class']['item']->add_item_to_shop(1, 701);
 	$user['class']['item']->add_item_to_shop(2, 702);

@@ -50,10 +50,4 @@ function get_file_int($fn) {
 	return $r;
 }
 
-function addlink($t, $j, $n = 0) {
-	global $user;
-	$user['links'][$n]['title'] = $t;
-	$user['links'][$n]['link'] = $j;	
-}
-
 ?>

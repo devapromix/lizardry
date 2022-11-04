@@ -9,13 +9,13 @@ if ($action == 'guilds') {
 	$user['links'] = array();
 	if ($user['char_life_cur'] > 0) {
 		$user['class']['location']->go_to_the_town('Идти на площадь города');
-		addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
-		addlink('Гильдия Воинов', 'index.php?action=guild_warrior', 2);
-		addlink('Гильдия Охотников', 'index.php?action=guild_hunter', 3);
-		addlink('Гильдия Кузнецов', 'index.php?action=guild_forge', 4);
-		addlink('Гильдия Кожевников', 'index.php?action=guild_lw', 5);
-		addlink('Гильдия Выживания', 'index.php?action=guild_surv', 6);
-		addlink('Гильдия Алхимиков', 'index.php?action=guild_alch', 7);
+		Location::addlink('Тренировочный Зал', 'index.php?action=guild_main', 1);
+		Location::addlink('Гильдия Воинов', 'index.php?action=guild_warrior', 2);
+		Location::addlink('Гильдия Охотников', 'index.php?action=guild_hunter', 3);
+		Location::addlink('Гильдия Кузнецов', 'index.php?action=guild_forge', 4);
+		Location::addlink('Гильдия Кожевников', 'index.php?action=guild_lw', 5);
+		Location::addlink('Гильдия Выживания', 'index.php?action=guild_surv', 6);
+		Location::addlink('Гильдия Алхимиков', 'index.php?action=guild_alch', 7);
 	} else $user['class']['location']->go_to_the_graveyard();
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -27,9 +27,9 @@ if ($action == 'guild_main') {
 	$user['title'] = 'Тренировочный Зал';
 	$user['description'] = 'После занятий с Мастером в Тренировочном Зале вы получаете новый уровень и очки развития навыков, которые можете потратить в других гильдиях на изучение новых навыков или улучшения уже известных.##Сейчас у вас '.$user['char_lp'].' свободных оч.';
 	$user['links'] = array();
-	addlink('Покинуть зал', 'index.php?action=guilds');
-	addlink('Приступить к тренировке', 'index.php?action=guild_main&do=train_in_guild_main', 1);
-	addlink('Забыть все навыки!', 'index.php?action=guild_main&do=try_clear', 2);
+	Location::addlink('Покинуть зал', 'index.php?action=guilds');
+	Location::addlink('Приступить к тренировке', 'index.php?action=guild_main&do=train_in_guild_main', 1);
+	Location::addlink('Забыть все навыки!', 'index.php?action=guild_main&do=try_clear', 2);
 
 	if ($do == 'train_in_guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
@@ -43,15 +43,15 @@ if ($action == 'guild_main') {
 		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_main');
+		Location::addlink('Назад', 'index.php?action=guild_main');
 	}
 	
 	if ($do == 'try_clear') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
 		$user['description'] = 'Вы подтверждаете, что готовы сбросить все очки развития навыков персонажа?';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_main');
-		addlink('Подтвердить!', 'index.php?action=guild_main&do=clear', 1);
+		Location::addlink('Назад', 'index.php?action=guild_main');
+		Location::addlink('Подтвердить!', 'index.php?action=guild_main&do=clear', 1);
 	}
 	
 	if ($do == 'clear') {
@@ -61,7 +61,7 @@ if ($action == 'guild_main') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
 		$user['log'] = 'Вы забыли все!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_main');
+		Location::addlink('Назад', 'index.php?action=guild_main');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -85,19 +85,19 @@ if ($action == 'guild_warrior') {
 		$t .= 'Ошеломление: '.$user['skill_bewil'].'/25#';
 	$user['description'] = $t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Информация по навыкам', 'index.php?action=guild_warrior&do=info', 1);
-	addlink('Тренировать "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge', 2);
-	addlink('Тренировать "Парирование"', 'index.php?action=guild_warrior&do=train_parry', 3);
-	addlink('Тренировать "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil', 4);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Информация по навыкам', 'index.php?action=guild_warrior&do=info', 1);
+	Location::addlink('Тренировать "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge', 2);
+	Location::addlink('Тренировать "Парирование"', 'index.php?action=guild_warrior&do=train_parry', 3);
+	Location::addlink('Тренировать "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil', 4);
 
 	if ($do == 'info') {
 		$user['description'] = 'Вы просите мастера рассказать вам больше о навыках воина. Старый гном что-то невнятно бурчит себе под нос, но соглашается:#- Какой навык интересует? Выбирай.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior');
-		addlink('Навык "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge_info', 1);
-		addlink('Навык "Парирование"', 'index.php?action=guild_warrior&do=train_parry_info', 2);
-		addlink('Навык "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil_info', 3);
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_warrior');
+		Location::addlink('Навык "Уклонение"', 'index.php?action=guild_warrior&do=train_dodge_info', 1);
+		Location::addlink('Навык "Парирование"', 'index.php?action=guild_warrior&do=train_parry_info', 2);
+		Location::addlink('Навык "Ошеломление"', 'index.php?action=guild_warrior&do=train_bewil_info', 3);
 	}
 	
 	if ($do == 'train_dodge') {
@@ -110,12 +110,12 @@ if ($action == 'guild_warrior') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=".$user['skill_dodge']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_warrior');
+		Location::addlink('Назад', 'index.php?action=guild_warrior');
 	}
 	if ($do == 'train_dodge_info') {
 		$user['description'] = 'Развитие навыка "Уклонение" позволит вам более часто уклоняться от вражеских атак и избегать урона. Вероятность уклониться от вражеского удара (используя навык) равна '.$user['skill_dodge'].'%.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
 	}
 	
 	if ($do == 'train_parry') {
@@ -128,13 +128,13 @@ if ($action == 'guild_warrior') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_parry=".$user['skill_parry']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_warrior');
+		Location::addlink('Назад', 'index.php?action=guild_warrior');
 	}
 
 	if ($do == 'train_parry_info') {
 		$user['description'] = 'Парирование позволяет вам отбить в сторону удар врага и таким образом избежать урона. Вероятность парировать атаку противника равна '.$user['skill_parry'].'%.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
 	}
 	
 	if ($do == 'train_bewil') {
@@ -147,13 +147,13 @@ if ($action == 'guild_warrior') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_bewil=".$user['skill_bewil']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_warrior');
+		Location::addlink('Назад', 'index.php?action=guild_warrior');
 	}
 
 	if ($do == 'train_bewil_info') {
 		$user['description'] = 'Ошеломляющий удар позволяет вам обескуражить врага и пока враг находится в смятении провести еще одну атаку за этот раунд. Вероятность того, что вы обрушите на врага ошеломляющий удар равна '.$user['skill_bewil'].'%.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_warrior&do=info');
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -167,15 +167,15 @@ if ($action == 'guild_hunter') {
 	$t .= $user['class']['item']->inv_item_list(21);
 	$user['description'] = $t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Продать Трофеи', 'index.php?action=guild_hunter&do=trophy_trade', 1);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Продать Трофеи', 'index.php?action=guild_hunter&do=trophy_trade', 1);
 
 	if ($do == 'trophy_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$gold = $user['class']['item']->gold_trade(21);
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_hunter');
+		Location::addlink('Назад', 'index.php?action=guild_hunter');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -189,15 +189,15 @@ if ($action == 'guild_forge') {
 	$t .= $user['class']['item']->inv_item_list(1);
 	$user['description'] = $t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Продать Оружие', 'index.php?action=guild_forge&do=weapon_trade', 1);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Продать Оружие', 'index.php?action=guild_forge&do=weapon_trade', 1);
 
 	if ($do == 'weapon_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$gold = $user['class']['item']->gold_trade(1);
 		$user['description'] = 'Вы продали старое оружие и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_forge');
+		Location::addlink('Назад', 'index.php?action=guild_forge');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -211,15 +211,15 @@ if ($action == 'guild_lw') {
 	$t .= $user['class']['item']->inv_item_list(0);
 	$user['description'] = $t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Продать Броню', 'index.php?action=guild_lw&do=armor_trade', 1);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Продать Броню', 'index.php?action=guild_lw&do=armor_trade', 1);
 
 	if ($do == 'armor_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$gold = $user['class']['item']->gold_trade(0);
 		$user['description'] = 'Вы продали старую кожаную броню и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_lw');
+		Location::addlink('Назад', 'index.php?action=guild_lw');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -241,17 +241,17 @@ if ($action == 'guild_surv') {
 		$t .= 'Жадность: '.$user['skill_gold'].'/10#';
 	$user['description'] = 'Вы спускаетесь по ступенькам в подвальное помещение. Здесь достаточно темно и только часть помещения освещена факелами и свечами. К вам подходит худой высокий ящер в темных одеяниях:#-Здрас-с-ствуйте-с-с! Могу я вам-с-с помочь-с-с?'.$t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Информация по навыкам', 'index.php?action=guild_surv&do=info', 1);
-	addlink('Тренировать "Обман"', 'index.php?action=guild_surv&do=train_run', 2);
-	addlink('Тренировать "Жадность"', 'index.php?action=guild_surv&do=train_gold', 3);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Информация по навыкам', 'index.php?action=guild_surv&do=info', 1);
+	Location::addlink('Тренировать "Обман"', 'index.php?action=guild_surv&do=train_run', 2);
+	Location::addlink('Тренировать "Жадность"', 'index.php?action=guild_surv&do=train_gold', 3);
 
 	if ($do == 'info') {
 		$user['description'] = 'Мастер с удовольствием рассказывает о навыках Гильдии Выживания, которые вам доступны для изучения..';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_surv');
-		addlink('Навык "Обман"', 'index.php?action=guild_surv&do=train_run_info', 1);
-		addlink('Навык "Жадность"', 'index.php?action=guild_surv&do=train_gold_info', 2);
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_surv');
+		Location::addlink('Навык "Обман"', 'index.php?action=guild_surv&do=train_run_info', 1);
+		Location::addlink('Навык "Жадность"', 'index.php?action=guild_surv&do=train_gold_info', 2);
 	}
 
 	if ($do == 'train_run') {
@@ -264,13 +264,13 @@ if ($action == 'guild_surv') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_run=".$user['skill_run']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_surv');
+		Location::addlink('Назад', 'index.php?action=guild_surv');
 	}
 
 	if ($do == 'train_run_info') {
 		$user['description'] = 'Совершив в бою обманный маневр и перехитрив противника, вы увеличите свои шансы покинуть поле битвы живым. Вероятность обмануть противника в бою увеличена на '.strval($user['skill_run'] * 5).'%.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_surv&do=info');
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_surv&do=info');
 	}
 	
 	if ($do == 'train_gold') {
@@ -283,13 +283,13 @@ if ($action == 'guild_surv') {
 		update_user_table("char_lp=".$user['char_lp'].",skill_gold=".$user['skill_gold']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_surv');
+		Location::addlink('Назад', 'index.php?action=guild_surv');
 	}
 
 	if ($do == 'train_gold_info') {
 		$user['description'] = 'Навык позволяет вам получше обыскивать поверженых врагов и получать больше золота от монстров.';
 		$user['links'] = array();
-		addlink('Мне уже все понятно!', 'index.php?action=guild_surv&do=info');
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_surv&do=info');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
@@ -303,70 +303,70 @@ if ($action == 'guild_alch') {
 	$t .= $user['class']['item']->inv_item_list(30);
 	$user['description'] = $t;
 	$user['links'] = array();
-	addlink('Покинуть гильдию', 'index.php?action=guilds');
-	addlink('Продать ингредиенты', 'index.php?action=guild_alch&do=ing_trade', 1);
-	addlink('Подойти к столу', 'index.php?action=guild_alch&do=alchemy', 2);
+	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Продать ингредиенты', 'index.php?action=guild_alch&do=ing_trade', 1);
+	Location::addlink('Подойти к столу', 'index.php?action=guild_alch&do=alchemy', 2);
 
 	if ($do == 'ing_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$gold = $user['class']['item']->gold_trade(30);
 		$user['description'] = 'Вы продали все ингредиенты и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch');
+		Location::addlink('Назад', 'index.php?action=guild_alch');
 	}
 
 	if ($do == 'alchemy') {
 		$user['description'] = 'Вы подходите к алхимическому столу и достаете из заплечной сумки все необходимое для зельеварения. Старик молча уходит в сторону, оставляя вас в одиночестве.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch');
-		addlink('Рецепты Эликсиров', 'index.php?action=guild_alch&do=elix_recipes', 1);
-		addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
-		addlink('Варить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
-		addlink('Варить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
-		addlink('Варить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
-		addlink('Варить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
-		addlink('Варить "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_elix', 7);
+		Location::addlink('Назад', 'index.php?action=guild_alch');
+		Location::addlink('Рецепты Эликсиров', 'index.php?action=guild_alch&do=elix_recipes', 1);
+		Location::addlink('Купить Пустой Флакон', 'index.php?action=guild_alch&do=empty_elix', 2);
+		Location::addlink('Варить "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_elix', 3);
+		Location::addlink('Варить "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_elix', 4);
+		Location::addlink('Варить "Эликсир Огра"', 'index.php?action=guild_alch&do=st_elix', 5);
+		Location::addlink('Варить "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_elix', 6);
+		Location::addlink('Варить "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_elix', 7);
 	}
 
 	if ($do == 'elix_recipes') {
 		$user['description'] = 'Алхимик мелкими шажками приближается к Вам, достает из заплечной сумки старую потрепаную книгу и говорит:#-Ты спрашивай, a я с удовольствием поделюсь с тобой рецептом.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
-		addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
-		addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
-		addlink('Рецепт "Эликсир Огра"', 'index.php?action=guild_alch&do=st_recipe', 3);
-		addlink('Рецепт "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_recipe', 4);
-		addlink('Рецепт "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_recipe', 5);
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Рецепт "Эликсир Исцеления"', 'index.php?action=guild_alch&do=hp_recipe', 1);
+		Location::addlink('Рецепт "Эликсир Маны"', 'index.php?action=guild_alch&do=mp_recipe', 2);
+		Location::addlink('Рецепт "Эликсир Огра"', 'index.php?action=guild_alch&do=st_recipe', 3);
+		Location::addlink('Рецепт "Эликсир Омоложения"', 'index.php?action=guild_alch&do=rf_recipe', 4);
+		Location::addlink('Рецепт "Эликсир Тролля"', 'index.php?action=guild_alch&do=troll_recipe', 5);
 	}
 
 	if ($do == 'hp_recipe') {
 		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Исцеления:#============#Ингредиенты:#------------#Цветок Трубкоцвета - 3 шт.#Черный Гриб - 1 шт.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'mp_recipe') {
 		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Маны:#============#Ингредиенты:#------------#Цветок Снежноцвета - 3 шт.#Черный Гриб - 1 шт.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'st_recipe') {
 		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Огра:#============#Ингредиенты:#------------#Цветок Болеголова - 3 шт.#Эликсир Исцеления - 1 шт.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'rf_recipe') {
 		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Омоложения:#============#Ингредиенты:#------------#Эликсир Исцеления - 1 шт.#Эликсир Маны - 1 шт.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'troll_recipe') {
 		$user['description'] = 'Старик открывает старую книгу и что-то там долго ищет...#-Так-c, посмотрим...##Эликсир Тролля:#============#Трофеи:#------------#Кровь Тролля - 1 шт.##Ингредиенты:#------------#Эликсир Огра - 1 шт.';
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=elix_recipes');
 	}
 
 	if ($do == 'empty_elix') {
@@ -374,7 +374,7 @@ if ($action == 'guild_alch') {
 		$user['description'] = 'Старик улыбается и приближается к вам, на ходу открывая сумку на поясе:#-Да, конечно. У меня всегда есть Пустые Флаконы для твоих экспериментов. Цена одного - 100 золотых монет.';
 		$user['class']['item']->buy_empty_elixir(1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'hp_elix') {
@@ -382,7 +382,7 @@ if ($action == 'guild_alch') {
 		$t = 'Вы делаете отвар из Черного Гриба. Затем в него бросаете цветки Трубкоцвета и снова варите примерно два часа. Содержимое котелка Вы заливаете в Пустой Флакон и получаете Эликсир Исцеления!';
 		$user['description'] = $user['class']['item']->make_elixir(HP_ELIX, $t, 'Трубкоцвет', HP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'mp_elix') {
@@ -390,7 +390,7 @@ if ($action == 'guild_alch') {
 		$t = 'Вы берете несколько цветков Снежноцвета, один Черный Гриб, бросаете все в котелок и варите на медленном огне примерно около часа. Затем путем нехитрых манипуляций с перегонным кубом Вы получаете Эликсир Маны!';
 		$user['description'] = $user['class']['item']->make_elixir(MP_ELIX, $t, 'Снежноцвет', MP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'st_elix') {
@@ -398,7 +398,7 @@ if ($action == 'guild_alch') {
 		$t = 'Вы на медленном огне доводите до кипения все содержимое Эликсира Исцеления и, добавив в чан с пенящейся густой жидкостью несколько цветков Болеголова, варите примерно еще час. Затем отстаиваете и переливаете в Пустой Флакон. Эликсир Огра готов!';
 		$user['description'] = $user['class']['item']->make_elixir(ST_ELIX, $t, 'Болеголов', ST_HERB, 3, 'Эликсир Исцеления', HP_ELIX, 1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'rf_elix') {
@@ -406,7 +406,7 @@ if ($action == 'guild_alch') {
 		$t = 'Когда закипает все содержиое Эликсира Исцеления, вы небольшими порциями добавляете Эликсир Маны, тщательно перемешивая и варите еще примерно три часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Омоложения готов!';
 		$user['description'] = $user['class']['item']->make_elixir(RF_ELIX, $t, 'Эликсир Исцеления', HP_ELIX, 1, 'Эликсир Маны', MP_ELIX, 1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	if ($do == 'troll_elix') {
@@ -414,7 +414,7 @@ if ($action == 'guild_alch') {
 		$t = 'Вы выливаете содержимое Эликсира Огра в медный чан и доводите до кипения на медленном огне. Затем небольшими порциями вливаете Кровь Тролля и варите еще примерно два часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Тролля готов!';
 		$user['description'] = $user['class']['item']->make_elixir(TROLL_ELIX, $t, 'Эликсир Огра', ST_ELIX, 1, 'Кровь Тролля', TROLL_BLOOD, 1);
 		$user['links'] = array();
-		addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
+		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	

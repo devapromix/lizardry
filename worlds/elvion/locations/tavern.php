@@ -10,7 +10,7 @@ if ($action == 'tavern') {
 	$user['frame'] = 'tavern';	
 	$user['links'] = array();
 	$user['class']['location']->go_to_the_town();
-	addlink('Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern', 1);
+	Location::addlink('Снять комнату на ночь', 'index.php?action=tavern&do=rest_in_tavern', 1);
 	
 	$user['class']['item']->add_item_to_shop(1, $user['char_region_level'] + 940);
 	$user['class']['item']->add_item_to_shop(2, 0);

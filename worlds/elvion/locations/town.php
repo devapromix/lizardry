@@ -44,11 +44,11 @@ if ($action == 'town') {
 	if ($user['char_life_cur'] > 0) {
 		
 		$user['class']['location']->go_to_the_gate('Покинуть '.$user['char_region_town_name']);
-		addlink('Посетить Таверну', 'index.php?action=tavern', 1);
-		addlink('Отправиться в Банк', 'index.php?action=bank', 2);
-		addlink('Идти в Магическую Башню', 'index.php?action=magictower', 3);
-		addlink('Квартал Гильдий', 'index.php?action=guilds', 4);
-		addlink('Квартал Торговцев', 'index.php?action=shops', 5);
+		Location::addlink('Посетить Таверну', 'index.php?action=tavern', 1);
+		Location::addlink('Отправиться в Банк', 'index.php?action=bank', 2);
+		Location::addlink('Идти в Магическую Башню', 'index.php?action=magictower', 3);
+		Location::addlink('Квартал Гильдий', 'index.php?action=guilds', 4);
+		Location::addlink('Квартал Торговцев', 'index.php?action=shops', 5);
 		
 	} else $user['class']['location']->go_to_the_graveyard();
 	

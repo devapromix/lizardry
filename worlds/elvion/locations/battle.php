@@ -24,10 +24,10 @@ if ($action == 'battle') {
 	$user['links'] = array();
 	$n = 0;
 	if ($user['char_life_cur'] > 0) {
-		addlink('Автобой!', 'index.php?action=battle&do=auto_battle');
+		Location::addlink('Автобой!', 'index.php?action=battle&do=auto_battle');
 		$n++;
 	}
-	addlink('Назад', 'index.php?action='.$user['current_outlands'], $n);
+	Location::addlink('Назад', 'index.php?action='.$user['current_outlands'], $n);
 	
 	$user['battlelog'] = '';
 	
@@ -38,13 +38,13 @@ if ($action == 'battle') {
 		$user['frame'] = $action;
 		$user['class']['battle']->start_battle();
 		$user['links'] = array();
-		addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
+		Location::addlink('Покинуть поле боя', 'index.php?action='.$user['current_outlands']);
 		if ($user['loot_slot_1'] > 0) {
 			$user['frame'] = 'get_loot';
 			Location::pickup_link();
 		} else if ($user['current_random_place'] > 0) {
 			$user['frame'] = 'get_random_place';
-			addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
+			Location::addlink('Осмотреть локацию', 'index.php?action=random_place', 1);
 		}
 		update_user_table("enemy_name='',enemy_image='',char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_exp=".$user['char_exp'].",char_gold=".$user['char_gold'].",enemy_life_cur=".$user['enemy_life_cur'].",stat_kills=".$user['stat_kills'].",stat_boss_kills=".$user['stat_boss_kills'].",stat_deads=".$user['stat_deads'].",char_effect=".$user['char_effect']);
 
@@ -59,7 +59,7 @@ if ($action == 'pickup_loot') {
 	$user['title'] = 'Находка!';
 	$user['description'] = $user['class']['item']->pickup_equip_item();
 	$user['frame'] = 'battle';
-	addlink('Назад', 'index.php?action='.$user['current_outlands']);
+	Location::addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
@@ -69,7 +69,7 @@ if ($action == 'pickup_all_loot') {
 	$user['title'] = 'Находка!!!';
 	$user['description'] = $user['class']['item']->pickup_all();
 	$user['frame'] = 'battle';
-	addlink('Назад', 'index.php?action='.$user['current_outlands']);
+	Location::addlink('Назад', 'index.php?action='.$user['current_outlands']);
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 
 }
