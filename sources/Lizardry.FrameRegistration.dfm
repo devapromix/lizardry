@@ -6554,10 +6554,10 @@ object FrameRegistration: TFrameRegistration
       BevelOuter = bvNone
       TabOrder = 1
       object Image2: TImage
-        Left = 208
+        Left = 160
         Top = 55
-        Width = 152
-        Height = 154
+        Width = 200
+        Height = 200
       end
       object Label4: TLabel
         Left = 24
@@ -7324,9 +7324,9 @@ object FrameRegistration: TFrameRegistration
       end
       object StaticText1: TStaticText
         Left = 24
-        Top = 215
+        Top = 263
         Width = 336
-        Height = 338
+        Height = 290
         Alignment = taCenter
         AutoSize = False
         TabOrder = 0

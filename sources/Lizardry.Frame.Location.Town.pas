@@ -113,6 +113,7 @@ type
     procedure ChExpPanels(const Cur, Max: string);
     procedure ChFoodPanel(S: string);
     procedure ChEffectPanel(S: string);
+    procedure LoadPlayerImage;
   public
     { Public declarations }
     procedure ShowChar;
@@ -137,6 +138,7 @@ implementation
 
 uses
   Math,
+  IOUtils,
   JSON,
   Lizardry.FormMain,
   Lizardry.Server,
@@ -146,6 +148,8 @@ uses
 
 var
   LastCode: string = '';
+  LRaceIndex: Integer = 0;
+  LGenderIndex: Integer = 0;
 
 const
   EffectStr: array [0 .. 2] of string = ('Нет', 'Благословение', 'Регенерация');
@@ -293,6 +297,21 @@ begin
   if IsCharMode then
     bbCharNameClick(Sender);
   DoAction((Sender as TPanel).Script);
+end;
+
+procedure TFrameTown.LoadPlayerImage;
+var
+  LImagePath, LRace, LGender: string;
+const
+  Race: array [0 .. 3] of string = ('human', 'elf', 'gnome', 'lizard');
+  Gender: array [0 .. 1] of string = ('male', 'female');
+begin
+  LRace := Race[LRaceIndex];
+  LGender := Gender[LGenderIndex];
+  LImagePath := TPath.GetHomePath + '\Lizardry\Images\player_' + LRace + '_' +
+    LGender + '.jpg';
+  FormMain.FrameTown.FrameBattle1.Image1.Picture.LoadFromFile(LImagePath);
+  FormMain.FrameTown.FrameChar.Image1.Picture.LoadFromFile(LImagePath);
 end;
 
 procedure TFrameTown.ParseJSON(AJSON, Section: string);
@@ -629,6 +648,7 @@ begin
     begin
       if (S = 'outlands') then
       begin
+        LoadPlayerImage;
         FormMain.FrameTown.FrameBattle1.BringToFront;
       end
       else if (S = 'shop_weapon') then
@@ -731,9 +751,12 @@ begin
       bbCharName.Caption := S;
       FrameBattle1.Label4.Caption := S;
     end;
+    if LJSON.TryGetValue('char_gender', S) then
+      LGenderIndex := StrToIntDef(S, 0);
     if LJSON.TryGetValue('char_race', S) then
     begin
-      Panel2.Caption := 'Раса: ' + GetRaceName(StrToIntDef(S, 0));
+      LRaceIndex := StrToIntDef(S, 0);
+      Panel2.Caption := 'Раса: ' + GetRaceName(LRaceIndex);
       Label1.Caption := GetRaceDescription(StrToIntDef(S, 0));
     end;
     if LJSON.TryGetValue('char_region_level', S) then

@@ -15,38 +15,45 @@ object FrameChar: TFrameChar
     Top = 0
     Width = 527
     Height = 436
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1069#1082#1080#1087#1080#1088#1086#1074#1082#1072
       object ttWeapon: TLabel
-        Left = 110
+        Left = 230
         Top = 16
         Width = 66
         Height = 21
         Caption = 'Weapon'
       end
       object ttArmor: TLabel
-        Left = 110
+        Left = 230
         Top = 43
         Width = 55
         Height = 21
         Caption = 'Armor'
       end
       object Label2: TLabel
-        Left = 16
+        Left = 136
         Top = 16
         Width = 88
         Height = 21
         Caption = #1042' '#1088#1091#1082#1072#1093':'
       end
       object Label3: TLabel
-        Left = 16
+        Left = 136
         Top = 43
         Width = 88
         Height = 21
         Caption = #1053#1072' '#1090#1077#1083#1077':'
+      end
+      object Image1: TImage
+        Left = 16
+        Top = 16
+        Width = 105
+        Height = 105
+        Stretch = True
       end
     end
     object TabSheet2: TTabSheet
