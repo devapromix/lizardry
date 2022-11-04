@@ -82,8 +82,6 @@ procedure TFormAmountPrompt.bbOKClick(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ModalResult := mrOk;

@@ -82,7 +82,7 @@ procedure TFrameShop.SGClick(Sender: TObject);
 var
   LRow: Integer;
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   LRow := SG.Row;
   if (SG.Cells[1, LRow] = '') then
@@ -98,7 +98,7 @@ var
   LRow: Integer;
 begin
   FormAmountPrompt.AmountEdit.Text := '1';
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   LRow := SG.Row;
   if (SG.Cells[1, LRow] = '') then

@@ -197,34 +197,6 @@ object FormMain: TFormMain
           end
         end
       end
-      inherited FrameChat: TFrameChat
-        Width = 604
-        Height = 487
-        ExplicitWidth = 604
-        ExplicitHeight = 487
-        inherited Panel1: TPanel
-          Top = 455
-          Width = 604
-          ExplicitTop = 455
-          ExplicitWidth = 604
-          inherited edChatMsg: TEdit
-            Width = 602
-            ExplicitWidth = 602
-          end
-        end
-        inherited Panel2: TPanel
-          Width = 604
-          Height = 455
-          ExplicitWidth = 604
-          ExplicitHeight = 455
-          inherited RichEdit1: TRichEdit
-            Width = 602
-            Height = 453
-            ExplicitWidth = 602
-            ExplicitHeight = 453
-          end
-        end
-      end
       inherited Panel10: TPanel
         Width = 604
         ExplicitWidth = 604

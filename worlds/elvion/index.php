@@ -33,10 +33,8 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'version') $res = get_version();
 	if ($action == 'events') $res = Event::get_events();
 	if ($usersession == $user['user_session']) {
-		if ($action == 'inventory') $res = get_inventory();
 		if ($action == 'items') $res = Item::get_items();
 		if ($action == 'enemies') $res = Enemy::get_enemies();
-		if ($action == 'messages') $res = get_messages();
 	
 		$user['class'] = array();
 		$user['class']['location'] = new Location();

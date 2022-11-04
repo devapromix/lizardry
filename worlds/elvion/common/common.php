@@ -50,17 +50,6 @@ function get_file_int($fn) {
 	return $r;
 }
 
-function get_messages() {
-	global $tb_chat, $connection;
-
-	$query = "SELECT message_author, message_text FROM ".$tb_chat;
-	$result = mysqli_query($connection, $query) 
-		or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-	$messages = $result->fetch_all(MYSQLI_ASSOC);
-
-	return json_encode($messages, JSON_UNESCAPED_UNICODE);
-}
-
 function addlink($t, $j, $n = 0) {
 	global $user;
 	$user['links'][$n]['title'] = $t;

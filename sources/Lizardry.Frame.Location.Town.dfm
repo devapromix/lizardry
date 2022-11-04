@@ -573,7 +573,7 @@ object FrameTown: TFrameTown
       Font.Name = 'Courier New'
       Font.Style = []
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 3
       ExplicitTop = 25
       ExplicitWidth = 317
       ExplicitHeight = 283
@@ -617,41 +617,8 @@ object FrameTown: TFrameTown
         inherited TabSheet3: TTabSheet
           ExplicitLeft = 4
           ExplicitTop = 32
-          ExplicitWidth = 309
-          ExplicitHeight = 247
-        end
-      end
-    end
-    inline FrameChat: TFrameChat
-      Left = 0
-      Top = 25
-      Width = 317
-      Height = 283
-      Align = alClient
-      TabOrder = 3
-      ExplicitTop = 25
-      ExplicitWidth = 317
-      ExplicitHeight = 283
-      inherited Panel1: TPanel
-        Top = 251
-        Width = 317
-        ExplicitTop = 251
-        ExplicitWidth = 317
-        inherited edChatMsg: TEdit
-          Width = 315
-          ExplicitWidth = 315
-        end
-      end
-      inherited Panel2: TPanel
-        Width = 317
-        Height = 251
-        ExplicitWidth = 317
-        ExplicitHeight = 251
-        inherited RichEdit1: TRichEdit
-          Width = 315
-          Height = 249
-          ExplicitWidth = 315
-          ExplicitHeight = 249
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end
@@ -665,18 +632,6 @@ object FrameTown: TFrameTown
       Caption = 'Location name'
       ParentBackground = False
       TabOrder = 0
-      object bbChat: TSpeedButton
-        Left = 228
-        Top = 1
-        Width = 88
-        Height = 23
-        Cursor = crHandPoint
-        Align = alRight
-        Caption = #1063#1072#1090
-        Flat = True
-        OnClick = bbChatClick
-        ExplicitLeft = 248
-      end
     end
     object FramePanel: TPanel
       Left = 0

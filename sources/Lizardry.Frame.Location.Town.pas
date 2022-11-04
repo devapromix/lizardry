@@ -22,7 +22,6 @@ uses
   Lizardry.FrameBattle,
   Lizardry.FrameInfo,
   Lizardry.FrameLoot,
-  Lizardry.FrameChat,
   Lizardry.FrameShop,
   Lizardry.FrameChar,
   Lizardry.FrameAfterBattle,
@@ -77,8 +76,6 @@ type
     LinkPanel9: TPanel;
     LinkPanel10: TPanel;
     bbDebug: TSpeedButton;
-    FrameChat: TFrameChat;
-    bbChat: TSpeedButton;
     pnEqWeapon: TPanel;
     pnEqArmor: TPanel;
     FrameShop1: TFrameShop;
@@ -102,7 +99,6 @@ type
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
-    procedure bbChatClick(Sender: TObject);
     procedure bbCharNameClick(Sender: TObject);
     procedure FrameOutlands1Image1Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
@@ -119,8 +115,6 @@ type
     procedure ChEffectPanel(S: string);
   public
     { Public declarations }
-    procedure ShowChat;
-    procedure HideChat;
     procedure ShowChar;
     procedure HideChar;
     procedure DoAction(S: string);
@@ -229,14 +223,6 @@ begin
   IsCharMode := False;
 end;
 
-procedure TFrameTown.HideChat;
-begin
-  FrameChat.edChatMsg.Text := '';
-  Panel10.Caption := Title;
-  FrameChat.SendToBack;
-  IsChatMode := False;
-end;
-
 function TFrameTown.IsActPanels: Boolean;
 begin
   //
@@ -256,7 +242,6 @@ end;
 
 procedure TFrameTown.bbLogoutClick(Sender: TObject);
 begin
-  HideChat;
   FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
   ServerName := '';
@@ -305,8 +290,6 @@ end;
 
 procedure TFrameTown.LeftPanelClick(Sender: TObject);
 begin
-  if IsChatMode then
-    bbChatClick(Sender);
   if IsCharMode then
     bbCharNameClick(Sender);
   DoAction((Sender as TPanel).Script);
@@ -376,8 +359,6 @@ end;
 
 procedure TFrameTown.ShowChar;
 begin
-  if IsChatMode then
-    HideChat;
   Title := Panel10.Caption;
   Panel10.Caption := bbCharName.Caption;
   FrameChar.ttInfo.Caption := '';
@@ -385,19 +366,6 @@ begin
   FrameChar.SG.OnClick(Self);
   FrameChar.BringToFront;
   IsCharMode := True;
-end;
-
-procedure TFrameTown.ShowChat;
-begin
-  if IsCharMode then
-    HideChar;
-  FrameChat.edChatMsg.Text := '';
-  FrameChat.edChatMsg.SetFocus;
-  Title := Panel10.Caption;
-  Panel10.Caption := 'ЧАТ';
-  FrameChat.BringToFront;
-  IsChatMode := True;
-  FormMain.FrameLogin.LoadFromDBMessages;
 end;
 
 procedure TFrameTown.SpeedButton3Click(Sender: TObject);
@@ -411,14 +379,6 @@ begin
     HideChar
   else
     ShowChar;
-end;
-
-procedure TFrameTown.bbChatClick(Sender: TObject);
-begin
-  if IsChatMode then
-    HideChat
-  else
-    ShowChat;
 end;
 
 procedure TFrameTown.bbDebugClick(Sender: TObject);

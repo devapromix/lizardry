@@ -51,8 +51,6 @@ procedure TFrameOutlands.Image1Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=campfire'));
@@ -63,8 +61,6 @@ procedure TFrameOutlands.Image2Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +
@@ -76,8 +72,6 @@ procedure TFrameOutlands.Label2Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=battle&enemyslot=' +

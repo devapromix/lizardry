@@ -50,7 +50,7 @@ procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
   Sum: Integer;
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   Sum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
@@ -74,7 +74,7 @@ end;
 
 procedure TFrameTavern.Edit1KeyPress(Sender: TObject; var Key: Char);
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
@@ -87,8 +87,6 @@ procedure TFrameTavern.Image2Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=town'));

@@ -67,7 +67,7 @@ procedure TFrameBank.bbDepositClick(Sender: TObject);
 var
   Sum: Integer;
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   Sum := StrToIntDef(GoldEdit.Text, 0);
   FormMain.FrameTown.ParseJSON
@@ -77,7 +77,7 @@ end;
 
 procedure TFrameBank.bbMyGoldClick(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   GoldEdit.Text := bbMyGold.Caption;
 end;
@@ -86,7 +86,7 @@ procedure TFrameBank.bbWithdrawClick(Sender: TObject);
 var
   Sum: Integer;
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   Sum := StrToIntDef(GoldEdit.Text, 0);
   FormMain.FrameTown.ParseJSON
@@ -96,7 +96,7 @@ end;
 
 procedure TFrameBank.GoldEditKeyPress(Sender: TObject; var Key: Char);
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   if (ord(Key) >= 32) then
     if not(Char(Key) in ['0' .. '9']) then
@@ -107,8 +107,6 @@ procedure TFrameBank.Image2Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=town'));
@@ -119,7 +117,7 @@ procedure TFrameBank.Modify(const Value: Integer);
 var
   N: Integer;
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   N := StrToIntDef(GoldEdit.Text, 0);
   if (N + Value) < 0 then
@@ -160,7 +158,7 @@ end;
 
 procedure TFrameBank.SpeedButton7Click(Sender: TObject);
 begin
-  if IsChatMode or IsCharMode then
+  if IsCharMode then
     Exit;
   GoldEdit.Text := '0';
 end;

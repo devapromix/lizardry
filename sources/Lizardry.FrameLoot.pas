@@ -45,8 +45,6 @@ procedure TFrameLoot.Image1Click(Sender: TObject);
 begin
   with FormMain.FrameTown do
   begin
-    if IsChatMode then
-      bbChatClick(Sender);
     if IsCharMode then
       bbCharNameClick(Sender);
     ParseJSON(Server.Get('index.php?action=' + CurrentOutlands));

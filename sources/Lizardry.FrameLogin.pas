@@ -60,7 +60,6 @@ type
     { Public declarations }
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
-    procedure LoadFromDBMessages;
     procedure LoadFromDBEnemies(IsRewriteImage: Boolean = False);
   end;
 
@@ -132,8 +131,6 @@ begin
     Application.ProcessMessages;
     Sleep(500);
     Panel5.Caption := '';
-    if IsChatMode then
-      FormMain.FrameTown.HideChat;
     if IsCharMode then
       FormMain.FrameTown.HideChar;
     ServerName := Server.Name;
@@ -370,31 +367,6 @@ procedure TFrameLogin.LoadFromDBItems;
 begin
   try
     FormInfo.ItemMemo.Text := Trim(Server.Get('index.php?action=items'));
-  except
-  end;
-end;
-
-procedure TFrameLogin.LoadFromDBMessages;
-var
-  LCharName, LCharMessage: string;
-  LJSONArray: TJSONArray;
-  I: Integer;
-begin
-  try
-    LJSONArray := TJSONObject.ParseJSONValue
-      (Trim(Server.Get('index.php?action=messages'))) as TJSONArray;
-    FormMain.FrameTown.FrameChat.RichEdit1.Clear;
-    for I := LJSONArray.Count - 1 downto 0 do
-    begin
-      LCharName := TJSONPair(TJSONObject(LJSONArray.Get(I))
-        .Get('message_author')).JsonValue.Value;
-      LCharMessage :=
-        Trim(TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('message_text'))
-        .JsonValue.Value);
-      if (LCharMessage <> EmptyStr) then
-        FormMain.FrameTown.FrameChat.RichEdit1.Lines.Append
-          (Format('%s: %s', [LCharName, LCharMessage]));
-    end;
   except
   end;
 end;

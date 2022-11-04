@@ -17,7 +17,6 @@ uses
   Lizardry.FrameLoot in 'Lizardry.FrameLoot.pas' {FrameLoot: TFrame},
   Lizardry.FrameInfo in 'Lizardry.FrameInfo.pas' {FrameInfo: TFrame},
   Lizardry.FormInfo in 'Lizardry.FormInfo.pas' {FormInfo},
-  Lizardry.FrameChat in 'Lizardry.FrameChat.pas' {FrameChat: TFrame},
   Lizardry.FrameShop in 'Lizardry.FrameShop.pas' {FrameShop: TFrame},
   Lizardry.FormPrompt in 'Lizardry.FormPrompt.pas' {FormPrompt},
   Lizardry.FormMsg in 'Lizardry.FormMsg.pas' {FormMsg},
