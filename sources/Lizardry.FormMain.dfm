@@ -200,10 +200,6 @@ object FormMain: TFormMain
       inherited Panel10: TPanel
         Width = 604
         ExplicitWidth = 604
-        inherited bbChat: TSpeedButton
-          Left = 515
-          ExplicitLeft = 535
-        end
       end
       inherited FramePanel: TPanel
         Top = 512

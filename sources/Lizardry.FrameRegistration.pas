@@ -142,7 +142,7 @@ end;
 
 procedure TFrameRegistration.bbRegistrationClick(Sender: TObject);
 var
-  LResponseCode, UserName, UserPass, CharName, CharGender, CharRace: string;
+  LResponseJSON, UserName, UserPass, CharName, CharGender, CharRace: string;
 begin
   UserName := Trim(LowerCase(edUserName.Text));
   UserPass := Trim(LowerCase(edUserPass.Text));
@@ -164,21 +164,28 @@ begin
   end;
   FormMain.FrameLogin.edUserName.Text := UserName;
   FormMain.FrameLogin.edUserPass.Text := UserPass;
-  LResponseCode := Server.Get
+  LResponseJSON := Server.Get
     ('registration/registration.php?action=registration&charname=' + CharName +
     '&chargender=' + CharGender + '&charrace=' + CharRace);
   FormMain.FrameLogin.edUserPass.Text := '';
-  if TServer.CheckLoginErrors(LResponseCode) then
+  if TServer.CheckLoginErrors(LResponseJSON) then
     Exit;
-  FormMain.FrameTown.ParseJSON(LResponseCode);
-  if LResponseCode = '{"registration":"error"}' then
+  FormMain.FrameTown.ParseJSON(LResponseJSON);
+  if LResponseJSON = '{"registration":"error"}' then
   begin
     ShowMsg('Ошибка регистрации!');
+    Exit;
   end;
-  if (LResponseCode = '{"registration":"ok"}') then
+  if LResponseJSON.StartsWith('{"error":"') then
+  begin
+    FormMain.FrameTown.ParseJSON(LResponseJSON);
+    Exit;
+  end;
+  if (LResponseJSON = '{"registration":"ok"}') then
   begin
     ShowMsg('Регистрация прошла успешно!');
     bbBackClick(Sender);
+    Exit;
   end;
 end;
 

@@ -110,8 +110,13 @@ begin
     Application.ProcessMessages;
     ShowMsg('Ошибка авторизации!');
     Exit;
-  end
-  else if LResponseJSON.StartsWith('{"login":"ok","session":"') then
+  end;
+  if LResponseJSON.StartsWith('{"error":"') then
+  begin
+    FormMain.FrameTown.ParseJSON(LResponseJSON);
+    Exit;
+  end;
+  if LResponseJSON.StartsWith('{"login":"ok","session":"') then
   begin
     UserSession := GetSession(LResponseJSON);
     Panel5.Caption := 'Готово!';
@@ -153,6 +158,7 @@ begin
         LReg.Free;
       end;
     end;
+    Exit;
   end
   else
   begin
