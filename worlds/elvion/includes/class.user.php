@@ -1,7 +1,7 @@
 <?php
 
 	class User {
-		
+
 		static function init($username, $userpass) {
 			global $tb_user, $connection;
 			self::check_login_data($username, $userpass);
@@ -10,14 +10,14 @@
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			return $result->fetch_assoc();
 		}
-	
+
 		static function session() {
 			global $user;
 			$user['user_session'] = time();
 			User::update("user_session='".$user['user_session']."'");
 			return $user['user_session'];
 		}
-	
+
 		static function check_user($user_name) {
 			global $connection, $tb_user;
 			$query = "SELECT user_name FROM ".$tb_user." WHERE user_name='".$user_name."'";
@@ -28,7 +28,7 @@
 				return false;
 			}
 		}
-	
+
 		static function check_char($char_name) {
 			global $user;
 			if (strtolower($user['char_name']) == strtolower($char_name)) {
@@ -37,7 +37,7 @@
 				return false;
 			}
 		}
-	
+
 		static function update($s) {
 			global $user, $tb_user, $connection;
 			$query = "UPDATE ".$tb_user." SET ".$s." WHERE user_name='".$user['user_name']."'";
@@ -45,7 +45,7 @@
 				die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
 			}
 		}
-	
+
 		static private function check_login_data($username, $userpass) {
 			if ($username == '') die('{"error":"Введите имя учетной записи!"}');
 			if (strlen($username) < 4) die('{"error":"Имя учетной записи не должно быть короче 4 символов!"}');
@@ -54,7 +54,7 @@
 			if (strlen($userpass) < 4) die('{"error":"Пароль не должен быть короче 4 символов!"}');
 			if (strlen($userpass) > 24) die('{"error":"Пароль не должен быть длиннее 24 символов!"}');
 		}
-	
+
 		static public function check_registration_data($username, $userpass, $charname) {
 			if ($username == '') die('{"error":"Введите имя учетной записи!"}');
 			if (strlen($username) < 4) die('{"error":"Имя учетной записи не должно быть короче 4 символов!"}');
@@ -66,7 +66,7 @@
 			if (strlen($charname) < 4) die('{"error":"Имя персонажа не должно быть короче 4 символов!"}');
 			if (strlen($charname) > 24) die('{"error":"Имя персонажа не должно быть длиннее 24 символов!"}');
 		}
-	
+
 	}
 
 ?>

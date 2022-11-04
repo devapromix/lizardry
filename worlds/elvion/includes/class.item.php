@@ -2,9 +2,25 @@
 
 	class Item {
 		
+		// Категории предметов
 		const CAT_ARMOR 		= 0;
 		const CAT_WEAPON 		= 1;
 		const CAT_FOOD			= 75;
+		
+		// Эликсиры
+		const EMPTY_ELIX 		= 600;
+		const HP_ELIX 			= 601;
+		const MP_ELIX 			= 602;
+		const ST_ELIX 			= 603;
+		const RF_ELIX 			= 604;
+		const TROLL_ELIX		= 605;
+
+		// Ингредиенты
+		const MASH_HERB			= 750;
+		const HP_HERB			= 751;
+		const MP_HERB			= 752;
+		const ST_HERB			= 753;
+		const TROLL_BLOOD		= 811;
 		
 		public function __construct() {
 
@@ -104,7 +120,7 @@
 		public function buy_empty_elixir($count = 1) {
 			global $user;
 			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
-			$this->add(EMPTY_ELIX, $count);
+			$this->add(self::EMPTY_ELIX, $count);
 			$user['char_gold'] -= 100;
 			User::update("char_gold=".$user['char_gold']);
 			$user['log'] = 'Вы купили Пустой Флакон.';
@@ -125,7 +141,7 @@
 		}
 
 		public function make_elixir($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
-			if ($this->has_item(EMPTY_ELIX)) {
+			if ($this->has_item(self::EMPTY_ELIX)) {
 				if ($this->has_item($ing1_id)) {
 					$amount = $this->amount($ing1_id);
 					if ($amount >= $ing1_amount) {
@@ -134,7 +150,7 @@
 							if ($amount >= $ing2_amount) {
 								$this->modify($ing1_id, -$ing1_amount);
 								$this->modify($ing2_id, -$ing2_amount);
-								$this->modify(EMPTY_ELIX, -1);
+								$this->modify(self::EMPTY_ELIX, -1);
 								$this->add($elix_id);
 								return $t;
 							} die('{"info":"Нужно больше количество компонента - '.$ing2_name.'!"}');
