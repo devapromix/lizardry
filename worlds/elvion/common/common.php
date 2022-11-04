@@ -29,14 +29,6 @@ const MP_HERB			= '752';
 const ST_HERB			= '753';
 const TROLL_BLOOD		= '811';
 
-function update_user_table($s) {
-	global $user, $tb_user, $connection;
-	$query = "UPDATE ".$tb_user." SET ".$s." WHERE user_name='".$user['user_name']."'";
-	if (!mysqli_query($connection, $query)) {
-		die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
-	}
-}
-
 function get_version() {
 	return get_file_int(PATH.'version.txt');
 }

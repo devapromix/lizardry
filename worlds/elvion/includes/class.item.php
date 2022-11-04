@@ -96,7 +96,7 @@
 				}
 			}
 
-			update_user_table("char_gold=".$user['char_gold']);
+			User::update("char_gold=".$user['char_gold']);
 
 			return $gold;
 		}
@@ -106,7 +106,7 @@
 			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
 			$this->add(EMPTY_ELIX, $count);
 			$user['char_gold'] -= 100;
-			update_user_table("char_gold=".$user['char_gold']);
+			User::update("char_gold=".$user['char_gold']);
 			$user['log'] = 'Вы купили Пустой Флакон.';
 		}
 
@@ -120,7 +120,7 @@
 				$items[$n]['id'] = $id;
 				$items[$n]['count'] = $count;
 				$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
-				update_user_table("char_inventory='".$user['char_inventory']."'");
+				User::update("char_inventory='".$user['char_inventory']."'");
 			}
 		}
 
@@ -275,7 +275,7 @@
 			global $user;
 			$user['item_slot_'.strval($item_slot)] = $item_ident;
 			$user['item_slot_'.strval($item_slot).'_values'] = $this->item_values($item_ident);
-			update_user_table('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
+			User::update('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
 		}
 
 		public function use_item($item_ident) {
@@ -296,21 +296,21 @@
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['class']['player']->heal();
-					update_user_table("char_life_cur=".$user['char_life_cur']);
+					User::update("char_life_cur=".$user['char_life_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 					break;
 				case 9:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['char_mana_cur'] = $user['char_mana_max'];
-					update_user_table("char_mana_cur=".$user['char_mana_cur']);
+					User::update("char_mana_cur=".$user['char_mana_cur']);
 					$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 					break;
 				case 10:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['char_life_cur'] = $user['char_life_max'] + round($user['char_life_max'] / 5);
-					update_user_table("char_life_cur=".$user['char_life_cur']);
+					User::update("char_life_cur=".$user['char_life_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 					break;
 				case 11:
@@ -318,13 +318,13 @@
 					$item_level = $item['item_level'];
 					$user['class']['player']->heal();
 					$user['char_mana_cur'] = $user['char_mana_max'];
-					update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+					User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 					break;
 				case 12:
 					$this->modify($item_ident, -1);
 					$user['char_effect'] = Magic::PLAYER_EFFECT_REGEN;
-					update_user_table("char_effect=".$user['char_effect']);			
+					User::update("char_effect=".$user['char_effect']);			
 					$result = ',"char_effect":"'.$user['char_effect'].'"';
 					break;
 				case 25:
@@ -340,7 +340,7 @@
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
 					$this->modify($item_ident, -1);
 					$user['char_food']++;
-					update_user_table("char_food=".$user['char_food']);
+					User::update("char_food=".$user['char_food']);
 					$result = ',"char_food":"'.$user['char_food'].'"';
 					break;
 			}
@@ -404,7 +404,7 @@
 			$user['loot_slot_'.strval($item_slot).'_type'] = $item_type;
 
 			if ($user['loot_slot_'.strval($item_slot)] > 0)
-				update_user_table("loot_slot_".strval($item_slot)."=".$user['loot_slot_'.strval($item_slot)].",loot_slot_".strval($item_slot)."_type=".$user['loot_slot_'.strval($item_slot).'_type'].",loot_slot_".strval($item_slot)."_name='".$user['loot_slot_'.strval($item_slot).'_name']."'");
+				User::update("loot_slot_".strval($item_slot)."=".$user['loot_slot_'.strval($item_slot)].",loot_slot_".strval($item_slot)."_type=".$user['loot_slot_'.strval($item_slot).'_type'].",loot_slot_".strval($item_slot)."_name='".$user['loot_slot_'.strval($item_slot).'_name']."'");
 		}
 
 		private function gen_random_loot($loot_type_array, $loot_level) {
@@ -517,7 +517,7 @@
 					$user['char_equip_armor_ident'] = $item['item_ident'];
 					$user['char_gold'] -= $item['item_price'];
 					$user['char_armor'] = $item['item_armor'];
-					update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
+					User::update("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
 					Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					break;
 				case self::CAT_WEAPON:
@@ -527,13 +527,13 @@
 					$user['char_gold'] -= $item['item_price'];
 					$user['char_damage_min'] = $item['item_damage_min'];
 					$user['char_damage_max'] = $item['item_damage_max'];
-					update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
+					User::update("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
 					Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					break;
 				default:
 					$user['char_gold'] -= $item['item_price'] * $item_amount;
 					$this->add($item_ident, $item_amount);
-					update_user_table("char_gold=".$user['char_gold']);
+					User::update("char_gold=".$user['char_gold']);
 					break;
 			}
 		}
@@ -556,7 +556,7 @@
 						$user['char_equip_armor_name'] = $item['item_name'];
 						$user['char_equip_armor_ident'] = $item['item_ident'];
 						$user['char_armor'] = $item['item_armor'];
-						update_user_table("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
+						User::update("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
 						$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
 						Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					} else {
@@ -572,7 +572,7 @@
 						$user['char_equip_weapon_ident'] = $item['item_ident'];
 						$user['char_damage_min'] = $item['item_damage_min'];
 						$user['char_damage_max'] = $item['item_damage_max'];
-						update_user_table("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
+						User::update("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
 						$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
 						Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					} else {
@@ -619,7 +619,7 @@
 					}
 					$items = array_values($items);
 					$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
-					update_user_table("char_inventory='".$user['char_inventory']."'");
+					User::update("char_inventory='".$user['char_inventory']."'");
 					break;
 				}
 			}

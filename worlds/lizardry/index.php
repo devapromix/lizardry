@@ -1,10 +1,18 @@
 <?php
 $res = '{"login":"error"}';
 
-include 'common/common.php';
-include 'common/locations.php';
-include 'common/connect.php';
-include 'common/dbtables.php';
+require_once('common/common.php');
+require_once('common/connect.php');
+require_once('common/dbtables.php');
+require_once(IPATH.'class.location.php');
+require_once(IPATH.'class.battle.php');
+require_once(IPATH.'class.player.php');
+require_once(IPATH.'class.magic.php');
+require_once(IPATH.'class.item.php');
+require_once(IPATH.'class.event.php');
+require_once(IPATH.'class.enemy.php');
+require_once(IPATH.'class.boss.php');
+require_once(IPATH.'class.user.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -15,40 +23,39 @@ $enemyslot = $_GET['enemyslot'];
 $itemindex = $_GET['itemindex'];
 
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-if (!$connection) {
+if (!$connection)
 	die('{"error":"Ошибка подключения к бд: '.mysqli_error($connection).'"}');
-}
 
-$query = 'SELECT * FROM '.$tb_user." WHERE user_name='".$username."' AND user_pass='".$userpass."'";
-$result = mysqli_query($connection, $query) 
-	or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-$user = $result->fetch_assoc();
+$user = User::init($username, $userpass);
 
-if (($userpass != '')&&($userpass == $user['user_pass'])) {
-	if ($action == 'login') {
-		$res = '{"login":"ok"}';
+if (($userpass != '') && ($userpass == $user['user_pass'])) {
+	if ($action == 'login') $res = '{"login":"ok","session":"'.User::session().'"}';
+	if ($action == 'version') $res = get_version();
+	if ($action == 'events') $res = Event::get_events();
+	if ($usersession == $user['user_session']) {
+		if ($action == 'items') $res = Item::get_items();
+		if ($action == 'enemies') $res = Enemy::get_enemies();
+	
+		$user['class'] = array();
+		$user['class']['location'] = new Location();
+		$user['class']['battle'] = new Battle();
+		$user['class']['player'] = new Player();
+		$user['class']['magic'] = new Magic();
+		$user['class']['item'] = new Item();
+	
+		require_once('locations/battle.php');
+		require_once('locations/campfire.php');
+		require_once('locations/town.php');
+		require_once('locations/tavern.php');
+		require_once('locations/bank.php');
+		require_once('locations/magictower.php');
+		require_once('locations/gate.php');
+		require_once('locations/travel.php');
+		require_once('locations/outlands.php');
+		require_once('locations/guilds.php');
+		require_once('locations/shops.php');
+		require_once('locations/graveyard.php');
 	}
-	if ($action == 'version') {
-		$res = get_version();
-	}
-	if ($action == 'inventory') {
-		$res = get_inventory();
-	}
-	if ($action == 'events') {
-		$res = get_events();
-	}
-	include 'locations/battle.php';
-	include 'locations/campfire.php';
-	include 'locations/town.php';
-	include 'locations/tavern.php';
-	include 'locations/bank.php';
-	include 'locations/magictower.php';
-	include 'locations/gate.php';
-	include 'locations/travel.php';
-	include 'locations/outlands.php';
-	include 'locations/guilds.php';
-	include 'locations/shops.php';
-	include 'locations/graveyard.php';
 }
 
 mysqli_close($connection);

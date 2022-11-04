@@ -58,7 +58,7 @@ if ($action == 'graveyard') {
 	if ($do == 'revive_in_graveyard') {
 		$user['char_life_cur'] = 1;
 		$user['char_mana_cur'] = 0;
-		update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+		User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['description'] = 'Вы открываете глаза и понимаете, что вернулись в мир живых. На тело наваливаетеся сильная усталость, кружится голова. Все происходящее кажется сном. Нужно отдохнуть и набраться сил.';
 		$user['links'] = array();
 		$user['class']['location']->go_to_the_gate('Покинуть Кладбище');

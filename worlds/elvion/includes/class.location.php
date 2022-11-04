@@ -77,7 +77,7 @@
 			$user['char_region_town_name'] = $region['region_town_name'];
 			$user['char_gold'] -= $gold;
 			$user['char_food'] -= $food;
-			update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
+			User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
 		}
 
 		public function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
@@ -91,7 +91,7 @@
 
 			$user['title'] = $location['location_name'];
 			$user['char_region_location_name'] = $location['location_name'];
-			update_user_table("char_region_location_name='".$user['char_region_location_name']."'");
+			User::update("char_region_location_name='".$user['char_region_location_name']."'");
 
 			if ($user['char_life_cur'] > 0) {
 				$user['description'] = $location['location_description'];
@@ -215,7 +215,7 @@
 					$user['title'] = 'Лагерь старого алхимика';
 					$user['description'] = 'Вы проходите несколько десятков шагов и останавливаетесь у старого вагончика. Недалеко пасется пони, горит костер. У костра сидит старый гном и приветливо машет вам рукой:#-Приветствую, путник!Будь гостем в моем лагере. Я вижу ты ранен - вот возьми эликсир...#Старик протягивает вам эликсир и вы, залпом выпив содержимое флакончика, чувствуете, как уходит усталость и заживляются раны.#-Садись рядом, угощайся и расскажи, что с тобой произошло.#Вы присаживаетесь у костра, достаете и свои припасы и начинаете рассказ...';
 					$user['class']['player']->rest();
-					update_user_table("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+					User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 					break;
 				case 2:
 					$user['title'] = 'Камнепад!!!';
@@ -228,7 +228,7 @@
 						$user['char_life_cur'] = 0;
 						$user['description'] .= 'Но уже слишком поздно и вы оказываетесь на пути гремящей каменной массы. Вы погибли!';
 					}			
-					update_user_table("char_life_cur=".$user['char_life_cur']);
+					User::update("char_life_cur=".$user['char_life_cur']);
 					break;
 				case 3:
 					$user['title'] = 'Невидимый вор!';
@@ -241,7 +241,7 @@
 						$user['char_gold'] = 0;
 						$user['description'] .= 'Вор украл у вас все золото.';
 					}
-					update_user_table("char_gold=".$user['char_gold']);
+					User::update("char_gold=".$user['char_gold']);
 					break;
 				case 4:
 					gen_alch_loot();
@@ -268,7 +268,7 @@
 					$gold = rand($user['char_region_level'] * 50, $user['char_region_level'] * 90);
 					$user['title'] = 'Сундук с золотом!';
 					$user['description'] = 'Вы оглядываете местность после битвы и вдалеке замечаете небольшой сундучок. Подойдя поближе вы видите, что на судучке изображен имперский герб. Кто-то очень важный обронил его здесь. Замок на сундучке выглядит не слишком сложным и после пяти минут сопротивления поддается. Вы открываете сундук и видите, что в нем находится '.strval($gold).' золотых монет. Вы забираете все золото себе.';		
-					update_user_table("char_gold=".$user['char_gold']);
+					User::update("char_gold=".$user['char_gold']);
 					break;
 			}
 
@@ -310,7 +310,7 @@
 			if (rand(1, 5) == 1)
 				$user['current_random_place'] = rand(1, self::RAND_PLACE_COUNT);
 	
-			update_user_table("current_random_place=".$user['current_random_place']);
+			User::update("current_random_place=".$user['current_random_place']);
 		}
 
 		public function rest_in_tavern_cost() {

@@ -12,7 +12,7 @@
 			$bosses[$n]['id'] = $region_ident;
 			$bosses[$n]['killed'] = 1;
 			$user['char_bosses'] = json_encode($bosses, JSON_UNESCAPED_UNICODE);
-			update_user_table("char_bosses='".$user['char_bosses']."'");
+			User::update("char_bosses='".$user['char_bosses']."'");
 		}
 
 		static public function is_killed($region_ident) {

@@ -30,7 +30,7 @@ if ($action == 'tavern') {
 		$user['char_life_cur'] = $user['char_life_max'];
 		$user['char_mana_cur'] = $user['char_mana_max'];
 		$user['char_gold'] -= $user['class']['location']->rest_in_tavern_cost();
-		update_user_table("char_gold=".$user['char_gold'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+		User::update("char_gold=".$user['char_gold'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 		$user['log'] = 'Вы хорошо выспались, совершенно здоровы и полны сил! И у вас высокий боевой дух!';
 	}
 	
@@ -42,7 +42,7 @@ if ($action == 'tavern') {
 		if ($amount + $user['char_food'] > 7) die('{"error":"Введите правильное число!"}'); 
 		$user['char_gold'] -= $amount * $user['class']['location']->food_in_tavern_cost();
 		$user['char_food'] += $amount;
-		update_user_table("char_gold=".$user['char_gold'].",char_food=".$user['char_food']);
+		User::update("char_gold=".$user['char_gold'].",char_food=".$user['char_food']);
 		$user['log'] = 'Вы купили провизию (+'.$amount.')';
 	}
 

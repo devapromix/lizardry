@@ -40,7 +40,7 @@ if ($action == 'guild_main') {
 		$user['char_life_max'] = $user['class']['player']->get_life($user['char_level']);
 		$user['char_life_cur'] = $user['char_life_max'];
 		Event::add(1, $user['char_name'], $user['char_level']);
-		update_user_table("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
+		User::update("char_exp=".$user['char_exp'].",char_level=".$user['char_level'].",char_life_cur=".$user['char_life_cur'].",char_life_max=".$user['char_life_max'].",char_lp=".$user['char_lp']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_main');
@@ -58,7 +58,7 @@ if ($action == 'guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
 		$user['description'] = 'Вы входите в маленькую комнатушку. Мастер дает прочитать вам магический свиток. Через мгновение вы понимаете, что забыли все свои навыки и все надо начинать с самого начала.';
 		$user['char_lp'] = $user['char_level'];
-		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
+		User::update("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
 		$user['log'] = 'Вы забыли все!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_main');
@@ -107,7 +107,7 @@ if ($action == 'guild_warrior') {
 		$user['char_lp']--;
 		$user['skill_dodge']++;
 		$user['description'] = 'Вы тренируетесь уклоняться от атак противника. В умение "Уклонение" вложено '.$user['skill_dodge'].' оч.';
-		update_user_table("char_lp=".$user['char_lp'].",skill_dodge=".$user['skill_dodge']);
+		User::update("char_lp=".$user['char_lp'].",skill_dodge=".$user['skill_dodge']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_warrior');
@@ -125,7 +125,7 @@ if ($action == 'guild_warrior') {
 		$user['char_lp']--;
 		$user['skill_parry']++;
 		$user['description'] = 'Вы тренируетесь парировать атаки противника. В умение "Парирование" вложено '.$user['skill_parry'].' оч.';
-		update_user_table("char_lp=".$user['char_lp'].",skill_parry=".$user['skill_parry']);
+		User::update("char_lp=".$user['char_lp'].",skill_parry=".$user['skill_parry']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_warrior');
@@ -144,7 +144,7 @@ if ($action == 'guild_warrior') {
 		$user['char_lp']--;
 		$user['skill_bewil']++;
 		$user['description'] = 'Вы тренируете ошеломляющий удар. Пока враг в растерянности, вы атакуете снова и снова. В умение "Ошеломление" вложено '.$user['skill_bewil'].' оч.';
-		update_user_table("char_lp=".$user['char_lp'].",skill_bewil=".$user['skill_bewil']);
+		User::update("char_lp=".$user['char_lp'].",skill_bewil=".$user['skill_bewil']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_warrior');
@@ -261,7 +261,7 @@ if ($action == 'guild_surv') {
 		$user['char_lp']--;
 		$user['skill_run']++;
 		$user['description'] = 'Вы тренируетесь совершать обманные движения в поединке, чтобы повысить свои шансы спастись и выйти из боя живым. В умение "Обман" вложено '.$user['skill_run'].' оч.';
-		update_user_table("char_lp=".$user['char_lp'].",skill_run=".$user['skill_run']);
+		User::update("char_lp=".$user['char_lp'].",skill_run=".$user['skill_run']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_surv');
@@ -280,7 +280,7 @@ if ($action == 'guild_surv') {
 		$user['char_lp']--;
 		$user['skill_gold']++;
 		$user['description'] = 'Вы тренируетесь получше обыскивать трупы врагов, чтобы добыть побольше золота. В умение "Жадность" вложено '.$user['skill_gold'].' оч.';
-		update_user_table("char_lp=".$user['char_lp'].",skill_gold=".$user['skill_gold']);
+		User::update("char_lp=".$user['char_lp'].",skill_gold=".$user['skill_gold']);
 		$user['log'] = 'Вы потренировались и стали лучше!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_surv');

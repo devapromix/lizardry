@@ -13,7 +13,7 @@
 		static function session() {
 			global $user;
 			$user['user_session'] = time();
-			update_user_table("user_session='".$user['user_session']."'");
+			User::update("user_session='".$user['user_session']."'");
 			return $user['user_session'];
 
 		}
