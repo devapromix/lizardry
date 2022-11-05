@@ -6,6 +6,8 @@
 		const CAT_ARMOR 		= 0;
 		const CAT_WEAPON 		= 1;
 		const CAT_FOOD			= 75;
+		const CAT_TROPHY		= 21;
+		const CAT_ING			= 30;
 		
 		// Эликсиры
 		const EMPTY_ELIX 		= 600;
@@ -33,10 +35,10 @@
 				case self::CAT_ARMOR: case self::CAT_WEAPON:
 					$r = $count * round($price * 0.35);
 					break;
-				case 21:
+				case self::CAT_TROPHY:
 					$r = $count * round($price * $user['char_region_level'] * 0.35);
 					break;
-				case 30:
+				case self::CAT_ING:
 					$r = $count * round($price * 0.85);
 					break;
 			}
@@ -204,7 +206,7 @@
 					$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
 					$eq = 'Яд.';
 					break;
-				case 21:
+				case self::CAT_TROPHY:
 					$ef = 'Часть тела монстра.';
 					$eq = 'Трофей.';
 					break;
@@ -224,7 +226,7 @@
 					$ef = 'Необходим для создания эликсиров.';
 					$eq = '';
 					break;
-				case 30:
+				case self::CAT_ING:
 					$ef = 'Алхимический ингредиент для зелий.';
 					$eq = 'Ингредиент.';
 					break;
@@ -392,10 +394,10 @@
 					case self::CAT_WEAPON:
 						$r .= 'Ваше оружие:';
 						break;
-					case 21:
+					case self::CAT_TROPHY:
 						$r .= 'Ваши трофеи:';
 						break;
-					case 30:
+					case self::CAT_ING:
 						$r .= 'Ваши ингредиенты:';
 						break;
 				}
@@ -451,7 +453,7 @@
 					or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 				$item = $result->fetch_assoc();
 
-				$this->save_loot_slot($trophy_ident, $item['item_name'], 21);
+				$this->save_loot_slot($trophy_ident, $item['item_name'], self::CAT_TROPHY);
 			}
 		}
 	
@@ -465,7 +467,7 @@
 		}
 
 		private function gen_else_loot() {
-			$this->gen_random_loot([8,9,10,11,12,25,26,27,28,30], 1);
+			$this->gen_random_loot([8,9,10,11,12,25,26,27,28,self::CAT_ING], 1);
 		}
 
 		private function gen_alch_loot() {
@@ -477,7 +479,7 @@
 		}
 
 		public function gen_herb_loot() {
-			$this->gen_random_loot([30], 1);
+			$this->gen_random_loot([self::CAT_ING], 1);
 		}
 
 		public function gen_loot() {

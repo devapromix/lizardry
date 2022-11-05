@@ -17,7 +17,7 @@ if ($action == 'campfire') {
 		$user['class']['item']->save_loot_slot(0, '', 0);
 	if ($user['loot_slot_1'] > 0) {
 		switch($user['loot_slot_1_type']) {
-			case 30:
+			case Item::CAT_ING:
 				$user['description'] .= '##Ваше внимание привлекает '.$user['loot_slot_1_name'].'.#';
 				break;
 		}

@@ -279,13 +279,13 @@
 			global $user;
 			$m = '';
 			switch($user['loot_slot_1_type']) {
-				case 1:
+				case Item::CAT_WEAPON:
 					$m = 'Взять оружие!';
 					break;
 				case 8: case 9: case 10: case 11: case 12: case 13:
 					$m = 'Взять эликсир!';
 					break;
-				case 21:
+				case Item::CAT_TROPHY:
 					$m = 'Взять трофей!';
 					break;
 				case 25: case 26: case 27:
@@ -294,7 +294,7 @@
 				case 28:
 					$m = 'Взять флакон!';
 					break;
-				case 30:
+				case Item::CAT_ING:
 					$m = 'Взять ингридиент!';
 					break;
 				default:
