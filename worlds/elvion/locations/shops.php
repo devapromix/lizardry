@@ -24,7 +24,7 @@ if ($action == 'shop_armor') {
 
 	$user['title'] = 'Лавка Бронника';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(1);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_ARMOR);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
@@ -47,7 +47,7 @@ if ($action == 'shop_weapon') {
 
 	$user['title'] = 'Оружейная Лавка';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(2);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_WEAPON);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
@@ -70,7 +70,7 @@ if ($action == 'shop_alchemy') {
 
 	$user['title'] = 'Лавка Алхимика';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(3);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_ALCHEMY);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();
@@ -96,7 +96,7 @@ if ($action == 'shop_magic') {
 
 	$user['title'] = 'Магическая Лавка';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(4);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_MAGIC);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['links'] = array();

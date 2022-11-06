@@ -4,7 +4,7 @@ if ($action == 'bank') {
 	
 	$user['title'] = 'Банк';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(9, false);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::BANK, false);
 	} else $user['class']['location']->shades();	
 	$user['frame'] = 'bank';
 	$user['links'] = array();
