@@ -87,15 +87,19 @@
 			User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
 		}
 
-		public function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
-			global $user, $res, $connection, $tb_locations;
-			$user['current_outlands'] = $location_ident;
-			$this->add_enemies($enemies, $is_boss);	
+		public static function get_location($location_ident) {
+			global $connection, $tb_locations;
 			$query = "SELECT * FROM ".$tb_locations." WHERE location_ident='".$location_ident."'";
 			$result = mysqli_query($connection, $query) 
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
-			$location = $result->fetch_assoc();
+			return $result->fetch_assoc();
+		}
 
+		public function outland($location_ident, $enemies, $prev_location = [], $next_location = [], $is_boss = false) {
+			global $user, $res;
+			$user['current_outlands'] = $location_ident;
+			$this->add_enemies($enemies, $is_boss);	
+			$location = self::get_location($location_ident);
 			$user['title'] = $location['location_name'];
 			$user['char_region_location_name'] = $location['location_name'];
 			User::update("char_region_location_name='".$user['char_region_location_name']."'");
