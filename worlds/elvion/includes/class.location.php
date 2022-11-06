@@ -15,21 +15,19 @@
 			
 		}
 		
-		public static function addlink($t, $j, $n = 0) {
+		public static function addlink($title, $link, $n = 0) {
 			global $user;
-			$user['links'][$n]['title'] = $t;
-			$user['links'][$n]['link'] = $j;
+			$user['links'][$n]['title'] = $title;
+			$user['links'][$n]['link'] = $link;
 		}
 		
 		public function shades() {
-			global $user;
-			$user['description'] = 'Вы находитесь в мире теней и ищете проход в мир живых. Чувствуется необычайная легкость и безразличие ко всему происходящему. Ваша душа вздымается все выше и выше. Повсюду вокруг вас души погибших в бесконечных битвах. Их души преследуют вас и шепчут о своих муках и страданиях. В мире теней одиноко, холодно и не уютно. Вы ищите ближайшее кладбище чтобы поскорее вернуться в мир живых.';
+			Location::get_title_and_description('shades');
 		}
 		
 		public function after_travel() {
 			global $user;
-			$user['title'] = 'Путешествие';
-			$user['description'] = 'После нескольких дней увлекательного путешествия Вы прибыли в другой город и вот уже виднеются высокие городские стены.';
+			Location::get_title_and_description('after_travel');
 			$user['links'] = array();
 			$this->go_to_the_gate('Идти к воротам в город');
 		}
@@ -166,7 +164,6 @@
 				if ($action == 'portal')
 					$user['title'] = 'Магический Портал';
 				if ($user['char_life_cur'] > 0) {
-		
 					for ($i = 0; $i < count($regions); $i++) {
 						if (($user['char_region'] == $regions[$i])||($user['char_region'] == $regions[$i] + 1)) {
 							if ($action == 'stables')
@@ -212,6 +209,13 @@
 
 		public function travel_price($level) {
 			return $level * 10;
+		}
+
+		public static function get_title_and_description($location_ident) {
+			global $user;
+			$location = Location::get_location($location_ident);
+			$user['title'] = $location['location_name'];
+			$user['description'] = $location['location_description'];
 		}
 
 		public function random_place() {
@@ -292,13 +296,20 @@
 				case Item::CAT_WEAPON:
 					$m = 'Взять оружие!';
 					break;
-				case 8: case 9: case 10: case 11: case 12: case 13:
+				case 8: 
+				case 9: 
+				case 10: 
+				case 11: 
+				case 12: 
+				case 13:
 					$m = 'Взять эликсир!';
 					break;
 				case Item::CAT_TROPHY:
 					$m = 'Взять трофей!';
 					break;
-				case 25: case 26: case 27:
+				case 25: 
+				case 26: 
+				case 27:
 					$m = 'Взять свиток!';
 					break;
 				case 28:

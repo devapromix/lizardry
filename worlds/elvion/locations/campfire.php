@@ -5,10 +5,7 @@ if ($action == 'campfire') {
 	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 	if ($user['char_food'] <= 0) die('{"info":"Вы не можете здесь отдыхать - нет провизии!"}');
 	if ($user['char_life_cur'] == $user['char_life_max']) die('{"info":"Вам незачем отдыхать - вы здоровы и полны сил!"}');
-
-	$location = Location::get_location($action);
-	$user['title'] = $location['location_name'];
-	$user['description'] = $location['location_description'];
+	Location::get_title_and_description($action);
 	$user['frame'] = $action;
 	$user['links'] = array();
 	Location::addlink('Затушить костер', 'index.php?action='.$user['current_outlands']);
