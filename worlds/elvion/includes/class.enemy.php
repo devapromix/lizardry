@@ -27,38 +27,26 @@
 	
 			if ($enemy_elite > 0)
 				$user['enemy_champion'] = $enemy_elite;
-			switch($user['enemy_champion']) {
-				case 1: // Уникальный
-					$user['enemy_name'] = $enemy['enemy_uniq_name'];
-					$user['enemy_name'] .= ' '.$un_enemy['enemy_rand_name'].' (Элита)';
-					break;
-				case 2: // Здоровье I
-					$user['enemy_name'] .= ' (Крупень)';
-					break;
-				case 3: // Здоровье II
-					$user['enemy_name'] .= ' (Здоровяк)';
-					break;
-				case 4: // Здоровье III
-					$user['enemy_name'] .= ' (Голиаф)';
-					break;
-				case 5: // Урон I
-					$user['enemy_name'] .= ' (Убийца)';
-					break;
-				case 6: // Урон II
-					$user['enemy_name'] .= ' (Громила)';
-					break;
-				case 7: // Урон III
-					$user['enemy_name'] .= ' (Берсерк)';
-					break;
-				case 8: // Броня I
-					$user['enemy_name'] .= ' (Твердолоб)';
-					break;
-				case 9: // Броня II
-					$user['enemy_name'] .= ' (Титан)';
-					break;
-				case 10: // Броня III
-					$user['enemy_name'] .= ' (Колосс)';
-					break;
+			
+			if ($user['enemy_champion'] > 0) {
+				switch($user['enemy_champion']) {
+					case 1: // Уникальный
+						$user['enemy_name'] = $enemy['enemy_uniq_name'];
+						$user['enemy_name'] .= ' '.$un_enemy['enemy_rand_name'].' (Элита)';
+						break;
+					default:
+						$elite_name = array(2 => "Крупень", 
+											3 => "Здоровяк",
+											4 => "Голиаф",
+											5 => "Убийца",
+											6 => "Громила",
+											7 => "Берсерк",
+											8 => "Твердолоб",
+											9 => "Титан",
+											10 => "Колосс");
+						$user['enemy_name'] .= ' ('.$elite_name[$user['enemy_champion']].')';
+						break;
+				}
 			}
 
 			if ($enemy_ident >= Boss::START_ID) Boss::gen($enemy);
