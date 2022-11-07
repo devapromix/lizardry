@@ -374,6 +374,15 @@
 			return $region['region_tavern_name'];			
 		}
 		
+		public function get_graveyard_description() {
+			global $user, $tb_regions, $connection;
+			$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$region = $result->fetch_assoc();
+			return $region['region_graveyard_description'];			
+		}
+		
 		public function get_welcome_phrase($category_ident, $flag = true) {
 			global $connection, $tb_phrases;
 			$v = ($flag)?" OR category=0":"";
