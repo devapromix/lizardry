@@ -45,7 +45,7 @@
 		}		
 		
 		public static function pickup_link() {
-			Location::addlink(Location::pickup_loot_title(), 'index.php?action=pickup_loot&lootslot=1', 1);
+			Location::addlink('Взять!', 'index.php?action=pickup_loot&lootslot=1', 1);
 		}
 		
 		public function check_travel_req($level, $food, $gold) {
@@ -287,41 +287,6 @@
 					break;
 			}
 			return $frame;
-		}
-
-		private static function pickup_loot_title() {
-			global $user;
-			$m = '';
-			switch($user['loot_slot_1_type']) {
-				case Item::CAT_WEAPON:
-					$m = 'Взять оружие!';
-					break;
-				case 8: 
-				case 9: 
-				case 10: 
-				case 11: 
-				case 12: 
-				case 13:
-					$m = 'Взять эликсир!';
-					break;
-				case Item::CAT_TROPHY:
-					$m = 'Взять трофей!';
-					break;
-				case Item::CAT_SCROLL_TP: 
-				case Item::CAT_SCROLL_HEAL: 
-				case Item::CAT_SCROLL_BLESS:
-					$m = 'Взять свиток!';
-					break;
-				case Item::CAT_ELIXIR_EMPTY:
-					$m = 'Взять флакон!';
-					break;
-				case Item::CAT_ING:
-					$m = 'Взять ингридиент!';
-					break;
-				default:
-					$m = 'Взять броню!';
-			}
-			return $m;
 		}
 
 		public function gen_random_place() {

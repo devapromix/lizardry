@@ -380,7 +380,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'hp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы делаете отвар из Черного Гриба. Затем в него бросаете цветки Трубкоцвета и снова варите примерно два часа. Содержимое котелка Вы заливаете в Пустой Флакон и получаете Эликсир Исцеления!';
-		$user['description'] = $user['class']['item']->make_elixir(Item::HP_ELIX, $t, 'Трубкоцвет', Item::HP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_HP, $t, 'Трубкоцвет', Item::HP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -388,7 +388,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'mp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы берете несколько цветков Снежноцвета, один Черный Гриб, бросаете все в котелок и варите на медленном огне примерно около часа. Затем путем нехитрых манипуляций с перегонным кубом Вы получаете Эликсир Маны!';
-		$user['description'] = $user['class']['item']->make_elixir(Item::MP_ELIX, $t, 'Снежноцвет', Item::MP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_MP, $t, 'Снежноцвет', Item::MP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -396,7 +396,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'st_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы на медленном огне доводите до кипения все содержимое Эликсира Исцеления и, добавив в чан с пенящейся густой жидкостью несколько цветков Болеголова, варите примерно еще час. Затем отстаиваете и переливаете в Пустой Флакон. Эликсир Огра готов!';
-		$user['description'] = $user['class']['item']->make_elixir(Item::ST_ELIX, $t, 'Болеголов', Item::ST_HERB, 3, 'Эликсир Исцеления', Item::HP_ELIX, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_ST, $t, 'Болеголов', Item::ST_HERB, 3, 'Эликсир Исцеления', Item::ELIXIR_HP, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -404,7 +404,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'rf_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Когда закипает все содержиое Эликсира Исцеления, вы небольшими порциями добавляете Эликсир Маны, тщательно перемешивая и варите еще примерно три часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Омоложения готов!';
-		$user['description'] = $user['class']['item']->make_elixir(Item::RF_ELIX, $t, 'Эликсир Исцеления', Item::HP_ELIX, 1, 'Эликсир Маны', Item::MP_ELIX, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_RF, $t, 'Эликсир Исцеления', Item::ELIXIR_HP, 1, 'Эликсир Маны', Item::ELIXIR_MP, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -412,7 +412,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'troll_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы выливаете содержимое Эликсира Огра в медный чан и доводите до кипения на медленном огне. Затем небольшими порциями вливаете Кровь Тролля и варите еще примерно два часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Тролля готов!';
-		$user['description'] = $user['class']['item']->make_elixir(Item::TROLL_ELIX, $t, 'Эликсир Огра', Item::ST_ELIX, 1, 'Кровь Тролля', Item::TROLL_BLOOD, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_TROLL, $t, 'Эликсир Огра', Item::ELIXIR_ST, 1, 'Кровь Тролля', Item::TROLL_BLOOD, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

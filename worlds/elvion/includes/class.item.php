@@ -5,6 +5,11 @@
 		// Категории предметов
 		const CAT_ARMOR 			= 0;
 		const CAT_WEAPON 			= 1;
+		const CAT_ELIXIR_HP			= 8;
+		const CAT_ELIXIR_MP			= 9;
+		const CAT_ELIXIR_ST			= 10;
+		const CAT_ELIXIR_RF			= 11;
+		const CAT_ELIXIR_TROLL		= 12;
 		const CAT_FOOD				= 75;
 		const CAT_TROPHY			= 21;
 		const CAT_SCROLL_TP			= 25;
@@ -14,12 +19,12 @@
 		const CAT_ING				= 30;
 		
 		// Эликсиры
-		const EMPTY_ELIX 			= 600;
-		const HP_ELIX 				= 601;
-		const MP_ELIX 				= 602;
-		const ST_ELIX 				= 603;
-		const RF_ELIX 				= 604;
-		const TROLL_ELIX			= 605;
+		const ELIXIR_EMPTY 			= 600;
+		const ELIXIR_HP 			= 601;
+		const ELIXIR_MP 			= 602;
+		const ELIXIR_ST 			= 603;
+		const ELIXIR_RF 			= 604;
+		const ELIXIR_TROLL			= 605;
 
 		// Ингредиенты
 		const MASH_HERB				= 750;
@@ -126,7 +131,7 @@
 		public function buy_empty_elixir($count = 1) {
 			global $user;
 			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
-			$this->add(self::EMPTY_ELIX, $count);
+			$this->add(self::ELIXIR_EMPTY, $count);
 			$user['char_gold'] -= 100;
 			User::update("char_gold=".$user['char_gold']);
 			$user['log'] = 'Вы купили Пустой Флакон.';
@@ -147,7 +152,7 @@
 		}
 
 		public function make_elixir($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
-			if ($this->has_item(self::EMPTY_ELIX)) {
+			if ($this->has_item(self::ELIXIR_EMPTY)) {
 				if ($this->has_item($ing1_id)) {
 					$amount = $this->amount($ing1_id);
 					if ($amount >= $ing1_amount) {
@@ -156,7 +161,7 @@
 							if ($amount >= $ing2_amount) {
 								$this->modify($ing1_id, -$ing1_amount);
 								$this->modify($ing2_id, -$ing2_amount);
-								$this->modify(self::EMPTY_ELIX, -1);
+								$this->modify(self::ELIXIR_EMPTY, -1);
 								$this->add($elix_id);
 								return $t;
 							} die('{"info":"Нужно большеe количество компонента - '.$ing2_name.'!"}');
@@ -186,29 +191,25 @@
 					$ef = 'Урон: '.$item['item_damage_min'].'-'.$item['item_damage_max'];
 					$eq = 'Одноручный Меч.';
 					break;
-				case 8:
+				case self::CAT_ELIXIR_HP:
 					$ef = 'Полностью исцеляет от ран.';
 					$eq = 'Целительный Эликсир.';
 					break;
-				case 9:
+				case self::CAT_ELIXIR_MP:
 					$ef = 'Восполняет всю ману.';
 					$eq = 'Магический Эликсир.';
 					break;
-				case 10:
+				case self::CAT_ELIXIR_ST:
 					$ef = 'Исцеляет и увеличивает запас здоровья на 20%.';
 					$eq = 'Магический Эликсир.';
 					break;
-				case 11:
+				case self::CAT_ELIXIR_RF:
 					$ef = 'Восполнение здоровья и маны.';
 					$eq = 'Магический Эликсир.';
 					break;
-				case 12:
-					$ef = 'Регенерация.';
+				case self::CAT_ELIXIR_TROLL:
+					$ef = 'Регенерация здоровья.';
 					$eq = 'Целительный Эликсир.';
-					break;
-				case 13:
-					$ef = 'Покрывает оружие ядом на '.strval($item['item_level']*5).' битв.';
-					$eq = 'Яд.';
 					break;
 				case self::CAT_TROPHY:
 					$ef = 'Часть тела монстра.';
@@ -296,28 +297,28 @@
 			if ($user['char_level'] < $this->get_region_item_level($item['item_level'])) die('{"info":"Нужен уровень выше!"}');
 
 			switch($item['item_type']) {
-				case 8:
+				case self::CAT_ELIXIR_HP:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['class']['player']->heal();
 					User::update("char_life_cur=".$user['char_life_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 					break;
-				case 9:
+				case self::CAT_ELIXIR_MP:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['char_mana_cur'] = $user['char_mana_max'];
 					User::update("char_mana_cur=".$user['char_mana_cur']);
 					$result = ',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 					break;
-				case 10:
+				case self::CAT_ELIXIR_ST:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['char_life_cur'] = $user['char_life_max'] + round($user['char_life_max'] / 5);
 					User::update("char_life_cur=".$user['char_life_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'"';
 					break;
-				case 11:
+				case self::CAT_ELIXIR_RF:
 					$this->modify($item_ident, -1);
 					$item_level = $item['item_level'];
 					$user['class']['player']->heal();
@@ -325,7 +326,7 @@
 					User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 					$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 					break;
-				case 12:
+				case self::CAT_ELIXIR_TROLL:
 					$this->modify($item_ident, -1);
 					$user['char_effect'] = Magic::PLAYER_EFFECT_REGEN;
 					User::update("char_effect=".$user['char_effect']);			
@@ -454,7 +455,11 @@
 
 		private function gen_else_loot() {
 			$this->gen_random_loot([
-				8,9,10,11,12,
+				self::CAT_ELIXIR_HP,
+				self::CAT_ELIXIR_MP,
+				self::CAT_ELIXIR_ST,
+				self::CAT_ELIXIR_RF,
+				self::CAT_ELIXIR_TROLL,
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS,
@@ -464,14 +469,19 @@
 		}
 
 		private function gen_alch_loot() {
-			$this->gen_random_loot([8,9,10,11,12,
+			$this->gen_random_loot([
+				self::CAT_ELIXIR_HP,
+				self::CAT_ELIXIR_MP,
+				self::CAT_ELIXIR_ST,
+				self::CAT_ELIXIR_RF,
+				self::CAT_ELIXIR_TROLL,
 				self::CAT_ELIXIR_EMPTY
 				], 1);
 		}
 
 		private function gen_mage_loot() {
 			$this->gen_random_loot([
-				9,
+				self::CAT_ELIXIR_MP,
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS
