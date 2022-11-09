@@ -3,35 +3,35 @@
 	class Item {
 		
 		// Категории предметов
-		const CAT_ARMOR 			= 0;
-		const CAT_WEAPON 			= 1;
-		const CAT_ELIXIR_HP			= 8;
-		const CAT_ELIXIR_MP			= 9;
-		const CAT_ELIXIR_ST			= 10;
-		const CAT_ELIXIR_RF			= 11;
-		const CAT_ELIXIR_TROLL		= 12;
-		const CAT_FOOD				= 75;
-		const CAT_TROPHY			= 21;
-		const CAT_SCROLL_TP			= 25;
-		const CAT_SCROLL_HEAL		= 26;
-		const CAT_SCROLL_BLESS		= 27;
-		const CAT_ELIXIR_EMPTY		= 28;
-		const CAT_ING				= 30;
+		public const CAT_ARMOR 				= 0;
+		public const CAT_WEAPON 			= 1;
+		public const CAT_ELIXIR_HP			= 8;
+		public const CAT_ELIXIR_MP			= 9;
+		public const CAT_ELIXIR_ST			= 10;
+		public const CAT_ELIXIR_RF			= 11;
+		public const CAT_ELIXIR_TROLL		= 12;
+		public const CAT_FOOD				= 75;
+		public const CAT_TROPHY				= 21;
+		public const CAT_SCROLL_TP			= 25;
+		public const CAT_SCROLL_HEAL		= 26;
+		public const CAT_SCROLL_BLESS		= 27;
+		public const CAT_ELIXIR_EMPTY		= 28;
+		public const CAT_ING				= 30;
 		
 		// Эликсиры
-		const ELIXIR_EMPTY 			= 600;
-		const ELIXIR_HP 			= 601;
-		const ELIXIR_MP 			= 602;
-		const ELIXIR_ST 			= 603;
-		const ELIXIR_RF 			= 604;
-		const ELIXIR_TROLL			= 605;
+		public const ELIXIR_EMPTY 			= 600;
+		public const ELIXIR_HP 				= 601;
+		public const ELIXIR_MP 				= 602;
+		public const ELIXIR_ST 				= 603;
+		public const ELIXIR_RF 				= 604;
+		public const ELIXIR_TROLL			= 605;
 
 		// Ингредиенты
-		const MASH_HERB				= 750;
-		const HP_HERB				= 751;
-		const MP_HERB				= 752;
-		const ST_HERB				= 753;
-		const TROLL_BLOOD			= 811;
+		public const MASH_HERB				= 750;
+		public const HP_HERB				= 751;
+		public const MP_HERB				= 752;
+		public const ST_HERB				= 753;
+		public const TROLL_BLOOD			= 811;
 		
 		public function __construct() {
 

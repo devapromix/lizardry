@@ -2,9 +2,9 @@
 
 	class Boss {
 		
-		const START_ID = 800;
+		public const START_ID = 800;
 		
-		static public function kill($region_ident) {
+		public static function kill($region_ident) {
 			global $user;
 			$user['stat_boss_kills']++;
 			$bosses = json_decode($user['char_bosses'], true);
@@ -15,7 +15,7 @@
 			User::update("char_bosses='".$user['char_bosses']."'");
 		}
 
-		static public function is_killed($region_ident) {
+		public static function is_killed($region_ident) {
 			global $user;
 			$bosses = $user['char_bosses'];
 			$pos = strripos($bosses, '"id":"'.$region_ident.'"');
@@ -26,7 +26,7 @@
 			}
 		}
 		
-		static public function gen($enemy) {
+		public static function gen($enemy) {
 			global $user;
 			$user['enemy_boss'] = 1;
 			$user['enemy_champion'] = 1;

@@ -2,7 +2,7 @@
 
 	class Event {
 
-		const MAX = 15;
+		public const MAX = 15;
 
 		public function __construct() {
 			

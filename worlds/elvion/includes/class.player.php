@@ -2,10 +2,10 @@
 
 	class Player {
 		
-		const RACE_HUMAN 	= 0;
-		const RACE_ELF 		= 1;
-		const RACE_DWARF 	= 2;
-		const RACE_LIZARD 	= 3;
+		public const RACE_HUMAN 	= 0;
+		public const RACE_ELF 		= 1;
+		public const RACE_DWARF 	= 2;
+		public const RACE_LIZARD 	= 3;
 		
 		public function __construct() {
 			

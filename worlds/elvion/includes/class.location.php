@@ -2,14 +2,14 @@
 
 	class Location {
 
-		const SHOP_ARMOR		= 1;
-		const SHOP_WEAPON		= 2;
-		const SHOP_ALCHEMY		= 3;
-		const SHOP_MAGIC		= 4;
-		const TAVERN			= 7;
-		const BANK				= 9;
+		public const SHOP_ARMOR			= 1;
+		public const SHOP_WEAPON		= 2;
+		public const SHOP_ALCHEMY		= 3;
+		public const SHOP_MAGIC			= 4;
+		public const TAVERN				= 7;
+		public const BANK				= 9;
 
-		const RAND_PLACE_COUNT 	= 7;
+		public const RAND_PLACE_COUNT 	= 7;
 
 		public function __construct() {
 			

@@ -2,12 +2,12 @@
 
 	class Magic {
 
-		const MANA_SCROLL_BLESS		= 5;
-		const MANA_SCROLL_TP		= 8;
-		const MANA_SCROLL_HEAL		= 10;
+		public const MANA_SCROLL_BLESS		= 5;
+		public const MANA_SCROLL_TP			= 8;
+		public const MANA_SCROLL_HEAL		= 10;
 
-		const PLAYER_EFFECT_BLESS	= 1;
-		const PLAYER_EFFECT_REGEN	= 2;
+		public const PLAYER_EFFECT_BLESS	= 1;
+		public const PLAYER_EFFECT_REGEN	= 2;
 
 		public function __construct() {
 			

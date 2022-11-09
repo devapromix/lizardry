@@ -2,7 +2,7 @@
 
 	class Enemy {
 		
-		const EMPTY_ID = 999;
+		public const EMPTY_ID = 999;
 		
 		static public function gen($enemy_ident, $enemy_elite) {
 			global $user, $tb_enemy, $connection;
