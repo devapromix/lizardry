@@ -59,22 +59,6 @@ var
 begin
   LWidth := FormMain.Width - (FormMain.FrameTown.LeftPanel.Width +
     FormMain.FrameTown.RightPanel.Width + 340);
-  SG.ColWidths[0] := 30;
-  case ShopType of
-    stWeapon:
-      begin
-        SG.ColWidths[1] := LWidth;
-        SG.ColWidths[2] := 100;
-        SG.ColWidths[3] := 100;
-      end
-  else
-    begin
-      SG.ColWidths[1] := LWidth + 200;
-      SG.ColWidths[2] := -100;
-      SG.ColWidths[3] := -100;
-    end;
-  end;
-  SG.ColWidths[4] := 100;
   for LRow := 1 to 6 do
   begin
     SG.Cells[0, LRow] := IntToStr(LRow);
@@ -87,6 +71,22 @@ begin
   SG.Cells[2, 0] := 'Значение';
   SG.Cells[3, 0] := 'Уровень';
   SG.Cells[4, 0] := 'Цена';
+  SG.ColWidths[0] := 30;
+  case ShopType of
+    stWeapon, stArmor:
+      begin
+        SG.ColWidths[1] := LWidth;
+        SG.ColWidths[2] := 100;
+        SG.ColWidths[3] := 100;
+      end
+  else
+    begin
+      SG.ColWidths[1] := LWidth + 200;
+      SG.ColWidths[2] := 0;
+      SG.ColWidths[3] := 0;
+    end;
+  end;
+  SG.ColWidths[4] := 100;
   ttInfo.Caption := '';
 end;
 
