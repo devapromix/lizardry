@@ -655,8 +655,8 @@ begin
       else if (S = 'shop_weapon') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          DrawGrid;
           ShopType := stWeapon;
+          DrawGrid;
           SG.Cells[1, 0] := 'Оружие';
           SG.Cells[2, 0] := 'Урон';
           for K := 1 to 6 do
@@ -673,8 +673,8 @@ begin
       else if (S = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          DrawGrid;
           ShopType := stArmor;
+          DrawGrid;
           SG.Cells[1, 0] := 'Доспех';
           SG.Cells[2, 0] := 'Броня';
           for K := 1 to 6 do
@@ -691,8 +691,8 @@ begin
       else if (S = 'shop_alchemy') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          DrawGrid;
           ShopType := stAlchemy;
+          DrawGrid;
           SG.Cells[1, 0] := 'Эликсир';
           SG.Cells[2, 0] := 'Мощь';
           for K := 1 to 6 do
@@ -709,8 +709,8 @@ begin
       else if (S = 'shop_magic') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          DrawGrid;
           ShopType := stMagic;
+          DrawGrid;
           SG.Cells[1, 0] := 'Свиток';
           SG.Cells[2, 0] := 'Мощь';
           for K := 1 to 6 do
@@ -727,8 +727,8 @@ begin
       else if (S = 'tavern') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          DrawGrid;
           ShopType := stTavern;
+          DrawGrid;
           SG.Cells[1, 0] := 'Предмет';
           SG.Cells[2, 0] := 'Значение';
           for K := 1 to 6 do

@@ -57,11 +57,23 @@ procedure TFrameShop.DrawGrid;
 var
   LWidth, LRow: Integer;
 begin
-  LWidth := FormMain.FrameTown.FrameShop1.Width - 340;
+  LWidth := FormMain.Width - (FormMain.FrameTown.LeftPanel.Width +
+    FormMain.FrameTown.RightPanel.Width + 340);
   SG.ColWidths[0] := 30;
-  SG.ColWidths[1] := LWidth;
-  SG.ColWidths[2] := 100;
-  SG.ColWidths[3] := 100;
+  case ShopType of
+    stWeapon:
+      begin
+        SG.ColWidths[1] := LWidth;
+        SG.ColWidths[2] := 100;
+        SG.ColWidths[3] := 100;
+      end
+  else
+    begin
+      SG.ColWidths[1] := LWidth + 200;
+      SG.ColWidths[2] := -100;
+      SG.ColWidths[3] := -100;
+    end;
+  end;
   SG.ColWidths[4] := 100;
   for LRow := 1 to 6 do
   begin

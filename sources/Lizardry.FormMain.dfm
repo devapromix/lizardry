@@ -34,20 +34,20 @@ object FormMain: TFormMain
     ParentFont = False
     TabOrder = 0
     ExplicitWidth = 1184
-    ExplicitHeight = 712
+    ExplicitHeight = 693
     inherited Panel1: TPanel
       Height = 693
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited CurrentClientVersion: TLabel
         Top = 676
-        ExplicitTop = 695
+        ExplicitTop = 676
       end
     end
     inherited Panel2: TPanel
       Width = 934
       Height = 693
       ExplicitWidth = 934
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited Panel3: TPanel
         Width = 934
         ExplicitWidth = 934
@@ -61,7 +61,7 @@ object FormMain: TFormMain
         Width = 924
         Height = 468
         ExplicitWidth = 924
-        ExplicitHeight = 487
+        ExplicitHeight = 468
         inherited Label3: TLabel
           Width = 924
         end
@@ -73,12 +73,12 @@ object FormMain: TFormMain
           Width = 924
           Height = 426
           ExplicitWidth = 924
-          ExplicitHeight = 445
+          ExplicitHeight = 426
         end
       end
       inherited Panel6: TPanel
         Height = 468
-        ExplicitHeight = 487
+        ExplicitHeight = 468
       end
     end
   end
@@ -96,16 +96,16 @@ object FormMain: TFormMain
     ParentFont = False
     TabOrder = 1
     ExplicitWidth = 1184
-    ExplicitHeight = 712
+    ExplicitHeight = 693
     inherited Panel1: TPanel
       Height = 693
-      ExplicitHeight = 712
+      ExplicitHeight = 693
     end
     inherited Panel2: TPanel
       Width = 934
       Height = 693
       ExplicitWidth = 934
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited Panel3: TPanel
         Width = 934
         ExplicitWidth = 934
@@ -119,7 +119,7 @@ object FormMain: TFormMain
         Width = 934
         Height = 468
         ExplicitWidth = 934
-        ExplicitHeight = 487
+        ExplicitHeight = 468
       end
     end
   end
@@ -137,69 +137,42 @@ object FormMain: TFormMain
     ParentFont = False
     TabOrder = 2
     ExplicitWidth = 1184
-    ExplicitHeight = 712
+    ExplicitHeight = 693
     inherited RightPanel: TPanel
       Left = 904
       Height = 693
       ExplicitLeft = 904
-      ExplicitHeight = 712
+      ExplicitHeight = 693
     end
     inherited LeftPanel: TPanel
       Height = 693
-      ExplicitHeight = 712
+      ExplicitHeight = 693
     end
     inherited MainPanel: TPanel
       Width = 604
       Height = 693
       ExplicitWidth = 604
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited FrameChar: TFrameChar
         Width = 604
         Height = 468
         ExplicitWidth = 604
-        ExplicitHeight = 487
+        ExplicitHeight = 468
         inherited PageControl1: TPageControl
           Width = 604
           Height = 468
           ExplicitWidth = 604
-          ExplicitHeight = 487
+          ExplicitHeight = 468
           inherited TabSheet1: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 32
             ExplicitWidth = 596
-            ExplicitHeight = 451
+            ExplicitHeight = 432
           end
           inherited TabSheet2: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 32
-            ExplicitWidth = 519
-            ExplicitHeight = 400
-            inherited SG: TStringGrid
-              Width = 519
-              Height = 311
-              ExplicitWidth = 519
-              ExplicitHeight = 311
-            end
-            inherited Panel1: TPanel
-              Width = 519
-              ExplicitWidth = 519
-            end
             inherited Panel2: TPanel
-              Top = 336
-              Width = 519
-              ExplicitTop = 336
-              ExplicitWidth = 519
               inherited ttInfo: TLabel
-                Width = 517
                 ExplicitWidth = 614
               end
             end
-          end
-          inherited TabSheet3: TTabSheet
-            ExplicitLeft = 4
-            ExplicitTop = 32
-            ExplicitWidth = 519
-            ExplicitHeight = 400
           end
         end
       end
@@ -210,7 +183,7 @@ object FormMain: TFormMain
       inherited FramePanel: TPanel
         Top = 493
         Width = 604
-        ExplicitTop = 512
+        ExplicitTop = 493
         ExplicitWidth = 604
         inherited FrameBank1: TFrameBank
           Width = 602
@@ -249,12 +222,12 @@ object FormMain: TFormMain
         Width = 604
         Height = 468
         ExplicitWidth = 604
-        ExplicitHeight = 487
+        ExplicitHeight = 468
         inherited FrameShop1: TFrameShop
           Width = 602
           Height = 466
           ExplicitWidth = 602
-          ExplicitHeight = 485
+          ExplicitHeight = 466
           inherited SG: TStringGrid
             Width = 602
             ExplicitWidth = 602
@@ -280,35 +253,35 @@ object FormMain: TFormMain
           Width = 602
           Height = 466
           ExplicitWidth = 602
-          ExplicitHeight = 485
+          ExplicitHeight = 466
           inherited StaticText2: TStaticText
             Top = 332
             Width = 602
-            ExplicitTop = 351
+            ExplicitTop = 332
             ExplicitWidth = 602
           end
           inherited StaticText1: TStaticText
             Width = 602
             Height = 332
             ExplicitWidth = 602
-            ExplicitHeight = 351
+            ExplicitHeight = 332
           end
         end
         inherited FrameBattle1: TFrameBattle
           Width = 602
           Height = 466
           ExplicitWidth = 602
-          ExplicitHeight = 485
+          ExplicitHeight = 466
           inherited Panel1: TPanel
             Width = 602
             Height = 306
             ExplicitWidth = 602
-            ExplicitHeight = 325
+            ExplicitHeight = 306
             inherited BattleLog: TRichEdit
               Width = 600
               Height = 304
               ExplicitWidth = 600
-              ExplicitHeight = 323
+              ExplicitHeight = 304
             end
           end
           inherited Panel2: TPanel
@@ -331,10 +304,10 @@ object FormMain: TFormMain
     Align = alClient
     TabOrder = 3
     ExplicitWidth = 1184
-    ExplicitHeight = 712
+    ExplicitHeight = 693
     inherited Panel1: TPanel
       Height = 693
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited bbOpenSite: TBitBtn
         OnClick = FrameUpdatebbOpenSiteClick
       end
@@ -343,7 +316,7 @@ object FormMain: TFormMain
       Width = 934
       Height = 693
       ExplicitWidth = 934
-      ExplicitHeight = 712
+      ExplicitHeight = 693
       inherited ttInfo: TLabel
         Width = 934
       end
@@ -367,8 +340,5 @@ object FormMain: TFormMain
     Height = 19
     Panels = <>
     SimplePanel = True
-    ExplicitLeft = 96
-    ExplicitTop = 584
-    ExplicitWidth = 0
   end
 end

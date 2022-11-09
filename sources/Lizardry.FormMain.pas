@@ -33,8 +33,8 @@ type
     StatusBar: TStatusBar;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure FrameUpdatebbOpenSiteClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -71,7 +71,7 @@ end;
 
 procedure TFormMain.FormResize(Sender: TObject);
 begin
-  FrameTown.FrameShop1.DrawGrid;
+  FormMain.FrameTown.FrameShop1.DrawGrid;
 end;
 
 procedure TFormMain.FormShow(Sender: TObject);

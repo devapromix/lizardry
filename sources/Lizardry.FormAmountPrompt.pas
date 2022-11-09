@@ -116,8 +116,6 @@ begin
 end;
 
 procedure TFormAmountPrompt.UpdatePrice;
-var
-  S: string;
 begin
   with FormMain.FrameTown.FrameShop1 do
     FormAmountPrompt.lbMessage.Caption := Format(TFrameShop.BuyQuestionMsg,
