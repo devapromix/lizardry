@@ -307,12 +307,12 @@
 				case Item::CAT_TROPHY:
 					$m = 'Взять трофей!';
 					break;
-				case 25: 
-				case 26: 
-				case 27:
+				case Item::CAT_SCROLL_TP: 
+				case Item::CAT_SCROLL_HEAL: 
+				case Item::CAT_SCROLL_BLESS:
 					$m = 'Взять свиток!';
 					break;
-				case 28:
+				case Item::CAT_ELIXIR_EMPTY:
 					$m = 'Взять флакон!';
 					break;
 				case Item::CAT_ING:

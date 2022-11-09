@@ -7,25 +7,26 @@
 		const CAT_WEAPON 			= 1;
 		const CAT_FOOD				= 75;
 		const CAT_TROPHY			= 21;
-		const CAT_MANA_SCROLL_TP	= 25;
-		const CAT_MANA_SCROLL_HEAL	= 26;
-		const CAT_MANA_SCROLL_BLESS	= 27;
+		const CAT_SCROLL_TP			= 25;
+		const CAT_SCROLL_HEAL		= 26;
+		const CAT_SCROLL_BLESS		= 27;
+		const CAT_ELIXIR_EMPTY		= 28;
 		const CAT_ING				= 30;
 		
 		// Эликсиры
-		const EMPTY_ELIX 		= 600;
-		const HP_ELIX 			= 601;
-		const MP_ELIX 			= 602;
-		const ST_ELIX 			= 603;
-		const RF_ELIX 			= 604;
-		const TROLL_ELIX		= 605;
+		const EMPTY_ELIX 			= 600;
+		const HP_ELIX 				= 601;
+		const MP_ELIX 				= 602;
+		const ST_ELIX 				= 603;
+		const RF_ELIX 				= 604;
+		const TROLL_ELIX			= 605;
 
 		// Ингредиенты
-		const MASH_HERB			= 750;
-		const HP_HERB			= 751;
-		const MP_HERB			= 752;
-		const ST_HERB			= 753;
-		const TROLL_BLOOD		= 811;
+		const MASH_HERB				= 750;
+		const HP_HERB				= 751;
+		const MP_HERB				= 752;
+		const ST_HERB				= 753;
+		const TROLL_BLOOD			= 811;
 		
 		public function __construct() {
 
@@ -158,9 +159,9 @@
 								$this->modify(self::EMPTY_ELIX, -1);
 								$this->add($elix_id);
 								return $t;
-							} die('{"info":"Нужно больше количество компонента - '.$ing2_name.'!"}');
+							} die('{"info":"Нужно большеe количество компонента - '.$ing2_name.'!"}');
 						} die('{"info":"Нужен компонент - '.$ing2_name.'!"}');
-					} die('{"info":"Нужно больше количество компонента - '.$ing1_name.'!"}');
+					} die('{"info":"Нужно большеe количество компонента - '.$ing1_name.'!"}');
 				} die('{"info":"Нужен компонент - '.$ing1_name.'!"}');
 			} else die('{"info":"Нужен Пустой Флакон!"}');
 		}
@@ -213,19 +214,19 @@
 					$ef = 'Часть тела монстра.';
 					$eq = 'Трофей.';
 					break;
-				case self::CAT_MANA_SCROLL_TP:
+				case self::CAT_SCROLL_TP:
 					$ef = 'Открывает портал в город. Мана: '.Magic::MANA_SCROLL_TP;
 					$eq = 'Магический свиток.';
 					break;
-				case self::CAT_MANA_SCROLL_HEAL:
+				case self::CAT_SCROLL_HEAL:
 					$ef = 'Полностью исцеляет от ран. Мана: '.Magic::MANA_SCROLL_HEAL;
 					$eq = 'Магический свиток.';
 					break;
-				case self::CAT_MANA_SCROLL_BLESS:
+				case self::CAT_SCROLL_BLESS:
 					$ef = 'Весь урон становится максимальным. Мана: '.Magic::MANA_SCROLL_BLESS;
 					$eq = 'Магический свиток.';
 					break;
-				case 28:
+				case self::CAT_ELIXIR_EMPTY:
 					$ef = 'Необходим для создания эликсиров.';
 					$eq = '';
 					break;
@@ -330,13 +331,13 @@
 					User::update("char_effect=".$user['char_effect']);			
 					$result = ',"char_effect":"'.$user['char_effect'].'"';
 					break;
-				case self::CAT_MANA_SCROLL_TP:
+				case self::CAT_SCROLL_TP:
 					$result = $user['class']['magic']->use_scroll_tp($item_ident);
 					break;
-				case self::CAT_MANA_SCROLL_HEAL:
+				case self::CAT_SCROLL_HEAL:
 					$result = $user['class']['magic']->use_scroll_heal($item_ident);
 					break;
-				case self::CAT_MANA_SCROLL_BLESS:
+				case self::CAT_SCROLL_BLESS:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
 					break;
 				case self::CAT_FOOD:
@@ -454,24 +455,26 @@
 		private function gen_else_loot() {
 			$this->gen_random_loot([
 				8,9,10,11,12,
-				self::CAT_MANA_SCROLL_TP,
-				self::CAT_MANA_SCROLL_HEAL,
-				self::CAT_MANA_SCROLL_BLESS,
-				28,
+				self::CAT_SCROLL_TP,
+				self::CAT_SCROLL_HEAL,
+				self::CAT_SCROLL_BLESS,
+				self::CAT_ELIXIR_EMPTY,
 				self::CAT_ING
 				], 1);
 		}
 
 		private function gen_alch_loot() {
-			$this->gen_random_loot([8,9,10,11,12,28], 1);
+			$this->gen_random_loot([8,9,10,11,12,
+				self::CAT_ELIXIR_EMPTY
+				], 1);
 		}
 
 		private function gen_mage_loot() {
 			$this->gen_random_loot([
 				9,
-				self::CAT_MANA_SCROLL_TP,
-				self::CAT_MANA_SCROLL_HEAL,
-				self::CAT_MANA_SCROLL_BLESS
+				self::CAT_SCROLL_TP,
+				self::CAT_SCROLL_HEAL,
+				self::CAT_SCROLL_BLESS
 				], 1);
 		}
 
@@ -488,17 +491,17 @@
 				if (rand(1, 4) == 1) {
 					$this->gen_trophy_loot();
 				} else 
-				// Обычный лут: зелья, свитки, травы 10%
+				// Обычный лут: зелья, свитки, травы
 				if (rand(1, 10) == 1) {
 					$this->gen_else_loot();
 				} else
-				// Экипировка 1%
+				// Экипировка
 				if (rand(1, 100) == 1) {
 					$this->gen_equip_loot();
 				}
 			// Чемпионы 
 			} elseif (($user['enemy_champion'] > 1) && ($user['enemy_boss'] == 0)) {
-				// Экипировка 5%
+				// Экипировка
 				if (rand(1, 20) == 1) {
 					$this->gen_equip_loot();
 				} else {
