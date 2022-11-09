@@ -3,11 +3,14 @@
 	class Item {
 		
 		// Категории предметов
-		const CAT_ARMOR 		= 0;
-		const CAT_WEAPON 		= 1;
-		const CAT_FOOD			= 75;
-		const CAT_TROPHY		= 21;
-		const CAT_ING			= 30;
+		const CAT_ARMOR 			= 0;
+		const CAT_WEAPON 			= 1;
+		const CAT_FOOD				= 75;
+		const CAT_TROPHY			= 21;
+		const CAT_MANA_SCROLL_TP	= 25;
+		const CAT_MANA_SCROLL_HEAL	= 26;
+		const CAT_MANA_SCROLL_BLESS	= 27;
+		const CAT_ING				= 30;
 		
 		// Эликсиры
 		const EMPTY_ELIX 		= 600;
@@ -210,16 +213,16 @@
 					$ef = 'Часть тела монстра.';
 					$eq = 'Трофей.';
 					break;
-				case 25:
-					$ef = 'Открывает портал в город.';
+				case self::CAT_MANA_SCROLL_TP:
+					$ef = 'Открывает портал в город. Мана: '.Magic::MANA_SCROLL_TP;
 					$eq = 'Магический свиток.';
 					break;
-				case 26:
-					$ef = 'Полностью исцеляет от ран.';
+				case self::CAT_MANA_SCROLL_HEAL:
+					$ef = 'Полностью исцеляет от ран. Мана: '.Magic::MANA_SCROLL_HEAL;
 					$eq = 'Магический свиток.';
 					break;
-				case 27:
-					$ef = 'Весь урон становится максимальным.';
+				case self::CAT_MANA_SCROLL_BLESS:
+					$ef = 'Весь урон становится максимальным. Мана: '.Magic::MANA_SCROLL_BLESS;
 					$eq = 'Магический свиток.';
 					break;
 				case 28:
@@ -327,13 +330,13 @@
 					User::update("char_effect=".$user['char_effect']);			
 					$result = ',"char_effect":"'.$user['char_effect'].'"';
 					break;
-				case 25:
+				case self::CAT_MANA_SCROLL_TP:
 					$result = $user['class']['magic']->use_scroll_tp($item_ident);
 					break;
-				case 26:
+				case self::CAT_MANA_SCROLL_HEAL:
 					$result = $user['class']['magic']->use_scroll_heal($item_ident);
 					break;
-				case 27:
+				case self::CAT_MANA_SCROLL_BLESS:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
 					break;
 				case self::CAT_FOOD:
@@ -449,7 +452,14 @@
 		}
 
 		private function gen_else_loot() {
-			$this->gen_random_loot([8,9,10,11,12,25,26,27,28,self::CAT_ING], 1);
+			$this->gen_random_loot([
+				8,9,10,11,12,
+				self::CAT_MANA_SCROLL_TP,
+				self::CAT_MANA_SCROLL_HEAL,
+				self::CAT_MANA_SCROLL_BLESS,
+				28,
+				self::CAT_ING
+				], 1);
 		}
 
 		private function gen_alch_loot() {
@@ -457,7 +467,12 @@
 		}
 
 		private function gen_mage_loot() {
-			$this->gen_random_loot([9,25,26,27], 1);
+			$this->gen_random_loot([
+				9,
+				self::CAT_MANA_SCROLL_TP,
+				self::CAT_MANA_SCROLL_HEAL,
+				self::CAT_MANA_SCROLL_BLESS
+				], 1);
 		}
 
 		public function gen_herb_loot() {
@@ -469,7 +484,7 @@
 	
 			// Обычные враги
 			if (($user['enemy_boss'] == 0) && ($user['enemy_champion'] == 0)) {
-				// Трофеи 25%
+				// Трофеи
 				if (rand(1, 4) == 1) {
 					$this->gen_trophy_loot();
 				} else 
