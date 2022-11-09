@@ -68,8 +68,10 @@ object FormAmountPrompt: TFormAmountPrompt
     Width = 41
     Height = 29
     Alignment = taCenter
-    ReadOnly = True
+    MaxLength = 2
+    NumbersOnly = True
     TabOrder = 1
     Text = '1'
+    OnChange = AmountEditChange
   end
 end

@@ -29,6 +29,7 @@ type
     procedure bbOKClick(Sender: TObject);
     procedure sbMinusClick(Sender: TObject);
     procedure sbPlusClick(Sender: TObject);
+    procedure AmountEditChange(Sender: TObject);
   private
     { Private declarations }
     FRow: Integer;
@@ -55,7 +56,8 @@ uses
   Lizardry.Server,
   Lizardry.FormMain,
   Lizardry.FormPrompt,
-  Lizardry.FrameShop;
+  Lizardry.FrameShop,
+  Lizardry.FormMsg;
 
 procedure AmountPrompt(const TextMessage, ButOkText, ALocation,
   AItemAmount: string; ARow: Integer);
@@ -73,6 +75,11 @@ begin
   FormAmountPrompt.ShowModal;
 end;
 
+procedure TFormAmountPrompt.AmountEditChange(Sender: TObject);
+begin
+  UpdatePrice;
+end;
+
 procedure TFormAmountPrompt.bbCancelClick(Sender: TObject);
 begin
   ModalResult := mrOk;
@@ -80,6 +87,11 @@ end;
 
 procedure TFormAmountPrompt.bbOKClick(Sender: TObject);
 begin
+  if StrToIntDef(AmountEdit.Text, 1) = 0 then
+  begin
+    ShowMsg('Введите число больше 0!');
+    Exit;
+  end;
   with FormMain.FrameTown do
   begin
     if IsCharMode then
@@ -98,7 +110,7 @@ end;
 
 procedure TFormAmountPrompt.sbPlusClick(Sender: TObject);
 begin
-  if (StrToIntDef(AmountEdit.Text, 1) < 10) then
+  if (StrToIntDef(AmountEdit.Text, 1) < 99) then
     AmountEdit.Text := IntToStr(StrToIntDef(AmountEdit.Text, 1) + 1);
   UpdatePrice;
 end;

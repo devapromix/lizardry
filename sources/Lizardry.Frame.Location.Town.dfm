@@ -136,7 +136,7 @@ object FrameTown: TFrameTown
         Caption = 'Debug'
         Flat = True
         OnClick = bbDebugClick
-        ExplicitLeft = 192
+        ExplicitTop = 5
       end
     end
     object Panel17: TPanel
@@ -582,29 +582,28 @@ object FrameTown: TFrameTown
         Height = 283
         ExplicitWidth = 317
         ExplicitHeight = 283
-        inherited TabSheet2: TTabSheet
+        inherited TabSheet1: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
-          inherited SG: TStringGrid
-            Width = 309
-            Height = 158
-            ExplicitWidth = 309
-            ExplicitHeight = 158
-          end
-          inherited Panel1: TPanel
-            Width = 309
-            ExplicitWidth = 309
-          end
+        end
+        inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
           inherited Panel2: TPanel
-            Top = 183
-            Width = 309
-            ExplicitTop = 183
-            ExplicitWidth = 309
             inherited ttInfo: TLabel
-              Width = 307
               ExplicitWidth = 307
             end
           end
+        end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end

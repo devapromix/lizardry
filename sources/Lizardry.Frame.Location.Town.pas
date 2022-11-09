@@ -402,6 +402,7 @@ end;
 
 procedure TFrameTown.bbDebugClick(Sender: TObject);
 begin
+  FormInfo.PageControl1.ActivePageIndex := 0;
   FormInfo.ShowModal;
 end;
 
