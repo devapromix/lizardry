@@ -102,8 +102,6 @@ begin
   Panel5.Caption := 'Подтверждение авторизации...';
   Application.ProcessMessages;
   LResponseJSON := Server.Get('index.php?action=login');
-  if TServer.CheckLoginErrors(LResponseJSON) then
-    Exit;
   if LResponseJSON = '{"login":"error"}' then
   begin
     Panel5.Caption := 'Ошибка!';

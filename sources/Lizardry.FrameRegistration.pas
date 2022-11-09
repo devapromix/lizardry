@@ -142,35 +142,33 @@ end;
 
 procedure TFrameRegistration.bbRegistrationClick(Sender: TObject);
 var
-  LResponseJSON, UserName, UserPass, CharName, CharGender, CharRace: string;
+  LResponseJSON, LUserName, LUserPass, LCharName, LCharGender,
+    LCharRace: string;
 begin
-  UserName := Trim(LowerCase(edUserName.Text));
-  UserPass := Trim(LowerCase(edUserPass.Text));
-  CharName := Trim(edCharName.Text);
-  CharGender := '0';
+  LUserName := Trim(LowerCase(edUserName.Text));
+  LUserPass := Trim(LowerCase(edUserPass.Text));
+  LCharName := Trim(edCharName.Text);
+  LCharGender := '0';
   if gdFemale.Checked then
-    CharGender := '1';
-  CharRace := '0';
+    LCharGender := '1';
+  LCharRace := '0';
   if rcElf.Checked then
-    CharRace := '1';
+    LCharRace := '1';
   if rcGnome.Checked then
-    CharRace := '2';
+    LCharRace := '2';
   if rcLizard.Checked then
-    CharRace := '3';
+    LCharRace := '3';
   if not TServer.IsInternetConnected then
   begin
     ShowMsg('Невозможно подключиться к серверу!');
     Exit;
   end;
-  FormMain.FrameLogin.edUserName.Text := UserName;
-  FormMain.FrameLogin.edUserPass.Text := UserPass;
+  FormMain.FrameLogin.edUserName.Text := LUserName;
+  FormMain.FrameLogin.edUserPass.Text := LUserPass;
   LResponseJSON := Server.Get
-    ('registration/registration.php?action=registration&charname=' + CharName +
-    '&chargender=' + CharGender + '&charrace=' + CharRace);
+    ('registration/registration.php?action=registration&charname=' + LCharName +
+    '&chargender=' + LCharGender + '&charrace=' + LCharRace);
   FormMain.FrameLogin.edUserPass.Text := '';
-  if TServer.CheckLoginErrors(LResponseJSON) then
-    Exit;
-  FormMain.FrameTown.ParseJSON(LResponseJSON);
   if LResponseJSON = '{"registration":"error"}' then
   begin
     ShowMsg('Ошибка регистрации!');
@@ -320,16 +318,16 @@ end;
 
 procedure TFrameRegistration.LoadImage(S: string);
 var
-  F: string;
+  LImagePath: string;
 begin
   S := 'player_' + LowerCase(S);
   if gdMale.Checked then
     S := S + '_male';
   if gdFemale.Checked then
     S := S + '_female';
-  F := TPath.GetHomePath + '\Lizardry\Images\' + S + '.jpg';
-  if FileExists(F) then
-    Image2.Picture.LoadFromFile(F);
+  LImagePath := TPath.GetHomePath + '\Lizardry\Images\' + S + '.jpg';
+  if FileExists(LImagePath) then
+    Image2.Picture.LoadFromFile(LImagePath);
 end;
 
 procedure TFrameRegistration.LoadImages;

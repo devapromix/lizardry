@@ -14,10 +14,8 @@ type
     FURL: string;
   public
     function Get(AURL: string): string;
-    function Post(AURL: string; ASL: TStringList): string;
     constructor Create(const AURL, AName: string);
     destructor Destroy; override;
-    class function CheckLoginErrors(const ResponseCode: string): Boolean;
     class function IsInternetConnected: Boolean;
     property Name: string read FName write FName;
     property URL: string read FURL write FURL;
@@ -55,57 +53,6 @@ begin
   end;
 end;
 
-function TServer.Post(AURL: string; ASL: TStringList): string;
-begin
-  Result := '';
-  if not IsInternetConnected then
-  begin
-    ShowMsg('Невозможно подключиться к серверу!');
-    Exit;
-  end;
-  try
-    Result := Trim(FIdHTTP.Post('http://' + URL + '/' + Name + '/' + AURL +
-      '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
-      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text), ASL));
-    if Result = '0' then
-      ShowMsg('Получен не верный ответ от сервера: 0!');
-  except
-    on E: Exception do
-    begin
-      ShowMsg(FIdHTTP.ResponseText);
-      ShowError(Result);
-    end;
-    on E: EIdHTTPProtocolException do
-      ShowMsg(E.ErrorMessage);
-    on E: EIdHTTPProtocolException do
-      ShowMsg(IntToStr(E.ErrorCode));
-  end;
-end;
-
-class function TServer.CheckLoginErrors(const ResponseCode: string): Boolean;
-var
-  Code: Byte;
-begin
-  Result := True;
-  Code := StrToIntDef(ResponseCode, 0);
-  case Code of
-    21:
-      ShowMsg('Введите логин!');
-    22:
-      ShowMsg('Введите пароль!');
-    31:
-      ShowMsg('Логин не может быть короче 4 символов!');
-    32:
-      ShowMsg('Пароль не может быть короче 4 символов!');
-    41:
-      ShowMsg('Логин не должен быть длиннее 24 символов!');
-    42:
-      ShowMsg('Пароль не должен быть длиннее 24 символов!');
-  else
-    Result := False;
-  end;
-end;
-
 constructor TServer.Create(const AURL, AName: string);
 begin
   FIdHTTP := TIdHTTP.Create(FormMain);
@@ -120,6 +67,8 @@ begin
 end;
 
 function TServer.Get(AURL: string): string;
+var
+  LURL: string;
 begin
   Result := '';
   if not IsInternetConnected then
@@ -128,12 +77,12 @@ begin
     Exit;
   end;
   try
-    Result := Trim(FIdHTTP.Get('http://' + URL + '/' + Name + '/' + AURL +
-      '&username=' + LowerCase(FormMain.FrameLogin.edUserName.Text) +
-      '&userpass=' + LowerCase(FormMain.FrameLogin.edUserPass.Text) +
-      '&usersession=' + LowerCase(UserSession)));
-    if Result = '0' then
-      ShowMsg('Получен не верный ответ от сервера: 0!');
+    LURL := 'http://' + URL + '/' + Name + '/' + AURL + '&username=' +
+      LowerCase(FormMain.FrameLogin.edUserName.Text) + '&userpass=' +
+      LowerCase(FormMain.FrameLogin.edUserPass.Text) + '&usersession=' +
+      LowerCase(UserSession);
+    Result := Trim(FIdHTTP.Get(LURL));
+    FormMain.StatusBar.SimpleText := LURL;
   except
     on E: Exception do
     begin
@@ -146,40 +95,6 @@ begin
       ShowMsg(IntToStr(E.ErrorCode));
   end;
 end;
-
-{
-
-  procedure TForm1.FormCreate(Sender: TObject);
-  var
-  ParamList: TStringList;
-  ss: TStringStream;
-  url: string;
-  begin
-  ss := TStringStream.Create('', TEncoding.UTF8);
-  IdHTTP1 := TIdHTTP.Create();
-  ParamList := TStringList.Create;
-  try
-  ParamList.Add('LoginName=xx');
-  ParamList.Add('Password=xx');
-  ParamList.Add('SmsKind=808');
-  ParamList.Add('ExpSmsId=888');
-  url := 'http://...';
-  IdHTTP1.Post(url, ParamList, ss);
-  Memo1.Text := ss.DataString;
-  finally
-  ss.Free;
-  IdHTTP1.Free;
-  ParamList.Free;
-  end;
-  end;
-
-  function TServer.GetFile: string;
-  begin
-  Result := FIdHTTP.Get('http://' + URL + '/' + Name + '/characters/character.'
-  + LowerCase(FormMain.FrameLogin.edUserName.Text) + '.json');
-  end;
-
-}
 
 initialization
 

@@ -510,7 +510,7 @@ object FrameRegistration: TFrameRegistration
     end
     object bbRegistration: TBitBtn
       Left = 24
-      Top = 240
+      Top = 241
       Width = 161
       Height = 33
       Cursor = crHandPoint

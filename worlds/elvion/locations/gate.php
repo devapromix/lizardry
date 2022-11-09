@@ -18,10 +18,11 @@ if ($action == 'gate') {
 				break;
 			case 2:
 				Location::addlink('Посетить Конюшни', 'index.php?action=stables', 2);
-				Location::addlink('Посетить Гавань', 'index.php?action=harbor', 3);
-				Location::addlink('Лес Энтов', 'index.php?action=treant_forest', 4);
-				Location::addlink('Старая Гавань', 'index.php?action=old_harbor', 5);
-				Location::addlink('Каменное Поле', 'index.php?action=stonefield', 6);
+				Location::addlink('Загон Единорогов', 'index.php?action=uni_stables', 3);
+				Location::addlink('Посетить Гавань', 'index.php?action=harbor', 4);
+				Location::addlink('Лес Энтов', 'index.php?action=treant_forest', 5);
+				Location::addlink('Старая Гавань', 'index.php?action=old_harbor', 6);
+				Location::addlink('Каменное Поле', 'index.php?action=stonefield', 7);
 				break;
 			case 3:
 				Location::addlink('Посетить Гавань', 'index.php?action=harbor', 2);
@@ -69,6 +70,16 @@ if ($action == 'gate') {
 			case 9:
 				break;
 			case 10:
+				break;
+			case 11:
+				break;
+			case 12:
+				break;
+			case 13:
+				break;
+			case 14:
+				break;
+			case 15:
 				break;
 		}
 		

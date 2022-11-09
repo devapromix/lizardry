@@ -33,7 +33,7 @@
 			$r = 0;
 			switch($type) {
 				case self::CAT_ARMOR: case self::CAT_WEAPON:
-					$r = $count * round($price * 0.35);
+					$r = $count * round($price * 0.30);
 					break;
 				case self::CAT_TROPHY:
 					$r = $count * round($price * $user['char_region_level'] * 0.35);

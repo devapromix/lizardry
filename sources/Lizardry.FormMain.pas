@@ -22,7 +22,7 @@ uses
   IdTCPConnection,
   IdTCPClient,
   IdHTTP,
-  Lizardry.FrameUpdate;
+  Lizardry.FrameUpdate, Vcl.ComCtrls;
 
 type
   TFormMain = class(TForm)
@@ -30,6 +30,7 @@ type
     FrameRegistration: TFrameRegistration;
     FrameTown: TFrameTown;
     FrameUpdate: TFrameUpdate;
+    StatusBar: TStatusBar;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -65,6 +66,7 @@ begin
     if ParamStr(LParam) = '-debug' then
       IsDebugMode := True;
   FrameLogin.BringToFront;
+  StatusBar.Visible := IsDebugMode;
 end;
 
 procedure TFormMain.FormResize(Sender: TObject);
