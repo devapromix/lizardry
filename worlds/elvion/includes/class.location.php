@@ -341,11 +341,20 @@
 		
 		public function get_graveyard_description() {
 			global $user, $tb_regions, $connection;
-			$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
+			$query = "SELECT region_graveyard_description FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
 			$result = mysqli_query($connection, $query) 
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			$region = $result->fetch_assoc();
 			return $region['region_graveyard_description'];			
+		}
+		
+		public function get_town_description() {
+			global $user, $tb_regions, $connection;
+			$query = "SELECT region_town_description FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$region = $result->fetch_assoc();
+			return $region['region_town_description'];			
 		}
 		
 		public function get_welcome_phrase($category_ident, $flag = true) {
