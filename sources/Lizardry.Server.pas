@@ -12,6 +12,7 @@ type
     FIdHTTP: TIdHTTP;
     FName: string;
     FURL: string;
+    function CheckJSON(AJSON: string): Boolean;
   public
     function Get(AURL: string): string;
     constructor Create(const AURL, AName: string);
@@ -53,6 +54,12 @@ begin
   end;
 end;
 
+function TServer.CheckJSON(AJSON: string): Boolean;
+begin
+  Result := (AJSON.StartsWith('{') and AJSON.EndsWith('}')) or
+    (AJSON.StartsWith('[') and AJSON.EndsWith(']'));
+end;
+
 constructor TServer.Create(const AURL, AName: string);
 begin
   FIdHTTP := TIdHTTP.Create(FormMain);
@@ -81,8 +88,13 @@ begin
       LowerCase(FormMain.FrameLogin.edUserName.Text) + '&userpass=' +
       LowerCase(FormMain.FrameLogin.edUserPass.Text) + '&usersession=' +
       LowerCase(UserSession);
-    Result := Trim(FIdHTTP.Get(LURL));
     FormMain.StatusBar.SimpleText := LURL;
+    if not CheckJSON(Result) then
+    begin
+      ShowError(Result);
+      Result := '{"error":"Неверный ответ от сервера!"}';
+    end;
+    Result := Trim(FIdHTTP.Get(LURL));
   except
     on E: Exception do
     begin
