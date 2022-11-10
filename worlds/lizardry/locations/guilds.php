@@ -164,7 +164,7 @@ if ($action == 'guild_hunter') {
 
 	$user['title'] = 'Гильдия Охотников';
 	$t = 'Вы входите в светлый просторный зал, обставленый чучелами различных птиц и зверей. Вас встречает высокий эльф в добротной кожаной броне и длинным луком за плечами:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Охотников. У нас можно улучшить свои навыки охоты или изучить новые.#Также я щедро плачу золотом за ценные охотничьи трофеи.##';
-	$t .= $user['class']['item']->inv_item_list(21);
+	$t .= $user['class']['item']->inv_item_list(Item::CAT_TROPHY);
 	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -172,7 +172,7 @@ if ($action == 'guild_hunter') {
 
 	if ($do == 'trophy_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = $user['class']['item']->gold_trade(21);
+		$gold = $user['class']['item']->gold_trade(Item::CAT_TROPHY);
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_hunter');
@@ -186,7 +186,7 @@ if ($action == 'guild_forge') {
 
 	$user['title'] = 'Гильдия Кузнецов';
 	$t = 'Вы входите в Кузницу. К вам выходит старый гном в испачканой угoльной пылью одежде:#-Приветствую, '.$user['char_name'].'! Рад видеть тебя в Гильдии Кузнецов. У нас ты можешь потренироваться, отремонтировать свою экипировку, купить нужные вещи кузнеца или продать старое оружие.##';
-	$t .= $user['class']['item']->inv_item_list(1);
+	$t .= $user['class']['item']->inv_item_list(Item::CAT_WEAPON);
 	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -194,7 +194,7 @@ if ($action == 'guild_forge') {
 
 	if ($do == 'weapon_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = $user['class']['item']->gold_trade(1);
+		$gold = $user['class']['item']->gold_trade(Item::CAT_WEAPON);
 		$user['description'] = 'Вы продали старое оружие и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_forge');
@@ -208,7 +208,7 @@ if ($action == 'guild_lw') {
 
 	$user['title'] = 'Гильдия Кожевников';
 	$t = 'В Гильдии Кожевников к вам подходит красивая эльфийка в дорогой кожаной эльфийской броне:#-Здраствуйте! Рада видеть вас в нашей гильдии. Мы рады помочь каждому путнику, кому нужна наша помощь. Я с удовольствием обучаю исскуству снятия кожи с убитых животных и достаточно дорого выкупаю уже не нужную кожаную броню.##';
-	$t .= $user['class']['item']->inv_item_list(0);
+	$t .= $user['class']['item']->inv_item_list(Item::CAT_ARMOR);
 	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -216,7 +216,7 @@ if ($action == 'guild_lw') {
 
 	if ($do == 'armor_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = $user['class']['item']->gold_trade(0);
+		$gold = $user['class']['item']->gold_trade(Item::CAT_ARMOR);
 		$user['description'] = 'Вы продали старую кожаную броню и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_lw');
@@ -300,7 +300,7 @@ if ($action == 'guild_alch') {
 
 	$user['title'] = 'Гильдия Алхимиков';
 	$t = 'Вы входите в тесное подвальное помещение, обставленое алхимическими столами, комодами и шкафами с различными разноцветными пузырьками. Вас встречает седой старичок в сером халате:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Алхимиков. У нас ты можешь улучшить свои познания в алхимии. Еще можешь приготовить нужные тебе эликсиры.#Также я щедро плачу золотом за алхимические ингредиенты: грибы, травы, корни...##';
-	$t .= $user['class']['item']->inv_item_list(30);
+	$t .= $user['class']['item']->inv_item_list(Item::CAT_ING);
 	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
@@ -309,7 +309,7 @@ if ($action == 'guild_alch') {
 
 	if ($do == 'ing_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = $user['class']['item']->gold_trade(30);
+		$gold = $user['class']['item']->gold_trade(Item::CAT_ING);
 		$user['description'] = 'Вы продали все ингредиенты и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch');
@@ -380,7 +380,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'hp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы делаете отвар из Черного Гриба. Затем в него бросаете цветки Трубкоцвета и снова варите примерно два часа. Содержимое котелка Вы заливаете в Пустой Флакон и получаете Эликсир Исцеления!';
-		$user['description'] = $user['class']['item']->make_elixir(HP_ELIX, $t, 'Трубкоцвет', HP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_HP, $t, 'Трубкоцвет', Item::HP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -388,7 +388,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'mp_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы берете несколько цветков Снежноцвета, один Черный Гриб, бросаете все в котелок и варите на медленном огне примерно около часа. Затем путем нехитрых манипуляций с перегонным кубом Вы получаете Эликсир Маны!';
-		$user['description'] = $user['class']['item']->make_elixir(MP_ELIX, $t, 'Снежноцвет', MP_HERB, 3, 'Черный Гриб', MASH_HERB, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_MP, $t, 'Снежноцвет', Item::MP_HERB, 3, 'Черный Гриб', Item::MASH_HERB, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -396,7 +396,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'st_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы на медленном огне доводите до кипения все содержимое Эликсира Исцеления и, добавив в чан с пенящейся густой жидкостью несколько цветков Болеголова, варите примерно еще час. Затем отстаиваете и переливаете в Пустой Флакон. Эликсир Огра готов!';
-		$user['description'] = $user['class']['item']->make_elixir(ST_ELIX, $t, 'Болеголов', ST_HERB, 3, 'Эликсир Исцеления', HP_ELIX, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_ST, $t, 'Болеголов', Item::ST_HERB, 3, 'Эликсир Исцеления', Item::ELIXIR_HP, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -404,7 +404,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'rf_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Когда закипает все содержиое Эликсира Исцеления, вы небольшими порциями добавляете Эликсир Маны, тщательно перемешивая и варите еще примерно три часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Омоложения готов!';
-		$user['description'] = $user['class']['item']->make_elixir(RF_ELIX, $t, 'Эликсир Исцеления', HP_ELIX, 1, 'Эликсир Маны', MP_ELIX, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_RF, $t, 'Эликсир Исцеления', Item::ELIXIR_HP, 1, 'Эликсир Маны', Item::ELIXIR_MP, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}
@@ -412,7 +412,7 @@ if ($action == 'guild_alch') {
 	if ($do == 'troll_elix') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$t = 'Вы выливаете содержимое Эликсира Огра в медный чан и доводите до кипения на медленном огне. Затем небольшими порциями вливаете Кровь Тролля и варите еще примерно два часа. Затем жидкость отстаиваете и переливаете в Пустой Флакон. Эликсир Тролля готов!';
-		$user['description'] = $user['class']['item']->make_elixir(TROLL_ELIX, $t, 'Эликсир Огра', ST_ELIX, 1, 'Кровь Тролля', TROLL_BLOOD, 1);
+		$user['description'] = $user['class']['item']->make_elixir(Item::ELIXIR_TROLL, $t, 'Эликсир Огра', Item::ELIXIR_ST, 1, 'Кровь Тролля', Item::TROLL_BLOOD, 1);
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_alch&do=alchemy');
 	}

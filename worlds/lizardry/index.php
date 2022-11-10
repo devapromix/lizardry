@@ -7,6 +7,7 @@ require_once('common/dbtables.php');
 require_once(IPATH.'class.location.php');
 require_once(IPATH.'class.battle.php');
 require_once(IPATH.'class.player.php');
+require_once(IPATH.'class.server.php');
 require_once(IPATH.'class.magic.php');
 require_once(IPATH.'class.item.php');
 require_once(IPATH.'class.event.php');
@@ -21,6 +22,9 @@ $itemslot = $_GET['itemslot'];
 $lootslot = $_GET['lootslot'];
 $enemyslot = $_GET['enemyslot'];
 $itemindex = $_GET['itemindex'];
+$username = $_GET['username'];
+$userpass = $_GET['userpass'];
+$usersession = $_GET['usersession'];
 
 $connection = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 if (!$connection)
@@ -30,7 +34,7 @@ $user = User::init($username, $userpass);
 
 if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'login') $res = '{"login":"ok","session":"'.User::session().'"}';
-	if ($action == 'version') $res = get_version();
+	if ($action == 'version') $res = Server::VERSION;
 	if ($action == 'events') $res = Event::get_events();
 	if ($usersession == $user['user_session']) {
 		if ($action == 'items') $res = Item::get_items();

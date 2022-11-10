@@ -3,8 +3,9 @@
 if ($action == 'tavern') {
 
 	$user['title'] = 'Таверна "'.$user['class']['location']->get_tavern_name().'"';
+	
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(7, false);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::TAVERN, false);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;
 	$user['frame'] = 'tavern';	

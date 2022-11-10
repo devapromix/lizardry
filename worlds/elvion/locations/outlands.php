@@ -58,5 +58,10 @@ if ($action == '+') $user['class']['location']->outland($action, [118,119,120,12
 if ($action == '+') $user['class']['location']->outland($action, [122,123,124]);
 if ($action == '+') $user['class']['location']->outland($action, [125,126,127]);
 if ($action == '+') $user['class']['location']->outland($action, [128,129,130]);
+// #11
+if ($action == '+') $user['class']['location']->outland($action, [131,132,133,134]);
+if ($action == '+') $user['class']['location']->outland($action, [135,136,137]);
+if ($action == '+') $user['class']['location']->outland($action, [138,139,140]);
+if ($action == '+') $user['class']['location']->outland($action, [141,142,143]);
 
 ?>
