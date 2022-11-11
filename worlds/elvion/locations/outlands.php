@@ -63,5 +63,5 @@ if ($action == 'orch_forest') $user['class']['location']->outland($action, [131,
 if ($action == '+') $user['class']['location']->outland($action, [134,135,136]);
 if ($action == '+') $user['class']['location']->outland($action, [137,138,139]);
 if ($action == '+') $user['class']['location']->outland($action, [140,141,142]);
-
+if ($action == 'twiling_forest') $user['class']['location']->outland($action, [811], [], [], true);
 ?>
