@@ -59,9 +59,9 @@ if ($action == '+') $user['class']['location']->outland($action, [122,123,124]);
 if ($action == '+') $user['class']['location']->outland($action, [125,126,127]);
 if ($action == '+') $user['class']['location']->outland($action, [128,129,130]);
 // #11
-if ($action == 'orch_forest') $user['class']['location']->outland($action, [131,132,133]);
-if ($action == 'lul_crypt') $user['class']['location']->outland($action, [134,135,136]);
-if ($action == '+') $user['class']['location']->outland($action, [137,138,139]);
-if ($action == '+') $user['class']['location']->outland($action, [140,141,142]);
+if ($action == 'orch_forest') $user['class']['location']->outland($action, [131,132,133], [], ['Склеп Луларка', 'index.php?action=lul_crypt']);
+if ($action == 'lul_crypt') $user['class']['location']->outland($action, [134,135,136], ['Лес Орхидей', 'index.php?action=orch_forest']);
+if ($action == 'far_forest') $user['class']['location']->outland($action, [137,138,139]);
+if ($action == 'myst_forest') $user['class']['location']->outland($action, [140,141,142]);
 if ($action == 'twiling_forest') $user['class']['location']->outland($action, [811], [], [], true);
 ?>
