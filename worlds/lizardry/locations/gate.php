@@ -72,6 +72,10 @@ if ($action == 'gate') {
 			case 10:
 				break;
 			case 11:
+				Location::addlink('Лес Орхидей', 'index.php?action=orch_forest', 2);
+				Location::addlink('Далекая Дубрава', 'index.php?action=far_forest', 3);
+				Location::addlink('Туманная Роща', 'index.php?action=myst_forest', 4);
+				Location::addlink('Сумеречный Лес', 'index.php?action=twiling_forest', 5);
 				break;
 			case 12:
 				break;
