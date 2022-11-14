@@ -468,7 +468,7 @@
 				], 1);
 		}
 
-		private function gen_alch_loot() {
+		public function gen_alch_loot() {
 			$this->gen_random_loot([
 				self::CAT_ELIXIR_HP,
 				self::CAT_ELIXIR_MP,
@@ -479,7 +479,7 @@
 				], 1);
 		}
 
-		private function gen_mage_loot() {
+		public function gen_mage_loot() {
 			$this->gen_random_loot([
 				self::CAT_ELIXIR_MP,
 				self::CAT_SCROLL_TP,
