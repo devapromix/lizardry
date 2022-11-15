@@ -72,6 +72,7 @@ end;
 procedure TFormMain.FormResize(Sender: TObject);
 begin
   FormMain.FrameTown.FrameShop1.DrawGrid;
+  FormMain.FrameTown.FrameChar.DrawGrid;
 end;
 
 procedure TFormMain.FormShow(Sender: TObject);

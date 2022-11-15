@@ -168,8 +168,25 @@ object FormMain: TFormMain
             ExplicitHeight = 432
           end
           inherited TabSheet2: TTabSheet
+            ExplicitWidth = 596
+            ExplicitHeight = 432
+            inherited SG: TStringGrid
+              Width = 596
+              Height = 343
+              ExplicitWidth = 596
+              ExplicitHeight = 343
+            end
+            inherited Panel1: TPanel
+              Width = 596
+              ExplicitWidth = 596
+            end
             inherited Panel2: TPanel
+              Top = 368
+              Width = 596
+              ExplicitTop = 368
+              ExplicitWidth = 596
               inherited ttInfo: TLabel
+                Width = 594
                 ExplicitWidth = 614
               end
             end

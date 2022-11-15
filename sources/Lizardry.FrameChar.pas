@@ -44,6 +44,7 @@ type
     { Public declarations }
     procedure RefreshInventory(const S: string);
     function GetName(const Id: Integer): string;
+    procedure DrawGrid;
   end;
 
 implementation
@@ -58,6 +59,17 @@ uses
   Lizardry.Server;
 
 { TFrameChar }
+
+procedure TFrameChar.DrawGrid;
+var
+  LWidth: Integer;
+begin
+  LWidth := FormMain.Width - (FormMain.FrameTown.LeftPanel.Width +
+    FormMain.FrameTown.RightPanel.Width + 140);
+  SG.ColWidths[0] := 30;
+  SG.ColWidths[1] := LWidth;
+  SG.ColWidths[2] := 100;
+end;
 
 function TFrameChar.GetName(const Id: Integer): string;
 var
@@ -84,15 +96,12 @@ end;
 
 procedure TFrameChar.RefreshInventory(const S: string);
 var
-  W, I, T: Integer;
+  LWidth, I, T: Integer;
   C: string;
   JSONArray: TJSONArray;
 begin
   FormInfo.InvMemo.Text := S;
-  W := FormMain.FrameTown.FrameShop1.Width - 140;
-  SG.ColWidths[0] := 30;
-  SG.ColWidths[1] := W;
-  SG.ColWidths[2] := 100;
+  Self.DrawGrid;
   ttInfo.Caption := '';
 
   for I := 1 to 16 do

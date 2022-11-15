@@ -19,6 +19,7 @@ object FrameShop: TFrameShop
     Color = clBtnFace
     RowCount = 7
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
+    ScrollBars = ssVertical
     TabOrder = 0
     OnClick = SGClick
     OnDblClick = SGDblClick
