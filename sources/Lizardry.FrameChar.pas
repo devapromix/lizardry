@@ -34,7 +34,7 @@ type
     Panel2: TPanel;
     ttInfo: TLabel;
     ttStatBossKills: TLabel;
-    Image1: TImage;
+    imPortret: TImage;
     procedure SGDblClick(Sender: TObject);
     procedure SGClick(Sender: TObject);
   private
