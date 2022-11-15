@@ -7,7 +7,7 @@ goto :EOF
 
 :LAST_FOLDER
 if "%1"=="" (
-    @echo Running %LAST% project
+    @echo Running LIZARDRY %LAST%...
     "%PROGRAMFILES%\LOVE\love" ..\%LAST%
     exit
 )
