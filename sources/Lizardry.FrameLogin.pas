@@ -167,6 +167,8 @@ end;
 
 procedure TFrameLogin.bbRegistrationClick(Sender: TObject);
 begin
+  FormMain.FrameLogin.bbRegistration.Enabled := False;
+  FormMain.FrameUpdate.bbUpdImagesClick(Sender);
   FormMain.FrameRegistration.Clear;
   FormMain.FrameRegistration.edUserName.SetFocus;
   FormMain.FrameRegistration.BringToFront;
@@ -329,7 +331,7 @@ begin
   LFilePath := TPath.GetHomePath + '\Lizardry\Images\';
   FormInfo.ImagesPath.Caption := LFilePath;
   ForceDirectories(LFilePath);
-  FormInfo.ResMemo.Text := Trim(Server.Get('index.php?action=enemies'));
+  FormInfo.ResMemo.Text := Trim(Server.Get('registration/registration.php?action=resources'));
   Panel5.Caption := 'Проверка и загрузка изображений...';
   FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;

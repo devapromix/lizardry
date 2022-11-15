@@ -311,7 +311,7 @@ begin
   LImagePath := TPath.GetHomePath + '\Lizardry\Images\player_' + LRace + '_' +
     LGender + '.jpg';
   FormMain.FrameTown.FrameBattle1.Image1.Picture.LoadFromFile(LImagePath);
-  FormMain.FrameTown.FrameChar.Image1.Picture.LoadFromFile(LImagePath);
+  FormMain.FrameTown.FrameChar.imPortret.Picture.LoadFromFile(LImagePath);
 end;
 
 procedure TFrameTown.ParseJSON(AJSON, Section: string);
@@ -378,6 +378,7 @@ end;
 
 procedure TFrameTown.ShowChar;
 begin
+  LoadPlayerImage;
   Title := Panel10.Caption;
   Panel10.Caption := bbCharName.Caption;
   FrameChar.ttInfo.Caption := '';

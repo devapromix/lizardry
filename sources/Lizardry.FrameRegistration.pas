@@ -136,6 +136,7 @@ end;
 
 procedure TFrameRegistration.bbBackClick(Sender: TObject);
 begin
+  FormMain.FrameLogin.bbRegistration.Enabled := True;
   FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
 end;
