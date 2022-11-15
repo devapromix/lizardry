@@ -21,6 +21,7 @@ type
     property Name: string read FName write FName;
     property URL: string read FURL write FURL;
     property IdHTTP: TIdHTTP read FIdHTTP;
+    function MD5(const AStr: string): string;
   end;
 
 var
@@ -33,6 +34,7 @@ uses
   SysUtils,
   Wininet,
   Dialogs,
+  IdHashMessageDigest,
   Lizardry.FormMain,
   Lizardry.FormInfo,
   Lizardry.FormMsg,
@@ -52,6 +54,17 @@ begin
   except
     ShowMsg('Невозможно подключиться к серверу!');
   end;
+end;
+
+function TServer.MD5(const AStr: string): string;
+begin
+  Result := '';
+  with TIdHashMessageDigest5.Create do
+    try
+      Result := AnsiLowerCase(HashStringAsHex(AStr));
+    finally
+      Free;
+    end;
 end;
 
 function TServer.CheckJSON(AJSON: string): Boolean;
@@ -86,7 +99,7 @@ begin
   try
     LURL := 'http://' + URL + '/' + Name + '/' + AURL + '&username=' +
       LowerCase(FormMain.FrameLogin.edUserName.Text) + '&userpass=' +
-      LowerCase(FormMain.FrameLogin.edUserPass.Text) + '&usersession=' +
+      MD5(LowerCase(FormMain.FrameLogin.edUserPass.Text)) + '&usersession=' +
       LowerCase(UserSession);
     FormMain.StatusBar.SimpleText := LURL;
     if not CheckJSON(Result) then

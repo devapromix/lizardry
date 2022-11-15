@@ -331,7 +331,8 @@ begin
   LFilePath := TPath.GetHomePath + '\Lizardry\Images\';
   FormInfo.ImagesPath.Caption := LFilePath;
   ForceDirectories(LFilePath);
-  FormInfo.ResMemo.Text := Trim(Server.Get('registration/registration.php?action=resources'));
+  FormInfo.ResMemo.Text :=
+    Trim(Server.Get('registration/registration.php?action=resources'));
   Panel5.Caption := 'Проверка и загрузка изображений...';
   FormMain.FrameUpdate.ttUpdate.Caption := Panel5.Caption;
   Application.ProcessMessages;
