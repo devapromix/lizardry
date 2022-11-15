@@ -82,10 +82,9 @@
 			$user['char_mana_cur'] = $user['char_mana_max'];
 			$user['char_region'] = $region['region_ident'];
 			$user['char_region_level'] = $region['region_level'];
-			$user['char_region_town_name'] = $region['region_town_name'];
 			$user['char_gold'] -= $gold;
 			$user['char_food'] -= $food;
-			User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level'].",char_region_town_name='".$user['char_region_town_name']."'");
+			User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur'].",char_gold=".$user['char_gold'].",char_food=".$user['char_food'].",char_region=".$user['char_region'].",char_region_level=".$user['char_region_level']);
 		}
 
 		public static function get_location($location_ident) {
@@ -349,6 +348,15 @@
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			$region = $result->fetch_assoc();
 			return $region['region_graveyard_description'];			
+		}
+		
+		public function get_town_name() {
+			global $user, $tb_regions, $connection;
+			$query = "SELECT region_town_name FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$region = $result->fetch_assoc();
+			return $region['region_town_name'];			
 		}
 		
 		public function get_town_description() {

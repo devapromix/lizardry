@@ -52,7 +52,6 @@
 			if (strlen($username) > 24) die('{"error":"Имя учетной записи должно быть длиннее 24 символов!"}');
 			if ($userpass == '') die('{"error":"Введите пароль!"}');
 			if (strlen($userpass) < 4) die('{"error":"Пароль не должен быть короче 4 символов!"}');
-			if (strlen($userpass) > 24) die('{"error":"Пароль не должен быть длиннее 24 символов!"}');
 		}
 
 		public static function check_registration_data($username, $userpass, $charname) {
@@ -61,7 +60,6 @@
 			if (strlen($username) > 24) die('{"error":"Имя учетной записи должно быть длиннее 24 символов!"}');
 			if ($userpass == '') die('{"error":"Введите пароль!"}');
 			if (strlen($userpass) < 4) die('{"error":"Пароль не должен быть короче 4 символов!"}');
-			if (strlen($userpass) > 24) die('{"error":"Пароль не должен быть длиннее 24 символов!"}');
 			if ($charname == '') die('{"error":"Введите имя персонажа!"}');
 			if (strlen($charname) < 4) die('{"error":"Имя персонажа не должно быть короче 4 символов!"}');
 			if (strlen($charname) > 24) die('{"error":"Имя персонажа не должно быть длиннее 24 символов!"}');
