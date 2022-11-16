@@ -48,28 +48,28 @@ uses
 
 procedure TFrameTavern.bbBuyClick(Sender: TObject);
 var
-  Sum: Integer;
+  LSum: Integer;
 begin
   if IsCharMode then
     Exit;
-  Sum := StrToIntDef(Edit1.Text, 0);
+  LSum := StrToIntDef(Edit1.Text, 0);
   FormMain.FrameTown.ParseJSON
     (Server.Get('index.php?action=tavern&do=buy_food_in_tavern&amount=' +
-    Sum.ToString));
+    LSum.ToString));
   Edit1.Text := '0';
 end;
 
 procedure TFrameTavern.bbPriceClick(Sender: TObject);
 var
-  S: string;
+  LStr: string;
 begin
-  S := 'Цены на товары и услуги:' + #13#10 +
+  LStr := 'Цены на товары и услуги:' + #13#10 +
   //
     'Отдых в Таверне --> ' + IntToStr((RegionLevel * 10) +
     Round((RegionLevel * 10) / 2)) + ' зол.' + #13#10 +
   //
     'Пакет провианта --> ' + IntToStr(RegionLevel * 10) + ' зол.' + #13#10;
-  ShowMsg(S);
+  ShowMsg(LStr);
 end;
 
 procedure TFrameTavern.Edit1KeyPress(Sender: TObject; var Key: Char);
