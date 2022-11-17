@@ -17,6 +17,7 @@
 		public const CAT_SCROLL_BLESS		= 27;
 		public const CAT_ELIXIR_EMPTY		= 28;
 		public const CAT_ING				= 30;
+		public const CAT_SCROLL_LEECH		= 40;
 		
 		// Эликсиры
 		public const ELIXIR_EMPTY 			= 600;
@@ -227,6 +228,10 @@
 					$ef = 'Весь урон становится максимальным. Мана: '.Magic::MANA_SCROLL_BLESS;
 					$eq = 'Магический свиток.';
 					break;
+				case self::CAT_SCROLL_LEECH:
+					$ef = 'Игрок может пить жизнь врага. Мана: '.Magic::MANA_SCROLL_LEECH;
+					$eq = 'Магический свиток.';
+					break;
 				case self::CAT_ELIXIR_EMPTY:
 					$ef = 'Необходим для создания эликсиров.';
 					$eq = '';
@@ -340,6 +345,9 @@
 					break;
 				case self::CAT_SCROLL_BLESS:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
+					break;
+				case self::CAT_SCROLL_LEECH:
+					$result = $user['class']['magic']->use_scroll_leech($item_ident);
 					break;
 				case self::CAT_FOOD:
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
@@ -463,6 +471,7 @@
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS,
+				self::CAT_SCROLL_LEECH,
 				self::CAT_ELIXIR_EMPTY,
 				self::CAT_ING
 				], 1);
@@ -484,7 +493,8 @@
 				self::CAT_ELIXIR_MP,
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
-				self::CAT_SCROLL_BLESS
+				self::CAT_SCROLL_BLESS,
+				self::CAT_SCROLL_LEECH
 				], 1);
 		}
 

@@ -152,7 +152,8 @@ var
   LGenderIndex: Integer = 0;
 
 const
-  EffectStr: array [0 .. 2] of string = ('Нет', 'Благословение', 'Регенерация');
+  EffectStr: array [0 .. 3] of string = ('Нет', 'Благословение',
+    'Регенерация', 'Кража Жизни');
 
 function StrLim(const S: string; const N: Integer = 25): string;
 begin
