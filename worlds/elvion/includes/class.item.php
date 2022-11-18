@@ -18,6 +18,7 @@
 		public const CAT_ELIXIR_EMPTY		= 28;
 		public const CAT_ING				= 30;
 		public const CAT_SCROLL_LEECH		= 40;
+		public const CAT_PICKLOCK			= 76;
 		
 		// Эликсиры
 		public const ELIXIR_EMPTY 			= 600;
@@ -241,11 +242,11 @@
 					$eq = 'Ингредиент.';
 					break;
 				case self::CAT_FOOD:
-					$ef = 'Провизия.';
+					$ef = 'Добавляет 1 к провизии.';
 					$eq = '';
 					break;
-				case 76:
-					$ef = 'Открывает замки.';
+				case self::CAT_PICKLOCK:
+					$ef = 'Используется для взлома замков.';
 					$eq = '';
 					break;
 				case 77:
