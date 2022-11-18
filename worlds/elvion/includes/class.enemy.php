@@ -51,13 +51,14 @@
 
 			$user['enemy_image'] = $enemy['enemy_image'];
 			$user['enemy_level'] = $enemy['enemy_level'];
+			$enemy_life = ($user['class']['player']->get_life($enemy['enemy_level']) - 5) + rand(1, 10);
 
 			// Boss
 			if ($enemy_ident >= Boss::START_ID)
-				Boss::gen($enemy);
+				Boss::gen($enemy, $enemy_life);
 			else {
 				// Life
-				$user['enemy_life_max'] = ($user['class']['player']->get_life($enemy['enemy_level']) - 5) + rand(1, 10);
+				$user['enemy_life_max'] = $enemy_life;
 				if ($user['enemy_champion'] == 2)
 					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.4);
 				if ($user['enemy_champion'] == 3)
@@ -108,7 +109,7 @@
 					$user['enemy_gold'] += $enemy['enemy_level'] * 7;
 			}
 			$user['current_random_place'] = 0;
-			User::update("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name='',current_random_place=".$user['current_random_place']);			
+			User::update("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name='',current_random_place=".$user['current_random_place']);
 		}
 		
 		static public function add($enemy_slot, $enemy_ident, $enemy_elite = 0) {
