@@ -221,7 +221,7 @@
 					$eq = 'Магический свиток.';
 					break;
 				case self::CAT_SCROLL_HEAL:
-					$ef = 'Полностью исцеляет от ран. Мана: '.Magic::MANA_SCROLL_HEAL;
+					$ef = 'Исцеляет от ран и регенерирует здоровье. Мана: '.Magic::MANA_SCROLL_HEAL;
 					$eq = 'Магический свиток.';
 					break;
 				case self::CAT_SCROLL_BLESS:

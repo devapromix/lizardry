@@ -4,7 +4,7 @@
 
 		public const MANA_SCROLL_BLESS		= 5;
 		public const MANA_SCROLL_TP			= 8;
-		public const MANA_SCROLL_HEAL		= 2;
+		public const MANA_SCROLL_HEAL		= 7;
 		public const MANA_SCROLL_LEECH		= 9;
 
 		public const PLAYER_EFFECT_BLESS	= 1;
@@ -62,12 +62,14 @@
 		public function use_scroll_heal($item_ident) {
 			global $user;
 			$mana = self::MANA_SCROLL_HEAL;
+			$effect = self::PLAYER_EFFECT_REGEN;
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
 				$user['class']['player']->heal();
-				User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-				$result = ',"char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				$user['char_effect'] = $effect;
+				User::update("char_effect=".$user['char_effect'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
+				$result = ',"char_effect":"'.$user['char_effect'].'","char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 				return $result;
 			} else $this->need_mana($mana);
 		}
