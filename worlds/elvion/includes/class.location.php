@@ -130,14 +130,14 @@
 
 		}
 
-		public function travel_to($action, $do, $regions) {
+		public function travel_to($action, $do, $regions, $next_regions) {
 			global $user;
 	
 			$travel = false;
 			$travel_level = 1;
 	
 			for ($i = 0; $i < count($regions); $i++) {
-				if (($user['char_region'] == $regions[$i]) || ($user['char_region'] == $regions[$i] + 1)) {
+				if (($user['char_region'] == $regions[$i]) || ($user['char_region'] == $next_regions[$i])) {
 					$travel_level = $regions[$i] * 12;
 					$travel_food = 3;	
 				}
@@ -147,7 +147,7 @@
 			$travel_gold = $this->travel_price($travel_level);
 	
 			for ($i = 0; $i < count($regions); $i++) {
-				if (($do == $regions[$i])||($do == $regions[$i] + 1)) {
+				if (($do == $regions[$i])||($do == $next_regions[$i])) {
 					$this->check_travel_req($travel_level, $travel_food, $travel_gold);
 					$travel = true;
 					$this->change_region($do, $travel_food, $travel_gold);
@@ -165,9 +165,11 @@
 					$user['title'] = 'Утес Ветрокрылов';
 				if ($action == 'portal')
 					$user['title'] = 'Магический Портал';
+				if ($action == 'uni_stables')
+					$user['title'] = 'Загон Единорогов';
 				if ($user['char_life_cur'] > 0) {
 					for ($i = 0; $i < count($regions); $i++) {
-						if (($user['char_region'] == $regions[$i])||($user['char_region'] == $regions[$i] + 1)) {
+						if (($user['char_region'] == $regions[$i])||($user['char_region'] == $next_regions[$i])) {
 							if ($action == 'stables')
 								$user['description'] = 'В городских конюшнях всегда можно найти караванщика, который за звонкую монету готов отвезти вас хоть на край света.';
 							if ($action == 'harbor')
@@ -178,6 +180,8 @@
 								$user['description'] = 'На Утесе всегда много свободных ветрокрылов и не так сложно отыскать погонщика, который согласится отвезти вас в другой город.';
 							if ($action == 'portal')
 								$user['description'] = 'У Портала всегда можно отыскать мага, который за некоторое денежное вознаграждение согласится отправить вас в другой город.';
+							if ($action == 'uni_stables')
+								$user['description'] = 'В Загоне Единорогов всегда можно найти дресировщика единорогов, который за звонкую монету готов отвезти вас хоть на край света.';
 							$user['description'] .= $this->travel_req($travel_level, $travel_food, $travel_gold);
 							break;
 						}
@@ -191,10 +195,10 @@
 					$this->go_to_the_gate();
 					for ($i = 0; $i < count($regions); $i++) {
 						if ($user['char_region'] == $regions[$i]) {
-							$r = strval($regions[$i] + 1);
+							$r = strval($next_regions[$i]);
 							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
-						if ($user['char_region'] == $regions[$i] + 1) {
+						if ($user['char_region'] == $next_regions[$i]) {
 							$r = strval($regions[$i]);
 							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
