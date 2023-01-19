@@ -10,11 +10,25 @@ scene = "login"
 usersession = ""
 response = ""
 
-http = require("socket.http")
 md5 = require('libraries.md5')
+http = require("socket.http")
 json = require("libraries.json")
 states = require("libraries.states")
 assets = require('libraries.cargo').init('resources')
+
+panel = {
+	width = 300,
+}
+
+left_panel = {
+	left = 0,
+}
+center_panel = {
+	left = panel.width,
+}
+right_panel = {
+	left = love.graphics.getWidth() - panel.width,
+}
 
 resources = {
     fonts = {},
@@ -24,12 +38,12 @@ function string.explode(str, div)
     assert(type(str) == "string" and type(div) == "string", "invalid arguments")
     local o = {}
     while true do
-        local pos1,pos2 = str:find(div)
+        local pos1, pos2 = str:find(div)
         if not pos1 then
-            o[#o+1] = str
+            o[#o + 1] = str
             break
         end
-        o[#o+1],str = str:sub(1,pos1-1),str:sub(pos2+1)
+        o[#o + 1], str = str:sub(1, pos1 - 1), str:sub(pos2 + 1)
     end
     return o
 end
@@ -64,11 +78,11 @@ function love.draw()
 	if scene == "login" then
 		love.graphics.draw(background_menu_main, 0, 0)
 		love.graphics.draw(lizardry_logo, 280, 120)
-		love.graphics.print("v."..version, 670, 260)
+		love.graphics.print("v." .. version, 670, 260)
 	end
 
 	if scene == "town" then
-		love.graphics.print(user['title'], 300, 0)
+		love.graphics.print(user['title'], center_panel.left, 0)
 
 		y = 0
 		for i = 1, #user['links'] do
@@ -81,18 +95,18 @@ function love.draw()
 		y = 0
 		p = 1
 		s = ""
-		for i = 1,#tbl do
-			s = s..tbl[i].." "
+		for i = 1, #tbl do
+			s = s .. tbl[i] .. " "
 			if (string.len(s) > 70) then
-				love.graphics.print(s, 300, y + 20)
+				love.graphics.print(s, center_panel.left, y + 20)
 				y = y + 16
 				s = ""
 			end
 		end
 
-		love.graphics.print(user['char_name'], 800, 0)
-		love.graphics.print(user['char_equip_weapon_name'], 800, 16)
-		love.graphics.print(user['char_equip_armor_name'], 800, 32)
+		love.graphics.print(user['char_name'], right_panel.left, 0)
+		love.graphics.print(user['char_equip_weapon_name'], right_panel.left, 16)
+		love.graphics.print(user['char_equip_armor_name'], right_panel.left, 32)
 
 	end
 
