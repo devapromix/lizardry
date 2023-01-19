@@ -48,7 +48,7 @@
 		}		
 		
 		public static function pickup_link() {
-			Location::addlink('Взять!', 'index.php?action=pickup_loot&lootslot=1', 1);
+			Location::addlink('Забрать!', 'index.php?action=pickup_loot&lootslot=1', 1);
 		}
 		
 		public function check_travel_req($level, $food, $gold) {
@@ -130,24 +130,23 @@
 
 		}
 
-		public function travel_to($action, $do, $regions) {
+		public function travel_to($action, $do, $regions, $next_regions) {
 			global $user;
 	
 			$travel = false;
 			$travel_level = 1;
 	
 			for ($i = 0; $i < count($regions); $i++) {
-				if (($user['char_region'] == $regions[$i]) || ($user['char_region'] == $regions[$i] + 1)) {
+				if (($user['char_region'] == $regions[$i]) || ($user['char_region'] == $next_regions[$i])) {
 					$travel_level = $regions[$i] * 12;
 					$travel_food = 3;	
 				}
-		
 			}
 	
 			$travel_gold = $this->travel_price($travel_level);
 	
 			for ($i = 0; $i < count($regions); $i++) {
-				if (($do == $regions[$i])||($do == $regions[$i] + 1)) {
+				if (($do == $regions[$i])||($do == $next_regions[$i])) {
 					$this->check_travel_req($travel_level, $travel_food, $travel_gold);
 					$travel = true;
 					$this->change_region($do, $travel_food, $travel_gold);
@@ -155,29 +154,10 @@
 			}
 	
 			if (!$travel) {
-				if ($action == 'stables')
-					$user['title'] = 'Конюшни';
-				if ($action == 'harbor')
-					$user['title'] = 'Гавань';
-				if ($action == 'dir_tower')
-					$user['title'] = 'Башня Дирижаблей';
-				if ($action == 'fly')
-					$user['title'] = 'Утес Ветрокрылов';
-				if ($action == 'portal')
-					$user['title'] = 'Магический Портал';
+				self::get_title_and_description($action);
 				if ($user['char_life_cur'] > 0) {
 					for ($i = 0; $i < count($regions); $i++) {
-						if (($user['char_region'] == $regions[$i])||($user['char_region'] == $regions[$i] + 1)) {
-							if ($action == 'stables')
-								$user['description'] = 'В городских конюшнях всегда можно найти караванщика, который за звонкую монету готов отвезти вас хоть на край света.';
-							if ($action == 'harbor')
-								$user['description'] = 'В гавани не многолюдно, но все заняты работой. Здесь достаточно легко отыскать корабль, капитан которого согласится взять вас на борт.';
-							if ($action == 'dir_tower')
-								$user['description'] = 'На вершине башни пришвартованы несколько дирижаблей и достаточно легко отыскать пилота готового отвезти вас в другой регион.';
-							if ($action == 'fly')
-								$user['description'] = 'На Утесе всегда много свободных ветрокрылов и не так сложно отыскать погонщика, который согласится отвезти вас в другой город.';
-							if ($action == 'portal')
-								$user['description'] = 'У Портала всегда можно отыскать мага, который за некоторое денежное вознаграждение согласится отправить вас в другой город.';
+						if (($user['char_region'] == $regions[$i])||($user['char_region'] == $next_regions[$i])) {
 							$user['description'] .= $this->travel_req($travel_level, $travel_food, $travel_gold);
 							break;
 						}
@@ -191,10 +171,10 @@
 					$this->go_to_the_gate();
 					for ($i = 0; $i < count($regions); $i++) {
 						if ($user['char_region'] == $regions[$i]) {
-							$r = strval($regions[$i] + 1);
+							$r = strval($next_regions[$i]);
 							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
-						if ($user['char_region'] == $regions[$i] + 1) {
+						if ($user['char_region'] == $next_regions[$i]) {
 							$r = strval($regions[$i]);
 							Location::addlink('Путешествие в '.$this->get_region_town_name($r), 'index.php?action='.$action.'&do='.$r.'', 1);
 						}
@@ -228,13 +208,13 @@
 			$frame = 'battle';
 
 			switch ($user['current_random_place']) {
-				case 1:
+				case 1: // Лагерь старого алхимика
 					$user['title'] = 'Лагерь старого алхимика';
 					$user['description'] = 'Вы проходите несколько десятков шагов и останавливаетесь у старого вагончика. Недалеко пасется пони, горит костер. У костра сидит старый гном и приветливо машет вам рукой:#-Приветствую, путник!Будь гостем в моем лагере. Я вижу ты ранен - вот возьми эликсир...#Старик протягивает вам эликсир и вы, залпом выпив содержимое флакончика, чувствуете, как уходит усталость и заживляются раны.#-Садись рядом, угощайся и расскажи, что с тобой произошло.#Вы присаживаетесь у костра, достаете и свои припасы и начинаете рассказ...';
 					$user['class']['player']->rest();
 					User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 					break;
-				case 2:
+				case 2: // Камнепад!!!
 					$user['title'] = 'Камнепад!!!';
 					$user['description'] = 'Вы проходите несколько десятков шагов и внезапно слышите странный гул. Обвал! - краем сознания вдруг осознаете вы и бросаетесь в сторону...';
 					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
@@ -247,7 +227,7 @@
 					}			
 					User::update("char_life_cur=".$user['char_life_cur']);
 					break;
-				case 3:
+				case 3: // Невидимый вор!
 					$user['title'] = 'Невидимый вор!';
 					$user['description'] = 'Вы прошли всего несколько десятков шагов, когда заметили какое-то движение. Вор! Вы хватились кошелька на поясе и с сожалением обнаружили, что вас ограбили.';
 					$gold = rand($user['char_region_level'] * 30, $user['char_region_level'] * 70);
@@ -260,28 +240,28 @@
 					}
 					User::update("char_gold=".$user['char_gold']);
 					break;
-				case 4:
+				case 4: // Сундук алхимика!
 					$user['class']['item']->gen_alch_loot();
 					$user['title'] = 'Сундук алхимика!';
 					$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 5:
+				case 5: // Сундук мага!
 					$user['class']['item']->gen_mage_loot();
 					$user['title'] = 'Сундук мага!';
 					$user['description'] = 'Недалеко от места сражения вы внезапно увидели старый сундук. Замок на нем настолько стар, что легко рассыпается в пыль от одного прикосновения. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 6:
+				case 6: // Сумка травника!
 					$user['class']['item']->gen_herb_loot();
 					$user['title'] = 'Сумка травника!';
 					$user['description'] = 'Решив присесть отдохнуть после тяжелого боя, вы внезапно замечаете на земле небольшую серую сумку, какую обычно используют алхимики для сбора трав и алхимических ингридиентов. Вы открываете сумку и видите, что в ней находится '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 7:
+				case 7: // Сундук с золотом!
 					$gold = rand($user['char_region_level'] * 50, $user['char_region_level'] * 90);
 					$user['title'] = 'Сундук с золотом!';
 					$user['description'] = 'Вы оглядываете местность после битвы и вдалеке замечаете небольшой сундучок. Подойдя поближе вы видите, что на судучке изображен имперский герб. Кто-то очень важный обронил его здесь. Замок на сундучке выглядит не слишком сложным и после пяти минут сопротивления поддается. Вы открываете сундук и видите, что в нем находится '.strval($gold).' золотых монет. Вы забираете все золото себе.';		

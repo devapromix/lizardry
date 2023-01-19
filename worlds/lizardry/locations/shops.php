@@ -105,7 +105,7 @@ if ($action == 'shop_magic') {
 	$user['class']['item']->add_item_to_shop(1, 701);
 	$user['class']['item']->add_item_to_shop(2, 702);
 	$user['class']['item']->add_item_to_shop(3, 703);
-	$user['class']['item']->add_item_to_shop(4, 0);
+	$user['class']['item']->add_item_to_shop(4, 704);
 	$user['class']['item']->add_item_to_shop(5, 0);
 	$user['class']['item']->add_item_to_shop(6, 0);
 

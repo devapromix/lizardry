@@ -133,7 +133,7 @@
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
 				if ($user['char_effect'] == Magic::PLAYER_EFFECT_REGEN)
-					$r .= $this->regen();
+					$r .= $this->effect_regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
 					if ($user['char_effect'] == Magic::PLAYER_EFFECT_BLESS)
 						$d = $user['char_damage_max'];
@@ -144,6 +144,9 @@
 					if ($d <= 0) {
 						$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 					} else {
+						if ($user['char_effect'] == Magic::PLAYER_EFFECT_LEECH)
+							if ((rand(1, 2) == 1) && ($user['char_life_cur'] < $user['char_life_max']) && ($user['enemy_life_cur'] > 0))
+								$r .= $this->effect_leech();
 						if (rand(1, 100) <= $user['skill_bewil']) {
 							$d = $this->get_bewildering_strike_damage($d);
 							$this->statistics['char_damages'] += $d;
@@ -277,16 +280,6 @@
 			return $r;
 		}
 
-		private function regen() {
-			global $user;
-			$r = '';
-			if ($user['char_life_cur'] < $user['char_life_max']) {
-				$user['char_life_cur']++;
-				$r .= 'Вы восстановили 1 HP.#';
-			}
-			return $r;
-		}
-
 		private function get_crushing_blow_damage($damage) {
 			return $damage * rand(3, 5);
 		}
@@ -317,10 +310,46 @@
 
 		private function ch_level_exp() {
 			global $user;
-			
 			$r = false;
 			if ($user['char_exp'] > $user['class']['player']->get_level_exp($user['char_level'] + 1))
 				$r = true;
+			return $r;
+		}
+		
+		private function get_current_region_value() {
+			global $user;
+			$v = round($user['char_region_level'] / 2);
+			if ($v < 1)
+				$v = 1;
+			return $v;
+		}
+		
+		private function effect_regen() {
+			global $user;
+			$r = '';
+			if ($user['char_life_cur'] < $user['char_life_max']) {
+				$hp = rand(1, $this->get_current_region_value());
+				$user['char_life_cur'] += $hp;
+				$r .= 'Вы восстановили '.$hp.' HP.#';
+				if ($user['char_life_cur'] > $user['char_life_max'])
+					$user['char_life_cur'] = $user['char_life_max'];
+			}
+			return $r;
+		}
+
+		private function effect_leech() {
+			global $user;
+			$r = '';
+			$hp = rand($this->get_current_region_value(), $user['char_region_level']);
+			if (intval($user['enemy_life_cur'] - $hp) > 1) {
+				$user['enemy_life_cur'] -= $hp;
+				if ($user['enemy_life_cur'] <= 0)
+					$user['enemy_life_cur'] = 1;
+				$user['char_life_cur'] += $hp;
+				if ($user['char_life_cur'] > $user['char_life_max'])
+					$user['char_life_cur'] = $user['char_life_max'];
+				$r .= 'Вы украли '.$hp.' HP у '.$user['enemy_name'].'.#';
+			}
 			return $r;
 		}
 

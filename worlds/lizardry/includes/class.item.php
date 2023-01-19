@@ -17,6 +17,8 @@
 		public const CAT_SCROLL_BLESS		= 27;
 		public const CAT_ELIXIR_EMPTY		= 28;
 		public const CAT_ING				= 30;
+		public const CAT_SCROLL_LEECH		= 40;
+		public const CAT_PICKLOCK			= 76;
 		
 		// Эликсиры
 		public const ELIXIR_EMPTY 			= 600;
@@ -220,11 +222,15 @@
 					$eq = 'Магический свиток.';
 					break;
 				case self::CAT_SCROLL_HEAL:
-					$ef = 'Полностью исцеляет от ран. Мана: '.Magic::MANA_SCROLL_HEAL;
+					$ef = 'Исцеляет от ран и регенерирует здоровье. Мана: '.Magic::MANA_SCROLL_HEAL;
 					$eq = 'Магический свиток.';
 					break;
 				case self::CAT_SCROLL_BLESS:
 					$ef = 'Весь урон становится максимальным. Мана: '.Magic::MANA_SCROLL_BLESS;
+					$eq = 'Магический свиток.';
+					break;
+				case self::CAT_SCROLL_LEECH:
+					$ef = 'Игрок может пить жизнь врага. Мана: '.Magic::MANA_SCROLL_LEECH;
 					$eq = 'Магический свиток.';
 					break;
 				case self::CAT_ELIXIR_EMPTY:
@@ -236,11 +242,11 @@
 					$eq = 'Ингредиент.';
 					break;
 				case self::CAT_FOOD:
-					$ef = 'Провизия.';
+					$ef = 'Добавляет 1 к провизии.';
 					$eq = '';
 					break;
-				case 76:
-					$ef = 'Открывает замки.';
+				case self::CAT_PICKLOCK:
+					$ef = 'Используется для взлома замков.';
 					$eq = '';
 					break;
 				case 77:
@@ -340,6 +346,9 @@
 					break;
 				case self::CAT_SCROLL_BLESS:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
+					break;
+				case self::CAT_SCROLL_LEECH:
+					$result = $user['class']['magic']->use_scroll_leech($item_ident);
 					break;
 				case self::CAT_FOOD:
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
@@ -463,6 +472,7 @@
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS,
+				self::CAT_SCROLL_LEECH,
 				self::CAT_ELIXIR_EMPTY,
 				self::CAT_ING
 				], 1);
@@ -484,7 +494,8 @@
 				self::CAT_ELIXIR_MP,
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
-				self::CAT_SCROLL_BLESS
+				self::CAT_SCROLL_BLESS,
+				self::CAT_SCROLL_LEECH
 				], 1);
 		}
 
