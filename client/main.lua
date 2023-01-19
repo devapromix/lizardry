@@ -1,7 +1,7 @@
 utf8 = require("utf8")
 
 username = "serg"
-userpass = ""
+userpass = "4444"
 world = "elvion"
 
 server = "http://lizardry.pp.ua/"
@@ -12,7 +12,8 @@ response = ""
 
 http = require("socket.http")
 md5 = require('libraries.md5')
-json = require "libraries.json"
+json = require("libraries.json")
+states = require("libraries.states")
 assets = require('libraries.cargo').init('resources')
 
 resources = {
