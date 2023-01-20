@@ -43,7 +43,7 @@
 			global $user;
 			$r = 0;
 			switch($type) {
-				case self::CAT_ARMOR: case self::CAT_WEAPON:
+				case self::CAT_ARMOR: case self::CAT_WEAPON: case self::CAT_SCROLL_LEECH:
 					$r = $count * round($price * 0.30);
 					break;
 				case self::CAT_TROPHY:
@@ -127,15 +127,6 @@
 
 			User::update("char_gold=".$user['char_gold']);
 
-			return $gold;
-		}
-		
-		public function gold_trades($types) {
-			
-			$gold = 0;
-			for ($i = 0; $i < count($types); $i++) {
-				$gold += gold_trade($types[$i]);
-			}
 			return $gold;
 		}
 		
@@ -370,7 +361,7 @@
 			return $result;
 		}
 
-		public function inv_item_list($type, $f = true) {
+		public function inv_item_list($type) {
 			global $user, $tb_item, $connection;
 
 			$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
@@ -391,7 +382,7 @@
 				}
 			}
 
-			if (($t != '') and $f) {
+			if ($t != '') {
 				switch($type) {
 					case self::CAT_ARMOR:
 						$r .= 'Ваши брони:';
@@ -409,25 +400,15 @@
 						$r .= 'Ваши ингредиенты:';
 						$r .= '#============#'.$t.'============#Всего: '.$gold.' зол.';
 						break;
+					case self::CAT_SCROLL_LEECH:
+						$r .= 'Ваши cвитки:';
+						$r .= '#============#'.$t.'============#Всего: '.$gold.' зол.##';
+						break;
 				}
 			}
-			if $f {
-				return $r;
-			} else {
-				return [$t, $gold];
-			}
-		}
-
-		public function inv_item_lists($types) {
-			$r = '';
-			
-			for ($i = 0; $i < count($types); $i++) {
-				$r .= inv_item_list($types[$i], false);
-			}
-			
 			return $r;
 		}
-		
+
 		private function get_region_item_level($item_level) {
 			$result = 1;
 			if ($item_level > 1)

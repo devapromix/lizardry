@@ -424,18 +424,18 @@ if ($action == 'guild_alch') {
 
 if ($action == 'guild_mage') {
 
-	$item_categories = [Item::CAT_SCROLL_TP, Item::CAT_SCROLL_HEAL, Item::CAT_SCROLL_BLESS, Item::CAT_SCROLL_LEECH];
 	$user['title'] = 'Гильдия Магов';
-	$t = '+++++++++##';
-	$h = $user['class']['item']->inv_item_lists($item_categories);
-	$user['description'] = $t.'Ваши свитки:#============#'.$h[0].'============#Всего: '.$h[1].' зол.';
+	$t = 'Вы поднимаетесь на второй этаж и попадаете в довольно большое помещение. Вокруг много книжных шкафов с книгами и витками. Мастер Гильдии радо встречает вас:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Магов. У нас ты можешь получить новые знания в различных школах.#Также я щедро плачу золотом за редкие магические предметы...##';
+	$t .= $user['class']['item']->inv_item_list(Item::CAT_SCROLL_LEECH);
+	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
 	Location::addlink('Продать Свитки', 'index.php?action=guild_mage&do=scroll_trade', 1);
 
 	if ($do == 'scroll_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
-		$gold = $user['class']['item']->gold_trades($item_categories);
+		$gold = 0;
+		$gold += $user['class']['item']->gold_trade(Item::CAT_SCROLL_LEECH);
 		$user['description'] = 'Вы продали все свои магические свитки и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_mage');
