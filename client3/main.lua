@@ -5,7 +5,7 @@ userpass = "4444"
 world = "elvion"
 
 server = "http://lizardry.pp.ua/"
-version = "0.2.3"
+version = "0.2.4"
 scene = "login"
 usersession = ""
 response = ""
