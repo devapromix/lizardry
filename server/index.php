@@ -14,6 +14,7 @@ require_once(IPATH.'class.event.php');
 require_once(IPATH.'class.enemy.php');
 require_once(IPATH.'class.boss.php');
 require_once(IPATH.'class.user.php');
+require_once(IPATH.'class.stringbox.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
