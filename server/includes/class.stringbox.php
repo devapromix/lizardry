@@ -2,30 +2,65 @@
 
 	class StringBox {
 		
-		protected $s = "";
+		protected $values = array();
+		protected $num = 0;
 		
-		public function __construct($s) {
-			$this->s = $s;
+		public function __construct($str) {
+			$this->values = json_decode($str, true);
+			$this->num = count($this->values);
 		}
 		
-		public function clear() {
+		public function add(int $item_ident, int $item_count = 1) {
+			if ($this->has($item_ident)) {
+				$this->modify($item_ident, $item_count);
+			} else {
+				$this->values[$this->num]['id'] = strval($item_ident);
+				$this->values[$this->num]['count'] = intval($item_count);
+			}
 			
 		}
 		
-		public function add($item_ident, $item_count = 1) {
-			
+		public function amount(int $item_ident) {
+			$result = 0;
+			for($i = 0; $i < $this->num; $i++) {
+				$item = $this->values[$i];
+				if (intval($item['id']) == $item_ident) {
+					$result = intval($item['count']);
+					break;
+				}
+			}
+			return $result;
 		}
 		
-		public function amount($item_ident) {
-			
+		public function modify(int $item_ident, int $item_count = 1) {
+			for($i = 0; $i < $this->num; $i++) {
+				$item = $this->values[$i];
+				if (intval($item['id']) == $item_ident) {
+					$count = intval($item['count']);
+					$count += $item_count;
+					if ($count <= 0) {
+						unset($this->values[$i]);
+						$this->num = count($this->values);
+					} else {
+						$this->values[$i]['count'] = intval($count);
+					}
+					$this->values = array_values($this->values);
+					break;
+				}
+			}
 		}
-		
-		public function modify($item_ident, $item_value) {
-			
+
+		public function has(int $item_ident) {
+			$pos = strripos($this->values, '"id":"'.strval($region_ident).'"');
+			if ($pos === false) {
+				return false;
+			} else {
+				return true;
+			}
 		}
-		
-		public function has($item_ident) {
-			
+
+		public function get_string() {
+			return json_encode($this->values, JSON_UNESCAPED_UNICODE);
 		}
 		
 	}
