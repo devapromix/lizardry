@@ -56,7 +56,7 @@
 			return $r;
 		}
 		
-		public function item_ident_by_index($item_index) {
+		public function item_ident_by_index(int $item_index) {
 			global $user;
 			$result = 0;
 			$items = json_decode($user['char_inventory'], true);
@@ -92,10 +92,10 @@
 			return $user['item_slot_'.strval($item_slot)]; 
 		}
 		
-		public function has_item($id) {
+		public function has_item(int $item_ident) {
 			global $user;
 			$inventory = $user['char_inventory'];
-			$pos = strripos($inventory, '"id":"'.$id.'"');
+			$pos = strripos($inventory, '"id":"'.strval($item_ident).'"');
 			if ($pos === false) {
 				return false;
 			} else {
@@ -139,15 +139,15 @@
 			$user['log'] = 'Вы купили Пустой Флакон.';
 		}
 
-		private function add($id, $count = 1) {
+		private function add(int $item_ident, int $count = 1) {
 			global $user;
-			if ($this->has_item($id)) {
-				$this->modify($id, $count);
+			if ($this->has_item($item_ident)) {
+				$this->modify($item_ident, $count);
 			} else {
 				$items = json_decode($user['char_inventory'], true);
 				$n = count($items);
-				$items[$n]['id'] = $id;
-				$items[$n]['count'] = $count;
+				$items[$n]['id'] = strval($item_ident);
+				$items[$n]['count'] = intval($count);
 				$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
 				User::update("char_inventory='".$user['char_inventory']."'");
 			}
@@ -633,34 +633,34 @@
 			return $r;
 		}
 
-		private function amount($id) {
+		private function amount(int $item_ident) {
 			global $user;
 			$result = 0;
 			$items = json_decode($user['char_inventory'], true);
 			for($i = 0; $i < count($items); $i++) {
 				$item = $items[$i];
-				$item_id = $item['id'];
-				if ($item_id == $id) {
-					$result = $item['count'];
+				$item_id = intval($item['id']);
+				if ($item_id == $item_ident) {
+					$result = intval($item['count']);
 					break;
 				}
 			}
 			return $result;
 		}
 
-		public function modify($id, $value) {
+		public function modify(int $item_ident, int $value) {
 			global $user;
 			$items = json_decode($user['char_inventory'], true);
 			for($i = 0; $i < count($items); $i++) {
 				$item = $items[$i];
-				$item_id = $item['id'];
-				if ($item_id == $id) {
-					$count = $item['count'];
+				$item_id = intval($item['id']);
+				if ($item_id == $item_ident) {
+					$count = intval($item['count']);
 					$count += $value;
 					if ($count <= 0) {
 						unset($items[$i]);
 					} else {
-						$items[$i]['count'] = $count;
+						$items[$i]['count'] = intval($count);
 					}
 					$items = array_values($items);
 					$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
