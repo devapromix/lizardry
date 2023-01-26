@@ -46,12 +46,14 @@ type
     ComboBox1: TComboBox;
     Label4: TLabel;
     SpeedButton6: TSpeedButton;
+    bbDebug: TSpeedButton;
     procedure bbRegistrationClick(Sender: TObject);
     procedure bbLoginClick(Sender: TObject);
     procedure EnterKeyPress(Sender: TObject; var Key: Char);
     procedure InfoClick(Sender: TObject);
     procedure bbUpdateClick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure bbDebugClick(Sender: TObject);
   private
     { Private declarations }
     function IsNewClientVersion: Boolean;
@@ -85,6 +87,12 @@ function GetSession(const S: string): string;
 begin
   Result := S.TrimRight(['"', '}']);
   Result := Result.Substring(Result.LastIndexOf('"') + 1);
+end;
+
+procedure TFrameLogin.bbDebugClick(Sender: TObject);
+begin
+  FormInfo.PageControl1.ActivePageIndex := 0;
+  FormInfo.ShowModal;
 end;
 
 procedure TFrameLogin.bbLoginClick(Sender: TObject);

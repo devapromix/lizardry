@@ -724,6 +724,15 @@ object FrameLogin: TFrameLogin
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       OnClick = InfoClick
     end
+    object bbDebug: TSpeedButton
+      Left = 128
+      Top = 201
+      Width = 81
+      Height = 33
+      Caption = 'Debug'
+      Visible = False
+      OnClick = bbDebugClick
+    end
     object edUserName: TEdit
       Left = 24
       Top = 48
