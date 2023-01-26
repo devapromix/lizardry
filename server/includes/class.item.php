@@ -94,8 +94,8 @@
 		
 		public function has_item(int $item_ident) {
 			global $user;
-			strbox = new StringBox($user['char_inventory']);
-			return strbox->has($item_ident);
+			$strbox = new StringBox($user['char_inventory']);
+			return $strbox->has($item_ident);
 		}
 
 		public function gold_trade($type) {
@@ -136,9 +136,9 @@
 
 		private function add(int $item_ident, int $item_count = 1) {
 			global $user;
-			strbox = new StringBox($user['char_inventory']);
-			strbox->add($item_ident, $item_count);
-			$user['char_inventory'] = strbox->get_string();
+			$strbox = new StringBox($user['char_inventory']);
+			$strbox->add($item_ident, $item_count);
+			$user['char_inventory'] = $strbox->get_string();
 			User::update("char_inventory='".$user['char_inventory']."'");
 		}
 
@@ -628,15 +628,15 @@
 
 		private function amount(int $item_ident) {
 			global $user;
-			strbox = new StringBox($user['char_inventory']);
-			return strbox->amount($item_ident);
+			$strbox = new StringBox($user['char_inventory']);
+			return $strbox->amount($item_ident);
 		}
 
 		public function modify(int $item_ident, int $value) {
 			global $user;
-			strbox = new StringBox($user['char_inventory']);
-			strbox->modify($item_ident, $item_count);
-			$user['char_inventory'] = strbox->get_string();
+			$strbox = new StringBox($user['char_inventory']);
+			$strbox->modify($item_ident, $item_count);
+			$user['char_inventory'] = $strbox->get_string();
 			User::update("char_inventory='".$user['char_inventory']."'");
 		}
 
