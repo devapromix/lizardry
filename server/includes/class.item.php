@@ -94,13 +94,8 @@
 		
 		public function has_item(int $item_ident) {
 			global $user;
-			$inventory = $user['char_inventory'];
-			$pos = strripos($inventory, '"id":"'.strval($item_ident).'"');
-			if ($pos === false) {
-				return false;
-			} else {
-				return true;
-			}
+			strbox = new StringBox($user['char_inventory']);
+			return strbox->has($item_ident);
 		}
 
 		public function gold_trade($type) {
@@ -139,18 +134,12 @@
 			$user['log'] = 'Вы купили Пустой Флакон.';
 		}
 
-		private function add(int $item_ident, int $count = 1) {
+		private function add(int $item_ident, int $item_count = 1) {
 			global $user;
-			if ($this->has_item($item_ident)) {
-				$this->modify($item_ident, $count);
-			} else {
-				$items = json_decode($user['char_inventory'], true);
-				$n = count($items);
-				$items[$n]['id'] = strval($item_ident);
-				$items[$n]['count'] = intval($count);
-				$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
-				User::update("char_inventory='".$user['char_inventory']."'");
-			}
+			strbox = new StringBox($user['char_inventory']);
+			strbox->add($item_ident, $item_count);
+			$user['char_inventory'] = strbox->get_string();
+			User::update("char_inventory='".$user['char_inventory']."'");
 		}
 
 		public function make_elixir($elix_id, $t, $ing1_name, $ing1_id, $ing1_amount, $ing2_name, $ing2_id, $ing2_amount) {
@@ -287,6 +276,10 @@
 			$user['item_slot_'.strval($item_slot)] = $item_ident;
 			$user['item_slot_'.strval($item_slot).'_values'] = $this->item_values($item_ident);
 			User::update('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
+		}
+
+		private function add_effect(int $effect_ident) {
+			
 		}
 
 		public function use_item($item_ident) {
@@ -635,39 +628,16 @@
 
 		private function amount(int $item_ident) {
 			global $user;
-			$result = 0;
-			$items = json_decode($user['char_inventory'], true);
-			for($i = 0; $i < count($items); $i++) {
-				$item = $items[$i];
-				$item_id = intval($item['id']);
-				if ($item_id == $item_ident) {
-					$result = intval($item['count']);
-					break;
-				}
-			}
-			return $result;
+			strbox = new StringBox($user['char_inventory']);
+			return strbox->amount($item_ident);
 		}
 
 		public function modify(int $item_ident, int $value) {
 			global $user;
-			$items = json_decode($user['char_inventory'], true);
-			for($i = 0; $i < count($items); $i++) {
-				$item = $items[$i];
-				$item_id = intval($item['id']);
-				if ($item_id == $item_ident) {
-					$count = intval($item['count']);
-					$count += $value;
-					if ($count <= 0) {
-						unset($items[$i]);
-					} else {
-						$items[$i]['count'] = intval($count);
-					}
-					$items = array_values($items);
-					$user['char_inventory'] = json_encode($items, JSON_UNESCAPED_UNICODE);
-					User::update("char_inventory='".$user['char_inventory']."'");
-					break;
-				}
-			}
+			strbox = new StringBox($user['char_inventory']);
+			strbox->modify($item_ident, $item_count);
+			$user['char_inventory'] = strbox->get_string();
+			User::update("char_inventory='".$user['char_inventory']."'");
 		}
 
 		public static function get_items() {
