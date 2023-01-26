@@ -6,24 +6,17 @@
 		
 		public static function kill(int $region_ident) {
 			global $user;
-			$user['stat_boss_kills']++;
-			$bosses = json_decode($user['char_bosses'], true);
-			$n = count($bosses);
-			$bosses[$n]['id'] = strval($region_ident);
-			$bosses[$n]['killed'] = 1;
-			$user['char_bosses'] = json_encode($bosses, JSON_UNESCAPED_UNICODE);
+			$user['stat_boss_kills']++;	
+			$strbox = new StringBox($user['char_bosses']);
+			$strbox->add($region_ident);
+			$user['char_bosses'] = $strbox->get_string();
 			User::update("char_bosses='".$user['char_bosses']."'");
 		}
 
 		public static function is_killed(int $region_ident) {
-			global $user;
-			$bosses = $user['char_bosses'];
-			$pos = strripos($bosses, '"id":"'.strval($region_ident).'"');
-			if ($pos === false) {
-				return false;
-			} else {
-				return true;
-			}
+			global $user;			
+			$strbox = new StringBox($user['char_bosses']);
+			return $strbox->has($region_ident);
 		}
 		
 		public static function gen($enemy, $enemy_life) {
