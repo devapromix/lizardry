@@ -15,36 +15,16 @@
 			
 		}
 		
+		private function add_effect(int $effect_ident) {
+			global $user;
+			$strbox = new StringBox($user['char_effects']);
+			$strbox->add($effect_ident);
+			$user['char_effects'] = $strbox->get_string();
+			User::update("char_effects=".$user['char_effects']);	
+		}
+
 		private function need_mana($mana) {
 			die('{"info":"Вы пытаетесь произнести заклинание, но чувствуете, что магических сил недостаточно. Нужно '.strval($mana).' маны!"}');
-		}
-		
-		public function use_scroll_leech($item_ident) {
-			global $user;
-			$mana = self::MANA_SCROLL_LEECH;
-			$effect = self::PLAYER_EFFECT_LEECH;
-			if ($user['char_mana_cur'] >= $mana) {
-				$user['class']['item']->modify($item_ident, -1);
-				$user['char_mana_cur'] -= $mana;
-				$user['char_effect'] = $effect;
-				User::update("char_effect=".$user['char_effect']);
-				$result = ',"char_effect":"'.$user['char_effect'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-				return $result;
-			} else $this->need_mana($mana);
-		}
-		
-		public function use_scroll_bless($item_ident) {
-			global $user;
-			$mana = self::MANA_SCROLL_BLESS;
-			$effect = self::PLAYER_EFFECT_BLESS;
-			if ($user['char_mana_cur'] >= $mana) {
-				$user['class']['item']->modify($item_ident, -1);
-				$user['char_mana_cur'] -= $mana;
-				$user['char_effect'] = $effect;
-				User::update("char_effect=".$user['char_effect']);
-				$result = ',"char_effect":"'.$user['char_effect'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
-				return $result;
-			} else $this->need_mana($mana);
 		}
 		
 		public function use_scroll_tp($item_ident) {
@@ -58,18 +38,42 @@
 				return $result;
 			} else $this->need_mana($mana);
 		}
+		
+		public function use_scroll_leech($item_ident) {
+			global $user;
+			$mana = self::MANA_SCROLL_LEECH;
+			$effect_ident = self::PLAYER_EFFECT_LEECH;
+			if ($user['char_mana_cur'] >= $mana) {
+				$user['class']['item']->modify($item_ident, -1);
+				$user['char_mana_cur'] -= $mana;
+				$this->add_effect($effect_ident);
+				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				return $result;
+			} else $this->need_mana($mana);
+		}
+		
+		public function use_scroll_bless($item_ident) {
+			global $user;
+			$mana = self::MANA_SCROLL_BLESS;
+			$effect_ident = self::PLAYER_EFFECT_BLESS;
+			if ($user['char_mana_cur'] >= $mana) {
+				$user['class']['item']->modify($item_ident, -1);
+				$user['char_mana_cur'] -= $mana;
+				$this->add_effect($effect_ident);
+				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				return $result;
+			} else $this->need_mana($mana);
+		}
 
 		public function use_scroll_heal($item_ident) {
 			global $user;
 			$mana = self::MANA_SCROLL_HEAL;
-			$effect = self::PLAYER_EFFECT_REGEN;
+			$effect_ident = self::PLAYER_EFFECT_REGEN;
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
-				$user['class']['player']->heal();
-				$user['char_effect'] = $effect;
-				User::update("char_effect=".$user['char_effect'].",char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
-				$result = ',"char_effect":"'.$user['char_effect'].'","char_life_cur":"'.$user['char_life_cur'].'","char_life_max":"'.$user['char_life_max'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				$this->add_effect($effect_ident);
+				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 				return $result;
 			} else $this->need_mana($mana);
 		}

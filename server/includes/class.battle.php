@@ -119,11 +119,10 @@
 				$r .= $this->str_line();
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
-			
-			$user['char_effect'] = 0;
-			
+
+			$this->clear_effects();
 			$user['battlelog'] = $r;
-			
+
 		}
 		
 		private function player_battle_round() {
@@ -132,10 +131,10 @@
 			$r = '';
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
-				if ($user['char_effect'] == Magic::PLAYER_EFFECT_REGEN)
+				if ($this->has_effect(Magic::PLAYER_EFFECT_REGEN))
 					$r .= $this->effect_regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
-					if ($user['char_effect'] == Magic::PLAYER_EFFECT_BLESS)
+					if ($this->has_effect(Magic::PLAYER_EFFECT_BLESS))
 						$d = $user['char_damage_max'];
 					else
 						$d = rand($user['char_damage_min'], $user['char_damage_max']);
@@ -144,7 +143,7 @@
 					if ($d <= 0) {
 						$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 					} else {
-						if ($user['char_effect'] == Magic::PLAYER_EFFECT_LEECH)
+						if ($this->has_effect(Magic::PLAYER_EFFECT_LEECH))
 							if ((rand(1, 2) == 1) && ($user['char_life_cur'] < $user['char_life_max']) && ($user['enemy_life_cur'] > 0))
 								$r .= $this->effect_leech();
 						if (rand(1, 100) <= $user['skill_bewil']) {
@@ -351,6 +350,18 @@
 				$r .= 'Вы украли '.$hp.' HP у '.$user['enemy_name'].'.#';
 			}
 			return $r;
+		}
+
+		private function clear_effects() {
+			global $user;
+			$user['char_effect'] = 0;
+			$user['char_effects'] = "[]";
+		}
+
+		private function has_effect(int $effect_ident) {
+			global $user;	
+			$strbox = new StringBox($user['char_effects']);
+			return $strbox->has($effect_ident);
 		}
 
 	}
