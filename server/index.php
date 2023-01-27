@@ -15,6 +15,7 @@ require_once(IPATH.'class.enemy.php');
 require_once(IPATH.'class.boss.php');
 require_once(IPATH.'class.user.php');
 require_once(IPATH.'class.stringbox.php');
+require_once(IPATH.'class.effects.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -44,6 +45,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		$user['class'] = array();
 		$user['class']['location'] = new Location();
 		$user['class']['battle'] = new Battle();
+		$user['class']['effect'] = new Effects();
 		$user['class']['player'] = new Player();
 		$user['class']['magic'] = new Magic();
 		$user['class']['item'] = new Item();
