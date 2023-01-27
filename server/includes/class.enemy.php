@@ -4,7 +4,7 @@
 		
 		public const EMPTY_ID = 999;
 		
-		static public function gen($enemy_ident, $enemy_elite) {
+		static public function gen(int $enemy_ident, int $enemy_elite) {
 			global $user, $tb_enemy, $connection;
 			$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;
 			$result = mysqli_query($connection, $query) 
@@ -112,7 +112,7 @@
 			User::update("enemy_ident=".$enemy_ident.",enemy_name='".$user['enemy_name']."',enemy_image='".$user['enemy_image']."',enemy_level=".$user['enemy_level'].",enemy_boss=".$user['enemy_boss'].",enemy_champion=".$user['enemy_champion'].",enemy_life_max=".$user['enemy_life_max'].",enemy_life_cur=".$user['enemy_life_cur'].",enemy_damage_min=".$user['enemy_damage_min'].",enemy_damage_max=".$user['enemy_damage_max'].",enemy_armor=".$user['enemy_armor'].",enemy_exp=".$user['enemy_exp'].",enemy_gold=".$user['enemy_gold'].",loot_slot_1=0,loot_slot_1_name='',current_random_place=".$user['current_random_place']);
 		}
 		
-		static public function add($enemy_slot, $enemy_ident, $enemy_elite = 0) {
+		static public function add(int $enemy_slot, int $enemy_ident, int $enemy_elite = 0) {
 			global $user, $tb_enemy, $connection;
 
 			$query = "SELECT * FROM ".$tb_enemy." WHERE enemy_ident=".$enemy_ident;

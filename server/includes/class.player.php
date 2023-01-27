@@ -11,11 +11,11 @@
 			
 		}
 		
-		public function get_life($level) {
+		public function get_life(int $level) {
 			return ($level * 5) + 25;
 		}
 
-		public function get_level_exp($level) {
+		public function get_level_exp(int $level) {
 			return $level * (($level - 1) + 100);
 		}
 		

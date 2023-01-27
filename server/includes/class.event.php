@@ -8,7 +8,7 @@
 			
 		}
 		
-		public static function add($type, $name, $level = 1, $gender = 0, $str = '', $loc_name = '') {
+		public static function add(int $type, $name, int $level = 1, int $gender = 0, $str = '', $loc_name = '') {
 			global $connection, $user, $tb_events;
 			$query = "INSERT INTO ".$tb_events." (event_type,event_char_gender,event_char_name,event_char_level,event_str,event_loc) VALUES(".$type.", ".$gender.", '".$name."', ".$level.", '".$str."', '".$loc_name."')";
 			if (!mysqli_query($connection, $query)) {

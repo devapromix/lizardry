@@ -19,7 +19,7 @@
 			return $strbox->has($region_ident);
 		}
 		
-		public static function gen($enemy, $enemy_life) {
+		public static function gen($enemy, int $enemy_life) {
 			global $user;
 			$user['enemy_boss'] = 1;
 			$user['enemy_champion'] = 1;
