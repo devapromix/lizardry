@@ -96,6 +96,7 @@ type
     FrameRandomPlace1: TFrameRandomPlace;
     pnEffect: TPanel;
     FrameGetAllLoot1: TFrameGetAllLoot;
+    Memo1: TMemo;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
@@ -152,8 +153,8 @@ var
   LGenderIndex: Integer = 0;
 
 const
-  EffectStr: array [0 .. 3] of string = ('Нет', 'Благословение',
-    'Регенерация', 'Кража Жизни');
+  EffectStr: array [0 .. 3] of string = ('Нет', 'Благословение', 'Регенерация',
+    'Кража Жизни');
 
 function StrLim(const S: string; const N: Integer = 25): string;
 begin
@@ -210,8 +211,29 @@ begin
 end;
 
 procedure TFrameTown.ChEffectPanel(S: string);
+var
+  LJSON: TJSONObject;
+  LJSONArray: TJSONArray;
+  I, J, C: Integer;
+  D, K: string;
 begin
-  pnEffect.Caption := 'Эффект: ' + EffectStr[StrToIntDef(S, 0)];
+  Memo1.Clear;
+  K := '';
+  C := 1;
+  for I := 1 to High(EffectStr) do
+  begin
+    D := '';
+    if C > 1 then
+      D := ', ';
+    if S.Contains('"id":"' + IntToStr(I) + '"') then
+    begin
+      K := K + D + EffectStr[I];
+      Inc(C);
+    end;
+  end;
+  if K = '' then
+    K := 'Нет';
+  Memo1.Lines.Append(K);
 end;
 
 function TFrameTown.GetRaceName(const N: Byte): string;
@@ -366,10 +388,8 @@ begin
         end;
         if LJSON.TryGetValue('char_food', S) then
           ChFoodPanel(S);
-        if LJSON.TryGetValue('char_effect', S) then
-          ChEffectPanel(S)
-        else
-          ChEffectPanel('0');
+        if LJSON.TryGetValue('char_effects', S) then
+          ChEffectPanel(S);
       end;
     end;
   finally
@@ -816,7 +836,7 @@ begin
     if LJSON.TryGetValue('char_bank', S) then
       FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
     //
-    if LJSON.TryGetValue('char_effect', S) then
+    if LJSON.TryGetValue('char_effects', S) then
       ChEffectPanel(S);
     //
     if LJSON.TryGetValue('char_inventory', S) then

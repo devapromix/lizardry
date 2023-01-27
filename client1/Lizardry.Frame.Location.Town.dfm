@@ -396,11 +396,22 @@ object FrameTown: TFrameTown
       Height = 25
       Align = alTop
       Alignment = taLeftJustify
-      Caption = #1069#1092#1092#1077#1082#1090': '#1053#1077#1090
+      Caption = #1069#1092#1092#1077#1082#1090#1099':'
       ParentBackground = False
       ParentShowHint = False
       ShowHint = True
       TabOrder = 15
+    end
+    object Memo1: TMemo
+      Left = 1
+      Top = 341
+      Width = 278
+      Height = 120
+      Align = alTop
+      Lines.Strings = (
+        'Memo1')
+      ReadOnly = True
+      TabOrder = 16
     end
   end
   object LeftPanel: TPanel
@@ -583,27 +594,26 @@ object FrameTown: TFrameTown
         ExplicitWidth = 317
         ExplicitHeight = 283
         inherited TabSheet1: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
         end
         inherited TabSheet2: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
+          ExplicitWidth = 309
+          ExplicitHeight = 247
+          inherited SG: TStringGrid
+            Width = 309
+            Height = 158
+          end
+          inherited Panel1: TPanel
+            Width = 309
+          end
           inherited Panel2: TPanel
+            Top = 183
+            Width = 309
             inherited ttInfo: TLabel
-              ExplicitWidth = 307
+              Width = 307
             end
           end
-        end
-        inherited TabSheet3: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
-          ExplicitWidth = 519
-          ExplicitHeight = 400
         end
       end
     end
