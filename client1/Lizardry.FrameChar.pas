@@ -44,6 +44,7 @@ type
     { Public declarations }
     procedure RefreshInventory(const S: string);
     function GetName(const Id: Integer): string;
+    procedure ClearGrid;
     procedure DrawGrid;
   end;
 
@@ -60,6 +61,18 @@ uses
 
 { TFrameChar }
 
+procedure TFrameChar.ClearGrid;
+var
+I: Integer;
+begin
+  for I := 1 to 100 do
+  begin
+    SG.Cells[0, I] := '';
+    SG.Cells[1, I] := '';
+    SG.Cells[2, I] := '';
+  end;
+end;
+
 procedure TFrameChar.DrawGrid;
 var
   LWidth: Integer;
@@ -69,6 +82,7 @@ begin
   SG.ColWidths[0] := 30;
   SG.ColWidths[1] := LWidth;
   SG.ColWidths[2] := 100;
+  ClearGrid;
 end;
 
 function TFrameChar.GetName(const Id: Integer): string;
@@ -104,12 +118,6 @@ begin
   Self.DrawGrid;
   ttInfo.Caption := '';
 
-  for I := 1 to 16 do
-  begin
-    SG.Cells[0, I] := '';
-    SG.Cells[1, I] := '';
-    SG.Cells[2, I] := '';
-  end;
   SG.Cells[1, 0] := 'Название';
 
   try
