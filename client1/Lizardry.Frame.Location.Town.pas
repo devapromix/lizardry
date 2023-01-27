@@ -97,12 +97,14 @@ type
     pnEffect: TPanel;
     FrameGetAllLoot1: TFrameGetAllLoot;
     Memo1: TMemo;
+    Timer1: TTimer;
     procedure bbLogoutClick(Sender: TObject);
     procedure LeftPanelClick(Sender: TObject);
     procedure bbDebugClick(Sender: TObject);
     procedure bbCharNameClick(Sender: TObject);
     procedure FrameOutlands1Image1Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
     Title: string;
@@ -245,6 +247,7 @@ end;
 
 procedure TFrameTown.HideChar;
 begin
+  Timer1.Enabled := True;
   Panel10.Caption := Title;
   FrameChar.SendToBack;
   IsCharMode := False;
@@ -412,6 +415,12 @@ end;
 procedure TFrameTown.SpeedButton3Click(Sender: TObject);
 begin
   ShowMsg(Label1.Caption);
+end;
+
+procedure TFrameTown.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled := False;
+  FormMain.FrameTown.FrameShop1.SG.OnClick(Self);
 end;
 
 procedure TFrameTown.bbCharNameClick(Sender: TObject);

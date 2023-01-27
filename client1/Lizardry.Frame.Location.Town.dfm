@@ -594,26 +594,42 @@ object FrameTown: TFrameTown
         ExplicitWidth = 317
         ExplicitHeight = 283
         inherited TabSheet1: TTabSheet
-          ExplicitWidth = 309
-          ExplicitHeight = 247
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
           inherited SG: TStringGrid
             Width = 309
             Height = 158
+            ExplicitWidth = 309
+            ExplicitHeight = 158
           end
           inherited Panel1: TPanel
             Width = 309
+            ExplicitWidth = 309
           end
           inherited Panel2: TPanel
             Top = 183
             Width = 309
+            ExplicitTop = 183
+            ExplicitWidth = 309
             inherited ttInfo: TLabel
               Width = 307
+              ExplicitWidth = 307
             end
           end
+        end
+        inherited TabSheet3: TTabSheet
+          ExplicitLeft = 4
+          ExplicitTop = 32
+          ExplicitWidth = 519
+          ExplicitHeight = 400
         end
       end
     end
@@ -927,5 +943,12 @@ object FrameTown: TFrameTown
         end
       end
     end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = Timer1Timer
+    Left = 8
+    Top = 256
   end
 end
