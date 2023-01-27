@@ -18,7 +18,7 @@
 			
 		}
 		
-		public static function addlink($title, $link, $n = 0) {
+		public static function addlink($title, $link, int $n = 0) {
 			global $user;
 			$user['links'][$n]['title'] = $title;
 			$user['links'][$n]['link'] = $link;
@@ -35,15 +35,15 @@
 			$this->go_to_the_gate('Идти к воротам в город');
 		}
 
-		public function go_to_the_town($t = 'Вернуться в город', $n = 0) {
+		public function go_to_the_town($t = 'Вернуться в город', int $n = 0) {
 			Location::addlink($t, 'index.php?action=town', $n);
 		}
 
-		public function go_to_the_graveyard($t = 'Идти на кладбище', $n = 0) {
+		public function go_to_the_graveyard($t = 'Идти на кладбище', int $n = 0) {
 			Location::addlink($t, 'index.php?action=graveyard', $n);
 		}
 
-		public function go_to_the_gate($t = 'Идти в сторону города', $n = 0) {
+		public function go_to_the_gate($t = 'Идти в сторону города', int $n = 0) {
 			Location::addlink($t, 'index.php?action=gate', $n);
 		}		
 		
@@ -51,7 +51,7 @@
 			Location::addlink('Забрать!', 'index.php?action=pickup_loot&lootslot=1', 1);
 		}
 		
-		public function check_travel_req($level, $food, $gold) {
+		public function check_travel_req(int $level, int $food, int $gold) {
 			global $user;
 			if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 			if ($user['char_level'] < $level) die('{"info":"Для путешествия в другой регион нужен '.$level.'-й уровень!"}');
@@ -59,11 +59,11 @@
 			if ($user['char_gold'] < $gold) die('{"info":"Возьмите в дорогу не менее '.$gold.' золотых монет!"}');
 		}
 
-		public function travel_req($level, $food, $gold) {
+		public function travel_req(int $level, int $food, int $gold) {
 			return ' Но нужно выполнить определенные условия:#Уровень героя - не менее '.$level.'-го.#С собой иметь не менее '.$food.'-x пакетов с провиантом.#Стоимость путешествия - '.$gold.' золотых монет.';
 		}
 
-		public function get_region_town_name($region_ident) {
+		public function get_region_town_name(int $region_ident) {
 			global $user, $tb_regions, $connection;
 			$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
 			$result = mysqli_query($connection, $query) 
@@ -72,7 +72,7 @@
 			return $region['region_town_name'];
 		}
 
-		public function change_region($region_ident, $food, $gold) {
+		public function change_region(int $region_ident, int $food, int $gold) {
 			global $user, $tb_regions, $connection;
 			$query = "SELECT * FROM ".$tb_regions." WHERE region_ident=".$region_ident;
 			$result = mysqli_query($connection, $query) 
@@ -189,7 +189,7 @@
 			return $res;
 		}
 
-		public function travel_price($level) {
+		public function travel_price(int $level) {
 			return $level * 10;
 		}
 
@@ -330,6 +330,19 @@
 			return $region['region_graveyard_description'];			
 		}
 		
+		public function get_graveyard_links() {
+			global $user, $tb_regions, $connection;
+			$this->go_to_the_gate('Покинуть Кладбище');
+			switch ($user['char_region']) {
+				case 2:
+					Location::addlink('Осмотреть Склеп', 'index.php?action=crypt', 1);
+					break;
+				case 8:
+					Location::addlink('Осмотреть Мавзолей', 'index.php?action=mavz', 1);
+					break;
+			}
+		}
+		
 		public function get_town_name() {
 			global $user, $tb_regions, $connection;
 			$query = "SELECT region_town_name FROM ".$tb_regions." WHERE region_ident=".$user['char_region'];
@@ -348,7 +361,7 @@
 			return $region['region_town_description'];			
 		}
 		
-		public function get_welcome_phrase($category_ident, $flag = true) {
+		public function get_welcome_phrase(int $category_ident, $flag = true) {
 			global $connection, $tb_phrases;
 			$v = ($flag)?" OR category=0":"";
 			$query = "SELECT text FROM ".$tb_phrases." WHERE category=".$category_ident.$v." ORDER BY RAND() LIMIT 1";
@@ -358,7 +371,7 @@
 			return $phrase['text'];
 		}
 		
-		public static function get_race_start_location($charrace) {
+		public static function get_race_start_location(int $charrace) {
 			switch($charrace) {
 				case Player::RACE_ELF:
 					return self::REGION_EYRINOR;
