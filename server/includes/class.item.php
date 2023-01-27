@@ -39,7 +39,7 @@
 
 		}
 		
-		public function get_price($type, $price, $count) {
+		public function get_price(int $type, int $price, int $count) {
 			global $user;
 			$r = 0;
 			switch($type) {
@@ -87,18 +87,12 @@
 			return $r;
 		}
 		
-		public function get_slot_ident($item_slot) {
+		public function get_slot_ident(int $item_slot) {
 			global $user;
 			return $user['item_slot_'.strval($item_slot)]; 
 		}
 		
-		public function has_item(int $item_ident) {
-			global $user;
-			$strbox = new StringBox($user['char_inventory']);
-			return $strbox->has($item_ident);
-		}
-
-		public function gold_trade($type) {
+		public function gold_trade(int $type) {
 			global $user, $tb_item, $connection;
 
 			$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
@@ -125,7 +119,7 @@
 			return $gold;
 		}
 		
-		public function buy_empty_elixir($count = 1) {
+		public function buy_empty_elixir(int $count = 1) {
 			global $user;
 			if ($user['char_gold'] < 100) die('{"info":"Нужно не менее 100 золотых монет!"}');
 			$this->add(self::ELIXIR_EMPTY, $count);
@@ -162,7 +156,7 @@
 			} else die('{"info":"Нужен Пустой Флакон!"}');
 		}
 
-		public function item_info($item_ident) {
+		public function item_info(int $item_ident) {
 			global $user, $tb_item, $connection;
 			if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
@@ -252,7 +246,7 @@
 					die('{"item":"'.$item['item_name'].'\nУровень предмета: '.$this->get_region_item_level($item['item_level']).'\n'.$ef.'"}');
 		}
 
-		private function item_values($item_ident) {
+		private function item_values(int $item_ident) {
 			global $user, $tb_item, $connection;
 			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
 			$result = mysqli_query($connection, $query) 
@@ -271,18 +265,14 @@
 			}
 		}
 
-		public function add_item_to_shop($item_slot, $item_ident) {
+		public function add_item_to_shop(int $item_slot, int $item_ident) {
 			global $user;
 			$user['item_slot_'.strval($item_slot)] = $item_ident;
 			$user['item_slot_'.strval($item_slot).'_values'] = $this->item_values($item_ident);
 			User::update('item_slot_'.strval($item_slot).'='.$user['item_slot_'.strval($item_slot)]);
 		}
 
-		private function add_effect(int $effect_ident) {
-			
-		}
-
-		public function use_item($item_ident) {
+		public function use_item(int $item_ident) {
 			global $user, $tb_item, $connection;
 			if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 
@@ -327,9 +317,8 @@
 					break;
 				case self::CAT_ELIXIR_TROLL:
 					$this->modify($item_ident, -1);
-					$user['char_effect'] = Magic::PLAYER_EFFECT_REGEN;
-					User::update("char_effect=".$user['char_effect']);			
-					$result = ',"char_effect":"'.$user['char_effect'].'"';
+					$user['class']['effect']->add(Magic::PLAYER_EFFECT_REGEN);			
+					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
 					break;
 				case self::CAT_SCROLL_TP:
 					$result = $user['class']['magic']->use_scroll_tp($item_ident);
@@ -354,7 +343,7 @@
 			return $result;
 		}
 
-		public function inv_item_list($type) {
+		public function inv_item_list(int $type) {
 			global $user, $tb_item, $connection;
 
 			$query = "SELECT * FROM ".$tb_item." WHERE item_type=".$type;
@@ -402,14 +391,14 @@
 			return $r;
 		}
 
-		private function get_region_item_level($item_level) {
+		private function get_region_item_level(int $item_level) {
 			$result = 1;
 			if ($item_level > 1)
 				$result = ($item_level - 1) * 12;
 			return $result;
 		}
 
-		public function save_loot_slot($item_ident, $item_name, $item_type, $item_slot = 1) {
+		public function save_loot_slot(int $item_ident, $item_name, int $item_type, int $item_slot = 1) {
 			global $user;
 	
 			$user['loot_slot_'.strval($item_slot)] = $item_ident;
@@ -420,7 +409,7 @@
 				User::update("loot_slot_".strval($item_slot)."=".$user['loot_slot_'.strval($item_slot)].",loot_slot_".strval($item_slot)."_type=".$user['loot_slot_'.strval($item_slot).'_type'].",loot_slot_".strval($item_slot)."_name='".$user['loot_slot_'.strval($item_slot).'_name']."'");
 		}
 
-		private function gen_random_loot($loot_type_array, $loot_level) {
+		private function gen_random_loot($loot_type_array, int $loot_level) {
 			global $user, $tb_item, $connection;
 
 			$loot_type = $loot_type_array[array_rand($loot_type_array)];	
@@ -538,7 +527,7 @@
 			}
 		}
 
-		public function equip_item($item_ident, $item_amount = 1) {
+		public function equip_item(int $item_ident, int $item_amount = 1) {
 			global $user, $tb_item, $connection;
 			$query = "SELECT * FROM ".$tb_item." WHERE item_ident=".$item_ident;
 			$result = mysqli_query($connection, $query) 
@@ -626,13 +615,19 @@
 			return $r;
 		}
 
+		public function has_item(int $item_ident) {
+			global $user;
+			$strbox = new StringBox($user['char_inventory']);
+			return $strbox->has($item_ident);
+		}
+
 		private function amount(int $item_ident) {
 			global $user;
 			$strbox = new StringBox($user['char_inventory']);
 			return $strbox->amount($item_ident);
 		}
 
-		public function modify(int $item_ident, int $value) {
+		public function modify(int $item_ident, int $item_count) {
 			global $user;
 			$strbox = new StringBox($user['char_inventory']);
 			$strbox->modify($item_ident, $item_count);

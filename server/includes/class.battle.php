@@ -120,7 +120,7 @@
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
 
-			$this->clear_effects();
+			$user['class']['effect']->clear();
 			$user['battlelog'] = $r;
 
 		}
@@ -131,10 +131,10 @@
 			$r = '';
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
-				if ($this->has_effect(Magic::PLAYER_EFFECT_REGEN))
+				if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_REGEN))
 					$r .= $this->effect_regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
-					if ($this->has_effect(Magic::PLAYER_EFFECT_BLESS))
+					if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_BLESS))
 						$d = $user['char_damage_max'];
 					else
 						$d = rand($user['char_damage_min'], $user['char_damage_max']);
@@ -143,7 +143,7 @@
 					if ($d <= 0) {
 						$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 					} else {
-						if ($this->has_effect(Magic::PLAYER_EFFECT_LEECH))
+						if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_LEECH))
 							if ((rand(1, 2) == 1) && ($user['char_life_cur'] < $user['char_life_max']) && ($user['enemy_life_cur'] > 0))
 								$r .= $this->effect_leech();
 						if (rand(1, 100) <= $user['skill_bewil']) {
@@ -268,26 +268,26 @@
 			return '--------------------------------------------------------#';
 		}
 
-		private function get_real_damage($atk_damage, $def_armor, $atk_level, $def_level) {
+		private function get_real_damage(int $atk_damage, int $def_armor, int $atk_level, int $def_level) {
 			return $atk_damage - round($atk_damage * $def_armor / 100);
 		}
 
-		private function get_glancing_blow_damage($damage){
+		private function get_glancing_blow_damage(int $damage){
 			$r = round($damage / rand(2, 3));
 			if ($r < 1)
 				$r = 1;
 			return $r;
 		}
 
-		private function get_crushing_blow_damage($damage) {
+		private function get_crushing_blow_damage(int $damage) {
 			return $damage * rand(3, 5);
 		}
 
-		private function get_bewildering_strike_damage($damage) {
+		private function get_bewildering_strike_damage(int $damage) {
 			return rand(round($damage * 0.75), round($damage * 1.2));
 		}		
 		
-		private function get_value($value) {
+		private function get_value(int $value) {
 			global $user;
 
 			if ($user['enemy_level'] < $user['char_level'] - 1) {
@@ -350,18 +350,6 @@
 				$r .= 'Вы украли '.$hp.' HP у '.$user['enemy_name'].'.#';
 			}
 			return $r;
-		}
-
-		private function clear_effects() {
-			global $user;
-			$user['char_effect'] = 0;
-			$user['char_effects'] = "[]";
-		}
-
-		private function has_effect(int $effect_ident) {
-			global $user;	
-			$strbox = new StringBox($user['char_effects']);
-			return $strbox->has($effect_ident);
 		}
 
 	}

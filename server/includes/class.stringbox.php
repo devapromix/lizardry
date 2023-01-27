@@ -3,10 +3,12 @@
 	class StringBox {
 		
 		protected $values = array();
+		protected $str = "";
 		protected $num = 0;
 		
 		public function __construct($str) {
 			$this->values = json_decode($str, true);
+			$this->str = $str;
 			$this->num = count($this->values);
 		}
 		
@@ -24,7 +26,7 @@
 			$result = 0;
 			for($i = 0; $i < $this->num; $i++) {
 				$item = $this->values[$i];
-				if (intval($item['id']) == $item_ident) {
+				if (strval($item['id']) == strval($item_ident)) {
 					$result = intval($item['count']);
 					break;
 				}
@@ -35,7 +37,7 @@
 		public function modify(int $item_ident, int $item_count = 1) {
 			for($i = 0; $i < $this->num; $i++) {
 				$item = $this->values[$i];
-				if (intval($item['id']) == $item_ident) {
+				if (strval($item['id']) == strval($item_ident)) {
 					$count = intval($item['count']);
 					$count += $item_count;
 					if ($count <= 0) {
@@ -51,7 +53,7 @@
 		}
 
 		public function has(int $item_ident) {
-			$pos = strripos($this->values, '"id":"'.strval($region_ident).'"');
+			$pos = strripos($this->str, '"id":"'.strval($item_ident).'"');
 			if ($pos === false) {
 				return false;
 			} else {

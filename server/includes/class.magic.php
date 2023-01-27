@@ -15,14 +15,6 @@
 			
 		}
 		
-		private function add_effect(int $effect_ident) {
-			global $user;
-			$strbox = new StringBox($user['char_effects']);
-			$strbox->add($effect_ident);
-			$user['char_effects'] = $strbox->get_string();
-			User::update("char_effects=".$user['char_effects']);	
-		}
-
 		private function need_mana($mana) {
 			die('{"info":"Вы пытаетесь произнести заклинание, но чувствуете, что магических сил недостаточно. Нужно '.strval($mana).' маны!"}');
 		}
@@ -46,8 +38,8 @@
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
-				$this->add_effect($effect_ident);
-				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				$user['class']['effect']->add($effect_ident);
+				$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE).',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 				return $result;
 			} else $this->need_mana($mana);
 		}
@@ -59,8 +51,8 @@
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
-				$this->add_effect($effect_ident);
-				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				$user['class']['effect']->add($effect_ident);
+				$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE).',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 				return $result;
 			} else $this->need_mana($mana);
 		}
@@ -72,8 +64,8 @@
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
-				$this->add_effect($effect_ident);
-				$result = ',"char_effects":"'.$user['char_effects'].'","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				$user['class']['effect']->add($effect_ident);
+				$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE).',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 				return $result;
 			} else $this->need_mana($mana);
 		}
