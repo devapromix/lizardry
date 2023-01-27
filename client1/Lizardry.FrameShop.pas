@@ -48,10 +48,12 @@ implementation
 
 uses
   Math,
+  JSON,
   Lizardry.FormMain,
   Lizardry.Server,
   Lizardry.FormPrompt,
-  Lizardry.FormAmountPrompt;
+  Lizardry.FormAmountPrompt,
+  Lizardry.FormInfo;
 
 procedure TFrameShop.DrawGrid;
 var
@@ -92,7 +94,9 @@ end;
 
 procedure TFrameShop.SGClick(Sender: TObject);
 var
-  LRow: Integer;
+  I, LRow: Integer;
+  LJSONArray: TJSONArray;
+  LItemName, LItemDescription: string;
 begin
   if IsCharMode then
     Exit;
@@ -100,9 +104,28 @@ begin
   if (SG.Cells[1, LRow] = '') then
     ttInfo.Caption := ''
   else
-    FormMain.FrameTown.ParseJSON
-      (Server.Get('index.php?action=shop_item_info&itemslot=' +
-      IntToStr(LRow)));
+  begin
+    begin
+      LItemDescription := '';
+      try
+        LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
+          as TJSONArray;
+        for I := LJSONArray.Count - 1 downto 0 do
+        begin
+          LItemName := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('item_name')
+            ).JsonValue.Value;
+          if Trim(LItemName) = Trim(SG.Cells[1, LRow]) then
+          begin
+            LItemDescription := TJSONPair(TJSONObject(LJSONArray.Get(I))
+              .Get('item_description')).JsonValue.Value;
+            ttInfo.Caption := LItemName + #13#10 + LItemDescription;
+            Exit;
+          end;
+        end;
+      except
+      end;
+    end;
+  end;
 end;
 
 procedure TFrameShop.SGDblClick(Sender: TObject);
