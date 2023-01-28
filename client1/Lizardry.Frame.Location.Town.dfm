@@ -600,8 +600,6 @@ object FrameTown: TFrameTown
           ExplicitHeight = 400
         end
         inherited TabSheet2: TTabSheet
-          ExplicitLeft = 4
-          ExplicitTop = 32
           ExplicitWidth = 309
           ExplicitHeight = 247
           inherited SG: TStringGrid
@@ -943,12 +941,5 @@ object FrameTown: TFrameTown
         end
       end
     end
-  end
-  object Timer1: TTimer
-    Enabled = False
-    Interval = 50
-    OnTimer = Timer1Timer
-    Left = 8
-    Top = 256
   end
 end

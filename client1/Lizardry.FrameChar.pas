@@ -63,7 +63,7 @@ uses
 
 procedure TFrameChar.ClearGrid;
 var
-I: Integer;
+  I: Integer;
 begin
   for I := 1 to 100 do
   begin
@@ -141,15 +141,11 @@ begin
 end;
 
 procedure TFrameChar.SGClick(Sender: TObject);
-var
-  I: Integer;
 begin
-  I := SG.Row;
-  if Math.InRange(I, 1, ItCount) then
-    FormMain.FrameTown.ParseJSON
-      (Server.Get('index.php?action=item_info&itemindex=' + IntToStr(I)))
-  else
-    ttInfo.Caption := '';
+  if (Trim(SG.Cells[1, SG.Row]) = '') then
+    ttInfo.Caption := ''
+  else if Math.InRange(SG.Row, 1, ItCount) then
+    ttInfo.Caption := GetHint(GetItemInfo(Trim(SG.Cells[1, SG.Row])));
 end;
 
 procedure TFrameChar.SGDblClick(Sender: TObject);
