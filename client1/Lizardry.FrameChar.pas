@@ -57,7 +57,8 @@ uses
   JSON,
   Lizardry.FormMain,
   Lizardry.FormInfo,
-  Lizardry.Server;
+  Lizardry.Server,
+  Lizardry.FrameShop;
 
 { TFrameChar }
 
@@ -145,7 +146,7 @@ begin
   if (Trim(SG.Cells[1, SG.Row]) = '') then
     ttInfo.Caption := ''
   else if Math.InRange(SG.Row, 1, ItCount) then
-    ttInfo.Caption := GetHint(GetItemInfo(Trim(SG.Cells[1, SG.Row])));
+    ttInfo.Caption := TFrameShop.GetHint(Trim(SG.Cells[1, SG.Row]));
 end;
 
 procedure TFrameChar.SGDblClick(Sender: TObject);

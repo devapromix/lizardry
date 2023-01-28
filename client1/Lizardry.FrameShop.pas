@@ -40,6 +40,7 @@ type
     ShopType: TShopType;
     { Public declarations }
     procedure DrawGrid;
+    class function GetHint(const AItemName: string): string;
   end;
 
 implementation
@@ -92,6 +93,79 @@ begin
   ttInfo.Caption := '';
 end;
 
+class function TFrameShop.GetHint(const AItemName: string): string;
+var
+  LJSONArray: TJSONArray;
+  I: Integer;
+  ItemIdent: Integer;
+  ItemName: string;
+  ItemLevel: Integer;
+  ItemArmor: Integer;
+  ItemMinDamage: Integer;
+  ItemMaxDamage: Integer;
+  ItemDescription: string;
+  ItemPrice: Integer;
+begin
+  Result := '';
+  ItemIdent := 0;
+  ItemName := '';
+  ItemLevel := 1;
+  ItemArmor := 0;
+  ItemMinDamage := 1;
+  ItemMaxDamage := 2;
+  ItemDescription := '';
+  ItemPrice := 0;
+  try
+    LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
+      as TJSONArray;
+    for I := LJSONArray.Count - 1 downto 0 do
+    begin
+      ItemName := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('item_name'))
+        .JsonValue.Value;
+      if Trim(ItemName) = Trim(AItemName) then
+      begin
+        ItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_ident')).JsonValue.Value, 0);
+        ItemLevel := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_level')).JsonValue.Value, 1);
+        ItemArmor := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_armor')).JsonValue.Value, 0);
+        ItemMinDamage :=
+          StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_damage_min')).JsonValue.Value, 1);
+        ItemMaxDamage :=
+          StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_damage_max')).JsonValue.Value, 2);
+        ItemDescription := TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_description')).JsonValue.Value;
+        ItemPrice := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_price')).JsonValue.Value, 0);
+        Break;
+      end;
+    end;
+  except
+  end;
+  case ItemIdent of
+    1 .. 300:
+      begin
+        Result := ItemName + '#Доспех. Уровень: ' + IntToStr(ItemLevel) +
+          '. Броня: ' + IntToStr(ItemArmor) + '. Цена: ' + IntToStr(ItemPrice);
+      end;
+    301 .. 599:
+      begin
+        Result := ItemName + '#Одноручное оружие. Уровень: ' +
+          IntToStr(ItemLevel) + '. Урон: ' + IntToStr(ItemMinDamage) + '-' +
+          IntToStr(ItemMaxDamage) + '. Цена: ' + IntToStr(ItemPrice);
+      end;
+  else
+    begin
+      Result := ItemName + '#' + ItemDescription + '. Цена: ' +
+        IntToStr(ItemPrice);
+    end;
+  end;
+  Result := Result.Replace('#', #13#10);
+end;
+
 procedure TFrameShop.SGClick(Sender: TObject);
 begin
   if IsCharMode then
@@ -99,7 +173,7 @@ begin
   if (Trim(SG.Cells[1, SG.Row]) = '') then
     ttInfo.Caption := ''
   else
-    ttInfo.Caption := GetHint(GetItemInfo(Trim(SG.Cells[1, SG.Row])));
+    ttInfo.Caption := TFrameShop.GetHint(Trim(SG.Cells[1, SG.Row]));
 end;
 
 procedure TFrameShop.SGDblClick(Sender: TObject);
