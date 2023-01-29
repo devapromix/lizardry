@@ -96,6 +96,7 @@ end;
 class function TFrameShop.GetHint(const AItemName: string): string;
 var
   LJSONArray: TJSONArray;
+  LJSONObject: TJSONObject;
   I: Integer;
   ItemIdent: Integer;
   ItemName: string;
@@ -120,26 +121,26 @@ begin
       as TJSONArray;
     for I := LJSONArray.Count - 1 downto 0 do
     begin
-      ItemName := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('item_name'))
-        .JsonValue.Value;
+      LJSONObject := TJSONObject(LJSONArray.Get(I));
+      ItemName := TJSONPair(LJSONObject.Get('item_name')).JsonValue.Value;
       if Trim(ItemName) = Trim(AItemName) then
       begin
-        ItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_ident')).JsonValue.Value, 0);
-        ItemLevel := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_level')).JsonValue.Value, 1);
-        ItemArmor := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_armor')).JsonValue.Value, 0);
+        ItemIdent := StrToIntDef(TJSONPair(LJSONObject.Get('item_ident'))
+          .JsonValue.Value, 0);
+        ItemLevel := StrToIntDef(TJSONPair(LJSONObject.Get('item_level'))
+          .JsonValue.Value, 1);
+        ItemArmor := StrToIntDef(TJSONPair(LJSONObject.Get('item_armor'))
+          .JsonValue.Value, 0);
         ItemMinDamage :=
-          StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_damage_min')).JsonValue.Value, 1);
+          StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_min'))
+          .JsonValue.Value, 1);
         ItemMaxDamage :=
-          StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_damage_max')).JsonValue.Value, 2);
-        ItemDescription := TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_description')).JsonValue.Value;
-        ItemPrice := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
-          .Get('item_price')).JsonValue.Value, 0);
+          StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_max'))
+          .JsonValue.Value, 2);
+        ItemDescription := TJSONPair(LJSONObject.Get('item_description'))
+          .JsonValue.Value;
+        ItemPrice := StrToIntDef(TJSONPair(LJSONObject.Get('item_price'))
+          .JsonValue.Value, 0);
         Break;
       end;
     end;
