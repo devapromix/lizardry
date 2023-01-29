@@ -145,16 +145,13 @@ uses
   Lizardry.Server,
   Lizardry.FormInfo,
   Lizardry.FormMsg,
-  Lizardry.FormPrompt;
+  Lizardry.FormPrompt,
+  Lizardry.Effects;
 
 var
   LastCode: string = '';
   LRaceIndex: Integer = 0;
   LGenderIndex: Integer = 0;
-
-const
-  EffectStr: array [0 .. 3] of string = ('Нет', 'Благословение', 'Регенерация',
-    'Кража Жизни');
 
 function StrLim(const S: string; const N: Integer = 25): string;
 begin
@@ -347,14 +344,14 @@ begin
     Exit;
   LJSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
-    {if UpperCase(Section) = 'ITEM' then
-    begin
+    { if UpperCase(Section) = 'ITEM' then
+      begin
       if LJSON.TryGetValue('item', S) then
       begin
-        FormMain.FrameTown.FrameChar.ttInfo.Caption := S;
-        FormMain.FrameTown.FrameShop1.ttInfo.Caption := S;
+      FormMain.FrameTown.FrameChar.ttInfo.Caption := S;
+      FormMain.FrameTown.FrameShop1.ttInfo.Caption := S;
       end;
-    end;}
+      end; }
     if UpperCase(Section) = 'ERROR' then
     begin
       if LJSON.TryGetValue('error', S) then

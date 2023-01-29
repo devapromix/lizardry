@@ -119,7 +119,7 @@
 				$r .= $this->str_line();
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
-
+			
 			$user['class']['effect']->clear();
 			$user['battlelog'] = $r;
 
@@ -231,6 +231,27 @@
 											$r .= $user['enemy_name'].' наносит скользящий удар и ранит вас на '.$d.' HP.#';
 										} else {
 											$r .= $user['enemy_name'].' наносит скользящий удар на '.$d.' HP и убивает вас.#';
+										}
+										return $r;
+									}
+									if (($user['class']['effect']->has(Magic::PLAYER_EFFECT_REFLECT))&&(rand(1, 4) == 1)) {
+										$reflect_damage = round($d / rand(2, 5));
+										if ($$reflect_damage < 1) $reflect_damage = 1;
+										$d -= $reflect_damage;
+										if ($d < 1) $d = 1;
+										$this->statistics['enemy_damages'] += $d;
+										$user['char_life_cur'] -= $d;
+										if ($user['char_life_cur'] > 0) {
+											$r .= 'Враг атакует вас, но часть урона ('.strval($reflect_damage).') отражается и '.$user['enemy_name'].' ранит вас на '.$d.' HP.#';
+										} else {
+											$r .= 'Враг атакует вас, но часть урона ('.strval($reflect_damage).') отражается. '.$user['enemy_name'].' наносит урон на '.$d.' HP и убивает вас.#';
+										}
+										$this->statistics['char_damages'] += $reflect_damage;
+										$user['enemy_life_cur'] -= $reflect_damage;									
+										if ($user['enemy_life_cur'] > 0) {
+											$r .= $user['enemy_name'].' получает отраженный урон '.strval($reflect_damage).' HP.#';
+										} else {
+											$r .= $user['enemy_name'].' получает отраженный урон '.strval($reflect_damage).' HP и погибает.#';
 										}
 										return $r;
 									}

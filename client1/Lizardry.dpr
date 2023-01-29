@@ -28,7 +28,8 @@ uses
   Lizardry.FrameGetLoot in 'Lizardry.FrameGetLoot.pas' {FrameGetLoot: TFrame},
   Lizardry.FrameRandomPlace in 'Lizardry.FrameRandomPlace.pas' {FrameRandomPlace: TFrame},
   Lizardry.FormAmountPrompt in 'Lizardry.FormAmountPrompt.pas' {FormAmountPrompt},
-  Lizardry.FrameGetAllLoot in 'Lizardry.FrameGetAllLoot.pas' {FrameGetAllLoot: TFrame};
+  Lizardry.FrameGetAllLoot in 'Lizardry.FrameGetAllLoot.pas' {FrameGetAllLoot: TFrame},
+  Lizardry.Effects in 'Lizardry.Effects.pas';
 
 {$R *.res}
 

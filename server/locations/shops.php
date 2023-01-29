@@ -106,7 +106,7 @@ if ($action == 'shop_magic') {
 	$user['class']['item']->add_item_to_shop(2, 702);
 	$user['class']['item']->add_item_to_shop(3, 703);
 	$user['class']['item']->add_item_to_shop(4, 704);
-	$user['class']['item']->add_item_to_shop(5, 0);
+	$user['class']['item']->add_item_to_shop(5, 705);
 	$user['class']['item']->add_item_to_shop(6, 0);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
