@@ -98,70 +98,71 @@ var
   LJSONArray: TJSONArray;
   LJSONObject: TJSONObject;
   I: Integer;
-  ItemIdent: Integer;
-  ItemName: string;
-  ItemLevel: Integer;
-  ItemArmor: Integer;
-  ItemMinDamage: Integer;
-  ItemMaxDamage: Integer;
-  ItemDescription: string;
-  ItemPrice: Integer;
+  LItemIdent: Integer;
+  LItemName: string;
+  LItemLevel: Integer;
+  LItemArmor: Integer;
+  LItemMinDamage: Integer;
+  LItemMaxDamage: Integer;
+  LItemDescription: string;
+  LItemPrice: Integer;
 begin
   Result := '';
-  ItemIdent := 0;
-  ItemName := '';
-  ItemLevel := 1;
-  ItemArmor := 0;
-  ItemMinDamage := 1;
-  ItemMaxDamage := 2;
-  ItemDescription := '';
-  ItemPrice := 0;
+  LItemIdent := 0;
+  LItemName := '';
+  LItemLevel := 1;
+  LItemArmor := 0;
+  LItemMinDamage := 1;
+  LItemMaxDamage := 2;
+  LItemDescription := '';
+  LItemPrice := 0;
   try
     LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
       as TJSONArray;
     for I := LJSONArray.Count - 1 downto 0 do
     begin
       LJSONObject := TJSONObject(LJSONArray.Get(I));
-      ItemName := TJSONPair(LJSONObject.Get('item_name')).JsonValue.Value;
-      if Trim(ItemName) = Trim(AItemName) then
+      LItemName := TJSONPair(LJSONObject.Get('item_name')).JsonValue.Value;
+      if Trim(LItemName) = Trim(AItemName) then
       begin
-        ItemIdent := StrToIntDef(TJSONPair(LJSONObject.Get('item_ident'))
+        LItemIdent := StrToIntDef(TJSONPair(LJSONObject.Get('item_ident'))
           .JsonValue.Value, 0);
-        ItemLevel := StrToIntDef(TJSONPair(LJSONObject.Get('item_level'))
+        LItemLevel := StrToIntDef(TJSONPair(LJSONObject.Get('item_level'))
           .JsonValue.Value, 1);
-        ItemArmor := StrToIntDef(TJSONPair(LJSONObject.Get('item_armor'))
+        LItemArmor := StrToIntDef(TJSONPair(LJSONObject.Get('item_armor'))
           .JsonValue.Value, 0);
-        ItemMinDamage :=
+        LItemMinDamage :=
           StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_min'))
           .JsonValue.Value, 1);
-        ItemMaxDamage :=
+        LItemMaxDamage :=
           StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_max'))
           .JsonValue.Value, 2);
-        ItemDescription := TJSONPair(LJSONObject.Get('item_description'))
+        LItemDescription := TJSONPair(LJSONObject.Get('item_description'))
           .JsonValue.Value;
-        ItemPrice := StrToIntDef(TJSONPair(LJSONObject.Get('item_price'))
+        LItemPrice := StrToIntDef(TJSONPair(LJSONObject.Get('item_price'))
           .JsonValue.Value, 0);
         Break;
       end;
     end;
   except
   end;
-  case ItemIdent of
+  case LItemIdent of
     1 .. 300:
       begin
-        Result := ItemName + '#Доспех. Уровень: ' + IntToStr(ItemLevel) +
-          '. Броня: ' + IntToStr(ItemArmor) + '. Цена: ' + IntToStr(ItemPrice);
+        Result := LItemName + '#Доспех. Уровень: ' + IntToStr(LItemLevel) +
+          '. Броня: ' + IntToStr(LItemArmor) + '. Цена: ' +
+          IntToStr(LItemPrice);
       end;
     301 .. 599:
       begin
-        Result := ItemName + '#Одноручное оружие. Уровень: ' +
-          IntToStr(ItemLevel) + '. Урон: ' + IntToStr(ItemMinDamage) + '-' +
-          IntToStr(ItemMaxDamage) + '. Цена: ' + IntToStr(ItemPrice);
+        Result := LItemName + '#Одноручное оружие. Уровень: ' +
+          IntToStr(LItemLevel) + '. Урон: ' + IntToStr(LItemMinDamage) + '-' +
+          IntToStr(LItemMaxDamage) + '. Цена: ' + IntToStr(LItemPrice);
       end;
   else
     begin
-      Result := ItemName + '#' + ItemDescription + '. Цена: ' +
-        IntToStr(ItemPrice);
+      Result := LItemName + '#' + LItemDescription + '. Цена: ' +
+        IntToStr(LItemPrice);
     end;
   end;
   Result := Result.Replace('#', #13#10);
