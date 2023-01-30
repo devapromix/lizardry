@@ -81,7 +81,7 @@ if ($action == 'shop_alchemy') {
 	$user['class']['item']->add_item_to_shop(3, 603);
 	$user['class']['item']->add_item_to_shop(4, 604);
 	$user['class']['item']->add_item_to_shop(5, 605);
-	$user['class']['item']->add_item_to_shop(6, 0);
+	$user['class']['item']->add_item_to_shop(6, 606);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
 			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)], $amount);
@@ -107,7 +107,7 @@ if ($action == 'shop_magic') {
 	$user['class']['item']->add_item_to_shop(3, 703);
 	$user['class']['item']->add_item_to_shop(4, 704);
 	$user['class']['item']->add_item_to_shop(5, 705);
-	$user['class']['item']->add_item_to_shop(6, 0);
+	$user['class']['item']->add_item_to_shop(6, 706);
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
 			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)], $amount);

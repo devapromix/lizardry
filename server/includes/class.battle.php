@@ -42,6 +42,12 @@
 			while(true) {
 
 				$r .= '--- '.strval($this->rounds).'-й раунд: ---#';
+				
+				if (($user['class']['effect']->has(Magic::PLAYER_EFFECT_DESTRUCT))&&(rand(1, 3) == 1)) {
+					$user['enemy_armor']--;
+					$r .= 'Броня '.$user['enemy_name'].' разрушается.#';
+				}
+				
 				if ($c == 0) {
 					$r .= $this->player_battle_round();
 					$r .= $this->enemy_battle_round();

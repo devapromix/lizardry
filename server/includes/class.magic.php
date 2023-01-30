@@ -3,15 +3,17 @@
 	class Magic {
 
 		public const MANA_SCROLL_BLESS		= 5;
-		public const MANA_SCROLL_TP			= 8;
 		public const MANA_SCROLL_HEAL		= 7;
+		public const MANA_SCROLL_TP			= 8;
 		public const MANA_SCROLL_LEECH		= 9;
 		public const MANA_SCROLL_REFLECT	= 10;
+		public const MANA_SCROLL_DESTRUCT	= 5;
 
 		public const PLAYER_EFFECT_BLESS	= 1;
 		public const PLAYER_EFFECT_REGEN	= 2;
 		public const PLAYER_EFFECT_LEECH	= 3;
 		public const PLAYER_EFFECT_REFLECT	= 4;
+		public const PLAYER_EFFECT_DESTRUCT	= 5;
 
 		public function __construct() {
 			
@@ -63,6 +65,19 @@
 			global $user;
 			$mana = self::MANA_SCROLL_REFLECT;
 			$effect_ident = self::PLAYER_EFFECT_REFLECT;
+			if ($user['char_mana_cur'] >= $mana) {
+				$user['class']['item']->modify($item_ident, -1);
+				$user['char_mana_cur'] -= $mana;
+				$user['class']['effect']->add($effect_ident);
+				$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE).',"char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
+				return $result;
+			} else $this->need_mana($mana);
+		}
+
+		public function use_scroll_destruct($item_ident) {
+			global $user;
+			$mana = self::MANA_SCROLL_DESTRUCT;
+			$effect_ident = self::PLAYER_EFFECT_DESTRUCT;
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;

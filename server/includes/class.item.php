@@ -19,6 +19,7 @@
 		public const CAT_ING				= 30;
 		public const CAT_SCROLL_LEECH		= 40;
 		public const CAT_SCROLL_REFLECT		= 41;
+		public const CAT_SCROLL_DESTRUCT	= 42;
 		public const CAT_PICKLOCK			= 76;
 		
 		// Эликсиры
@@ -246,6 +247,9 @@
 				case self::CAT_SCROLL_REFLECT:
 					$result = $user['class']['magic']->use_scroll_reflect($item_ident);
 					break;
+				case self::CAT_SCROLL_DESTRUCT:
+					$result = $user['class']['magic']->use_scroll_destruct($item_ident);
+					break;
 				case self::CAT_FOOD:
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
 					$this->modify($item_ident, -1);
@@ -376,6 +380,7 @@
 				self::CAT_SCROLL_BLESS,
 				self::CAT_SCROLL_LEECH,
 				self::CAT_SCROLL_REFLECT,
+				self::CAT_SCROLL_DESTRUCT,
 				self::CAT_ELIXIR_EMPTY,
 				self::CAT_ING
 				], 1);
@@ -399,7 +404,8 @@
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS,
 				self::CAT_SCROLL_LEECH,
-				self::CAT_SCROLL_REFLECT
+				self::CAT_SCROLL_REFLECT,
+				self::CAT_SCROLL_DESTRUCT
 				], 1);
 		}
 
