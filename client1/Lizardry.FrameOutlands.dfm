@@ -541,7 +541,7 @@ object FrameOutlands: TFrameOutlands
   end
   object Image2: TImage
     Tag = 1
-    Left = 207
+    Left = 209
     Top = 3
     Width = 200
     Height = 200
@@ -569,76 +569,19 @@ object FrameOutlands: TFrameOutlands
     Stretch = True
     OnClick = Image2Click
   end
-  object Label1: TLabel
-    Left = 152
-    Top = 3
-    Width = 49
-    Height = 34
-    Cursor = crHandPoint
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Label1'
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clBtnFace
-    Font.Height = -19
-    Font.Name = 'Courier New'
-    Font.Style = [fsBold]
-    ParentFont = False
-    OnClick = Image1Click
-  end
-  object Label2: TLabel
-    Tag = 1
-    Left = 207
+  object Image5: TImage
+    Left = 209
     Top = 3
     Width = 40
-    Height = 34
-    Cursor = crHandPoint
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Label1'
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clBtnFace
-    Font.Height = -19
-    Font.Name = 'Courier New'
-    Font.Style = [fsBold]
-    ParentFont = False
-    OnClick = Label2Click
-  end
-  object Label3: TLabel
-    Tag = 2
-    Left = 413
-    Top = 3
-    Width = 40
-    Height = 34
-    Cursor = crHandPoint
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Label1'
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clBtnFace
-    Font.Height = -19
-    Font.Name = 'Courier New'
-    Font.Style = [fsBold]
-    ParentFont = False
-    OnClick = Label2Click
-  end
-  object Label4: TLabel
-    Tag = 3
-    Left = 619
-    Top = 3
-    Width = 40
-    Height = 34
-    Cursor = crHandPoint
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'Label1'
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clBtnFace
-    Font.Height = -19
-    Font.Name = 'Courier New'
-    Font.Style = [fsBold]
-    ParentFont = False
-    OnClick = Label2Click
+    Height = 22
+    AutoSize = True
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D49484452000000280000
+      0016080300000085502E8200000006504C54450000007F7F7F92D79F36000000
+      0174524E530040E6D866000000414944415478DA636400034606DCE03F42053E
+      6530A58C44A803AB6424461D48252351EA802A8957489C3AA0034715D25921F5
+      E39AF864467CC2253E2B301093B90091340C2127FF7F510000000049454E44AE
+      426082}
   end
   object Image6: TImage
     Tag = 1
@@ -661,6 +604,106 @@ object FrameOutlands: TFrameOutlands
       24B7E662EA8CE88ED6AB1991602AAEE67D5F892FCDD8B7C9E937F92BE4179C09
       93262CA048990000000049454E44AE426082}
     OnClick = Image2Click
+  end
+  object Label1: TLabel
+    Left = 152
+    Top = 3
+    Width = 49
+    Height = 34
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = Image1Click
+  end
+  object Label2: TLabel
+    Tag = 1
+    Left = 209
+    Top = 3
+    Width = 40
+    Height = 30
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    Transparent = True
+    OnClick = Label2Click
+  end
+  object Image9: TImage
+    Left = 413
+    Top = 3
+    Width = 40
+    Height = 22
+    AutoSize = True
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D49484452000000280000
+      0016080300000085502E8200000006504C54450000007F7F7F92D79F36000000
+      0174524E530040E6D866000000414944415478DA636400034606DCE03F42053E
+      6530A58C44A803AB6424461D48252351EA802A8957489C3AA0034715D25921F5
+      E39AF864467CC2253E2B301093B90091340C2127FF7F510000000049454E44AE
+      426082}
+  end
+  object Image10: TImage
+    Left = 619
+    Top = 3
+    Width = 40
+    Height = 22
+    AutoSize = True
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D49484452000000280000
+      0016080300000085502E8200000006504C54450000007F7F7F92D79F36000000
+      0174524E530040E6D866000000414944415478DA636400034606DCE03F42053E
+      6530A58C44A803AB6424461D48252351EA802A8957489C3AA0034715D25921F5
+      E39AF864467CC2253E2B301093B90091340C2127FF7F510000000049454E44AE
+      426082}
+  end
+  object Label3: TLabel
+    Tag = 2
+    Left = 413
+    Top = 3
+    Width = 40
+    Height = 30
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = Label2Click
+  end
+  object Label4: TLabel
+    Tag = 3
+    Left = 619
+    Top = 3
+    Width = 40
+    Height = 30
+    Cursor = crHandPoint
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Label1'
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clBtnFace
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = [fsBold]
+    ParentFont = False
+    OnClick = Label2Click
   end
   object Image7: TImage
     Tag = 2

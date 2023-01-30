@@ -30,6 +30,9 @@ type
     Image6: TImage;
     Image7: TImage;
     Image8: TImage;
+    Image5: TImage;
+    Image9: TImage;
+    Image10: TImage;
     procedure Image1Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
     procedure Label2Click(Sender: TObject);
