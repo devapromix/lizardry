@@ -4,11 +4,13 @@
 		
 		private $statistics;
 		private $rounds;
+		private $poisoned;
 		
 		public function __construct() {
 			
 			$this->$statistics = array();
 			$this->rounds = 0;
+			$this->poisoned = 0;
 			
 		}
 		
@@ -23,6 +25,7 @@
 			$r = '';
 			
 			$this->rounds = 1;
+			$this->poisoned = 0;
 			$this->statistics['char_damages'] = 0;
 			$this->statistics['enemy_damages'] = 0;
 			$this->statistics['char_dodges'] = 0;
@@ -126,6 +129,7 @@
 				$r .= 'Вы стали намного опытнее для текущего уровня и поэтому получаете меньше опыта и золота! Нужно посетить Квартал Гильдий и повысить уровень!#';
 			}
 			
+			$this->poisoned = 0;
 			$user['class']['effect']->clear();
 			$user['battlelog'] = $r;
 
@@ -137,6 +141,8 @@
 			$r = '';
 			
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
+				if ($this->poisoned > 0)
+					$r .= $this->effect_poison();
 				if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_REGEN))
 					$r .= $this->effect_regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
@@ -268,6 +274,10 @@
 									} else {
 										$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
 									}
+									if ((rand(1, 4) == 1) && ($user['enemy_can_poison'] > 0) && ($user['char_life_cur'] > 0) && ($this->poisoned == 0) && !$user['class']['effect']->has(Magic::PLAYER_EFFECT_IMMUN)) {
+										$r .= $this->poisoning();
+										return $r;
+									}
 								}
 							} else {
 								$r .= $user['enemy_name'].' пытается атаковать, но ваш расовый навык позволяет уклониться от атаки!#';
@@ -375,6 +385,22 @@
 				if ($user['char_life_cur'] > $user['char_life_max'])
 					$user['char_life_cur'] = $user['char_life_max'];
 				$r .= 'Вы украли '.$hp.' HP у '.$user['enemy_name'].'.#';
+			}
+			return $r;
+		}
+		
+		private function poisoning() {
+			$this->poisoned = 1;
+			return 'Вы отравлены!#';
+		}
+		
+		private function effect_poison() {
+			global $user;
+			$r = '';
+			$hp = rand($this->get_current_region_value(), $user['char_region_level']);
+			if (($user['char_life_cur'] - $hp) > 0) {
+				$user['char_life_cur'] -= $hp;
+				$r .= 'Яд забирает '.$hp.' HP.#';
 			}
 			return $r;
 		}
