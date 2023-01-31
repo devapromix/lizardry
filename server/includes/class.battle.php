@@ -392,17 +392,21 @@
 		}
 		
 		private function poisoning() {
-			$this->poisoned = 1;
+			$this->poisoned = rand($this->get_current_region_value(), $user['char_region_level']) + 2;
 			return 'Вы отравлены!#';
 		}
 		
 		private function effect_poison() {
 			global $user;
 			$r = '';
-			$hp = rand($this->get_current_region_value(), $user['char_region_level']);
-			if (($user['char_life_cur'] - $hp) > 0) {
-				$user['char_life_cur'] -= $hp;
-				$r .= 'Яд забирает '.$hp.' HP.#';
+			if (($user['char_life_cur'] - $this->poisoned) > 0) {
+				$user['char_life_cur'] -= $this->poisoned;
+				$r .= 'Яд забирает '.$this->poisoned.' HP.#';
+				$this->poisoned--;
+				if ($this->poisoned <= 0) {
+					$this->poisoned = 0;
+					$r .= 'Действие яда закончилось!#';
+				}
 			}
 			return $r;
 		}
@@ -410,7 +414,7 @@
 		private function enemy_effect_decay() {
 			global $user;
 			$r = '';
-			$hp = rand($this->get_current_region_value(), $user['char_region_level']) + 3;
+			$hp = rand($this->get_current_region_value(), $user['char_region_level']) + 2;
 			if (($user['enemy_life_cur'] - $hp) > 0) {
 				$user['enemy_life_cur'] -= $hp;
 				$r .= $user['enemy_name'].' теряет '.$hp.' HP.#';
