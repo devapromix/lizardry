@@ -221,6 +221,8 @@
 			$r = '';
 			
 			if (($user['enemy_life_cur'] > 0) && ($user['char_life_cur'] > 0)) {
+				if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_DECAY) && (rand(1, 4) == 1))
+					$r .= enemy_effect_decay();
 				if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
 					if (rand(1, 100) > $user['skill_dodge']) {
 						if (rand(1, 100) > $user['skill_parry']) {
@@ -401,6 +403,17 @@
 			if (($user['char_life_cur'] - $hp) > 0) {
 				$user['char_life_cur'] -= $hp;
 				$r .= 'Яд забирает '.$hp.' HP.#';
+			}
+			return $r;
+		}
+		
+		private function enemy_effect_decay() {
+			global $user;
+			$r = '';
+			$hp = rand($this->get_current_region_value(), $user['char_region_level']) + 3;
+			if (($user['enemy_life_cur'] - $hp) > 0) {
+				$user['enemy_life_cur'] -= $hp;
+				$r .= $user['enemy_name'].' теряет '.$hp.' HP.#';
 			}
 			return $r;
 		}

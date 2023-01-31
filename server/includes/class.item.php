@@ -14,7 +14,7 @@
 		public const CAT_FOOD				= 75;
 		public const CAT_TROPHY				= 21;
 		public const CAT_SCROLL_TP			= 25;
-		public const CAT_SCROLL_HEAL		= 26;
+		public const CAT_SCROLL_DECAY		= 26;
 		public const CAT_SCROLL_BLESS		= 27;
 		public const CAT_ELIXIR_EMPTY		= 28;
 		public const CAT_ING				= 30;
@@ -241,8 +241,8 @@
 				case self::CAT_SCROLL_TP:
 					$result = $user['class']['magic']->use_scroll_tp($item_ident);
 					break;
-				case self::CAT_SCROLL_HEAL:
-					$result = $user['class']['magic']->use_scroll_heal($item_ident);
+				case self::CAT_SCROLL_DECAY:
+					$result = $user['class']['magic']->use_scroll_decay($item_ident);
 					break;
 				case self::CAT_SCROLL_BLESS:
 					$result = $user['class']['magic']->use_scroll_bless($item_ident);
@@ -383,7 +383,7 @@
 				self::CAT_ELIXIR_TROLL,
 				self::CAT_ELIXIR_ANTIDOTE,
 				self::CAT_SCROLL_TP,
-				self::CAT_SCROLL_HEAL,
+				self::CAT_SCROLL_DECAY,
 				self::CAT_SCROLL_BLESS,
 				self::CAT_SCROLL_LEECH,
 				self::CAT_SCROLL_REFLECT,
@@ -409,7 +409,7 @@
 			$this->gen_random_loot([
 				self::CAT_ELIXIR_MP,
 				self::CAT_SCROLL_TP,
-				self::CAT_SCROLL_HEAL,
+				self::CAT_SCROLL_DECAY,
 				self::CAT_SCROLL_BLESS,
 				self::CAT_SCROLL_LEECH,
 				self::CAT_SCROLL_REFLECT,

@@ -3,7 +3,7 @@
 	class Magic {
 
 		public const MANA_SCROLL_BLESS		= 5;
-		public const MANA_SCROLL_HEAL		= 7;
+		public const MANA_SCROLL_DECAY		= 7;
 		public const MANA_SCROLL_TP			= 8;
 		public const MANA_SCROLL_LEECH		= 9;
 		public const MANA_SCROLL_REFLECT	= 10;
@@ -15,6 +15,7 @@
 		public const PLAYER_EFFECT_REFLECT	= 4;
 		public const PLAYER_EFFECT_DESTRUCT	= 5;
 		public const PLAYER_EFFECT_IMMUN	= 6;
+		public const PLAYER_EFFECT_DECAY	= 7;
 
 		public function __construct() {
 			
@@ -88,10 +89,10 @@
 			} else $this->need_mana($mana);
 		}
 
-		public function use_scroll_heal($item_ident) {
+		public function use_scroll_decay($item_ident) {
 			global $user;
-			$mana = self::MANA_SCROLL_HEAL;
-			$effect_ident = self::PLAYER_EFFECT_REGEN;
+			$mana = self::MANA_SCROLL_DECAY;
+			$effect_ident = self::PLAYER_EFFECT_DECAY;
 			if ($user['char_mana_cur'] >= $mana) {
 				$user['class']['item']->modify($item_ident, -1);
 				$user['char_mana_cur'] -= $mana;
