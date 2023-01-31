@@ -14,6 +14,7 @@
 		public const PLAYER_EFFECT_LEECH	= 3;
 		public const PLAYER_EFFECT_REFLECT	= 4;
 		public const PLAYER_EFFECT_DESTRUCT	= 5;
+		public const PLAYER_EFFECT_IMMUN	= 6;
 
 		public function __construct() {
 			

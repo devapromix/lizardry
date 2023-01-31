@@ -10,6 +10,7 @@
 		public const CAT_ELIXIR_ST			= 10;
 		public const CAT_ELIXIR_RF			= 11;
 		public const CAT_ELIXIR_TROLL		= 12;
+		public const CAT_ELIXIR_ANTIDOTE	= 13;
 		public const CAT_FOOD				= 75;
 		public const CAT_TROPHY				= 21;
 		public const CAT_SCROLL_TP			= 25;
@@ -232,6 +233,11 @@
 					$user['class']['effect']->add(Magic::PLAYER_EFFECT_REGEN);			
 					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
 					break;
+				case self::CAT_ELIXIR_ANTIDOTE:
+					$this->modify($item_ident, -1);
+					$user['class']['effect']->add(Magic::PLAYER_EFFECT_IMMUN);			
+					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
+					break;
 				case self::CAT_SCROLL_TP:
 					$result = $user['class']['magic']->use_scroll_tp($item_ident);
 					break;
@@ -375,6 +381,7 @@
 				self::CAT_ELIXIR_ST,
 				self::CAT_ELIXIR_RF,
 				self::CAT_ELIXIR_TROLL,
+				self::CAT_ELIXIR_ANTIDOTE,
 				self::CAT_SCROLL_TP,
 				self::CAT_SCROLL_HEAL,
 				self::CAT_SCROLL_BLESS,
@@ -393,6 +400,7 @@
 				self::CAT_ELIXIR_ST,
 				self::CAT_ELIXIR_RF,
 				self::CAT_ELIXIR_TROLL,
+				self::CAT_ELIXIR_ANTIDOTE,
 				self::CAT_ELIXIR_EMPTY
 				], 1);
 		}
