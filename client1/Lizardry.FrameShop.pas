@@ -14,7 +14,6 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls,
-  Data.DB,
   Vcl.Grids,
   Vcl.DBGrids;
 
@@ -106,6 +105,12 @@ var
   LItemMaxDamage: Integer;
   LItemDescription: string;
   LItemPrice: Integer;
+
+  function Get(const AName: string; ADef: Integer): Integer;
+  begin
+    Result := StrToIntDef(LJSONObject.Get(AName).JsonValue.Value, ADef);
+  end;
+
 begin
   Result := '';
   LItemIdent := 0;
@@ -122,25 +127,16 @@ begin
     for I := LJSONArray.Count - 1 downto 0 do
     begin
       LJSONObject := TJSONObject(LJSONArray.Get(I));
-      LItemName := TJSONPair(LJSONObject.Get('item_name')).JsonValue.Value;
+      LItemName := LJSONObject.Get('item_name').JsonValue.Value;
       if Trim(LItemName) = Trim(AItemName) then
       begin
-        LItemIdent := StrToIntDef(TJSONPair(LJSONObject.Get('item_ident'))
-          .JsonValue.Value, 0);
-        LItemLevel := StrToIntDef(TJSONPair(LJSONObject.Get('item_level'))
-          .JsonValue.Value, 1);
-        LItemArmor := StrToIntDef(TJSONPair(LJSONObject.Get('item_armor'))
-          .JsonValue.Value, 0);
-        LItemMinDamage :=
-          StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_min'))
-          .JsonValue.Value, 1);
-        LItemMaxDamage :=
-          StrToIntDef(TJSONPair(LJSONObject.Get('item_damage_max'))
-          .JsonValue.Value, 2);
-        LItemDescription := TJSONPair(LJSONObject.Get('item_description'))
-          .JsonValue.Value;
-        LItemPrice := StrToIntDef(TJSONPair(LJSONObject.Get('item_price'))
-          .JsonValue.Value, 0);
+        LItemIdent := Get('item_ident', 0);
+        LItemLevel := Get('item_level', 1);
+        LItemArmor := Get('item_armor', 0);
+        LItemMinDamage := Get('item_damage_min', 1);
+        LItemMaxDamage := Get('item_damage_max', 2);
+        LItemPrice := Get('item_price', 0);
+        LItemDescription := LJSONObject.Get('item_description').JsonValue.Value;
         Break;
       end;
     end;

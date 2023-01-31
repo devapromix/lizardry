@@ -22,7 +22,8 @@ uses
   IdTCPConnection,
   IdTCPClient,
   IdHTTP,
-  Lizardry.FrameUpdate, Vcl.ComCtrls;
+  Lizardry.FrameUpdate,
+  Vcl.ComCtrls;
 
 type
   TFormMain = class(TForm)
