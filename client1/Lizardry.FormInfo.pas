@@ -30,6 +30,8 @@ type
     ErrorMemo: TMemo;
     TabSheet5: TTabSheet;
     InvMemo: TMemo;
+    TabSheet6: TTabSheet;
+    EffMemo: TMemo;
   private
     { Private declarations }
   public
@@ -63,6 +65,12 @@ procedure InvJSON(const S: string);
 begin
   FormInfo.InvMemo.Clear;
   FormInfo.InvMemo.Lines.Append(S);
+end;
+
+procedure EffJSON(const S: string);
+begin
+  FormInfo.EffMemo.Clear;
+  FormInfo.EffMemo.Lines.Append(S);
 end;
 
 end.

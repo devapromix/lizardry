@@ -20,15 +20,11 @@ object FormInfo: TFormInfo
     Top = 0
     Width = 749
     Height = 458
-    ActivePage = TabSheet2
+    ActivePage = TabSheet6
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = #1055#1086#1089#1083'. JSON'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object LocMemo: TRichEdit
         Left = 0
         Top = 0
@@ -71,10 +67,6 @@ object FormInfo: TFormInfo
     object TabSheet3: TTabSheet
       Caption = #1048#1079#1086#1073#1088#1072#1078#1077#1085#1080#1103
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ResMemo: TMemo
         Left = 0
         Top = 25
@@ -100,10 +92,6 @@ object FormInfo: TFormInfo
     object TabSheet4: TTabSheet
       Caption = #1054#1096#1080#1073#1082#1080
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object ErrorMemo: TMemo
         Left = 0
         Top = 0
@@ -118,11 +106,21 @@ object FormInfo: TFormInfo
     object TabSheet5: TTabSheet
       Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1100
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object InvMemo: TMemo
+        Left = 0
+        Top = 0
+        Width = 741
+        Height = 430
+        Align = alClient
+        ReadOnly = True
+        ScrollBars = ssVertical
+        TabOrder = 0
+      end
+    end
+    object TabSheet6: TTabSheet
+      Caption = #1069#1092#1092#1077#1082#1090#1099
+      ImageIndex = 5
+      object EffMemo: TMemo
         Left = 0
         Top = 0
         Width = 741

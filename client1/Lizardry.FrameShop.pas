@@ -14,8 +14,7 @@ uses
   Vcl.Dialogs,
   Vcl.ExtCtrls,
   Vcl.StdCtrls,
-  Vcl.Grids,
-  Vcl.DBGrids;
+  Vcl.Grids;
 
 type
   TShopType = (stWeapon, stArmor, stAlchemy, stMagic, stTavern);
