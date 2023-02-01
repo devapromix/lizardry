@@ -20,6 +20,18 @@
 			$strbox = new StringBox($user['char_effects']);
 			return $strbox->has($effect_ident);
 		}
+		
+		public static function get_effects() {
+			global $tb_effects, $connection;
+
+			$query = "SELECT * FROM ".$tb_effects;
+			$result = mysqli_query($connection, $query) 
+				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
+			$effects = $result->fetch_all(MYSQLI_ASSOC);
+
+			return json_encode($effects, JSON_UNESCAPED_UNICODE);
+		}
+
 	}
 
 ?>

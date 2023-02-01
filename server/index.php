@@ -41,6 +41,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($usersession == $user['user_session']) {
 		if ($action == 'items') $res = Item::get_items();
 		if ($action == 'enemies') $res = Enemy::get_enemies();
+		if ($action == 'effects') $res = Effect::get_effects();
 	
 		$user['class'] = array();
 		$user['class']['location'] = new Location();
