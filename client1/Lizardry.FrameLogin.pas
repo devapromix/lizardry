@@ -62,6 +62,7 @@ type
     { Public declarations }
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
+    procedure LoadFromDBEffects;
     procedure LoadFromDBEnemies(IsRewriteImage: Boolean = False);
   end;
 
@@ -134,6 +135,7 @@ begin
       { TODO: Выполнять в отдельном процессе }
       LoadFromDBItems;
       LoadFromDBEnemies;
+      LoadFromDBEffects;
     except
       ShowMsg('Ошибка загрузки DB!');
       Halt;
@@ -326,6 +328,14 @@ begin
     end;
   except
     ShowMsg('Невозможно подключиться к серверу!');
+  end;
+end;
+
+procedure TFrameLogin.LoadFromDBEffects;
+begin
+  try
+    FormInfo.EffMemo.Text := Trim(Server.Get('index.php?action=effects'));
+  except
   end;
 end;
 
