@@ -168,6 +168,28 @@ begin
   Result := Level * ((Level - 1) + 100);
 end;
 
+function GetEffectName(const AEffectIdent: Byte): string;
+var
+  LJSON: string;
+  LJSONArray: TJSONArray;
+  I, LEffectCategory: Integer;
+
+begin
+  LJSON := FormInfo.EffMemo.Text;
+  Result := '';
+  LJSONArray := TJSONObject.ParseJSONValue(LJSON) as TJSONArray;
+  for I := 0 to LJSONArray.Count - 1 do
+  begin
+    LEffectCategory :=
+      StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+      .Get('effect_category')).JsonValue.Value, 0);
+    Result := Trim(TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('effect_name'))
+      .JsonValue.Value);
+    if LEffectCategory = AEffectIdent then
+      Exit;
+  end;
+end;
+
 procedure TFrameTown.DoAction(S: string);
 begin
   ParseJSON(Server.Get(S));
@@ -217,14 +239,14 @@ begin
   Memo1.Clear;
   K := '';
   C := 1;
-  for I := 1 to High(EffectStr) do
+  for I := 1 to 99 do
   begin
     D := '';
     if C > 1 then
       D := ', ';
     if S.Contains('"id":"' + IntToStr(I) + '"') then
     begin
-      K := K + D + EffectStr[I];
+      K := K + D + GetEffectName(I);
       Inc(C);
     end;
   end;
