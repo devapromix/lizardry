@@ -2,16 +2,6 @@
 
 	class Magic {
 
-		public const PLAYER_EFFECT_BLESS	= 1;
-		public const PLAYER_EFFECT_REGEN	= 2;
-		public const PLAYER_EFFECT_LEECH	= 3;
-		public const PLAYER_EFFECT_REFLECT	= 4;
-		public const PLAYER_EFFECT_DESTRUCT	= 5;
-		public const PLAYER_EFFECT_IMMUN	= 6;
-		public const PLAYER_EFFECT_DECAY	= 7;
-		
-		public const PLAYER_EFFECT_PORTAL	= 999;
-
 		public function __construct() {
 			
 		}
@@ -27,7 +17,7 @@
 				$user['char_mana_cur'] -= $need_mana;
 				User::update("char_mana_cur=".$user['char_mana_cur']);
 				switch ($effect_ident) {
-					case self::PLAYER_EFFECT_PORTAL:
+					case Effects::PORTAL:
 						$result = ',"action":"Перед вами открывается магический портал!|Войти!|index.php?action=magictower","char_mana_cur":"'.$user['char_mana_cur'].'","char_mana_max":"'.$user['char_mana_max'].'"';
 						break;
 					default:

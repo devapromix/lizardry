@@ -230,31 +230,31 @@
 					break;
 				case self::CAT_ELIXIR_TROLL:
 					$this->modify($item_ident, -1);
-					$user['class']['effect']->add(Magic::PLAYER_EFFECT_REGEN);			
+					$user['class']['effect']->add(Effects::REGEN);			
 					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
 					break;
 				case self::CAT_ELIXIR_ANTIDOTE:
 					$this->modify($item_ident, -1);
-					$user['class']['effect']->add(Magic::PLAYER_EFFECT_IMMUN);			
+					$user['class']['effect']->add(Effects::IMMUN);			
 					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
 					break;
 				case self::CAT_SCROLL_TP:
-					$result = $user['class']['magic']->use_scroll($item_ident, 8, Magic::PLAYER_EFFECT_PORTAL);
+					$result = $user['class']['magic']->use_scroll($item_ident, 8, Effects::PORTAL);
 					break;
 				case self::CAT_SCROLL_DECAY:
-					$result = $user['class']['magic']->use_scroll($item_ident, 7, Magic::PLAYER_EFFECT_DECAY);
+					$result = $user['class']['magic']->use_scroll($item_ident, 7, Effects::DECAY);
 					break;
 				case self::CAT_SCROLL_BLESS:
-					$result = $user['class']['magic']->use_scroll($item_ident, 5, Magic::PLAYER_EFFECT_BLESS);
+					$result = $user['class']['magic']->use_scroll($item_ident, 5, Effects::BLESS);
 					break;
 				case self::CAT_SCROLL_LEECH:
-					$result = $user['class']['magic']->use_scroll($item_ident, 9, Magic::PLAYER_EFFECT_LEECH);
+					$result = $user['class']['magic']->use_scroll($item_ident, 9, Effects::LEECH);
 					break;
 				case self::CAT_SCROLL_REFLECT:
-					$result = $user['class']['magic']->use_scroll($item_ident, 10, Magic::PLAYER_EFFECT_REFLECT);
+					$result = $user['class']['magic']->use_scroll($item_ident, 10, Effects::REFLECT);
 					break;
 				case self::CAT_SCROLL_DESTRUCT:
-					$result = $user['class']['magic']->use_scroll($item_ident, 5, Magic::PLAYER_EFFECT_DESTRUCT);
+					$result = $user['class']['magic']->use_scroll($item_ident, 5, Effects::DESTRUCT);
 					break;
 				case self::CAT_FOOD:
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');

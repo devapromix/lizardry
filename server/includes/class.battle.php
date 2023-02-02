@@ -46,7 +46,7 @@
 
 				$r .= '--- '.strval($this->rounds).'-й раунд: ---#';
 				
-				if (($user['class']['effect']->has(Magic::PLAYER_EFFECT_DESTRUCT))&&(rand(1, 3) == 1)) {
+				if (($user['class']['effect']->has(Effects::DESTRUCT))&&(rand(1, 3) == 1)) {
 					$user['enemy_armor']--;
 					$r .= 'Броня '.$user['enemy_name'].' разрушается.#';
 				}
@@ -143,10 +143,10 @@
 			if (($user['char_life_cur'] > 0) && ($user['enemy_life_cur'] > 0)) {
 				if ($this->poisoned > 0)
 					$r .= $this->effect_poison();
-				if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_REGEN))
+				if ($user['class']['effect']->has(Effects::REGEN))
 					$r .= $this->effect_regen();
 				if (rand(1, $user['enemy_armor']) <= rand(1, $user['char_armor'])) {
-					if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_BLESS))
+					if ($user['class']['effect']->has(Effects::BLESS))
 						$d = $user['char_damage_max'];
 					else
 						$d = rand($user['char_damage_min'], $user['char_damage_max']);
@@ -155,7 +155,7 @@
 					if ($d <= 0) {
 						$r .= 'Вы не можете пробить защиту '.$user['enemy_name'].'.#';
 					} else {
-						if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_LEECH))
+						if ($user['class']['effect']->has(Effects::LEECH))
 							if ((rand(1, 2) == 1) && ($user['char_life_cur'] < $user['char_life_max']) && ($user['enemy_life_cur'] > 0))
 								$r .= $this->effect_leech();
 						if (rand(1, 100) <= $user['skill_bewil']) {
@@ -221,7 +221,7 @@
 			$r = '';
 			
 			if (($user['enemy_life_cur'] > 0) && ($user['char_life_cur'] > 0)) {
-				if ($user['class']['effect']->has(Magic::PLAYER_EFFECT_DECAY) && (rand(1, 4) == 1))
+				if ($user['class']['effect']->has(Effects::DECAY) && (rand(1, 4) == 1))
 					$r .= $this->enemy_effect_decay();
 				if (rand(1, $user['char_armor'] + 1) <= rand(1, $user['enemy_armor'])) {
 					if (rand(1, 100) > $user['skill_dodge']) {
@@ -248,7 +248,7 @@
 										}
 										return $r;
 									}
-									if (($user['class']['effect']->has(Magic::PLAYER_EFFECT_REFLECT))&&(rand(1, 4) == 1)) {
+									if (($user['class']['effect']->has(Effects::REFLECT))&&(rand(1, 4) == 1)) {
 										$reflect_damage = round($d / rand(2, 5));
 										if ($$reflect_damage < 1) $reflect_damage = 1;
 										$d -= $reflect_damage;
@@ -276,7 +276,7 @@
 									} else {
 										$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
 									}
-									if ((rand(1, 4) == 1) && ($user['enemy_can_poison'] > 0) && ($user['char_life_cur'] > 0) && ($this->poisoned == 0) && !$user['class']['effect']->has(Magic::PLAYER_EFFECT_IMMUN)) {
+									if ((rand(1, 4) == 1) && ($user['enemy_can_poison'] > 0) && ($user['char_life_cur'] > 0) && ($this->poisoned == 0) && !$user['class']['effect']->has(Effects::IMMUN)) {
 										$r .= $this->poisoning();
 										return $r;
 									}

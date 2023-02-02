@@ -2,6 +2,16 @@
 
 	class Effects {
 		
+		public const BLESS		= 1;
+		public const REGEN		= 2;
+		public const LEECH		= 3;
+		public const REFLECT	= 4;
+		public const DESTRUCT	= 5;
+		public const IMMUN		= 6;
+		public const DECAY		= 7;
+		
+		public const PORTAL		= 999;
+		
 		public function clear() {
 			global $user;
 			$user['char_effects'] = '[]';
