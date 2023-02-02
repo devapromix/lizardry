@@ -38,6 +38,7 @@ type
     procedure FormResize(Sender: TObject);
   private
     { Private declarations }
+    function GameName: string;
   public
     { Public declarations }
     procedure UpdateCaption;
@@ -65,10 +66,8 @@ var
 begin
   for LParam := 1 to ParamCount do
     if ParamStr(LParam) = '-debug' then
-    begin
       IsDebugMode := True;
-      FrameLogin.bbDebug.Visible := True;
-    end;
+  FrameLogin.bbDebug.Visible := IsDebugMode;
   FrameLogin.BringToFront;
   StatusBar.Visible := IsDebugMode;
 end;
@@ -110,13 +109,19 @@ begin
   FrameUpdate.bbOpenSiteClick(Sender);
 end;
 
+function TFormMain.GameName: string;
+begin
+  Result := 'LIZARDRY';
+  if IsDebugMode then
+    Result := 'LIZARDRY [DEBUG]';
+end;
+
 procedure TFormMain.UpdateCaption;
 begin
   if ServerName = '' then
-    Self.Caption := 'Lizardry'
+    Self.Caption := GameName
   else
-    Self.Caption := Format(Trim('%s [%s]'),
-      ['Lizardry', UpperCase(ServerName)]);
+    Self.Caption := Format(Trim('%s [%s]'), [GameName, UpperCase(ServerName)]);
 end;
 
 end.
