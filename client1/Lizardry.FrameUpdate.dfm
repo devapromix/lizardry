@@ -2,15 +2,16 @@ object FrameUpdate: TFrameUpdate
   Left = 0
   Top = 0
   Width = 658
-  Height = 436
+  Height = 564
   TabOrder = 0
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 250
-    Height = 436
+    Height = 564
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 436
     object SpeedButton5: TSpeedButton
       Tag = 4
       Left = 215
@@ -231,7 +232,7 @@ object FrameUpdate: TFrameUpdate
     end
     object bbBack: TBitBtn
       Left = 24
-      Top = 296
+      Top = 392
       Width = 93
       Height = 33
       Cursor = crHandPoint
@@ -277,15 +278,32 @@ object FrameUpdate: TFrameUpdate
       TabOrder = 2
       OnClick = bbUpdImagesClick
     end
+    object bbIssues: TBitBtn
+      Left = 24
+      Top = 296
+      Width = 220
+      Height = 33
+      Cursor = crHandPoint
+      Caption = #1057#1086#1086#1073#1097'. '#1086#1073' '#1086#1096#1080#1073#1082#1077
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      OnClick = bbIssuesClick
+    end
   end
   object Panel2: TPanel
     Left = 250
     Top = 0
     Width = 408
-    Height = 436
+    Height = 564
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitHeight = 436
     object ttInfo: TLabel
       Left = 0
       Top = 225

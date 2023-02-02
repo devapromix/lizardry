@@ -30,11 +30,13 @@ type
     bbUpdImages: TBitBtn;
     ttUpdate: TLabel;
     SpeedButton1: TSpeedButton;
+    bbIssues: TBitBtn;
     procedure bbBackClick(Sender: TObject);
     procedure bbOpenSiteClick(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure bbUpdImagesClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure bbIssuesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,6 +56,12 @@ procedure TFrameUpdate.bbBackClick(Sender: TObject);
 begin
   FormMain.FrameLogin.LoadLastEvents;
   FormMain.FrameLogin.BringToFront;
+end;
+
+procedure TFrameUpdate.bbIssuesClick(Sender: TObject);
+begin
+  ShellExecute(handle, 'open', 'https://github.com/devapromix/lizardry/issues',
+    nil, nil, SW_SHOW);
 end;
 
 procedure TFrameUpdate.bbOpenSiteClick(Sender: TObject);
