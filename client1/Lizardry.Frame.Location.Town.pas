@@ -636,6 +636,8 @@ begin
               begin
                 LFlag := (S <> '0');
               end;
+              FormMain.FrameTown.FrameOutlands1.Image5.Visible := (S <> '0')
+                and LFlag;
               FormMain.FrameTown.FrameOutlands1.Image6.Visible := (S <> '0')
                 and LFlag;
             end;
@@ -658,6 +660,8 @@ begin
               end;
               FormMain.FrameTown.FrameOutlands1.Image7.Visible := (S <> '0')
                 and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image9.Visible := (S <> '0')
+                and LFlag;
             end;
           end;
         if LJSON.TryGetValue('enemy_slot_3_image', S) then
@@ -677,6 +681,8 @@ begin
                 LFlag := (S <> '0');
               end;
               FormMain.FrameTown.FrameOutlands1.Image8.Visible := (S <> '0')
+                and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image10.Visible := (S <> '0')
                 and LFlag;
             end;
           end;
