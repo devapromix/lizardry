@@ -65,7 +65,10 @@ var
 begin
   for LParam := 1 to ParamCount do
     if ParamStr(LParam) = '-debug' then
+    begin
       IsDebugMode := True;
+      FrameLogin.bbDebug.Visible := True;
+    end;
   FrameLogin.BringToFront;
   StatusBar.Visible := IsDebugMode;
 end;
