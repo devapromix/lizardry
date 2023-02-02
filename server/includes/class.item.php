@@ -239,22 +239,22 @@
 					$result = ',"char_effects":'.json_encode($user['char_effects'], JSON_UNESCAPED_UNICODE);
 					break;
 				case self::CAT_SCROLL_TP:
-					$result = $user['class']['magic']->use_scroll_tp($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 8, Magic::PLAYER_EFFECT_PORTAL);
 					break;
 				case self::CAT_SCROLL_DECAY:
-					$result = $user['class']['magic']->use_scroll_decay($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 7, Magic::PLAYER_EFFECT_DECAY);
 					break;
 				case self::CAT_SCROLL_BLESS:
-					$result = $user['class']['magic']->use_scroll_bless($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 5, Magic::PLAYER_EFFECT_BLESS);
 					break;
 				case self::CAT_SCROLL_LEECH:
-					$result = $user['class']['magic']->use_scroll_leech($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 9, Magic::PLAYER_EFFECT_LEECH);
 					break;
 				case self::CAT_SCROLL_REFLECT:
-					$result = $user['class']['magic']->use_scroll_reflect($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 10, Magic::PLAYER_EFFECT_REFLECT);
 					break;
 				case self::CAT_SCROLL_DESTRUCT:
-					$result = $user['class']['magic']->use_scroll_destruct($item_ident);
+					$result = $user['class']['magic']->use_scroll($item_ident, 5, Magic::PLAYER_EFFECT_DESTRUCT);
 					break;
 				case self::CAT_FOOD:
 					if ($user['char_food'] >= 7) die('{"info":"У вас полный запас провизии!"}');
