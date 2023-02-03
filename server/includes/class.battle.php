@@ -77,7 +77,8 @@
 					$user['char_gold'] -= round($user['char_gold'] / 7);
 					$r .= $this->str_line();
 					$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
-					Event::add(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
+					if ($user['char_level'] > 1)
+						Event::add(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
 					break;
 				}
 
