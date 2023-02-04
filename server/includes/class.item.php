@@ -475,7 +475,7 @@
 					$user['char_gold'] -= $item['item_price'];
 					$user['char_armor'] = $item['item_armor'];
 					User::update("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",char_gold=".$user['char_gold']);
-					Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					Event::add(Event::ITEM, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					break;
 				case self::CAT_WEAPON:
 					$this->add($user['char_equip_weapon_ident']);
@@ -485,7 +485,7 @@
 					$user['char_damage_min'] = $item['item_damage_min'];
 					$user['char_damage_max'] = $item['item_damage_max'];
 					User::update("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",char_gold=".$user['char_gold']);
-					Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+					Event::add(Event::ITEM, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					break;
 				default:
 					$user['char_gold'] -= $item['item_price'] * $item_amount;
@@ -515,7 +515,7 @@
 						$user['char_armor'] = $item['item_armor'];
 						User::update("char_equip_armor_name='".$user['char_equip_armor_name']."',char_equip_armor_ident=".$user['char_equip_armor_ident'].",char_armor=".$user['char_armor'].",loot_slot_1=0,loot_slot_1=''");
 						$r .= ' и надеваете новый '.$user['char_equip_armor_name'].'.';
-						Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+						Event::add(Event::ITEM, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					} else {
 						$r = 'Вы забираете '.$item['item_name'].' себе.';
 						$this->add($item['item_ident']);
@@ -531,7 +531,7 @@
 						$user['char_damage_max'] = $item['item_damage_max'];
 						User::update("char_equip_weapon_name='".$user['char_equip_weapon_name']."',char_equip_weapon_ident=".$user['char_equip_weapon_ident'].",char_damage_min=".$user['char_damage_min'].",char_damage_max=".$user['char_damage_max'].",loot_slot_1=0,loot_slot_1=''");
 						$r .= ' и берете в руки новый '.$user['char_equip_weapon_name'].'.';
-						Event::add(2, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
+						Event::add(Event::ITEM, $user['char_name'], 1, $user['char_gender'], $item['item_name']);
 					} else {
 						$r = 'Вы забираете '.$item['item_name'].' себе.';
 						$this->add($item['item_ident']);

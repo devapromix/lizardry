@@ -2,7 +2,13 @@
 
 	class Event {
 
-		public const MAX = 15;
+		public const BORN 	= 0;
+		public const LEVEL 	= 1;
+		public const ITEM 	= 2;
+		public const DEAD 	= 3;
+		public const KILL 	= 4;
+
+		public const MAX 	= 15;
 
 		public function __construct() {
 			

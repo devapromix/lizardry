@@ -78,7 +78,7 @@
 					$r .= $this->str_line();
 					$r .= 'Вы потеряли пятую часть опыта и седьмую часть золота.#';
 					if ($user['char_level'] > 1)
-						Event::add(3, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
+						Event::add(Event::DEAD, $user['char_name'], 1, $user['char_gender'], '', $user['char_region_location_name']);
 					break;
 				}
 
@@ -110,7 +110,7 @@
 						$r .= 'Ваше внимание привлекает загадочная локация, которую вы только что обнаружили...#';
 					}
 					if ($user['enemy_champion'] == 1)
-						Event::add(4, $user['char_name'], 1, $user['char_gender'], $user['enemy_name'], $user['char_region_location_name']);
+						Event::add(Event::KILL, $user['char_name'], 1, $user['char_gender'], $user['enemy_name'], $user['char_region_location_name']);
 					break;
 				}
 				$this->rounds++;

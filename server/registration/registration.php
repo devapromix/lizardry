@@ -33,7 +33,7 @@ if ($action == 'resources') {
 		} else{
 			$query = "INSERT INTO ".$tb_user." (user_name, user_pass, char_name, char_gender, char_race, char_region) VALUES ('".$username."', '".$userpass."', '".$charname."', ".$chargender.", ".$charrace.", ".Location::get_race_start_location($charrace).")";
 			if (mysqli_query($connection, $query)) {
-				Event::add(0, $charname, 1, $chargender);
+				Event::add(Event::BORN, $charname, 1, $chargender);
 				$res = '{"registration":"ok"}';
 			} else {
 				die('{"error":"Ошибка сохранения данных: '.mysqli_error($connection).'"}');
