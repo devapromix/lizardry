@@ -406,12 +406,13 @@ object FrameTown: TFrameTown
       Left = 1
       Top = 341
       Width = 278
-      Height = 120
-      Align = alTop
+      Height = 166
+      Align = alClient
       Lines.Strings = (
         'Memo1')
       ReadOnly = True
       TabOrder = 16
+      ExplicitHeight = 120
     end
   end
   object LeftPanel: TPanel
