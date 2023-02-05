@@ -412,7 +412,6 @@ object FrameTown: TFrameTown
         'Memo1')
       ReadOnly = True
       TabOrder = 16
-      ExplicitHeight = 120
     end
   end
   object LeftPanel: TPanel

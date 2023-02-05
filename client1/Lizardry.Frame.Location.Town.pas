@@ -139,8 +139,8 @@ implementation
 
 uses
   Math,
-  IOUtils,
   JSON,
+  IOUtils,
   Lizardry.FormMain,
   Lizardry.Server,
   Lizardry.FormInfo,
@@ -149,7 +149,7 @@ uses
   Lizardry.Effects;
 
 var
-  LastCode: string = '';
+  LLastCode: string = '';
   LRaceIndex: Integer = 0;
   LGenderIndex: Integer = 0;
 
@@ -903,7 +903,7 @@ begin
       then
         FormMain.FrameTown.FrameBattle1.Image2.Picture.LoadFromFile
           (FormInfo.ImagesPath.Caption + S + '.jpg');
-    LastCode := Code;
+    LLastCode := Code;
     FormMain.Refresh;
   finally
     LJSON.Free;
