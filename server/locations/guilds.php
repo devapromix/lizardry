@@ -59,7 +59,7 @@ if ($action == 'guild_main') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Сначала нужно вернуться к жизни!"}');
 		$user['description'] = 'Вы входите в маленькую комнатушку. Мастер дает прочитать вам магический свиток. Через мгновение вы понимаете, что забыли все свои навыки и все надо начинать с самого начала.';
 		$user['char_lp'] = $user['char_level'];
-		User::update("char_lp=".$user['char_lp'].",skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0");
+		User::update("char_lp=".$user['char_lp'].",char_mana_cur=10,char_mana_max=10,skill_dodge=0,skill_parry=0,skill_bewil=0,skill_run=0,skill_gold=0,skill_mana=0");
 		$user['log'] = 'Вы забыли все!';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_main');
@@ -425,13 +425,44 @@ if ($action == 'guild_alch') {
 if ($action == 'guild_mage') {
 
 	$user['title'] = 'Гильдия Магов';
-	$t = 'Вы поднимаетесь на второй этаж и попадаете в довольно большое помещение. Вокруг много книжных шкафов с книгами и свитками. Мастер Гильдии радо встречает вас:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Магов. У нас ты можешь получить новые знания в различных школах магии.#Также я щедро плачу золотом за редкие магические предметы...##';
+	$t = 'Вы поднимаетесь на второй этаж и попадаете в довольно большое помещение. Вокруг много книжных шкафов с книгами и свитками. Мастер Гильдии радо встречает вас:#-Здраствуй, '.$user['char_name'].'! Добро пожаловать в Гильдию Магов. У нас ты можешь получить новые знания в различных школах магии. Также я щедро плачу золотом за редкие магические предметы. У вас сейчас '.$user['char_lp'].' свободных оч.##';
 	$t .= $user['class']['item']->inv_item_list(Item::CAT_SCROLL_LEECH);
+	$t .= 'Ваши навыки Гильдии Магов:#============#';
+	if ($user['skill_mana'] > 0)
+		$t .= 'Запас Маны: '.$user['skill_mana'].'/10#';
 	$user['description'] = $t;
 	$user['links'] = array();
 	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
-	Location::addlink('Продать Свитки', 'index.php?action=guild_mage&do=scroll_trade', 1);
+	Location::addlink('Информация по навыкам', 'index.php?action=guild_mage&do=info', 1);
+	Location::addlink('Тренировать "Запас Маны"', 'index.php?action=guild_mage&do=train_mana', 2);
+	Location::addlink('Продать Свитки', 'index.php?action=guild_mage&do=scroll_trade', 3);
 
+	if ($do == 'info') {
+		$user['description'] = 'Вы просите мага рассказать вам больше о навыках волшебника. Мастер с радостью соглашается:#- Какой навык интересует? Выбирай.';
+		$user['links'] = array();
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_mage');
+		Location::addlink('Навык "Запас Маны"', 'index.php?action=guild_mage&do=train_mana_info', 1);
+	}
+	
+	if ($do == 'train_mana') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		if ($user['char_lp'] == 0) die('{"error":"Для тренировки нужны очки развития навыков!"}');
+		if ($user['skill_mana'] >= 10) die('{"error":"Вы достигли максимума в развитии навыка!"}');
+		$user['char_lp']--;
+		$user['skill_mana']++;
+		$user['char_mana_max'] += 10;
+		$user['description'] = 'Вы тренируетесь и чувствуете, что ваш запас маны увеличивается. В умение "Запас Маны" вложено '.$user['skill_mana'].' оч.';
+		User::update("char_lp=".$user['char_lp'].",skill_mana=".$user['skill_mana'].",char_mana_max=".$user['char_mana_max']);
+		$user['log'] = 'Вы потренировались и стали лучше!';
+		$user['links'] = array();
+		Location::addlink('Назад', 'index.php?action=guild_mage');
+	}
+	if ($do == 'train_mana_info') {
+		$user['description'] = 'Развитие навыка увеличивает ваш запас маны. За одно вложенное очко добавляется +10 маны.';
+		$user['links'] = array();
+		Location::addlink('Мне уже все понятно!', 'index.php?action=guild_mage&do=info');
+	}
+	
 	if ($do == 'scroll_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$gold = 0;
