@@ -1,9 +1,9 @@
-object FormPrompt: TFormPrompt
+object FormLocPrompt: TFormLocPrompt
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Lizardry'
+  Caption = 'FormLocPrompt'
   ClientHeight = 202
   ClientWidth = 664
   Color = clBtnFace
@@ -20,6 +20,7 @@ object FormPrompt: TFormPrompt
     Top = 144
     Width = 161
     Height = 33
+    Caption = #1055#1086#1082#1080#1085#1091#1090#1100'!'
     OnClick = bbOKClick
   end
   object bbCancel: TSpeedButton
@@ -36,7 +37,9 @@ object FormPrompt: TFormPrompt
     Width = 664
     Height = 121
     Align = alTop
-    Caption = 'lbMessage'
+    Caption = #1045#1097#1077' '#1085#1077'  '#1074#1077#1089#1100' '#1083#1091#1090' '#1089#1086#1073#1088#1072#1085'! '#1055#1086#1082#1080#1085#1091#1090#1100' '#1083#1086#1082#1072#1094#1080#1102'?'
     TabOrder = 0
+    ExplicitLeft = -73
+    ExplicitWidth = 666
   end
 end

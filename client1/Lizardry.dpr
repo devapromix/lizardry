@@ -29,7 +29,8 @@ uses
   Lizardry.FrameRandomPlace in 'Lizardry.FrameRandomPlace.pas' {FrameRandomPlace: TFrame},
   Lizardry.FormAmountPrompt in 'Lizardry.FormAmountPrompt.pas' {FormAmountPrompt},
   Lizardry.FrameGetAllLoot in 'Lizardry.FrameGetAllLoot.pas' {FrameGetAllLoot: TFrame},
-  Lizardry.Effects in 'Lizardry.Effects.pas';
+  Lizardry.Effects in 'Lizardry.Effects.pas',
+  Lizardry.FormLocPrompt in 'Lizardry.FormLocPrompt.pas' {FormLocPrompt};
 
 {$R *.res}
 
@@ -41,5 +42,6 @@ begin
   Application.CreateForm(TFormPrompt, FormPrompt);
   Application.CreateForm(TFormMsg, FormMsg);
   Application.CreateForm(TFormAmountPrompt, FormAmountPrompt);
+  Application.CreateForm(TFormLocPrompt, FormLocPrompt);
   Application.Run;
 end.

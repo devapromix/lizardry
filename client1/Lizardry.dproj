@@ -218,6 +218,10 @@
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="Lizardry.Effects.pas"/>
+        <DCCReference Include="Lizardry.FormLocPrompt.pas">
+            <Form>FormLocPrompt</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

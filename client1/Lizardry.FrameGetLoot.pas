@@ -39,17 +39,19 @@ uses
   Lizardry.FormMain,
   Lizardry.FormPrompt,
   Lizardry.Server,
-  Lizardry.Frame.Location.Town;
+  Lizardry.Frame.Location.Town,
+  Lizardry.FormLocPrompt;
 
 { TFrameAfterBattle }
 
 procedure TFrameGetLoot.Image1Click(Sender: TObject);
 begin
+
   with FormMain.FrameTown do
   begin
     if IsCharMode then
       bbCharNameClick(Sender);
-    ParseJSON(Server.Get('index.php?action=' + CurrentOutlands));
+    LocPrompt();
   end;
 end;
 
