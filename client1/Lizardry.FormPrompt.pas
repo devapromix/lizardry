@@ -14,13 +14,15 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
   TFormPrompt = class(TForm)
     bbOK: TSpeedButton;
     bbCancel: TSpeedButton;
     lbMessage: TPanel;
+    Panel1: TPanel;
+    Image1: TImage;
     procedure bbCancelClick(Sender: TObject);
     procedure bbOKClick(Sender: TObject);
   private

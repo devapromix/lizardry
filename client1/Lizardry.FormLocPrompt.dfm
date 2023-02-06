@@ -3,7 +3,7 @@ object FormLocPrompt: TFormLocPrompt
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = #1055#1088#1077#1076#1091#1087#1088#1077#1078#1076#1077#1085#1080#1077
+  Caption = 'Lizardry'
   ClientHeight = 372
   ClientWidth = 694
   Color = clBtnFace
@@ -35,12 +35,11 @@ object FormLocPrompt: TFormLocPrompt
     Left = 0
     Top = 201
     Width = 694
-    Height = 64
+    Height = 70
     Align = alTop
     BevelOuter = bvNone
     Caption = #1042#1099' '#1077#1097#1077' '#1085#1077' '#1074#1089#1077' '#1086#1089#1084#1086#1090#1088#1077#1083#1080'! '#1055#1086#1082#1080#1085#1091#1090#1100' '#1083#1086#1082#1072#1094#1080#1102'?'
     TabOrder = 0
-    ExplicitWidth = 664
   end
   object Panel1: TPanel
     Left = 0
@@ -50,7 +49,6 @@ object FormLocPrompt: TFormLocPrompt
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 664
     object Image1: TImage
       Left = 0
       Top = 0
