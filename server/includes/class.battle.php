@@ -36,6 +36,7 @@
 			$this->statistics['enemy_hits'] = 0;
 			$this->statistics['char_misses'] = 0;
 			$this->statistics['enemy_misses'] = 0;
+			$this->statistics['char_wound'] = 0;
 			
 			$c = rand(0, 2);
 			$r .= 'Вы вступаете в схватку с '.$user['enemy_name'].'.#';
@@ -126,6 +127,7 @@
 			$r .= "Попадания: ".$this->statistics['char_hits']." (".$user['char_name'].") / ".$this->statistics['enemy_hits']." (".$user['enemy_name'].")#";
 			$r .= "Промахи: ".$this->statistics['char_misses']." (".$user['char_name'].") / ".$this->statistics['enemy_misses']." (".$user['enemy_name'].")#";
 			$r .= "Уклонения: ".$this->statistics['char_dodges']." Парирования: ".$this->statistics['char_parries']."#";
+			$r .= "Кровопотери: ".$this->statistics['char_wound']."#";
 	
 			if ($this->ch_level_exp()) {
 				$r .= $this->str_line();
@@ -286,6 +288,7 @@
 										if ($this->wound > 0) {
 											$whp = rand(2, 4);
 											$user['char_life_cur'] -= $whp;
+											$this->statistics['char_wound'] += $whp;
 											if ($user['char_life_cur'] > 0) {
 												$r .= 'Вы истекаете кровью ('.strval($whp).' HP).#';
 											} else {
