@@ -56,6 +56,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		require_once('locations/town.php');
 		require_once('locations/tavern.php');
 		require_once('locations/bank.php');
+		require_once('locations/tradingpost.php');
 		require_once('locations/magictower.php');
 		require_once('locations/gate.php');
 		require_once('locations/travel.php');
