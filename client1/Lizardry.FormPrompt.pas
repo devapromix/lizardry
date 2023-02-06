@@ -14,7 +14,8 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage;
 
 type
   TFormPrompt = class(TForm)

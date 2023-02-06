@@ -13,7 +13,8 @@ uses
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
+  Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage;
 
 type
   TFormLocPrompt = class(TForm)
@@ -33,7 +34,7 @@ type
 var
   FormLocPrompt: TFormLocPrompt;
 
-procedure LocPrompt;
+procedure LocPrompt(const AMsg: string);
 
 implementation
 
@@ -44,10 +45,11 @@ uses
   Lizardry.Frame.Location.Town,
   Lizardry.FormMain;
 
-procedure LocPrompt;
+procedure LocPrompt(const AMsg: string);
 begin
   FormLocPrompt.Left := (FormMain.Width div 2) - (FormLocPrompt.Width div 2);
   FormLocPrompt.Top := (FormMain.Height div 2) - (FormLocPrompt.Height div 2);
+  FormLocPrompt.lbMessage.Caption := AMsg;
   FormLocPrompt.ShowModal;
 end;
 

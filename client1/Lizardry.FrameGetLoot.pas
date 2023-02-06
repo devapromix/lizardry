@@ -46,12 +46,11 @@ uses
 
 procedure TFrameGetLoot.Image1Click(Sender: TObject);
 begin
-
   with FormMain.FrameTown do
   begin
     if IsCharMode then
       bbCharNameClick(Sender);
-    LocPrompt();
+    LocPrompt('Вы еще не все осмотрели! Покинуть локацию?');
   end;
 end;
 
