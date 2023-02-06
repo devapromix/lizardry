@@ -14,7 +14,7 @@ uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
 type
   TFormAmountPrompt = class(TForm)
@@ -25,6 +25,8 @@ type
     AmountEdit: TEdit;
     sbMinus: TSpeedButton;
     sbPlus: TSpeedButton;
+    Panel1: TPanel;
+    Image1: TImage;
     procedure bbCancelClick(Sender: TObject);
     procedure bbOKClick(Sender: TObject);
     procedure sbMinusClick(Sender: TObject);
