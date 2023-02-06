@@ -5,12 +5,14 @@
 		private $statistics;
 		private $rounds;
 		private $poisoned;
+		private $wound;
 		
 		public function __construct() {
 			
 			$this->$statistics = array();
 			$this->rounds = 0;
 			$this->poisoned = 0;
+			$this->wound = 0;
 			
 		}
 		
@@ -272,8 +274,28 @@
 									}
 									$this->statistics['enemy_damages'] += $d;
 									$user['char_life_cur'] -= $d;
+									$wound_str = '';
+									if ((rand(1, 100) == 1) && ($this->wound == 0)) {
+										$this->wound = $user['char_region_level'] + 1;
+										$wound_str = 'У вас начинается кровотечение!..#';
+									}
 									if ($user['char_life_cur'] > 0) {
 										$r .= $user['enemy_name'].' ранит вас на '.$d.' HP.#';
+										if ($wound_str != '')
+											$r .= $wound_str;
+										if ($this->wound > 0) {
+											$whp = rand(2, 4);
+											$user['char_life_cur'] -= $whp;
+											if ($user['char_life_cur'] > 0) {
+												$r .= 'Вы истекаете кровью ('.strval($whp).' HP).#';
+											} else {
+												$user['char_life_cur'] = 0;
+												$wound_str = '';
+												$this->wound = 0;
+												$r .= 'Вы умираете от потери крови!#';
+											}
+											$this->wound--;
+										}
 									} else {
 										$r .= $user['enemy_name'].' наносит удар на '.$d.' HP и убивает вас.#';
 									}
