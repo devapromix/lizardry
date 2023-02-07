@@ -4,8 +4,8 @@ object FormMsg: TFormMsg
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Lizardry'
-  ClientHeight = 463
-  ClientWidth = 569
+  ClientHeight = 472
+  ClientWidth = 694
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
@@ -17,17 +17,19 @@ object FormMsg: TFormMsg
   TextHeight = 21
   object Panel1: TPanel
     Left = 0
-    Top = 213
-    Width = 569
+    Top = 176
+    Width = 694
     Height = 200
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 213
+    ExplicitWidth = 569
     object lblText: TLabel
       Left = 0
-      Top = 33
-      Width = 569
-      Height = 167
+      Top = 0
+      Width = 694
+      Height = 200
       Margins.Left = 30
       Margins.Right = 30
       Align = alClient
@@ -36,28 +38,20 @@ object FormMsg: TFormMsg
       WordWrap = True
       ExplicitTop = 6
       ExplicitWidth = 559
-    end
-    object Panel3: TPanel
-      Left = 0
-      Top = 0
-      Width = 569
-      Height = 33
-      Align = alTop
-      BevelOuter = bvNone
-      TabOrder = 0
+      ExplicitHeight = 167
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 413
-    Width = 569
-    Height = 50
+    Top = 376
+    Width = 694
+    Height = 96
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
     object Button1: TButton
-      Left = 231
-      Top = 9
+      Left = 290
+      Top = 25
       Width = 113
       Height = 35
       Cursor = crHandPoint
@@ -66,21 +60,24 @@ object FormMsg: TFormMsg
       Default = True
       ModalResult = 1
       TabOrder = 0
+      OnClick = Button1Click
     end
   end
   object Panel5: TPanel
     Left = 0
     Top = 0
-    Width = 569
-    Height = 213
+    Width = 694
+    Height = 176
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 569
+    ExplicitHeight = 213
     object Image1: TImage
       Left = 0
       Top = 0
-      Width = 569
-      Height = 213
+      Width = 694
+      Height = 176
       Align = alClient
       Center = True
       Picture.Data = {
@@ -6047,5 +6044,11 @@ object FormMsg: TFormMsg
       ExplicitWidth = 559
       ExplicitHeight = 200
     end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 8
+    Top = 229
   end
 end

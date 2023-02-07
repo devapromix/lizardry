@@ -27,7 +27,8 @@ uses
   Lizardry.FrameAfterBattle,
   Lizardry.FrameBeforeBattle,
   Lizardry.FrameGetLoot,
-  Lizardry.FrameRandomPlace, Lizardry.FrameGetAllLoot;
+  Lizardry.FrameRandomPlace,
+  Lizardry.FrameGetAllLoot;
 
 type
   TPanel = class(Vcl.ExtCtrls.TPanel)
@@ -366,14 +367,6 @@ begin
     Exit;
   LJSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
-    { if UpperCase(Section) = 'ITEM' then
-      begin
-      if LJSON.TryGetValue('item', S) then
-      begin
-      FormMain.FrameTown.FrameChar.ttInfo.Caption := S;
-      FormMain.FrameTown.FrameShop1.ttInfo.Caption := S;
-      end;
-      end; }
     if UpperCase(Section) = 'ERROR' then
     begin
       if LJSON.TryGetValue('error', S) then
@@ -525,6 +518,10 @@ begin
     begin
       FrameInfo1.BringToFront;
       FrameInfo1.StaticText2.Caption := S
+    end
+    else if LJSON.TryGetValue('user_message', S) then
+    begin
+      ShowMsg(S, 1000);
     end
     else
     begin

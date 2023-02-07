@@ -39,6 +39,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 	if ($action == 'version') $res = Server::VERSION;
 	if ($action == 'events') $res = Event::get_events();
 	if ($usersession == $user['user_session']) {
+		if ($action == 'clear') $res = User::clear_message();
 		if ($action == 'items') $res = Item::get_items();
 		if ($action == 'enemies') $res = Enemy::get_enemies();
 		if ($action == 'effects') $res = Effects::get_effects();

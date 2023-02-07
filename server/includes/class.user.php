@@ -29,6 +29,10 @@
 			}
 		}
 
+		public static function clear_message() {
+			User::update("user_message=''");
+		}
+
 		public static function check_char($char_name) {
 			global $user;
 			if (strtolower($user['char_name']) == strtolower($char_name)) {
