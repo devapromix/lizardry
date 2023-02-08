@@ -88,6 +88,11 @@
 				if ($user['enemy_life_cur'] <= 0) {
 					$user['enemy_life_cur'] = 0;
 					$user['stat_kills']++;
+					$q = $user['class']['achievement']->add(Achievements::FIRST_BLOOD);
+					if ($q != '') {
+						$r .= $this->str_line();
+						$r .= $q;
+					}
 					$r .= $this->str_line();
 					$user['class']['item']->gen_loot();
 					if ($user['enemy_boss'] > 0) {

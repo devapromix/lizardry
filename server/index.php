@@ -16,6 +16,7 @@ require_once(IPATH.'class.boss.php');
 require_once(IPATH.'class.user.php');
 require_once(IPATH.'class.stringbox.php');
 require_once(IPATH.'class.effects.php');
+require_once(IPATH.'class.achievements.php');
 
 $do = $_GET['do'];
 $action = $_GET['action'];
@@ -43,6 +44,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		if ($action == 'items') $res = Item::get_items();
 		if ($action == 'enemies') $res = Enemy::get_enemies();
 		if ($action == 'effects') $res = Effects::get_effects();
+		if ($action == 'achievements') $res = Achievements::get_achievements();
 	
 		$user['class'] = array();
 		$user['class']['location'] = new Location();
@@ -51,6 +53,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		$user['class']['player'] = new Player();
 		$user['class']['magic'] = new Magic();
 		$user['class']['item'] = new Item();
+		$user['class']['achievement'] = new Achievements();
 	
 		require_once('locations/battle.php');
 		require_once('locations/campfire.php');

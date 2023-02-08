@@ -4,14 +4,15 @@ username = "serg"
 userpass = "4444"
 world = "elvion"
 
+debug_mode = true
 server = "http://lizardry.pp.ua/"
 version = "0.2.4"
 scene = "login"
 usersession = ""
 response = ""
 
-md5 = require('libraries.md5')
 http = require("socket.http")
+md5 = require('libraries.md5')
 json = require("libraries.json")
 states = require("libraries.states")
 assets = require('libraries.cargo').init('resources')
@@ -57,7 +58,8 @@ function love.load()
 	math.randomseed(os.time())
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.window.setVSync(1)
-	love.window.setTitle("Lizardry ["..world.."]")
+	if debug_mode then debug_str = "[DEBUG] " else debug_str = "" end
+	love.window.setTitle("LIZARDRY "..string.upper(debug_str).." ["..string.upper(world).."]")
 	
 	lizardry_logo = love.graphics.newImage("resources/images/lizardry/lizardry_logo.png")
 	background_menu_main = love.graphics.newImage("resources/images/backgrounds/castle.png")
