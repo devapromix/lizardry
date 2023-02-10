@@ -39,7 +39,8 @@ uses
   Lizardry.FormMain,
   Lizardry.FormPrompt,
   Lizardry.Server,
-  Lizardry.Frame.Location.Town;
+  Lizardry.Frame.Location.Town,
+  Lizardry.FormLocPrompt;
 
 { TFrameAfterBattle }
 
@@ -49,7 +50,7 @@ begin
   begin
     if IsCharMode then
       bbCharNameClick(Sender);
-    ParseJSON(Server.Get('index.php?action=' + CurrentOutlands));
+    LocPrompt('Вы еще не все осмотрели! Покинуть локацию?');
   end;
 end;
 
