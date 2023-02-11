@@ -37,15 +37,16 @@ type
     { Private declarations }
     FRow: Integer;
     FLocation: string;
-    OkLink: string;
+    FOkLink: string;
     procedure UpdatePrice;
   public
     { Public declarations }
     property Row: Integer read FRow write FRow;
     property Location: string read FLocation write FLocation;
+    property OkLink: string read FOkLink write FOkLink;
   end;
 
-procedure AmountPrompt(const TextMessage, ButOkText, ALocation,
+procedure AmountPrompt(const ATextMessage, AButOkText, ALocation,
   AItemAmount: string; ARow: Integer);
 
 var
@@ -62,15 +63,15 @@ uses
   Lizardry.FrameShop,
   Lizardry.FormMsg;
 
-procedure AmountPrompt(const TextMessage, ButOkText, ALocation,
+procedure AmountPrompt(const ATextMessage, AButOkText, ALocation,
   AItemAmount: string; ARow: Integer);
 begin
   FormAmountPrompt.Left := (FormMain.Width div 2) -
     (FormAmountPrompt.Width div 2);
   FormAmountPrompt.Top := (FormMain.Height div 2) -
     (FormAmountPrompt.Height div 2);
-  FormAmountPrompt.lbMessage.Caption := TextMessage;
-  FormAmountPrompt.bbOK.Caption := ButOkText;
+  FormAmountPrompt.lbMessage.Caption := ATextMessage;
+  FormAmountPrompt.bbOK.Caption := AButOkText;
   FormAmountPrompt.Location := ALocation;
   FormAmountPrompt.Row := ARow;
   FormAmountPrompt.OkLink := Format(TFrameShop.BuyURL,

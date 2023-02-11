@@ -62,7 +62,6 @@ object FormAmountPrompt: TFormAmountPrompt
     BevelOuter = bvNone
     Caption = 'lbMessage'
     TabOrder = 0
-    ExplicitTop = 153
   end
   object AmountEdit: TEdit
     Left = 376
@@ -84,7 +83,6 @@ object FormAmountPrompt: TFormAmountPrompt
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = -666
     object Image1: TImage
       Left = 0
       Top = 0
