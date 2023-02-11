@@ -76,6 +76,7 @@ begin
   FormAmountPrompt.Row := ARow;
   FormAmountPrompt.OkLink := Format(TFrameShop.BuyURL,
     [FormAmountPrompt.Location, AItemAmount, FormAmountPrompt.Row]);
+  FormAmountPrompt.AmountEdit.SelectAll;
   FormAmountPrompt.ShowModal;
 end;
 
