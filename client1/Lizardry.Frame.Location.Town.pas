@@ -113,7 +113,7 @@ type
     procedure ChEnemyLifePanels(const Cur, Max: string);
     procedure ChManaPanels(const Cur, Max: string);
     procedure ChExpPanels(const Cur, Max: string);
-    procedure ChFoodPanel(S: string);
+    procedure ChFoodPanel(AFoodCount: string);
     procedure ChEffectPanel(S: string);
     procedure LoadPlayerImage;
   public
@@ -359,8 +359,14 @@ end;
 procedure TFrameTown.ParseJSON(AJSON, Section: string);
 var
   LJSON: TJSONObject;
-  S, Cur, Max: string;
-  R: TArray<string>;
+  LValue, LCurValue, LMaxValue: string;
+  LSplitArray: TArray<string>;
+
+  function Get(AKey: string; out AValue: string): Boolean;
+  begin
+    Result := Get(AKey, AValue);
+  end;
+
 begin
   if (Trim(AJSON) = '') then
     Exit;
@@ -368,39 +374,39 @@ begin
   try
     if UpperCase(Section) = 'ERROR' then
     begin
-      if LJSON.TryGetValue('error', S) then
-        ShowMsg('Ошибка: ' + S);
+      if Get('error', LValue) then
+        ShowMsg('Ошибка: ' + LValue);
     end;
     if UpperCase(Section) = 'INFO' then
     begin
-      if LJSON.TryGetValue('info', S) then
-        ShowMsg(S);
+      if Get('info', LValue) then
+        ShowMsg(LValue);
     end;
     if UpperCase(Section) = 'PROMPT' then
     begin
-      if LJSON.TryGetValue('prompt', S) then
-        ShowMsg(S);
+      if Get('prompt', LValue) then
+        ShowMsg(LValue);
     end;
     if UpperCase(Section) = 'INV' then
     begin
-      if LJSON.TryGetValue('inventory', S) then
+      if Get('inventory', LValue) then
       begin
-        FormMain.FrameTown.FrameChar.RefreshInventory(S);
-        if LJSON.TryGetValue('char_life_cur', Cur) and
-          LJSON.TryGetValue('char_life_max', Max) then
-          ChLifePanels(Cur, Max);
-        if LJSON.TryGetValue('char_mana_cur', Cur) and
-          LJSON.TryGetValue('char_mana_max', Max) then
-          ChManaPanels(Cur, Max);
-        if LJSON.TryGetValue('action', S) then
+        FormMain.FrameTown.FrameChar.RefreshInventory(LValue);
+        if Get('char_life_cur', LCurValue) and Get('char_life_max', LMaxValue)
+        then
+          ChLifePanels(LCurValue, LMaxValue);
+        if Get('char_mana_cur', LCurValue) and Get('char_mana_max', LMaxValue)
+        then
+          ChManaPanels(LCurValue, LMaxValue);
+        if Get('action', LValue) then
         begin
-          R := S.Split(['|']);
-          Prompt(R[0], R[1], R[2]);
+          LSplitArray := LValue.Split(['|']);
+          Prompt(LSplitArray[0], LSplitArray[1], LSplitArray[2]);
         end;
-        if LJSON.TryGetValue('char_food', S) then
-          ChFoodPanel(S);
-        if LJSON.TryGetValue('char_effects', S) then
-          ChEffectPanel(S);
+        if Get('char_food', LValue) then
+          ChFoodPanel(LValue);
+        if Get('char_effects', LValue) then
+          ChEffectPanel(LValue);
       end;
     end;
   finally
@@ -451,10 +457,10 @@ begin
   Panel13.Caption := Format('Опыт: %s/%s', [Cur, Max]);
 end;
 
-procedure TFrameTown.ChFoodPanel(S: string);
+procedure TFrameTown.ChFoodPanel(AFoodCount: string);
 begin
-  Panel15.Caption := 'Провизия: ' + S + '/7';
-  FormMain.FrameTown.FrameOutlands1.Label1.Caption := S + '/7';
+  Panel15.Caption := 'Провизия: ' + AFoodCount + '/7';
+  FormMain.FrameTown.FrameOutlands1.Label1.Caption := AFoodCount + '/7';
 end;
 
 procedure TFrameTown.ChLifePanels(const Cur, Max: string);
@@ -476,10 +482,16 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   LJSON: TJSONObject;
   LJSONArray: TJSONArray;
-  S, V, Cur, Max, Code, LDam, LDef: string;
-  I, F, J, K: Integer;
-  A: TArray<string>;
+  LValue, Cur, Max, Code, LDam, LDef: string;
+  I, LGold, J, K: Integer;
+  LSplitArray: TArray<string>;
   LFlag: Boolean;
+
+  function Get(AKey: string; out AValue: string): Boolean;
+  begin
+    Result := LJSON.TryGetValue(AKey, AValue);
+  end;
+
 begin
   MsgBox(AJSON);
   if (Trim(AJSON) = '') then
@@ -513,14 +525,14 @@ begin
   end;
   LJSON := TJSONObject.ParseJSONValue(AJSON, False) as TJSONObject;
   try
-    if LJSON.TryGetValue('log', S) then
+    if Get('log', LValue) then
     begin
       FrameInfo1.BringToFront;
-      FrameInfo1.StaticText2.Caption := S
+      FrameInfo1.StaticText2.Caption := LValue
     end
-    else if LJSON.TryGetValue('user_message', S) then
+    else if Get('user_message', LValue) then
     begin
-      ShowMsg(S, 1000);
+      ShowMsg(LValue, 1000);
     end
     else
     begin
@@ -528,20 +540,20 @@ begin
       FrameInfo1.StaticText2.Caption := '';
     end;
     //
-    if LJSON.TryGetValue('battlelog', S) then
+    if Get('battlelog', LValue) then
       with FrameBattle1 do
       begin
         BringToFront;
-        DrawBattleLog(S);
+        DrawBattleLog(LValue);
       end;
     //
-    if LJSON.TryGetValue('title', S) then
-      Panel10.Caption := S;
-    if LJSON.TryGetValue('description', S) then
+    if Get('title', LValue) then
+      Panel10.Caption := LValue;
+    if Get('description', LValue) then
     begin
       FrameInfo1.BringToFront;
-      FrameInfo1.StaticText1.Caption := S.Replace('#', #13#10);
-      FrameShop1.Label1.Caption := S.Replace('#', #13#10);
+      FrameInfo1.StaticText1.Caption := LValue.Replace('#', #13#10);
+      FrameShop1.Label1.Caption := LValue.Replace('#', #13#10);
     end;
     //
     ClearButtons;
@@ -553,133 +565,139 @@ begin
         .JsonValue.Value);
     end;
     //
-    if LJSON.TryGetValue('frame', S) then
+    if Get('frame', LValue) then
     begin
-      if (S = 'bank') then
+      if (LValue = 'bank') then
       begin
-        if LJSON.TryGetValue('description', S) then
+        if Get('description', LValue) then
           FormMain.FrameTown.FrameInfo1.StaticText1.Caption :=
-            S.Replace('#', #13#10);
-        if LJSON.TryGetValue('char_gold', S) then
+            LValue.Replace('#', #13#10);
+        if Get('char_gold', LValue) then
         begin
-          F := StrToIntDef(S, 0);
-          FormMain.FrameTown.FrameBank1.GoldEdit.Text := IntToStr(F);
-          FormMain.FrameTown.FrameBank1.bbMyGold.Caption := IntToStr(F);
+          LGold := StrToIntDef(LValue, 0);
+          FormMain.FrameTown.FrameBank1.GoldEdit.Text := IntToStr(LGold);
+          FormMain.FrameTown.FrameBank1.bbMyGold.Caption := IntToStr(LGold);
         end;
         FormMain.FrameTown.FrameBank1.BringToFront;
       end
-      else if (S = 'campfire') then
+      else if (LValue = 'campfire') then
       begin
-        if LJSON.TryGetValue('current_outlands', S) then
+        if Get('current_outlands', LValue) then
         begin
-          CurrentOutlands := S;
+          CurrentOutlands := LValue;
           FormMain.FrameTown.FrameLoot1.BringToFront;
         end;
       end
-      else if (S = 'get_loot') then
+      else if (LValue = 'get_loot') then
       begin
-        if LJSON.TryGetValue('current_outlands', S) then
+        if Get('current_outlands', LValue) then
         begin
-          CurrentOutlands := S;
+          CurrentOutlands := LValue;
           FormMain.FrameTown.FrameGetLoot1.BringToFront;
         end;
       end
-      else if (S = 'get_random_place') then
+      else if (LValue = 'get_random_place') then
       begin
         FormMain.FrameTown.FrameRandomPlace1.BringToFront;
       end
-      else if (S = 'before_battle') then
+      else if (LValue = 'before_battle') then
       begin
-        if LJSON.TryGetValue('current_outlands', S) then
+        if Get('current_outlands', LValue) then
         begin
-          CurrentOutlands := S;
+          CurrentOutlands := LValue;
           FormMain.FrameTown.FrameBeforeBattle1.BringToFront;
         end;
       end
-      else if (S = 'battle') then
+      else if (LValue = 'battle') then
       begin
-        if LJSON.TryGetValue('current_outlands', S) then
+        if Get('current_outlands', LValue) then
         begin
-          CurrentOutlands := S;
+          CurrentOutlands := LValue;
           FormMain.FrameTown.FrameAfterBattle1.BringToFront;
         end;
       end
-      else if (S = 'tavern') then
+      else if (LValue = 'tavern') then
       begin
-        if LJSON.TryGetValue('char_food', S) then
+        if Get('char_food', LValue) then
         begin
-          F := StrToIntDef(S, 0);
-          F := EnsureRange(7 - F, 0, 7);
-          FormMain.FrameTown.FrameTavern1.Edit1.Text := IntToStr(F);
+          LGold := StrToIntDef(LValue, 0);
+          LGold := EnsureRange(7 - LGold, 0, 7);
+          FormMain.FrameTown.FrameTavern1.Edit1.Text := IntToStr(LGold);
         end;
         FormMain.FrameTown.FrameTavern1.BringToFront;
       end
-      else if (S = 'outlands') then
+      else if (LValue = 'outlands') then
       begin
-        if LJSON.TryGetValue('enemy_slot_1_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
-          then
+        if Get('enemy_slot_1_image', LValue) then
+          if ((LValue <> '') and FileExists(FormInfo.ImagesPath.Caption + LValue
+            + '.jpg')) then
           begin
             FormMain.FrameTown.FrameOutlands1.Image2.Picture.LoadFromFile
-              (FormInfo.ImagesPath.Caption + S + '.jpg');
-            if LJSON.TryGetValue('enemy_slot_1_level', S) and (S <> '') then
+              (FormInfo.ImagesPath.Caption + LValue + '.jpg');
+            if Get('enemy_slot_1_level', LValue) and (LValue <> '') then
             begin
-              FormMain.FrameTown.FrameOutlands1.Label2.Caption := S;
-              FormMain.FrameTown.FrameOutlands1.Image2.Visible := (S <> '0');
-              FormMain.FrameTown.FrameOutlands1.Label2.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label2.Caption := LValue;
+              FormMain.FrameTown.FrameOutlands1.Image2.Visible :=
+                (LValue <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label2.Visible :=
+                (LValue <> '0');
               LFlag := False;
-              if LJSON.TryGetValue('enemy_slot_1_elite', S) and (S <> '') then
+              if Get('enemy_slot_1_elite', LValue) and (LValue <> '') then
               begin
-                LFlag := (S <> '0');
+                LFlag := (LValue <> '0');
               end;
-              FormMain.FrameTown.FrameOutlands1.Image5.Visible := (S <> '0')
-                and LFlag;
-              FormMain.FrameTown.FrameOutlands1.Image6.Visible := (S <> '0')
-                and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image5.Visible :=
+                (LValue <> '0') and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image6.Visible :=
+                (LValue <> '0') and LFlag;
             end;
           end;
-        if LJSON.TryGetValue('enemy_slot_2_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
-          then
+        if Get('enemy_slot_2_image', LValue) then
+          if ((LValue <> '') and FileExists(FormInfo.ImagesPath.Caption + LValue
+            + '.jpg')) then
           begin
             FormMain.FrameTown.FrameOutlands1.Image3.Picture.LoadFromFile
-              (FormInfo.ImagesPath.Caption + S + '.jpg');
-            if LJSON.TryGetValue('enemy_slot_2_level', S) and (S <> '') then
+              (FormInfo.ImagesPath.Caption + LValue + '.jpg');
+            if Get('enemy_slot_2_level', LValue) and (LValue <> '') then
             begin
-              FormMain.FrameTown.FrameOutlands1.Label3.Caption := S;
-              FormMain.FrameTown.FrameOutlands1.Image3.Visible := (S <> '0');
-              FormMain.FrameTown.FrameOutlands1.Label3.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label3.Caption := LValue;
+              FormMain.FrameTown.FrameOutlands1.Image3.Visible :=
+                (LValue <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label3.Visible :=
+                (LValue <> '0');
               LFlag := False;
-              if LJSON.TryGetValue('enemy_slot_2_elite', S) and (S <> '') then
+              if Get('enemy_slot_2_elite', LValue) and (LValue <> '') then
               begin
-                LFlag := (S <> '0');
+                LFlag := (LValue <> '0');
               end;
-              FormMain.FrameTown.FrameOutlands1.Image7.Visible := (S <> '0')
-                and LFlag;
-              FormMain.FrameTown.FrameOutlands1.Image9.Visible := (S <> '0')
-                and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image7.Visible :=
+                (LValue <> '0') and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image9.Visible :=
+                (LValue <> '0') and LFlag;
             end;
           end;
-        if LJSON.TryGetValue('enemy_slot_3_image', S) then
-          if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
-          then
+        if Get('enemy_slot_3_image', LValue) then
+          if ((LValue <> '') and FileExists(FormInfo.ImagesPath.Caption + LValue
+            + '.jpg')) then
           begin
             FormMain.FrameTown.FrameOutlands1.Image4.Picture.LoadFromFile
-              (FormInfo.ImagesPath.Caption + S + '.jpg');
-            if LJSON.TryGetValue('enemy_slot_3_level', S) and (S <> '') then
+              (FormInfo.ImagesPath.Caption + LValue + '.jpg');
+            if Get('enemy_slot_3_level', LValue) and (LValue <> '') then
             begin
-              FormMain.FrameTown.FrameOutlands1.Label4.Caption := S;
-              FormMain.FrameTown.FrameOutlands1.Image4.Visible := (S <> '0');
-              FormMain.FrameTown.FrameOutlands1.Label4.Visible := (S <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label4.Caption := LValue;
+              FormMain.FrameTown.FrameOutlands1.Image4.Visible :=
+                (LValue <> '0');
+              FormMain.FrameTown.FrameOutlands1.Label4.Visible :=
+                (LValue <> '0');
               LFlag := False;
-              if LJSON.TryGetValue('enemy_slot_3_elite', S) and (S <> '') then
+              if Get('enemy_slot_3_elite', LValue) and (LValue <> '') then
               begin
-                LFlag := (S <> '0');
+                LFlag := (LValue <> '0');
               end;
-              FormMain.FrameTown.FrameOutlands1.Image8.Visible := (S <> '0')
-                and LFlag;
-              FormMain.FrameTown.FrameOutlands1.Image10.Visible := (S <> '0')
-                and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image8.Visible :=
+                (LValue <> '0') and LFlag;
+              FormMain.FrameTown.FrameOutlands1.Image10.Visible :=
+                (LValue <> '0') and LFlag;
             end;
           end;
         FormMain.FrameTown.FrameOutlands1.BringToFront;
@@ -688,14 +706,14 @@ begin
     else
       FormMain.FrameTown.FrameDefault1.BringToFront;
     //
-    if LJSON.TryGetValue('mainframe', S) then
+    if Get('mainframe', LValue) then
     begin
-      if (S = 'outlands') then
+      if (LValue = 'outlands') then
       begin
         LoadPlayerImage;
         FormMain.FrameTown.FrameBattle1.BringToFront;
       end
-      else if (S = 'shop_weapon') then
+      else if (LValue = 'shop_weapon') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           ShopType := stWeapon;
@@ -703,17 +721,17 @@ begin
           SG.Cells[1, 0] := 'Оружие';
           SG.Cells[2, 0] := 'Урон';
           for K := 1 to 6 do
-            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
             begin
-              A := S.Split([',']);
+              LSplitArray := LValue.Split([',']);
               for J := 0 to 3 do
-                SG.Cells[J + 1, K] := A[J];
+                SG.Cells[J + 1, K] := LSplitArray[J];
             end;
           BringToFront;
           SG.SetFocus;
           SG.OnClick(Self);
         end
-      else if (S = 'shop_armor') then
+      else if (LValue = 'shop_armor') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           ShopType := stArmor;
@@ -721,17 +739,17 @@ begin
           SG.Cells[1, 0] := 'Доспех';
           SG.Cells[2, 0] := 'Броня';
           for K := 1 to 6 do
-            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
             begin
-              A := S.Split([',']);
+              LSplitArray := LValue.Split([',']);
               for J := 0 to 3 do
-                SG.Cells[J + 1, K] := A[J];
+                SG.Cells[J + 1, K] := LSplitArray[J];
             end;
           BringToFront;
           SG.SetFocus;
           SG.OnClick(Self);
         end
-      else if (S = 'shop_alchemy') then
+      else if (LValue = 'shop_alchemy') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           ShopType := stAlchemy;
@@ -739,17 +757,17 @@ begin
           SG.Cells[1, 0] := 'Эликсир';
           SG.Cells[2, 0] := 'Мощь';
           for K := 1 to 6 do
-            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
             begin
-              A := S.Split([',']);
+              LSplitArray := LValue.Split([',']);
               for J := 0 to 3 do
-                SG.Cells[J + 1, K] := A[J];
+                SG.Cells[J + 1, K] := LSplitArray[J];
             end;
           BringToFront;
           SG.SetFocus;
           SG.OnClick(Self);
         end
-      else if (S = 'shop_magic') then
+      else if (LValue = 'shop_magic') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           ShopType := stMagic;
@@ -757,17 +775,17 @@ begin
           SG.Cells[1, 0] := 'Свиток';
           SG.Cells[2, 0] := 'Мощь';
           for K := 1 to 6 do
-            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
             begin
-              A := S.Split([',']);
+              LSplitArray := LValue.Split([',']);
               for J := 0 to 3 do
-                SG.Cells[J + 1, K] := A[J];
+                SG.Cells[J + 1, K] := LSplitArray[J];
             end;
           BringToFront;
           SG.SetFocus;
           SG.OnClick(Self);
         end
-      else if (S = 'tavern') then
+      else if (LValue = 'tavern') then
         with FormMain.FrameTown.FrameShop1 do
         begin
           ShopType := stTavern;
@@ -775,11 +793,11 @@ begin
           SG.Cells[1, 0] := 'Предмет';
           SG.Cells[2, 0] := 'Значение';
           for K := 1 to 6 do
-            if LJSON.TryGetValue('item_slot_' + IntToStr(K) + '_values', S) then
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
             begin
-              A := S.Split([',']);
+              LSplitArray := LValue.Split([',']);
               for J := 0 to 3 do
-                SG.Cells[J + 1, K] := A[J];
+                SG.Cells[J + 1, K] := LSplitArray[J];
             end;
           BringToFront;
           SG.SetFocus;
@@ -789,116 +807,111 @@ begin
     else
       FormMain.FrameTown.FrameInfo1.BringToFront;
     //
-    S := '';
-    if LJSON.TryGetValue('char_name', S) then
+    LValue := '';
+    if Get('char_name', LValue) then
     begin
-      bbCharName.Caption := S;
-      FrameBattle1.Label4.Caption := S;
+      bbCharName.Caption := LValue;
+      FrameBattle1.Label4.Caption := LValue;
     end;
-    if LJSON.TryGetValue('char_gender', S) then
-      LGenderIndex := StrToIntDef(S, 0);
-    if LJSON.TryGetValue('char_race', S) then
+    if Get('char_gender', LValue) then
+      LGenderIndex := StrToIntDef(LValue, 0);
+    if Get('char_race', LValue) then
     begin
-      LRaceIndex := StrToIntDef(S, 0);
+      LRaceIndex := StrToIntDef(LValue, 0);
       Panel2.Caption := 'Раса: ' + GetRaceName(LRaceIndex);
-      Label1.Caption := GetRaceDescription(StrToIntDef(S, 0));
+      Label1.Caption := GetRaceDescription(StrToIntDef(LValue, 0));
     end;
-    if LJSON.TryGetValue('char_region_level', S) then
-      RegionLevel := StrToIntDef(S, 1);
-    if LJSON.TryGetValue('char_level', V) then
+    if Get('char_region_level', LValue) then
+      RegionLevel := StrToIntDef(LValue, 1);
+    if Get('char_level', LValue) then
     begin
-      Panel11.Caption := 'Уровень: ' + V;
-      FrameBattle1.Label7.Caption := 'Уровень: ' + V;
+      Panel11.Caption := 'Уровень: ' + LValue;
+      FrameBattle1.Label7.Caption := 'Уровень: ' + LValue;
     end;
-    if LJSON.TryGetValue('char_exp', Cur) then
+    if Get('char_exp', Cur) then
+      ChExpPanels(Cur, IntToStr(GetLevelExp(StrToIntDef(LValue, 1))));
+    if Get('char_food', LValue) then
+      ChFoodPanel(LValue);
+    if Get('char_gold', LValue) then
     begin
-      ChExpPanels(Cur, IntToStr(GetLevelExp(StrToIntDef(V, 1))));
-    end;
-    if LJSON.TryGetValue('char_food', S) then
-      ChFoodPanel(S);
-    if LJSON.TryGetValue('char_gold', S) then
-    begin
-      pnGold.Caption := 'Золото: ' + S;
-      if LJSON.TryGetValue('char_bank', S) then
-        pnGold.Hint := 'Золото в банке: ' + S;
+      pnGold.Caption := 'Золото: ' + LValue;
+      if Get('char_bank', LValue) then
+        pnGold.Hint := 'Золото в банке: ' + LValue;
 
     end;
-    if LJSON.TryGetValue('char_life_cur', Cur) and
-      LJSON.TryGetValue('char_life_max', Max) then
+    if Get('char_life_cur', Cur) and Get('char_life_max', Max) then
       ChLifePanels(Cur, Max);
-    if LJSON.TryGetValue('char_mana_cur', Cur) and
-      LJSON.TryGetValue('char_mana_max', Max) then
+    if Get('char_mana_cur', Cur) and Get('char_mana_max', Max) then
       ChManaPanels(Cur, Max);
-    if LJSON.TryGetValue('char_damage_min', Cur) and
-      LJSON.TryGetValue('char_damage_max', Max) then
+    if Get('char_damage_min', Cur) and Get('char_damage_max', Max) then
     begin
       LDam := Format('Урон: %s-%s', [Cur, Max]);
       Panel17.Caption := LDam;
       FrameBattle1.ttCharDamage.Caption := Format('Урон: %s-%s', [Cur, Max]);
     end;
-    if LJSON.TryGetValue('char_armor', S) then
+    if Get('char_armor', LValue) then
     begin
-      LDef := Format('Броня: %s', [S]);
+      LDef := Format('Броня: %s', [LValue]);
       Panel18.Caption := LDef;
-      FrameBattle1.ttCharArmor.Caption := 'Броня: ' + S;
+      FrameBattle1.ttCharArmor.Caption := 'Броня: ' + LValue;
     end;
     //
-    if LJSON.TryGetValue('char_equip_weapon_name', S) then
+    if Get('char_equip_weapon_name', LValue) then
     begin
-      pnEqWeapon.Caption := StrLim(S);
-      pnEqWeapon.Hint := Format('%s (%s)', [S, LDam]);
+      pnEqWeapon.Caption := StrLim(LValue);
+      pnEqWeapon.Hint := Format('%s (%s)', [LValue, LDam]);
     end;
-    if LJSON.TryGetValue('char_equip_armor_name', S) then
+    if Get('char_equip_armor_name', LValue) then
     begin
-      pnEqArmor.Caption := StrLim(S);
-      pnEqArmor.Hint := Format('%s (%s)', [S, LDef]);
+      pnEqArmor.Caption := StrLim(LValue);
+      pnEqArmor.Hint := Format('%s (%s)', [LValue, LDef]);
     end;
     //
-    if LJSON.TryGetValue('char_bank', S) then
-      FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + S;
+    if Get('char_bank', LValue) then
+      FormMain.FrameTown.FrameBank1.Label1.Caption := 'Золото: ' + LValue;
     //
-    if LJSON.TryGetValue('char_effects', S) then
-      ChEffectPanel(S);
+    if Get('char_effects', LValue) then
+      ChEffectPanel(LValue);
     //
-    if LJSON.TryGetValue('char_inventory', S) then
-      FormMain.FrameTown.FrameChar.RefreshInventory(S);
+    if Get('char_inventory', LValue) then
+      FormMain.FrameTown.FrameChar.RefreshInventory(LValue);
     //
-    if LJSON.TryGetValue('stat_kills', S) then
+    if Get('stat_kills', LValue) then
       FormMain.FrameTown.FrameChar.ttStatKills.Caption :=
-        Format('Выиграно битв: %s', [S]);
-    if LJSON.TryGetValue('stat_deads', S) then
+        Format('Выиграно битв: %s', [LValue]);
+    if Get('stat_deads', LValue) then
       FormMain.FrameTown.FrameChar.ttStatDeads.Caption :=
-        Format('Поражений: %s', [S]);
-    if LJSON.TryGetValue('stat_boss_kills', S) then
+        Format('Поражений: %s', [LValue]);
+    if Get('stat_boss_kills', LValue) then
       FormMain.FrameTown.FrameChar.ttStatBossKills.Caption :=
-        Format('Повержено боссов: %s', [S]);
+        Format('Повержено боссов: %s', [LValue]);
 
     FormMain.FrameTown.FrameChar.ttWeapon.Caption := pnEqWeapon.Hint;
     FormMain.FrameTown.FrameChar.ttArmor.Caption := pnEqArmor.Hint;
     //
-    S := '';
-    if LJSON.TryGetValue('enemy_name', S) then
-      FormMain.FrameTown.FrameBattle1.ttEnemyName.Caption := S;
-    if LJSON.TryGetValue('enemy_level', V) then
-      FormMain.FrameTown.FrameBattle1.ttEnemyLevel.Caption := 'Уровень: ' + V;
-    if LJSON.TryGetValue('enemy_life_cur', Cur) and
-      LJSON.TryGetValue('enemy_life_max', Max) then
+    LValue := '';
+    if Get('enemy_name', LValue) then
+      FormMain.FrameTown.FrameBattle1.ttEnemyName.Caption := LValue;
+    if Get('enemy_level', LValue) then
+      FormMain.FrameTown.FrameBattle1.ttEnemyLevel.Caption :=
+        'Уровень: ' + LValue;
+    if Get('enemy_life_cur', Cur) and Get('enemy_life_max', Max) then
     begin
       FormMain.FrameTown.FrameBattle1.ttEnemyLife.Caption :=
         Format('Здоровье: %s/%s', [Cur, Max]);
       ChEnemyLifePanels(Cur, Max);
     end;
-    if LJSON.TryGetValue('enemy_damage_min', Cur) and
-      LJSON.TryGetValue('enemy_damage_max', Max) then
+    if Get('enemy_damage_min', Cur) and Get('enemy_damage_max', Max) then
       FormMain.FrameTown.FrameBattle1.ttEnemyDamage.Caption :=
         Format('Урон: %s-%s', [Cur, Max]);
-    if LJSON.TryGetValue('enemy_armor', V) then
-      FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: ' + V;
-    if LJSON.TryGetValue('enemy_image', S) then
-      if ((S <> '') and FileExists(FormInfo.ImagesPath.Caption + S + '.jpg'))
-      then
+    if Get('enemy_armor', LValue) then
+      FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: '
+        + LValue;
+    if Get('enemy_image', LValue) then
+      if ((LValue <> '') and FileExists(FormInfo.ImagesPath.Caption + LValue +
+        '.jpg')) then
         FormMain.FrameTown.FrameBattle1.Image2.Picture.LoadFromFile
-          (FormInfo.ImagesPath.Caption + S + '.jpg');
+          (FormInfo.ImagesPath.Caption + LValue + '.jpg');
     LLastCode := Code;
     FormMain.Refresh;
   finally
