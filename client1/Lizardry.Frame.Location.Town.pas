@@ -199,12 +199,11 @@ end;
 procedure TFrameTown.FrameOutlands1Image1Click(Sender: TObject);
 begin
   FrameOutlands1.Image1Click(Sender);
-
 end;
 
 function TFrameTown.GetRaceDescription(const N: Byte): string;
 const
-  RaceDescription: array [0 .. 3] of string =
+  LRaceDescription: array [0 .. 3] of string =
     ('Люди - жители Североземья. Испокон веков населяли эти земли. ' +
     'Со временем расселились по всему миру. Люди в меру высоки, достаточно ' +
     'стройны и сильны. У них нет особых преимуществ перед другими расами.',
@@ -227,33 +226,33 @@ const
     'ниже эльфов ростом. Достаточно умны. Хорошо плавают и дышат под водой.' +
     'От других рас отличаются высокой ловкостью и изворотливостью.');
 begin
-  Result := RaceDescription[N];
+  Result := LRaceDescription[N];
 end;
 
 procedure TFrameTown.ChEffectPanel(S: string);
 var
   LJSON: TJSONObject;
   LJSONArray: TJSONArray;
-  I, J, C: Integer;
-  D, K: string;
+  I, LCounter: Integer;
+  LDiv, LEffectsStr: string;
 begin
   Memo1.Clear;
-  K := '';
-  C := 1;
+  LEffectsStr := '';
+  LCounter := 1;
   for I := 1 to 99 do
   begin
-    D := '';
-    if C > 1 then
-      D := ', ';
+    LDiv := '';
+    if LCounter > 1 then
+      LDiv := ', ';
     if S.Contains('"id":"' + IntToStr(I) + '"') then
     begin
-      K := K + D + GetEffectName(I);
-      Inc(C);
+      LEffectsStr := LEffectsStr + LDiv + GetEffectName(I);
+      Inc(LCounter);
     end;
   end;
-  if K = '' then
-    K := 'Нет';
-  Memo1.Lines.Append(K);
+  if LEffectsStr = '' then
+    LEffectsStr := 'Нет';
+  Memo1.Lines.Append(LEffectsStr);
 end;
 
 function TFrameTown.GetRaceName(const N: Byte): string;

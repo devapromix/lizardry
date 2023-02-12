@@ -408,8 +408,10 @@ object FrameTown: TFrameTown
       Width = 278
       Height = 166
       Align = alClient
-      Lines.Strings = (
-        'Memo1')
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BorderStyle = bsNone
+      Color = clBtnFace
       ReadOnly = True
       TabOrder = 16
     end
