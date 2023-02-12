@@ -150,7 +150,6 @@ uses
   Lizardry.Effects;
 
 var
-  LLastCode: string = '';
   LRaceIndex: Integer = 0;
   LGenderIndex: Integer = 0;
 
@@ -482,8 +481,8 @@ procedure TFrameTown.ParseJSON(AJSON: string);
 var
   LJSON: TJSONObject;
   LJSONArray: TJSONArray;
-  LValue, Cur, Max, Code, LDam, LDef: string;
-  I, LGold, J, K: Integer;
+  LValue, LCurValue, LMaxValue, LDam, LDef: string;
+  I, J, K, LGold, LFood: Integer;
   LSplitArray: TArray<string>;
   LFlag: Boolean;
 
@@ -620,9 +619,9 @@ begin
       begin
         if Get('char_food', LValue) then
         begin
-          LGold := StrToIntDef(LValue, 0);
-          LGold := EnsureRange(7 - LGold, 0, 7);
-          FormMain.FrameTown.FrameTavern1.Edit1.Text := IntToStr(LGold);
+          LFood := StrToIntDef(LValue, 0);
+          LFood := EnsureRange(7 - LFood, 0, 7);
+          FormMain.FrameTown.FrameTavern1.Edit1.Text := IntToStr(LFood);
         end;
         FormMain.FrameTown.FrameTavern1.BringToFront;
       end
@@ -828,8 +827,8 @@ begin
       Panel11.Caption := 'Уровень: ' + LValue;
       FrameBattle1.Label7.Caption := 'Уровень: ' + LValue;
     end;
-    if Get('char_exp', Cur) then
-      ChExpPanels(Cur, IntToStr(GetLevelExp(StrToIntDef(LValue, 1))));
+    if Get('char_exp', LCurValue) then
+      ChExpPanels(LCurValue, IntToStr(GetLevelExp(StrToIntDef(LValue, 1))));
     if Get('char_food', LValue) then
       ChFoodPanel(LValue);
     if Get('char_gold', LValue) then
@@ -839,15 +838,17 @@ begin
         pnGold.Hint := 'Золото в банке: ' + LValue;
 
     end;
-    if Get('char_life_cur', Cur) and Get('char_life_max', Max) then
-      ChLifePanels(Cur, Max);
-    if Get('char_mana_cur', Cur) and Get('char_mana_max', Max) then
-      ChManaPanels(Cur, Max);
-    if Get('char_damage_min', Cur) and Get('char_damage_max', Max) then
+    if Get('char_life_cur', LCurValue) and Get('char_life_max', LMaxValue) then
+      ChLifePanels(LCurValue, LMaxValue);
+    if Get('char_mana_cur', LCurValue) and Get('char_mana_max', LMaxValue) then
+      ChManaPanels(LCurValue, LMaxValue);
+    if Get('char_damage_min', LCurValue) and Get('char_damage_max', LMaxValue)
+    then
     begin
-      LDam := Format('Урон: %s-%s', [Cur, Max]);
+      LDam := Format('Урон: %s-%s', [LCurValue, LMaxValue]);
       Panel17.Caption := LDam;
-      FrameBattle1.ttCharDamage.Caption := Format('Урон: %s-%s', [Cur, Max]);
+      FrameBattle1.ttCharDamage.Caption :=
+        Format('Урон: %s-%s', [LCurValue, LMaxValue]);
     end;
     if Get('char_armor', LValue) then
     begin
@@ -895,15 +896,17 @@ begin
     if Get('enemy_level', LValue) then
       FormMain.FrameTown.FrameBattle1.ttEnemyLevel.Caption :=
         'Уровень: ' + LValue;
-    if Get('enemy_life_cur', Cur) and Get('enemy_life_max', Max) then
+    if Get('enemy_life_cur', LCurValue) and Get('enemy_life_max', LMaxValue)
+    then
     begin
       FormMain.FrameTown.FrameBattle1.ttEnemyLife.Caption :=
-        Format('Здоровье: %s/%s', [Cur, Max]);
-      ChEnemyLifePanels(Cur, Max);
+        Format('Здоровье: %s/%s', [LCurValue, LMaxValue]);
+      ChEnemyLifePanels(LCurValue, LMaxValue);
     end;
-    if Get('enemy_damage_min', Cur) and Get('enemy_damage_max', Max) then
+    if Get('enemy_damage_min', LCurValue) and Get('enemy_damage_max', LMaxValue)
+    then
       FormMain.FrameTown.FrameBattle1.ttEnemyDamage.Caption :=
-        Format('Урон: %s-%s', [Cur, Max]);
+        Format('Урон: %s-%s', [LCurValue, LMaxValue]);
     if Get('enemy_armor', LValue) then
       FormMain.FrameTown.FrameBattle1.ttEnemyArmor.Caption := 'Броня: '
         + LValue;
@@ -912,7 +915,6 @@ begin
         '.jpg')) then
         FormMain.FrameTown.FrameBattle1.Image2.Picture.LoadFromFile
           (FormInfo.ImagesPath.Caption + LValue + '.jpg');
-    LLastCode := Code;
     FormMain.Refresh;
   finally
     LJSON.Free;
