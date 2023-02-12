@@ -76,6 +76,11 @@
 					$user['char_life_cur'] = 0;
 					$user['char_mana_cur'] = 0;
 					$user['stat_deads']++;
+					$q = $user['class']['achievement']->add(Achievements::FIRST_DEAD);
+					if ($q != '') {
+						$r .= $this->str_line();
+						$r .= $q;
+					}
 					$user['char_exp'] -= round($user['char_exp'] / 5);
 					$user['char_gold'] -= round($user['char_gold'] / 7);
 					$r .= $this->str_line();

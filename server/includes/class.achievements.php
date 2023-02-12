@@ -3,6 +3,7 @@
 	class Achievements {
 		
 		public const FIRST_BLOOD		= 1;
+		public const FIRST_DEAD			= 2;
 		
 		public function add(int $achievement_ident) {
 			global $user, $tb_achievements, $connection;
