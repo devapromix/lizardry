@@ -68,6 +68,7 @@ if (($userpass != '') && ($userpass == $user['user_pass'])) {
 		require_once('locations/guilds.php');
 		require_once('locations/shops.php');
 		require_once('locations/graveyard.php');
+		require_once('locations/denofthieves.php');
 	}
 }
 

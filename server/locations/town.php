@@ -13,6 +13,7 @@ if ($action == 'town') {
 		Location::addlink('Идти в Магическую Башню', 'index.php?action=magictower', 3);
 		Location::addlink('Квартал Гильдий', 'index.php?action=guilds', 4);
 		Location::addlink('Квартал Торговцев', 'index.php?action=shops', 5);
+		Location::addlink('Логово Воров', 'index.php?action=denofthieves', 6);
 	} else $user['class']['location']->go_to_the_graveyard();
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);
 }

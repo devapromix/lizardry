@@ -168,8 +168,9 @@ if ($action == 'guild_hunter') {
 	$t .= $user['class']['item']->inv_item_list(Item::CAT_TROPHY);
 	$user['description'] = $t;
 	$user['links'] = array();
-	Location::addlink('Покинуть гильдию', 'index.php?action=guilds');
+	Location::addlink('Покинуть Гильдию', 'index.php?action=guilds');
 	Location::addlink('Продать Трофеи', 'index.php?action=guild_hunter&do=trophy_trade', 1);
+	Location::addlink('Подвал Гильдии', 'index.php?action=guild_hunter&do=guild_cellar', 2);
 
 	if ($do == 'trophy_trade') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
@@ -177,6 +178,15 @@ if ($action == 'guild_hunter') {
 		$user['description'] = 'Вы продали все свои трофеи и заработали '.$gold.' золотых монет.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_hunter');
+	}
+
+	if ($do == 'guild_cellar') {
+		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+		$user['title'] = 'Подвал Гильдии Охотников';
+		$user['description'] = '';
+		$user['links'] = array();
+		Location::addlink('Назад', 'index.php?action=guild_hunter');
+		Location::addlink('Логово Воров', 'index.php?action=denofthieves', 1);
 	}
 
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
