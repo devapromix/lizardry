@@ -183,7 +183,7 @@ if ($action == 'guild_hunter') {
 	if ($do == 'guild_cellar') {
 		if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
 		$user['title'] = 'Подвал Гильдии Охотников';
-		$user['description'] = '';
+		$user['description'] = 'Вы спускаетесь в сырое, темное, довольно унылое подземелье где-то под Кварталом Гильдий. Через несколько минут блужданий темными лабиринтами подвала вы останавливаетесь перед массивной дверью, окованной железными листами.';
 		$user['links'] = array();
 		Location::addlink('Назад', 'index.php?action=guild_hunter');
 		Location::addlink('Логово Воров', 'index.php?action=denofthieves', 1);
