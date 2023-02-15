@@ -116,4 +116,26 @@ if ($action == 'shop_magic') {
 
 }
 
+if ($action == 'black_market') {
+	
+	if ($user['char_life_cur'] <= 0) die('{"error":"Вам сначала нужно вернуться к жизни!"}');
+
+	$user['title'] = 'Черный Рынок';
+	if ($user['char_life_cur'] > 0) {
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_MAGIC);
+	} else $user['class']['location']->shades();	
+	$user['mainframe'] = $action;
+	$user['links'] = array();
+	Location::addlink('Покинуть рынок', 'index.php?action=denofthieves');
+
+	$user['class']['item']->add_item_to_shop(1, 701);
+
+
+	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))
+			$user['class']['item']->equip_item($user['item_slot_'.strval($itemslot)], $amount);
+
+	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
+
+}
+
 ?>
