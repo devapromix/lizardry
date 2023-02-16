@@ -801,6 +801,24 @@ begin
           BringToFront;
           SG.SetFocus;
           SG.OnClick(Self);
+        end
+      else if (LValue = 'black_market') then
+        with FormMain.FrameTown.FrameShop1 do
+        begin
+          ShopType := stTavern;
+          DrawGrid;
+          SG.Cells[1, 0] := 'Предмет';
+          SG.Cells[2, 0] := 'Значение';
+          for K := 1 to 6 do
+            if Get('item_slot_' + IntToStr(K) + '_values', LValue) then
+            begin
+              LSplitArray := LValue.Split([',']);
+              for J := 0 to 3 do
+                SG.Cells[J + 1, K] := LSplitArray[J];
+            end;
+          BringToFront;
+          SG.SetFocus;
+          SG.OnClick(Self);
         end;
     end
     else

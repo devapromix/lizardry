@@ -124,7 +124,7 @@ if ($action == 'black_market') {
 	if ($user['char_life_cur'] > 0) {
 		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_MAGIC);
 	} else $user['class']['location']->shades();	
-	$user['mainframe'] = $action;
+	$user['mainframe'] = $action;	
 	$user['links'] = array();
 	Location::addlink('Покинуть рынок', 'index.php?action=denofthieves');
 

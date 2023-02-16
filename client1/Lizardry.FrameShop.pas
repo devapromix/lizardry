@@ -17,7 +17,7 @@ uses
   Vcl.Grids;
 
 type
-  TShopType = (stWeapon, stArmor, stAlchemy, stMagic, stTavern);
+  TShopType = (stWeapon, stArmor, stAlchemy, stMagic, stTavern, stThief);
 
 type
   TFrameShop = class(TFrame)
@@ -204,6 +204,11 @@ begin
       stTavern:
         AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
           SG.Cells[4, LRow]]), 'Купить', 'tavern',
+          FormAmountPrompt.AmountEdit.Text, LRow);
+      // Black Market
+      stThief:
+        AmountPrompt(Format(BuyQuestionMsg, [SG.Cells[1, LRow],
+          SG.Cells[4, LRow]]), 'Купить', 'black_market',
           FormAmountPrompt.AmountEdit.Text, LRow);
       // Armor
     else
