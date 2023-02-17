@@ -11,7 +11,6 @@ object FrameUpdate: TFrameUpdate
     Height = 564
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 436
     object SpeedButton5: TSpeedButton
       Tag = 4
       Left = 215
@@ -232,7 +231,7 @@ object FrameUpdate: TFrameUpdate
     end
     object bbBack: TBitBtn
       Left = 24
-      Top = 392
+      Top = 408
       Width = 93
       Height = 33
       Cursor = crHandPoint
@@ -246,7 +245,7 @@ object FrameUpdate: TFrameUpdate
       TabOrder = 0
       OnClick = bbBackClick
     end
-    object bbOpenSite: TBitBtn
+    object bbDownloads: TBitBtn
       Left = 24
       Top = 240
       Width = 185
@@ -260,7 +259,7 @@ object FrameUpdate: TFrameUpdate
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
-      OnClick = bbOpenSiteClick
+      OnClick = bbDownloadsClick
     end
     object bbUpdImages: TBitBtn
       Left = 24
@@ -294,6 +293,22 @@ object FrameUpdate: TFrameUpdate
       TabOrder = 3
       OnClick = bbIssuesClick
     end
+    object bbQA: TBitBtn
+      Left = 24
+      Top = 353
+      Width = 220
+      Height = 33
+      Cursor = crHandPoint
+      Caption = #1047#1072#1076#1072#1090#1100' '#1074#1086#1087#1088#1086#1089
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Courier New'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      OnClick = bbQAClick
+    end
   end
   object Panel2: TPanel
     Left = 250
@@ -303,7 +318,6 @@ object FrameUpdate: TFrameUpdate
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitHeight = 436
     object ttInfo: TLabel
       Left = 0
       Top = 225

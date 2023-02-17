@@ -24,19 +24,21 @@ type
     Panel3: TPanel;
     Image1: TImage;
     Panel2: TPanel;
-    bbOpenSite: TBitBtn;
+    bbDownloads: TBitBtn;
     SpeedButton5: TSpeedButton;
     ttInfo: TLabel;
     bbUpdImages: TBitBtn;
     ttUpdate: TLabel;
     SpeedButton1: TSpeedButton;
     bbIssues: TBitBtn;
+    bbQA: TBitBtn;
     procedure bbBackClick(Sender: TObject);
-    procedure bbOpenSiteClick(Sender: TObject);
+    procedure bbDownloadsClick(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
     procedure bbUpdImagesClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure bbIssuesClick(Sender: TObject);
+    procedure bbQAClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,7 +66,14 @@ begin
     nil, nil, SW_SHOW);
 end;
 
-procedure TFrameUpdate.bbOpenSiteClick(Sender: TObject);
+procedure TFrameUpdate.bbQAClick(Sender: TObject);
+begin
+  ShellExecute(handle, 'open',
+    'https://github.com/devapromix/lizardry/discussions/categories/q-a', nil,
+    nil, SW_SHOW);
+end;
+
+procedure TFrameUpdate.bbDownloadsClick(Sender: TObject);
 begin
   ShellExecute(handle, 'open',
     'https://github.com/devapromix/lizardry/releases', nil, nil, SW_SHOW);
