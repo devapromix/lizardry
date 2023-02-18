@@ -143,6 +143,9 @@ object FormMain: TFormMain
       Height = 693
       ExplicitLeft = 904
       ExplicitHeight = 693
+      inherited Memo1: TMemo
+        Height = 351
+      end
     end
     inherited LeftPanel: TPanel
       Height = 693
@@ -325,7 +328,7 @@ object FormMain: TFormMain
     inherited Panel1: TPanel
       Height = 693
       ExplicitHeight = 693
-      inherited bbOpenSite: TBitBtn
+      inherited bbDownloads: TBitBtn
         OnClick = FrameUpdatebbOpenSiteClick
       end
     end

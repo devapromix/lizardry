@@ -32,6 +32,7 @@ type
     SpeedButton1: TSpeedButton;
     bbIssues: TBitBtn;
     bbQA: TBitBtn;
+    SpeedButton2: TSpeedButton;
     procedure bbBackClick(Sender: TObject);
     procedure bbDownloadsClick(Sender: TObject);
     procedure SpeedButton5Click(Sender: TObject);
@@ -39,6 +40,7 @@ type
     procedure SpeedButton1Click(Sender: TObject);
     procedure bbIssuesClick(Sender: TObject);
     procedure bbQAClick(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -87,6 +89,12 @@ end;
 procedure TFrameUpdate.SpeedButton1Click(Sender: TObject);
 begin
   ShowMsg('Принудительная загрузка и обновление всех изображений.');
+end;
+
+procedure TFrameUpdate.SpeedButton2Click(Sender: TObject);
+begin
+  ShellExecute(handle, 'open',
+    'https://github.com/devapromix/lizardry', nil, nil, SW_SHOW);
 end;
 
 procedure TFrameUpdate.SpeedButton5Click(Sender: TObject);

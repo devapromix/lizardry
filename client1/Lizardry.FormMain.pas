@@ -106,7 +106,7 @@ end;
 
 procedure TFormMain.FrameUpdatebbOpenSiteClick(Sender: TObject);
 begin
-  FrameUpdate.bbOpenSiteClick(Sender);
+  FrameUpdate.bbDownloadsClick(Sender);
 end;
 
 function TFormMain.GameName: string;
