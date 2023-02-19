@@ -15,7 +15,10 @@ uses
   Vcl.StdCtrls,
   Vcl.ComCtrls,
   Vcl.Grids,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Vcl.ButtonGroup, Vcl.Buttons;
+
+type
+  TSortType = (siAll, siSword, siArmor, siElixir, siScroll, siAny);
 
 type
   TFrameChar = class(TFrame)
@@ -35,11 +38,15 @@ type
     ttInfo: TLabel;
     ttStatBossKills: TLabel;
     imPortret: TImage;
+    SpeedButton1: TSpeedButton;
     procedure SGDblClick(Sender: TObject);
     procedure SGClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     ItCount: Integer;
+    InvJSON: string;
+    procedure SortItems(const ASortType: TSortType);
   public
     { Public declarations }
     procedure RefreshInventory(const S: string);
@@ -118,11 +125,11 @@ begin
   FormInfo.InvMemo.Text := S;
   Self.DrawGrid;
   ttInfo.Caption := '';
-
   SG.Cells[1, 0] := 'Название';
+  InvJSON := S;
 
   try
-    JSONArray := TJSONObject.ParseJSONValue(S) as TJSONArray;
+    JSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
     ItCount := JSONArray.Count;
     for I := 0 to JSONArray.Count - 1 do
     begin
@@ -158,6 +165,51 @@ begin
     FormMain.FrameTown.ParseJSON
       (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
   ttInfo.Caption := '';
+end;
+
+procedure TFrameChar.SortItems(const ASortType: TSortType);
+var
+  LItemCount: string;
+  I, J, LItemIdent: Integer;
+  LJSONArray: TJSONArray;
+
+  procedure AddItem();
+  begin
+    LItemCount := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('count'))
+      .JsonValue.Value;
+    SG.Cells[0, J] := IntToStr(J);
+    SG.Cells[1, J] := GetName(LItemIdent);
+    SG.Cells[2, J] := LItemCount + 'x';
+  end;
+
+begin
+  ClearGrid;
+  try
+    LJSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
+    ItCount := LJSONArray.Count;
+    J := 1;
+    for I := 0 to LJSONArray.Count - 1 do
+    begin
+      LItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('id')).JsonValue.Value, 0);
+      case LItemIdent of
+        600 .. 699:
+          if ASortType = siElixir then
+          begin
+            AddItem();
+            Inc(J)
+          end;
+      end;
+    end;
+  except
+    ShowError(InvJSON);
+  end;
+end;
+
+procedure TFrameChar.SpeedButton1Click(Sender: TObject);
+begin
+  // Sword
+  SortItems(siElixir);
 end;
 
 end.
