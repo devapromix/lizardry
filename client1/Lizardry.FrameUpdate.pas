@@ -15,7 +15,7 @@ uses
   Vcl.ExtCtrls,
   Vcl.StdCtrls,
   Vcl.Buttons,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.PNGImage;
 
 type
   TFrameUpdate = class(TFrame)

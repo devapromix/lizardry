@@ -20,27 +20,20 @@ object FormMain: TFormMain
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  inline FrameLogin: TFrameLogin
+  inline FrameUpdate: TFrameUpdate
     Left = 0
     Top = 0
     Width = 1184
     Height = 693
     Align = alClient
-    Font.Charset = RUSSIAN_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -19
-    Font.Name = 'Courier New'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 0
+    TabOrder = 3
     ExplicitWidth = 1184
     ExplicitHeight = 693
     inherited Panel1: TPanel
       Height = 693
       ExplicitHeight = 693
-      inherited CurrentClientVersion: TLabel
-        Top = 676
-        ExplicitTop = 676
+      inherited bbDownloads: TBitBtn
+        OnClick = FrameUpdatebbOpenSiteClick
       end
     end
     inherited Panel2: TPanel
@@ -48,37 +41,19 @@ object FormMain: TFormMain
       Height = 693
       ExplicitWidth = 934
       ExplicitHeight = 693
+      inherited ttInfo: TLabel
+        Width = 934
+      end
+      inherited ttUpdate: TLabel
+        Width = 934
+      end
       inherited Panel3: TPanel
         Width = 934
         ExplicitWidth = 934
         inherited Image1: TImage
           Width = 934
-          ExplicitWidth = 734
-          ExplicitHeight = 487
+          ExplicitWidth = 932
         end
-      end
-      inherited Panel4: TPanel
-        Width = 924
-        Height = 468
-        ExplicitWidth = 924
-        ExplicitHeight = 468
-        inherited Label3: TLabel
-          Width = 924
-        end
-        inherited Panel5: TPanel
-          Width = 924
-          ExplicitWidth = 924
-        end
-        inherited StaticText1: TStaticText
-          Width = 924
-          Height = 426
-          ExplicitWidth = 924
-          ExplicitHeight = 426
-        end
-      end
-      inherited Panel6: TPanel
-        Height = 468
-        ExplicitHeight = 468
       end
     end
   end
@@ -145,6 +120,7 @@ object FormMain: TFormMain
       ExplicitHeight = 693
       inherited Memo1: TMemo
         Height = 351
+        ExplicitHeight = 351
       end
     end
     inherited LeftPanel: TPanel
@@ -316,43 +292,6 @@ object FormMain: TFormMain
       end
     end
   end
-  inline FrameUpdate: TFrameUpdate
-    Left = 0
-    Top = 0
-    Width = 1184
-    Height = 693
-    Align = alClient
-    TabOrder = 3
-    ExplicitWidth = 1184
-    ExplicitHeight = 693
-    inherited Panel1: TPanel
-      Height = 693
-      ExplicitHeight = 693
-      inherited bbDownloads: TBitBtn
-        OnClick = FrameUpdatebbOpenSiteClick
-      end
-    end
-    inherited Panel2: TPanel
-      Width = 934
-      Height = 693
-      ExplicitWidth = 934
-      ExplicitHeight = 693
-      inherited ttInfo: TLabel
-        Width = 934
-      end
-      inherited ttUpdate: TLabel
-        Width = 934
-      end
-      inherited Panel3: TPanel
-        Width = 934
-        ExplicitWidth = 934
-        inherited Image1: TImage
-          Width = 934
-          ExplicitWidth = 932
-        end
-      end
-    end
-  end
   object StatusBar: TStatusBar
     Left = 0
     Top = 693
@@ -360,5 +299,67 @@ object FormMain: TFormMain
     Height = 19
     Panels = <>
     SimplePanel = True
+  end
+  inline FrameLogin: TFrameLogin
+    Left = 0
+    Top = 0
+    Width = 1184
+    Height = 693
+    Align = alClient
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    ExplicitWidth = 1184
+    ExplicitHeight = 693
+    inherited Panel1: TPanel
+      Height = 693
+      ExplicitHeight = 693
+      inherited CurrentClientVersion: TLabel
+        Top = 676
+        ExplicitTop = 676
+      end
+    end
+    inherited Panel2: TPanel
+      Width = 934
+      Height = 693
+      ExplicitWidth = 934
+      ExplicitHeight = 693
+      inherited Panel3: TPanel
+        Width = 934
+        ExplicitWidth = 934
+        inherited Image1: TImage
+          Width = 934
+          ExplicitWidth = 734
+          ExplicitHeight = 487
+        end
+      end
+      inherited Panel4: TPanel
+        Width = 924
+        Height = 468
+        ExplicitWidth = 924
+        ExplicitHeight = 468
+        inherited Label3: TLabel
+          Width = 924
+        end
+        inherited Panel5: TPanel
+          Width = 924
+          ExplicitWidth = 924
+        end
+        inherited StaticText1: TStaticText
+          Width = 924
+          Height = 426
+          ExplicitWidth = 924
+          ExplicitHeight = 426
+        end
+      end
+      inherited Panel6: TPanel
+        Height = 468
+        ExplicitHeight = 468
+      end
+    end
   end
 end
