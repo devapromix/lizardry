@@ -18,7 +18,7 @@ uses
   Vcl.ExtCtrls, Vcl.ButtonGroup, Vcl.Buttons;
 
 type
-  TSortType = (siAll, siSword, siArmor, siElixir, siScroll, siAny);
+  TSortType = (siAll, siArmor, siSword, siElixir, siScroll, siAny);
 
 type
   TFrameChar = class(TFrame)
@@ -38,10 +38,20 @@ type
     ttInfo: TLabel;
     ttStatBossKills: TLabel;
     imPortret: TImage;
-    SpeedButton1: TSpeedButton;
+    bbAll: TSpeedButton;
+    bbArmor: TSpeedButton;
+    bbSword: TSpeedButton;
+    bbElixir: TSpeedButton;
+    bbScroll: TSpeedButton;
+    bbAny: TSpeedButton;
     procedure SGDblClick(Sender: TObject);
     procedure SGClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure bbAllClick(Sender: TObject);
+    procedure bbElixirClick(Sender: TObject);
+    procedure bbScrollClick(Sender: TObject);
+    procedure bbArmorClick(Sender: TObject);
+    procedure bbSwordClick(Sender: TObject);
+    procedure bbAnyClick(Sender: TObject);
   private
     { Private declarations }
     ItCount: Integer;
@@ -68,6 +78,36 @@ uses
   Lizardry.FrameShop;
 
 { TFrameChar }
+
+procedure TFrameChar.bbAllClick(Sender: TObject);
+begin
+  RefreshInventory(InvJSON)
+end;
+
+procedure TFrameChar.bbAnyClick(Sender: TObject);
+begin
+  SortItems(siAny);
+end;
+
+procedure TFrameChar.bbArmorClick(Sender: TObject);
+begin
+  SortItems(siArmor);
+end;
+
+procedure TFrameChar.bbElixirClick(Sender: TObject);
+begin
+  SortItems(siElixir);
+end;
+
+procedure TFrameChar.bbScrollClick(Sender: TObject);
+begin
+  SortItems(siScroll);
+end;
+
+procedure TFrameChar.bbSwordClick(Sender: TObject);
+begin
+  SortItems(siSword);
+end;
 
 procedure TFrameChar.ClearGrid;
 var
@@ -193,8 +233,14 @@ begin
       LItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('id')).JsonValue.Value, 0);
       case LItemIdent of
-        600 .. 699:
+        601 .. 649:
           if ASortType = siElixir then
+          begin
+            AddItem();
+            Inc(J)
+          end;
+        701 .. 749:
+          if ASortType = siScroll then
           begin
             AddItem();
             Inc(J)
@@ -204,12 +250,6 @@ begin
   except
     ShowError(InvJSON);
   end;
-end;
-
-procedure TFrameChar.SpeedButton1Click(Sender: TObject);
-begin
-  // Sword
-  SortItems(siElixir);
 end;
 
 end.
