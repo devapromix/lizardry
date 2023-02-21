@@ -122,7 +122,7 @@ if ($action == 'black_market') {
 
 	$user['title'] = 'Черный Рынок';
 	if ($user['char_life_cur'] > 0) {
-		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_MAGIC);
+		$user['description'] = $user['class']['location']->get_welcome_phrase(Location::SHOP_THIEF);
 	} else $user['class']['location']->shades();	
 	$user['mainframe'] = $action;	
 	$user['links'] = array();

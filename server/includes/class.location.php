@@ -6,6 +6,7 @@
 		public const SHOP_WEAPON			= 2;
 		public const SHOP_ALCHEMY			= 3;
 		public const SHOP_MAGIC				= 4;
+		public const SHOP_THIEF				= 5;
 		public const TAVERN					= 7;
 		public const BANK					= 9;
 		
