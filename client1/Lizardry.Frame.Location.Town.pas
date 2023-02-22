@@ -805,7 +805,7 @@ begin
       else if (LValue = 'black_market') then
         with FormMain.FrameTown.FrameShop1 do
         begin
-          ShopType := stTavern;
+          ShopType := stThief;
           DrawGrid;
           SG.Cells[1, 0] := 'Предмет';
           SG.Cells[2, 0] := 'Значение';
