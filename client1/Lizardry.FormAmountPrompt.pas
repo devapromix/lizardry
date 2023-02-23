@@ -33,6 +33,8 @@ type
     procedure sbMinusClick(Sender: TObject);
     procedure sbPlusClick(Sender: TObject);
     procedure AmountEditChange(Sender: TObject);
+    procedure AmountEditKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     FRow: Integer;
@@ -85,9 +87,18 @@ begin
   UpdatePrice;
 end;
 
+procedure TFormAmountPrompt.AmountEditKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = 27 then
+    bbCancel.Click;
+  if Key = 13 then
+    bbOK.Click;
+end;
+
 procedure TFormAmountPrompt.bbCancelClick(Sender: TObject);
 begin
-  ModalResult := mrOk;
+  ModalResult := mrCancel;
 end;
 
 procedure TFormAmountPrompt.bbOKClick(Sender: TObject);

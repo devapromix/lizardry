@@ -74,6 +74,7 @@ object FormAmountPrompt: TFormAmountPrompt
     TabOrder = 1
     Text = '1'
     OnChange = AmountEditChange
+    OnKeyDown = AmountEditKeyDown
   end
   object Panel1: TPanel
     Left = 0
