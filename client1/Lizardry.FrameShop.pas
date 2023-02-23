@@ -32,7 +32,7 @@ type
   private
     { Private declarations }
   public const
-    BuyQuestionMsg = 'Купить %s за %s золотых?';
+    BuyQuestionMsg = 'Купить %s за %s золотa?';
     BuyURL = 'index.php?action=%s&amount=%s&do=buy&itemslot=%d';
   public
     ShopType: TShopType;
