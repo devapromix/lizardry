@@ -363,7 +363,7 @@ var
 
   function Get(AKey: string; out AValue: string): Boolean;
   begin
-    Result := Get(AKey, AValue);
+    Result := LJSON.TryGetValue(AKey, AValue);
   end;
 
 begin
@@ -498,6 +498,7 @@ begin
   // Exit;
   if AJSON.Contains('{"inventory":') then
   begin
+    //ShowMessage(AJSON);
     InvJSON(AJSON);
     ParseJSON(AJSON, 'INV');
     Exit;
