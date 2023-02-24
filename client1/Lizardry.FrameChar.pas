@@ -57,6 +57,7 @@ type
     ItCount: Integer;
     InvJSON: string;
     procedure SortItems(const ASortType: TSortType);
+    function GetItemIndex(const AItemName: string): Integer;
   public
     { Public declarations }
     procedure RefreshInventory(const S: string);
@@ -133,6 +134,45 @@ begin
   ClearGrid;
 end;
 
+function TFrameChar.GetItemIndex(const AItemName: string): Integer;
+var
+  LJSONArray, LInvJSONArray: TJSONArray;
+  I, J, LItemIdent, LInvItemIdent: Integer;
+  LItemName: string;
+begin
+  Result := 0;
+  try
+    LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
+      as TJSONArray;
+    for I := LJSONArray.Count - 1 downto 0 do
+    begin
+      LItemName := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('item_name'))
+        .JsonValue.Value;
+      if (LItemName = AItemName) then
+      begin
+        LItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+          .Get('item_ident')).JsonValue.Value, 0);
+        try
+          LInvJSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
+          for J := 0 to LInvJSONArray.Count - 1 do
+          begin
+            LInvItemIdent :=
+              StrToIntDef(TJSONPair(TJSONObject(LInvJSONArray.Get(J)).Get('id'))
+              .JsonValue.Value, 0);
+            if (LInvItemIdent = LItemIdent) then
+            begin
+              Result := J;
+              Exit;
+            end;
+          end;
+        except
+        end;
+      end;
+    end;
+  except
+  end;
+end;
+
 function TFrameChar.GetName(const Id: Integer): string;
 var
   JSONArray: TJSONArray;
@@ -198,12 +238,18 @@ end;
 
 procedure TFrameChar.SGDblClick(Sender: TObject);
 var
-  I: Integer;
+  I, LItemIndex: Integer;
+  LItemName: string;
 begin
-  I := SG.Row;
-  if Math.InRange(I, 1, ItCount) then
-    FormMain.FrameTown.ParseJSON
-      (Server.Get('index.php?action=use_item&itemindex=' + IntToStr(I)));
+  LItemName := '';
+  if (Trim(SG.Cells[1, SG.Row]) = '') then
+    LItemName := ''
+  else if Math.InRange(SG.Row, 1, ItCount) then
+    LItemName := Trim(SG.Cells[1, SG.Row]);
+  if Trim(LItemName) <> '' then
+    LItemIndex := GetItemIndex(LItemName);
+  FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=use_item&itemindex='
+    + IntToStr(LItemIndex)));
   ttInfo.Caption := '';
 end;
 
