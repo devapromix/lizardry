@@ -161,7 +161,7 @@ begin
               .JsonValue.Value, 0);
             if (LInvItemIdent = LItemIdent) then
             begin
-              Result := J;
+              Result := J + 1;
               Exit;
             end;
           end;
@@ -207,7 +207,7 @@ begin
   ttInfo.Caption := '';
   SG.Cells[1, 0] := 'Название';
   InvJSON := S;
-
+  //ShowMessage('INV');
   try
     JSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
     ItCount := JSONArray.Count;
@@ -248,6 +248,7 @@ begin
     LItemName := Trim(SG.Cells[1, SG.Row]);
   if Trim(LItemName) <> '' then
     LItemIndex := GetItemIndex(LItemName);
+//  ShowMessage(IntToStr(LItemIndex));
   FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=use_item&itemindex='
     + IntToStr(LItemIndex)));
   ttInfo.Caption := '';
