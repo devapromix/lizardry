@@ -15,7 +15,9 @@ uses
   Vcl.StdCtrls,
   Vcl.ComCtrls,
   Vcl.Grids,
-  Vcl.ExtCtrls, Vcl.ButtonGroup, Vcl.Buttons;
+  Vcl.ExtCtrls,
+  Vcl.ButtonGroup,
+  Vcl.Buttons;
 
 type
   TSortType = (siAll, siArmor, siSword, siElixir, siScroll, siAny);
@@ -60,7 +62,7 @@ type
     function GetItemIndex(const AItemName: string): Integer;
   public
     { Public declarations }
-    procedure RefreshInventory(const S: string);
+    procedure RefreshInventory(const AJSON: string);
     function GetName(const Id: Integer): string;
     procedure ClearGrid;
     procedure DrawGrid;
@@ -177,20 +179,20 @@ end;
 
 function TFrameChar.GetName(const Id: Integer): string;
 var
-  JSONArray: TJSONArray;
-  I, ItemId: Integer;
+  LJSONArray: TJSONArray;
+  I, LItemId: Integer;
 begin
   Result := '';
   try
-    JSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
+    LJSONArray := TJSONObject.ParseJSONValue(FormInfo.ItemMemo.Text)
       as TJSONArray;
-    for I := JSONArray.Count - 1 downto 0 do
+    for I := LJSONArray.Count - 1 downto 0 do
     begin
-      ItemId := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I))
+      LItemId := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('item_ident')).JsonValue.Value, 0);
-      if ItemId = Id then
+      if LItemId = Id then
       begin
-        Result := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('item_name'))
+        Result := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('item_name'))
           .JsonValue.Value;
       end;
     end;
@@ -198,34 +200,34 @@ begin
   end;
 end;
 
-procedure TFrameChar.RefreshInventory(const S: string);
+procedure TFrameChar.RefreshInventory(const AJSON: string);
 var
-  LWidth, I, T: Integer;
-  C: string;
-  JSONArray: TJSONArray;
+  LWidth, I, LItemIdent: Integer;
+  LCount: string;
+  LJSONArray: TJSONArray;
 begin
-  FormInfo.InvMemo.Text := S;
+  FormInfo.InvMemo.Text := AJSON;
   Self.DrawGrid;
   ttInfo.Caption := '';
   SG.Cells[1, 0] := 'Название';
-  InvJSON := S;
+  InvJSON := AJSON;
   try
-    JSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
-    ItCount := JSONArray.Count;
-    for I := 0 to JSONArray.Count - 1 do
+    LJSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
+    ItCount := LJSONArray.Count;
+    for I := 0 to LJSONArray.Count - 1 do
     begin
-      T := StrToIntDef(TJSONPair(TJSONObject(JSONArray.Get(I)).Get('id'))
-        .JsonValue.Value, 0);
-      C := TJSONPair(TJSONObject(JSONArray.Get(I)).Get('count'))
+      LItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
+        .Get('id')).JsonValue.Value, 0);
+      LCount := TJSONPair(TJSONObject(LJSONArray.Get(I)).Get('count'))
         .JsonValue.Value;
       SG.Cells[0, I + 1] := IntToStr(I + 1);
-      SG.Cells[1, I + 1] := GetName(T);
-      SG.Cells[2, I + 1] := C + 'x';
+      SG.Cells[1, I + 1] := GetName(LItemIdent);
+      SG.Cells[2, I + 1] := LCount + 'x';
     end;
     Panel1.Caption := Format('%d/' + IntToStr(SG.RowCount - 1),
-      [JSONArray.Count]);
+      [LJSONArray.Count]);
   except
-    ShowError(S);
+    ShowError(AJSON);
   end;
 end;
 
