@@ -120,6 +120,8 @@ begin
     SG.Cells[1, I] := '';
     SG.Cells[2, I] := '';
   end;
+  ttInfo.Caption := '';
+  SG.Row := 1;
 end;
 
 procedure TFrameChar.DrawGrid;
@@ -207,7 +209,6 @@ begin
   ttInfo.Caption := '';
   SG.Cells[1, 0] := 'Название';
   InvJSON := S;
-  //ShowMessage('INV');
   try
     JSONArray := TJSONObject.ParseJSONValue(InvJSON) as TJSONArray;
     ItCount := JSONArray.Count;
@@ -248,7 +249,6 @@ begin
     LItemName := Trim(SG.Cells[1, SG.Row]);
   if Trim(LItemName) <> '' then
     LItemIndex := GetItemIndex(LItemName);
-//  ShowMessage(IntToStr(LItemIndex));
   FormMain.FrameTown.ParseJSON(Server.Get('index.php?action=use_item&itemindex='
     + IntToStr(LItemIndex)));
   ttInfo.Caption := '';
@@ -280,7 +280,19 @@ begin
       LItemIdent := StrToIntDef(TJSONPair(TJSONObject(LJSONArray.Get(I))
         .Get('id')).JsonValue.Value, 0);
       case LItemIdent of
-        601 .. 649:
+        1 .. 300:
+          if ASortType = siArmor then
+          begin
+            AddItem();
+            Inc(J)
+          end;
+        301 .. 599:
+          if ASortType = siSword then
+          begin
+            AddItem();
+            Inc(J)
+          end;
+        600 .. 649:
           if ASortType = siElixir then
           begin
             AddItem();
@@ -288,6 +300,12 @@ begin
           end;
         701 .. 749:
           if ASortType = siScroll then
+          begin
+            AddItem();
+            Inc(J)
+          end;
+        750 .. 999:
+          if ASortType = siAny then
           begin
             AddItem();
             Inc(J)

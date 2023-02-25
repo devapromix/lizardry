@@ -93,6 +93,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1042#1089#1077' '#1087#1088#1077#1076#1084#1077#1090#1099
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -121,6 +122,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFF00A5D200FCFF00FCFF00C8F800A5D2FFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbAllClick
         end
         object bbArmor: TSpeedButton
@@ -128,6 +131,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1041#1088#1086#1085#1080
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -156,6 +160,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbArmorClick
         end
         object bbSword: TSpeedButton
@@ -163,6 +169,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1052#1077#1095#1080
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -191,6 +198,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCB5
             B7CCB5B7BA9A9CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbSwordClick
         end
         object bbElixir: TSpeedButton
@@ -198,6 +207,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1069#1083#1080#1082#1089#1080#1088#1099
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -226,6 +236,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFFFFFFFF43969259B5B0377B78FFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbElixirClick
         end
         object bbScroll: TSpeedButton
@@ -233,6 +245,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1057#1074#1080#1090#1082#1080
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -261,6 +274,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbScrollClick
         end
         object bbAny: TSpeedButton
@@ -268,6 +283,7 @@ object FrameChar: TFrameChar
           Top = 0
           Width = 32
           Height = 32
+          Hint = #1044#1088#1091#1075#1080#1077' '#1087#1088#1077#1076#1084#1077#1090#1099
           Flat = True
           Glyph.Data = {
             36030000424D3603000000000000360000002800000010000000100000000100
@@ -296,6 +312,8 @@ object FrameChar: TFrameChar
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = bbAnyClick
         end
       end
