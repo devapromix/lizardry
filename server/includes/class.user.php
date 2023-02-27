@@ -10,6 +10,11 @@
 				or die('{"error":"Ошибка считывания данных: '.mysqli_error($connection).'"}');
 			return $result->fetch_assoc();
 		}
+		
+		public static function clear() {
+			global $user;
+			$user['log'] = '';
+		}
 
 		public static function session() {
 			global $user;
