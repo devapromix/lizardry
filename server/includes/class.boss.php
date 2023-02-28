@@ -27,7 +27,7 @@
 			$user['enemy_name'] .= ' (Босс)';
 			// Life
 			$user['enemy_life_max'] = $enemy_life;
-			$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.7);
+			$user['enemy_life_max'] = round($user['enemy_life_max'] * 2);
 			$user['enemy_life_cur'] = $user['enemy_life_max'];
 			// Damage
 			$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;

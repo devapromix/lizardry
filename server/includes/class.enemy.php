@@ -59,12 +59,15 @@
 			else {
 				// Life
 				$user['enemy_life_max'] = $enemy_life;
+				if ($user['enemy_champion'] == 1)
+					// Уникальный
+					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.9);
 				if ($user['enemy_champion'] == 2)
-					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.4);
-				if ($user['enemy_champion'] == 3)
-					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.5);
-				if (($user['enemy_champion'] == 4) or ($user['enemy_champion'] == 1))
 					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.6);
+				if ($user['enemy_champion'] == 3)
+					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.7);
+				if ($user['enemy_champion'] == 4)
+					$user['enemy_life_max'] = round($user['enemy_life_max'] * 1.8);
 				$user['enemy_life_cur'] = $user['enemy_life_max'];
 				// Damage
 				$user['enemy_damage_min'] = round($enemy['enemy_level'] * 0.5) - 1;
@@ -98,6 +101,7 @@
 				// Experience
 				$user['enemy_exp'] = round($enemy['enemy_level'] * 3) + rand(round($enemy['enemy_level'] * 0.1), round($enemy['enemy_level'] * 0.3));
 				if ($user['enemy_champion'] == 1)
+					// Уникальный
 					$user['enemy_exp'] = round($user['enemy_exp'] * 1.7);
 				if ($user['enemy_champion'] >= 2)
 					$user['enemy_exp'] = round($user['enemy_exp'] * 1.3);
