@@ -17,7 +17,7 @@ if ($action == 'bank') {
 		$user['char_gold'] -= $amount;
 		$user['char_bank'] += $amount;
 		User::update("char_gold=".$user['char_gold'].",char_bank=".$user['char_bank']);
-		$user['log'] = 'Вы положили в банк '.$amount.' зол. мон.';
+		$user['log'] = 'Вы положили в банк '.$amount.' золота.';
 	}
 	
 	if ($do == 'withdraw') {
@@ -27,7 +27,7 @@ if ($action == 'bank') {
 		$user['char_gold'] += $amount;
 		$user['char_bank'] -= $amount;
 		User::update("char_gold=".$user['char_gold'].",char_bank=".$user['char_bank']);
-		$user['log'] = 'Вы забрали из банка '.$amount.' зол. мон.';
+		$user['log'] = 'Вы забрали из банка '.$amount.' золота.';
 	}
 	
 	$res = json_encode($user, JSON_UNESCAPED_UNICODE);	
