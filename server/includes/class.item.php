@@ -389,7 +389,8 @@
 				self::CAT_SCROLL_REFLECT,
 				self::CAT_SCROLL_DESTRUCT,
 				self::CAT_ELIXIR_EMPTY,
-				self::CAT_ING
+				self::CAT_ING,
+				self::CAT_PICKLOCK
 				], 1);
 		}
 
@@ -405,6 +406,11 @@
 				], 1);
 		}
 
+		private function gen_thief_loot() {
+			$this->gen_random_loot([
+				self::CAT_PICKLOCK
+				], 1);
+		}
 		public function gen_mage_loot() {
 			$this->gen_random_loot([
 				self::CAT_ELIXIR_MP,
@@ -430,7 +436,7 @@
 				if (rand(1, 4) == 1) {
 					$this->gen_trophy_loot();
 				} else 
-				// Обычный лут: зелья, свитки, травы
+				// Обычный лут: зелья, свитки, травы...
 				if (rand(1, 10) == 1) {
 					$this->gen_else_loot();
 				} else
@@ -443,6 +449,7 @@
 				// Экипировка
 				if (rand(1, 20) == 1) {
 					$this->gen_equip_loot();
+				// Обычный лут: зелья, свитки, травы...
 				} else {
 					$this->gen_else_loot();
 				}
