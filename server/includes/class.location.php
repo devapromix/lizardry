@@ -13,7 +13,7 @@
 		public const REGION_VILMAR			= 1;
 		public const REGION_EYRINOR			= 11;
 
-		public const RAND_PLACE_COUNT 		= 7;
+		public const RAND_PLACE_COUNT 		= 8;
 
 		public function __construct() {
 			
@@ -267,6 +267,13 @@
 					$user['title'] = 'Сундук с золотом!';
 					$user['description'] = 'Вы оглядываете местность после битвы и вдалеке замечаете небольшой сундучок. Подойдя поближе вы видите, что на судучке изображен имперский герб. Кто-то очень важный обронил его здесь. Замок на сундучке выглядит не слишком сложным и после пяти минут сопротивления поддается. Вы открываете сундук и видите, что в нем находится '.strval($gold).' золотых монет. Вы забираете все золото себе.';		
 					User::update("char_gold=".$user['char_gold']);
+					break;
+				case 8: // Сундук вора!
+					$user['class']['item']->gen_thief_loot();
+					$user['title'] = 'Сундук вора!';
+					$user['description'] = 'После сражения вы оглядываете местность и видите небольшой черный сундучок. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+					$frame = 'get_loot';
+					Location::pickup_link();
 					break;
 			}
 			return $frame;
