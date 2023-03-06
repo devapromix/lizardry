@@ -13,7 +13,7 @@
 		public const REGION_VILMAR			= 1;
 		public const REGION_EYRINOR			= 11;
 
-		public const RAND_PLACE_COUNT 		= 8;
+		public const RAND_PLACE_COUNT 		= 9;
 
 		public function __construct() {
 			
@@ -215,8 +215,8 @@
 					$user['class']['player']->rest();
 					User::update("char_life_cur=".$user['char_life_cur'].",char_mana_cur=".$user['char_mana_cur']);
 					break;
-				case 2: // Камнепад!!!
-					$user['title'] = 'Камнепад!!!';
+				case 2: // Камнепад
+					$user['title'] = 'Камнепад!';
 					$user['description'] = 'Вы проходите несколько десятков шагов и внезапно слышите странный гул. Обвал! - краем сознания вдруг осознаете вы и бросаетесь в сторону...';
 					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
 					$user['char_life_cur'] -= $dam;
@@ -228,7 +228,7 @@
 					}			
 					User::update("char_life_cur=".$user['char_life_cur']);
 					break;
-				case 3: // Невидимый вор!
+				case 3: // Невидимый вор
 					$user['title'] = 'Невидимый вор!';
 					$user['description'] = 'Вы прошли всего несколько десятков шагов, когда заметили какое-то движение. Вор! Вы хватились кошелька на поясе и с сожалением обнаружили, что вас ограбили.';
 					$gold = rand($user['char_region_level'] * 30, $user['char_region_level'] * 70);
@@ -241,39 +241,52 @@
 					}
 					User::update("char_gold=".$user['char_gold']);
 					break;
-				case 4: // Сундук алхимика!
+				case 4: // Сундук алхимика
 					$user['class']['item']->gen_alch_loot();
 					$user['title'] = 'Сундук алхимика!';
 					$user['description'] = 'Пройдя всего несколько десятков шагов, вы внезапно наткнулись на старый сундук. Путем нехитрых манипуляций с замком вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 5: // Сундук мага!
+				case 5: // Сундук мага
 					$user['class']['item']->gen_mage_loot();
 					$user['title'] = 'Сундук мага!';
 					$user['description'] = 'Недалеко от места сражения вы внезапно увидели старый сундук. Замок на нем настолько стар, что легко рассыпается в пыль от одного прикосновения. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 6: // Сумка травника!
+				case 6: // Сумка травника
 					$user['class']['item']->gen_herb_loot();
 					$user['title'] = 'Сумка травника!';
 					$user['description'] = 'Решив присесть отдохнуть после тяжелого боя, вы внезапно замечаете на земле небольшую серую сумку, какую обычно используют алхимики для сбора трав и алхимических ингридиентов. Вы открываете сумку и видите, что в ней находится '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 7: // Сундук с золотом!
+				case 7: // Сундук с золотом
 					$gold = rand($user['char_region_level'] * 50, $user['char_region_level'] * 90);
 					$user['title'] = 'Сундук с золотом!';
 					$user['description'] = 'Вы оглядываете местность после битвы и вдалеке замечаете небольшой сундучок. Подойдя поближе вы видите, что на судучке изображен имперский герб. Кто-то очень важный обронил его здесь. Замок на сундучке выглядит не слишком сложным и после пяти минут сопротивления поддается. Вы открываете сундук и видите, что в нем находится '.strval($gold).' золота. Вы забираете все золото себе.';		
 					User::update("char_gold=".$user['char_gold']);
 					break;
-				case 8: // Сундук вора!
+				case 8: // Сундук вора
 					$user['class']['item']->gen_thief_loot();
 					$user['title'] = 'Сундук вора!';
 					$user['description'] = 'После сражения вы оглядываете местность и видите небольшой черный сундучок. Вы открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 					$frame = 'get_loot';
 					Location::pickup_link();
+					break;
+				case 9: // Закрытый сундучок I
+					$user['title'] = 'Сундучок с замком';
+					$user['description'] = 'Оглянув местность после битвы вы обнаруживаете небольшой сундучок с замком. Что-то ценное находится в нем! ';
+					if ($user['class']['item']->has_item(Item::LOCKPICK)) {
+						$user['class']['item']->modify(Item::LOCKPICK, -1);
+						$user['class']['item']->gen_chest_i_loot();
+						$user['description'] .= 'Вы, используя отмычку, открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+						$frame = 'get_loot';
+						Location::pickup_link();
+					} else {
+						$user['description'] .= 'К сожалению у вас нет отмычек чтобы взломать закрытый сундук.';
+					}
 					break;
 			}
 			return $frame;

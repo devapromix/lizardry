@@ -128,7 +128,7 @@ if ($action == 'black_market') {
 	$user['links'] = array();
 	Location::addlink('Покинуть рынок', 'index.php?action=denofthieves');
 
-	$user['class']['item']->add_item_to_shop(1, 951);
+	$user['class']['item']->add_item_to_shop(1, Item::LOCKPICK);
 
 
 	if (($do == 'buy') && ($itemslot >= '1') && ($itemslot <= '6'))

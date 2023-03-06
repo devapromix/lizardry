@@ -23,6 +23,9 @@
 		public const CAT_SCROLL_DESTRUCT	= 42;
 		public const CAT_PICKLOCK			= 76;
 		
+		// Отмычка
+		public const LOCKPICK	 			= 951;
+		
 		// Эликсиры
 		public const ELIXIR_EMPTY 			= 600;
 		public const ELIXIR_HP 				= 601;
@@ -462,6 +465,26 @@
 				// Экипировка
 				$this->gen_equip_loot();
 			}
+		}
+
+		public function gen_chest_i_loot() {
+			if (rand(1, 100) <= 95) {
+				$this->gen_else_loot();
+			} else {
+				$this->gen_equip_loot();
+			}
+		}
+		
+		public function gen_chest_ii_loot() {
+			if (rand(1, 100) <= 50) {
+				$this->gen_else_loot();
+			} else {
+				$this->gen_equip_loot();
+			}
+		}
+		
+		public function gen_chest_iii_loot() {
+			$this->gen_equip_loot();
 		}
 
 		public function equip_item(int $item_ident, int $item_amount = 1) {
