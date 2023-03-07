@@ -275,17 +275,30 @@
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 9: // Закрытый сундучок I
+				case 9: // Закрытый сундук I
 					$user['title'] = 'Сундучок с замком';
-					$user['description'] = 'Оглянув местность после битвы вы обнаруживаете небольшой сундучок с замком. Что-то ценное находится в нем! ';
+					$user['description'] = 'Оглянув местность после битвы вы обнаруживаете небольшой сундучок с замком. Возможно что-то ценное находится в нем? ';
 					if ($user['class']['item']->has_item(Item::LOCKPICK)) {
 						$user['class']['item']->modify(Item::LOCKPICK, -1);
 						$user['class']['item']->gen_chest_i_loot();
-						$user['description'] .= 'Вы, используя отмычку, открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+						$user['description'] .= 'Вы, используя отмычку, открываете сундучок и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 						$frame = 'get_loot';
 						Location::pickup_link();
 					} else {
-						$user['description'] .= 'К сожалению у вас нет отмычек чтобы взломать закрытый сундук.';
+						$user['description'] .= 'К сожалению у вас нет отмычек, чтобы взломать этот сундук.';
+					}
+					break;
+				case 10: // Закрытый сундук II
+					$user['title'] = 'Сундук с узором';
+					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете сундук со странными узорами на крышке. На нем висит сложный замок. Возможно что-то ценное находится в нем? ';
+					if ($user['class']['item']->has_item(Item::LOCKPICK) && ($user['class']['item']->amount(Item::LOCKPICK) >= 2)) {
+						$user['class']['item']->modify(Item::LOCKPICK, -2);
+						$user['class']['item']->gen_chest_ii_loot();
+						$user['description'] .= 'Вы, используя отмычки, открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+						$frame = 'get_loot';
+						Location::pickup_link();
+					} else {
+						$user['description'] .= 'К сожалению у вас недостаточно отмычек, чтобы взломать этот сундук.';
 					}
 					break;
 			}
