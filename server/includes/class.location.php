@@ -13,7 +13,7 @@
 		public const REGION_VILMAR			= 1;
 		public const REGION_EYRINOR			= 11;
 
-		public const RAND_PLACE_COUNT 		= 9;
+		public const RAND_PLACE_COUNT 		= 11;
 
 		public function __construct() {
 			
@@ -290,11 +290,24 @@
 					break;
 				case 10: // Закрытый сундук II
 					$user['title'] = 'Сундук с узором';
-					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете сундук со странными узорами на крышке. На нем висит сложный замок. Возможно что-то ценное находится в нем? ';
+					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете сундук со странными узорами на крышке. На нем висит сложный замок. Явно что-то ценное находится в нем? ';
 					if ($user['class']['item']->has_item(Item::LOCKPICK) && ($user['class']['item']->amount(Item::LOCKPICK) >= 2)) {
 						$user['class']['item']->modify(Item::LOCKPICK, -2);
 						$user['class']['item']->gen_chest_ii_loot();
 						$user['description'] .= 'Вы, используя отмычки, открываете сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
+						$frame = 'get_loot';
+						Location::pickup_link();
+					} else {
+						$user['description'] .= 'К сожалению у вас недостаточно отмычек, чтобы взломать этот сундук.';
+					}
+					break;
+				case 11: // Закрытый сундук III
+					$user['title'] = 'Большой Сундук';
+					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете большой сундук. На нем установлен очень сложный замок. Точно что-то ценное находится в нем! ';
+					if ($user['class']['item']->has_item(Item::LOCKPICK) && ($user['class']['item']->amount(Item::LOCKPICK) >= 3)) {
+						$user['class']['item']->modify(Item::LOCKPICK, -3);
+						$user['class']['item']->gen_chest_iii_loot();
+						$user['description'] .= 'Вы, используя несколько отмычек, открываете этот сложный сундук и видите, что в нем лежит '.$user['loot_slot_1_name'].'.';
 						$frame = 'get_loot';
 						Location::pickup_link();
 					} else {
