@@ -13,7 +13,7 @@
 		public const REGION_VILMAR			= 1;
 		public const REGION_EYRINOR			= 11;
 
-		public const RAND_PLACE_COUNT 		= 11;
+		public const RAND_PLACE_COUNT 		= 12;
 
 		public function __construct() {
 			
@@ -313,6 +313,19 @@
 					} else {
 						$user['description'] .= 'К сожалению у вас недостаточно отмычек, чтобы взломать этот сундук.';
 					}
+					break;
+				case 12: // Взрыв
+					$user['title'] = 'Огненная Ловушка!';
+					$user['description'] = 'Щелк! Сработала ловушка! - краем сознания вдруг осознаете вы и со всей прыти бросаетесь в сторону...';
+					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
+					$user['char_life_cur'] -= $dam;
+					if ($user['char_life_cur'] > 0) {
+						$user['description'] .= ' Огненный взрыв обдает жарким пламенем, а ударная волна сбывает с ног. Но вы целы. Вам чудом удалось избежать смерти!';
+					} else {
+						$user['char_life_cur'] = 0;
+						$user['description'] .= ' Но уже слишком поздно и вас сжигает жаркое пламя. Вы погибли!';
+					}			
+					User::update("char_life_cur=".$user['char_life_cur']);
 					break;
 			}
 			return $frame;
