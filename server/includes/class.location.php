@@ -13,7 +13,7 @@
 		public const REGION_VILMAR			= 1;
 		public const REGION_EYRINOR			= 11;
 
-		public const RAND_PLACE_COUNT 		= 12;
+		public const RAND_PLACE_COUNT 		= 13;
 
 		public function __construct() {
 			
@@ -275,7 +275,20 @@
 					$frame = 'get_loot';
 					Location::pickup_link();
 					break;
-				case 9: // Закрытый сундук I
+				case 9: // Яма на волков
+					$user['title'] = 'Волчья Яма!';
+					$user['description'] = 'Внезапно земля под ногами начинает проваливаться...';
+					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
+					$user['char_life_cur'] -= $dam;
+					if ($user['char_life_cur'] > 0) {
+						$user['description'] .= ' Вы в прыжке хватаетесь за ствол молодого деревца и сваливаетесь в волчью яму между кольев, получив небольшие повреждения. Но главное, что вы живы.';
+					} else {
+						$user['char_life_cur'] = 0;
+						$user['description'] .= ' Вы ничего уже не можете предпринять и падаете в яму прямо на острые колья. Вы погибли!';
+					}			
+					User::update("char_life_cur=".$user['char_life_cur']);
+					break;
+				case 10: // Закрытый сундук I
 					$user['title'] = 'Сундучок с замком';
 					$user['description'] = 'Оглянув местность после битвы вы обнаруживаете небольшой сундучок с замком. Возможно что-то ценное находится в нем? ';
 					if ($user['class']['item']->has_item(Item::LOCKPICK)) {
@@ -288,7 +301,7 @@
 						$user['description'] .= 'К сожалению у вас нет отмычек, чтобы взломать этот сундук.';
 					}
 					break;
-				case 10: // Закрытый сундук II
+				case 11: // Закрытый сундук II
 					$user['title'] = 'Сундук с узором';
 					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете сундук со странными узорами на крышке. На нем висит сложный замок. Явно что-то ценное находится в нем? ';
 					if ($user['class']['item']->has_item(Item::LOCKPICK) && ($user['class']['item']->amount(Item::LOCKPICK) >= 2)) {
@@ -301,7 +314,7 @@
 						$user['description'] .= 'К сожалению у вас недостаточно отмычек, чтобы взломать этот сундук.';
 					}
 					break;
-				case 11: // Закрытый сундук III
+				case 12: // Закрытый сундук III
 					$user['title'] = 'Большой Сундук';
 					$user['description'] = 'После сражения вы оглядываете местность и обнаруживаете большой сундук. На нем установлен очень сложный замок. Точно что-то ценное находится в нем! ';
 					if ($user['class']['item']->has_item(Item::LOCKPICK) && ($user['class']['item']->amount(Item::LOCKPICK) >= 3)) {
@@ -314,13 +327,13 @@
 						$user['description'] .= 'К сожалению у вас недостаточно отмычек, чтобы взломать этот сундук.';
 					}
 					break;
-				case 12: // Взрыв
+				case 13: // Взрыв
 					$user['title'] = 'Огненная Ловушка!';
 					$user['description'] = 'Щелк! Сработала ловушка! - краем сознания вдруг осознаете вы и со всей прыти бросаетесь в сторону...';
 					$dam = rand($user['char_region_level'] * 3, $user['char_region_level'] * 5);
 					$user['char_life_cur'] -= $dam;
 					if ($user['char_life_cur'] > 0) {
-						$user['description'] .= ' Огненный взрыв обдает жарким пламенем, а ударная волна сбывает с ног. Но вы целы. Вам чудом удалось избежать смерти!';
+						$user['description'] .= ' Огненный взрыв обдает жарким пламенем, а ударная волна сбывает с ног. Но вы живы. Вам чудом удалось избежать смерти!';
 					} else {
 						$user['char_life_cur'] = 0;
 						$user['description'] .= ' Но уже слишком поздно и вас сжигает жаркое пламя. Вы погибли!';
