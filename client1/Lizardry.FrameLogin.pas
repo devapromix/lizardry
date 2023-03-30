@@ -63,7 +63,7 @@ type
     procedure LoadLastEvents;
     procedure LoadFromDBItems;
     procedure LoadFromDBEffects;
-    procedure LoadFromDBEnemies(IsRewriteImage: Boolean = False);
+    procedure LoadFromDBEnemies(const AIsRewriteImage: Boolean = False);
   end;
 
 var
@@ -339,7 +339,7 @@ begin
   end;
 end;
 
-procedure TFrameLogin.LoadFromDBEnemies(IsRewriteImage: Boolean = False);
+procedure TFrameLogin.LoadFromDBEnemies(const AIsRewriteImage: Boolean = False);
 var
   LJSONArray: TJSONArray;
   LFilePath, LFileName: string;
